@@ -39,9 +39,9 @@ import java.util.Vector;
 public class DBConnectionMgr {
     private Vector connections = new Vector(10);
     private String _driver = "org.gjt.mm.mysql.Driver",
-    _url = "jdbc:mysql://127.0.0.1:3306/mydb?useUnicode=true&characterEncoding=EUC_KR",
-    _user = "root",
-    _password = "1234";
+    _url = "jdbc:mysql://222.234.36.87:10022/test?useUnicode=true&characterEncoding=EUC_KR",
+    _user = "test", /* ID */ 
+    _password = "1111"; /* PWD */
     
     private boolean _traceOn = false;
     private boolean initialized = false;

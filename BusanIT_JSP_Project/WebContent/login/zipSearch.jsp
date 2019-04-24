@@ -6,33 +6,31 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String search = request.getParameter("search");
-	String area3 = null;
+	String street = null;
 	Vector<ZipcodeBean> vlist = null;
-	if(search.equals("y"))
-	{//검색버튼 클릭시
-		area3 = request.getParameter("area3");
-		vlist = mgr.zipcodeRead(area3);
-		out.println(vlist.size());
+	if(search.equals("y")){//검색버튼 클릭시
+		street = request.getParameter("street");
+		vlist = mgr.zipcodeRead(street);
 	}
 %>
 
 <html>
 <head>
 <title>우편번호 검색</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link href="../css/ZipcodeStyle.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript">
+
 	function loadSearch() {
 		frm = document.zipFrm;
-		if(frm.area3.value=="")
-			{
+		if(frm.street.value==""){
 				alert("도로명을 입력하세요.");
 				return;
 			}
 			frm.action = "zipSearch.jsp";
 			frm.submit();
 	}
-	function sendAdd(zipcode, adds)
-	{
+	function sendAdd(zipcode, adds) {
 		opener.document.regFrm.zipcode.value=zipcode;
 		opener.document.regFrm.address.value=adds;
 		self.close();
@@ -43,10 +41,10 @@
 	<div align="center">
 		<br />
 		<form name="zipFrm" method="post">
-			<table >
+			<table>
 				<tr>
-					<td><br />도로명 입력 : <input name="area3"> <input
-						type="button" value="검색" onclick="loadSearch()"></td>
+					<td><br />도로명 입력 : <input name="street"> 
+					<input type="button" value="검색" onclick="loadSearch()"></td>
 				</tr>
 				<!-- 	검색결과 시작 -->
 				<%
@@ -66,17 +64,20 @@
 				<%
 						for(int i = 0; i<vlist.size();i++)
 						{
+							
 							ZipcodeBean bean = vlist.get(i);
-							String rZipcode = bean.getZipcode();
-							String rArea1 = bean.getArea1();
-							String rArea2 = bean.getArea2();
-							String rArea3 = bean.getArea3();
-							String adds = rArea1 + " " + rArea2 + " " + rArea3;
+							String postnum = bean.getPostnum();
+							String city = bean.getCity();
+							String gu = bean.getGu();
+							String streets = bean.getStreet();
+							String streetNum = bean.getStreetNum();
+							String addrs = city + " " + gu + " " + streets + " ";
+							 
 					%>
 				<tr>
 					<td>
-					<a href="#" onclick="javascript:sendAdd('<%=rZipcode%>','<%=adds%>')">
-					<%=rZipcode + " " + adds %></a></td>
+						<a href="#" onclick="javascript:sendAdd('<%=postnum%>','<%=addrs%>')"><%=postnum + " " +addrs%></a>
+					</td>
 				</tr>
 				<%	}//for		
 					  }

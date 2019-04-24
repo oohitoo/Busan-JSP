@@ -5,23 +5,41 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
-
-
-
-
-
-
-
 public class loginMgr {
 
 	private DBConnectionMgr pool;
+	private Connection conn = null;
+	private PreparedStatement psmt;
+	private ResultSet rs;
+	String sql;
 	
 	public loginMgr()
 	{
 		pool = DBConnectionMgr.getInstance();
 	}
 	
-	//È¸¿ø°¡ÀÔ
+	// DBì—°ê²° í…ŒìŠ¤íŠ¸ í•œë‹¤ê³  ì‘ì„± í•˜ì˜€ìŒ.
+	// í˜ì´ì§€ê°€ ì •ìƒ ìˆ˜ì •ì´ ì™„ë£Œ ë˜ë©´ ì‚­ì œí•  ì˜ˆì •.
+	public boolean dbcomment() {
+		boolean flag = false;
+		
+		try {
+			conn = pool.getConnection();
+			sql = "SELECT count(*) FROM address";
+			psmt = conn.prepareStatement(sql);			
+			rs = psmt.executeQuery();			
+			flag = rs.next();			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			pool.freeConnection(conn, psmt, rs);
+		}
+		return flag;
+	}
+	
+	//insert Member_tb
 		public boolean insertMember(loginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -29,8 +47,7 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//Å×ÀÌºí ÀÌ¸§ ¹ÌÁ¤
-				sql = "insert Å×ÀÌºíÀÌ¸§(id, pwd, name, phone, zipcode, address) values(?,?,?,?,?,?)";
+				sql = "insert into Member_tb(id, pwd, name, phone, zipcode, address) values(?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getId());
 				pstmt.setString(2, bean.getPwd());
@@ -50,7 +67,7 @@ public class loginMgr {
 		}
 	
 	
-	//ID Áßº¹È®ÀÎ
+	//ID ï¿½ßºï¿½È®ï¿½ï¿½
 		public boolean checkId(String id) 
 		{
 			Connection con = null;
@@ -60,12 +77,12 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//Å×ÀÌºí ÀÌ¸§ ¹ÌÁ¤
-				sql = "select id from Å×ÀÌºíÀÌ¸§ where id =?";
+				//ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+				sql = "select id from ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ where id =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
-				flag = rs.next();//trueÀÌ¸é Áßº¹, falseÀÌ¸é Áßº¹ ¾Æ´Ô...
+				flag = rs.next();//trueï¿½Ì¸ï¿½ ï¿½ßºï¿½, falseï¿½Ì¸ï¿½ ï¿½ßºï¿½ ï¿½Æ´ï¿½...
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -74,38 +91,46 @@ public class loginMgr {
 			return flag;	
 		}
 		
-	//¿ìÆí¹øÈ£ °Ë»ö
-		public Vector<ZipcodeBean> zipcodeRead(String area3)
-		{
+	//ìš°í¸ë²ˆí˜¸ ê²€ìƒ‰
+		public Vector<ZipcodeBean> zipcodeRead(String street){
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String sql = null;
+			
 			Vector<ZipcodeBean> vlist = new Vector<ZipcodeBean>();
+			
 			try {
 				con = pool.getConnection();
-				sql = "select * from tblZipcode where area3 like ?";
+				sql = "SELECT * FROM address WHERE street LIKE ?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + area3 + "%"); //'%°­³²´ë·Î%'
+				
+				pstmt.setString(1, "%" + street + "%");
+				
 				rs = pstmt.executeQuery();
-				while(rs.next()) 
-				{
+				
+				while(rs.next()) {
+					
 					ZipcodeBean bean = new ZipcodeBean();
-					bean.setZipcode(rs.getString(1));
-					bean.setArea1(rs.getString(2));
-					bean.setArea2(rs.getString(3));
-					bean.setArea3(rs.getString(4));
+					bean.setIdx(rs.getInt(1));
+					bean.setPostnum(rs.getString(2));
+					bean.setCity(rs.getString(3));
+					bean.setGu(rs.getString(4));
+					bean.setStreet(rs.getString(5));
+					bean.setStreetNum(rs.getString(6));					
 					vlist.addElement(bean);
 				}
-			} catch (Exception e) {
+			} 
+			catch (Exception e) {
 				e.printStackTrace();
-			} finally {
+			} 
+			finally {
 				pool.freeConnection(con, pstmt, rs);
 			}
 			return vlist;
 		}
 		
-	//·Î±×ÀÎ
+	//ï¿½Î±ï¿½ï¿½ï¿½
 	public boolean loginCustomer(String id, String pwd) 
 	{
 		Connection con = null;
@@ -115,8 +140,8 @@ public class loginMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			//Å×ÀÌºíÀÌ¸§ ¹ÌÁ¤
-			sql = "select id from Å×ÀÌºíÀÌ¸§ where id =? and pwd =?";
+			//ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+			sql = "select id from ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -130,7 +155,7 @@ public class loginMgr {
 		return flag;
 	}
 
-	//È¸¿øÁ¤º¸ °¡Á®¿À±â
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public loginBean getMember(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -140,8 +165,8 @@ public class loginMgr {
 		
 		try {
 			con = pool.getConnection();
-			//Å×ÀÌºíÀÌ¸§ ¹ÌÁ¤
-			sql = "select * from Å×ÀÌºíÀÌ¸§ where id=?";
+			//ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+			sql = "select * from ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
@@ -165,7 +190,7 @@ public class loginMgr {
 	
 	
 	
-	//¾ÆÀÌµğ Ã£±â
+	//ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½
 	public void FinloginId(loginBean bean)
 	{
 		Connection con = null;
@@ -173,8 +198,8 @@ public class loginMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//Å×ÀÌºí ÀÌ¸§ ¹ÌÁ¤
-			sql = "select id from Å×ÀÌºíÀÌ¸§  where name=?, phone=?";
+			//ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+			sql = "select id from ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½  where name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getPhone());
@@ -189,7 +214,7 @@ public class loginMgr {
 	}
 	
 	
-	//ºñ¹Ğ¹øÈ£ Ã£±â
+	//ï¿½ï¿½Ğ¹ï¿½È£ Ã£ï¿½ï¿½
 	public void FinloginPwd(loginBean bean)
 	{
 		Connection con = null;
@@ -197,8 +222,8 @@ public class loginMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//Å×ÀÌºí ÀÌ¸§ ¹ÌÁ¤
-			sql = "select pwd from Å×ÀÌºíÀÌ¸§  where id=? name=?, phone=?";
+			//ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+			sql = "select pwd from ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½  where id=? name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
@@ -213,7 +238,7 @@ public class loginMgr {
 		
 	}
 	
-	//È¸¿øÁ¤º¸ ¼öÁ¤
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		public boolean updateMember(loginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -221,8 +246,8 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//Å×ÀÌºíÀÌ¸§ ¹ÌÁ¤
-				sql = "update Å×ÀÌºíÀÌ¸§ set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
+				//ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+				sql = "update ï¿½ï¿½ï¿½Ìºï¿½ï¿½Ì¸ï¿½ set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
 				pstmt = con.prepareStatement(sql);			
 				pstmt.setString(1, bean.getPwd());
 				pstmt.setString(2, bean.getName());

@@ -2,40 +2,48 @@ package login;
 
 public class ZipcodeBean {
 
-	private String zipcode;
-	private String area1;
-	private String area2;
-	private String area3;
+	private int idx;
+	private String postnum;
+	private String city;
+	private String gu;
+	private String street;
+	private String streetNum;
 
-	public String getZipcode() {
-		return zipcode;
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+	public String getPostnum() {
+		return postnum;
+	}
+	public void setPostnum(String postnum) {
+		this.postnum = postnum;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getGu() {
+		return gu;
+	}
+	public void setGu(String gu) {
+		this.gu = gu;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getStreetNum() {
+		return streetNum;
+	}
+	public void setStreetNum(String streetNum) {
+		this.streetNum = streetNum;
 	}
 
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-
-	public String getArea1() {
-		return area1;
-	}
-
-	public void setArea1(String area1) {
-		this.area1 = area1;
-	}
-
-	public String getArea2() {
-		return area2;
-	}
-
-	public void setArea2(String area2) {
-		this.area2 = area2;
-	}
-
-	public String getArea3() {
-		return area3;
-	}
-
-	public void setArea3(String area3) {
-		this.area3 = area3;
-	}
 }

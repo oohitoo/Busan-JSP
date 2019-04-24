@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>회원가입</title>
-<link href="style.css" rel="stylesheet" type="text/css">
+<link href="../css/ZipcodeStyle.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
 
@@ -19,18 +19,16 @@
 		url = "idCheck.jsp?id=" + id;
 		window.open(url,"IDCheck","width=300, height=150");
 	}
-	
-	
+		
 	//우편번호 검색
-	function zipSearch()
-	{
+	function zipSearch(){
 		url = "zipSearch.jsp?search=n";
 		open(url,"ZipCodeSearch","width=500,height=350,scrollbars=yes");
 	}
 	
 </script>
 </head>
-<body bgcolor="#FFFFCC" onLoad="regFrm.id.focus()">
+<body bgcolor="#FFFFCC" onLoad="regFrm.id.focusrp ()">
 	<div align="center">
 		<br /><br />
 		<form name="regFrm" method="post" action="memberProc.jsp" >

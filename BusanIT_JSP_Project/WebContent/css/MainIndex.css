@@ -1,6 +1,11 @@
-.Maincontainer a{
-	font-size:1.2em;
+.Maincontainer a {
+	font-size: 1.2em;
 	color: green;
 	float: right;
 	word-spacing: 10px;
+}
+
+.Maincontainer a:hover {
+	text-decoration: underline;
+	
 }

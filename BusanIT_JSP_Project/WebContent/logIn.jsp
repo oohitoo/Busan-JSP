@@ -38,7 +38,7 @@
                                 <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
                             </div>
-                        <!-- Joing Us -->
+                        <!-- Join Us -->
                             <div id="register-link" class="text-right">
                                 <a href="#" class="text-info">가입하기</a>
                             </div>

@@ -5,7 +5,27 @@
 	word-spacing: 10px;
 }
 
-.Maincontainer a:hover {
-	text-decoration: underline;
-	
+.main_common {
+	display: inline;
+	width: 100px;
+	float: right;
+}
+
+A:link {
+	text-decoration: none;
+	color: black
+}
+
+a:hover {
+	color: green;
+	text-decoration: none;
+}
+
+A:visited {
+	text-decoration: none;
+}
+
+a:active {
+	color: orange;
+	text-decoration: none;
 }

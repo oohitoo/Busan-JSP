@@ -1,6 +1,31 @@
-.Maincontainer a{
-	font-size:1.2em;
+.Maincontainer a {
+	font-size: 1.2em;
 	color: green;
 	float: right;
 	word-spacing: 10px;
+}
+
+.main_common {
+	display: inline;
+	width: 100px;
+	float: right;
+}
+
+A:link {
+	text-decoration: none;
+	color: black
+}
+
+a:hover {
+	color: green;
+	text-decoration: none;
+}
+
+A:visited {
+	text-decoration: none;
+}
+
+a:active {
+	color: orange;
+	text-decoration: none;
 }

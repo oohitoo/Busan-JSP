@@ -7,13 +7,15 @@
 	  String pass = request.getParameter("pwd");
 	  String msg = "Login failed";
 	  
-	  boolean result = mgr.loginCustomer(id, pass);
-	  if(result){
-	    session.setAttribute("idKey",id);
-	    msg = "Login success";
-	  }
+ 	  boolean result = mgr.loginCustomer(id, pass);
+ 	  if(result){
+ 	    session.setAttribute("idKey",id);
+ 	    msg = "Login success";
+ 	  }
 %>
-<script>
+<%-- <script>
 	alert("<%=msg%>");
 	location.href = "login.jsp";
-</script>
+</script> --%>
+id : <%=id%>
+pass : <%= pass%>

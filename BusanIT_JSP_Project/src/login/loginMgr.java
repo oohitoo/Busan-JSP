@@ -191,50 +191,64 @@ public class loginMgr {
 	
 	
 	//Find Id
-	public void FindloginId(loginBean bean)
+	public String FindloginId(String name, String phone)
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		ResultSet rs = null;
+		String Findid = null;
 		try {
 			con = pool.getConnection();
 			//table name 
-			sql = "select id from tablename where name=?, phone=?";
+			sql = "select id from tablename where name=? and phone=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getPhone());
-			pstmt.executeUpdate();
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				Findid = (rs.getString("id"));
+			}
+			else return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		return;
+		return Findid;
+		
 		
 	}
 	
 	
 	//Find Password
-	public void FindloginPwd(loginBean bean)
+	public String FindloginPwd(String id, String name, String phone)
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		ResultSet rs = null;
+		String Findpwd = null;
 		try {
 			con = pool.getConnection();
 			//table name
 			sql = "select pwd from tablename  where id=? name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getId());
-			pstmt.setString(2, bean.getName());
-			pstmt.setString(3, bean.getPhone());
-			pstmt.executeUpdate();
+			pstmt.setString(1,id);
+			pstmt.setString(2, name);
+			pstmt.setString(3, phone);
+			rs= pstmt.executeQuery();
+			if(rs.next())
+			{
+				Findpwd = rs.getString("pwd");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		return;
+		return Findpwd;
 		
 	}
 	

@@ -17,17 +17,20 @@
                         
                         <!-- 로그인 -->
                             <h3 class="text-center text-primary" >Log in</h3>
-                        
+                         <!-- Join Us -->
+                            <div id="register-link" class="text-right">
+                                <a href="signUp.jsp" class="text-primary">가입하기</a>
+                            </div>
                         <!-- 사용자 이름 -->
                             <div class="form-group">
                                 <label for="username" class="text-primary">사업자 번호:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
+                                <input type="text" name="username" id="username" class="form-control" required>
                             </div>
                             
                         <!-- 비밀번호 -->
                             <div class="form-group">
                                 <label for="password" class="text-primary">비밀번호:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control" required>
                             </div>
                             
                         <!-- Remember me Check Box -->
@@ -35,10 +38,6 @@
                                 <label for="remember-me" class="text-primary"><span>기억하기</span> 
                                 <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                                 <input type="submit" name="submit" class="btn btn-primary btn-md" value="submit">
-                            </div>
-                        <!-- Join Us -->
-                            <div id="register-link" class="text-right">
-                                <a href="#" class="text-primary">가입하기</a>
                             </div>
                         </form>
                     </div>

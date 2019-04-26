@@ -1,37 +1,37 @@
 function inputCheck(){
 	if(document.regFrm.id.value==""){
-		alert("아이디를 입력해 주세요.");
+		alert("Write Id");
 		document.regFrm.id.focus();
 		return;
 	}
 	if(document.regFrm.pwd.value==""){
-		alert("비밀번호를 입력해 주세요.");
+		alert("Write Pwd");
 		document.regFrm.pwd.focus();
 		return;
 	}
 	if(document.regFrm.repwd.value==""){
-		alert("비밀번호를 확인해 주세요");
+		alert("Check Pwd");
 		document.regFrm.repwd.focus();
 		return;
 	}
 	if(document.regFrm.pwd.value != document.regFrm.repwd.value){
-		alert("비밀번호가 일치하지 않습니다.");
+		alert("Not correct Pwd");
 		document.regFrm.repwd.value="";
 		document.regFrm.repwd.focus();
 		return;
 	}
 	if(document.regFrm.name.value==""){
-		alert("이름을 입력해 주세요.");
+		alert("Write Name");
 		document.regFrm.name.focus();
 		return;
 	}
 	if(document.regFrm.birthday.value==""){
-		alert("생년월일을 입력해 주세요.");
+		alert("Write birth");
 		document.regFrm.birthday.focus();
 		return;
 	}
 	if(document.regFrm.email.value==""){
-		alert("이메일을 입력해 주세요.");
+		alert("Write E-mail");
 		document.regFrm.email.focus();
 		return;
 	}
@@ -46,16 +46,16 @@ function inputCheck(){
 	   dotPos > 3 && spacePos == -1 && commaPos == -1 
 	   && atPos + 1 < dotPos && dotPos + 1 < eMailSize);
     else {
-          alert('E-mail주소 형식이 잘못되었습니다.\n\r다시 입력해 주세요!');
+          alert('Not correct E-mail form.\n\rPlease write again');
 	      document.regFrm.email.focus();
 		  return;
     }
     if(document.regFrm.zipcode.value==""){
-		alert("우편번호를 검색해 주세요.");
+		alert("Search zipcode");
 		return;
 	}
 	if(document.regFrm.job.value=="0"){
-		alert("직업을 선택해 주세요.");
+		alert("Select yout Job");
 		document.regFrm.job.focus();
 		return;
 	}

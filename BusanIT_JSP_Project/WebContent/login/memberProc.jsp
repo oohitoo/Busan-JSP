@@ -6,10 +6,10 @@
 <jsp:setProperty property="*" name="bean"/>
 <%
 	boolean result = mgr.insertMember(bean);
-	String msg = "회원가입에 실패 하였습니다.";
+	String msg = "Sign-up failed";
 	String location = "meber.jsp";
 	if(result) {
-		msg = "회원가입을 하였습니다.";
+		msg = "Sign-up success";
 		location = "login.jsp?id=" + bean.getId();
 	}
 %>

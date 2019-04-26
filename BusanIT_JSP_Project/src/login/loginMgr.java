@@ -18,8 +18,8 @@ public class loginMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
-	// DB연결 테스트 한다고 작성 하였음.
-	// 페이지가 정상 수정이 완료 되면 삭제할 예정.
+	// DB�뿰寃� �뀒�뒪�듃 �븳�떎怨� �옉�꽦 �븯���쓬.
+	// �럹�씠吏�媛� �젙�긽 �닔�젙�씠 �셿猷� �릺硫� �궘�젣�븷 �삁�젙.
 	public boolean dbcomment() {
 		boolean flag = false;
 		
@@ -67,7 +67,7 @@ public class loginMgr {
 		}
 	
 	
-	//ID �ߺ�Ȯ��
+	//ID Check
 		public boolean checkId(String id) 
 		{
 			Connection con = null;
@@ -77,12 +77,12 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//���̺� �̸� ����
-				sql = "select id from ���̺��̸� where id =?";
+				//Table name not 
+				sql = "select id from tablename where id =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
-				flag = rs.next();//true�̸� �ߺ�, false�̸� �ߺ� �ƴ�...
+				flag = rs.next();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -91,7 +91,7 @@ public class loginMgr {
 			return flag;	
 		}
 		
-	//우편번호 검색
+	//zipcode Search
 		public Vector<ZipcodeBean> zipcodeRead(String street){
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -130,7 +130,7 @@ public class loginMgr {
 			return vlist;
 		}
 		
-	//�α���
+	//login
 	public boolean loginCustomer(String id, String pwd) 
 	{
 		Connection con = null;
@@ -140,8 +140,8 @@ public class loginMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			//���̺��̸� ����
-			sql = "select id from ���̺��̸� where id =? and pwd =?";
+			//table name
+			sql = "select id from tablename where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -155,7 +155,7 @@ public class loginMgr {
 		return flag;
 	}
 
-	//ȸ������ ��������
+	//회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙
 	public loginBean getMember(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -165,8 +165,8 @@ public class loginMgr {
 		
 		try {
 			con = pool.getConnection();
-			//���̺��̸� ����
-			sql = "select * from ���̺��̸� where id=?";
+			//占쏙옙占싱븝옙占싱몌옙 占쏙옙占쏙옙
+			sql = "select * from 占쏙옙占싱븝옙占싱몌옙 where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
@@ -190,16 +190,16 @@ public class loginMgr {
 	
 	
 	
-	//���̵� ã��
-	public void FinloginId(loginBean bean)
+	//Find Id
+	public void FindloginId(loginBean bean)
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//���̺� �̸� ����
-			sql = "select id from ���̺��̸�  where name=?, phone=?";
+			//table name 
+			sql = "select id from tablename where name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getPhone());
@@ -214,16 +214,16 @@ public class loginMgr {
 	}
 	
 	
-	//��й�ȣ ã��
-	public void FinloginPwd(loginBean bean)
+	//Find Password
+	public void FindloginPwd(loginBean bean)
 	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//���̺� �̸� ����
-			sql = "select pwd from ���̺��̸�  where id=? name=?, phone=?";
+			//table name
+			sql = "select pwd from tablename  where id=? name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
@@ -238,7 +238,7 @@ public class loginMgr {
 		
 	}
 	
-	//ȸ������ ����
+	//member information revise
 		public boolean updateMember(loginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -246,8 +246,8 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//���̺��̸� ����
-				sql = "update ���̺��̸� set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
+				//tablename
+				sql = "update tablename set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
 				pstmt = con.prepareStatement(sql);			
 				pstmt.setString(1, bean.getPwd());
 				pstmt.setString(2, bean.getName());

@@ -18,8 +18,7 @@ public class loginMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
-	// DB연결 테스트 한다고 작성 하였음.
-	// 페이지가 정상 수정이 완료 되면 삭제할 예정.
+	
 	public boolean dbcomment() {
 		boolean flag = false;
 		
@@ -67,7 +66,7 @@ public class loginMgr {
 		}
 	
 	
-	//ID �ߺ�Ȯ��
+	//
 		public boolean checkId(String id) 
 		{
 			Connection con = null;
@@ -77,7 +76,7 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//���̺� �̸� ����
+				//
 				sql = "select id from ���̺��̸� where id =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
@@ -91,7 +90,7 @@ public class loginMgr {
 			return flag;	
 		}
 		
-	//우편번호 검색
+		
 		public Vector<ZipcodeBean> zipcodeRead(String street){
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -112,12 +111,12 @@ public class loginMgr {
 				while(rs.next()) {
 					
 					ZipcodeBean bean = new ZipcodeBean();
-					bean.setIdx(rs.getInt(1));
-					bean.setPostnum(rs.getString(2));
-					bean.setCity(rs.getString(3));
-					bean.setGu(rs.getString(4));
-					bean.setStreet(rs.getString(5));
-					bean.setStreetNum(rs.getString(6));					
+					bean.setPostnum(rs.getString(1));
+					bean.setCity(rs.getString(2));
+					bean.setGu(rs.getString(3));
+					bean.setStreet(rs.getString(4));
+					bean.setStreetNum(rs.getString(5));
+					
 					vlist.addElement(bean);
 				}
 			} 
@@ -130,7 +129,7 @@ public class loginMgr {
 			return vlist;
 		}
 		
-	//�α���
+	//
 	public boolean loginCustomer(String id, String pwd) 
 	{
 		Connection con = null;
@@ -140,7 +139,7 @@ public class loginMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			//���̺��̸� ����
+			//
 			sql = "select id from ���̺��̸� where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -155,7 +154,7 @@ public class loginMgr {
 		return flag;
 	}
 
-	//ȸ������ ��������
+	//
 	public loginBean getMember(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -165,7 +164,7 @@ public class loginMgr {
 		
 		try {
 			con = pool.getConnection();
-			//���̺��̸� ����
+			//
 			sql = "select * from ���̺��̸� where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,id);
@@ -190,7 +189,7 @@ public class loginMgr {
 	
 	
 	
-	//���̵� ã��
+	//
 	public void FinloginId(loginBean bean)
 	{
 		Connection con = null;
@@ -214,7 +213,7 @@ public class loginMgr {
 	}
 	
 	
-	//��й�ȣ ã��
+	//
 	public void FinloginPwd(loginBean bean)
 	{
 		Connection con = null;
@@ -222,7 +221,7 @@ public class loginMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//���̺� �̸� ����
+			//
 			sql = "select pwd from ���̺��̸�  where id=? name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
@@ -238,7 +237,7 @@ public class loginMgr {
 		
 	}
 	
-	//ȸ������ ����
+	//
 		public boolean updateMember(loginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;

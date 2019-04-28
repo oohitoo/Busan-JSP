@@ -112,6 +112,7 @@ public class loginMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
+			//
 			sql = "select id from membertb where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);

@@ -2,19 +2,12 @@ package login;
 
 public class ZipcodeBean {
 
-	private int idx;
 	private String postnum;
 	private String city;
 	private String gu;
 	private String street;
 	private String streetNum;
 
-	public int getIdx() {
-		return idx;
-	}
-	public void setIdx(int idx) {
-		this.idx = idx;
-	}
 	public String getPostnum() {
 		return postnum;
 	}

@@ -62,8 +62,7 @@
 					<td align="center"><br />※검색 후, 아래 우편번호를 클릭하면 자동으로 입력됩니다.</td>
 				</tr>
 				<%
-						for(int i = 0; i<vlist.size();i++)
-						{
+						for(int i = 0; i<vlist.size();i++){
 							
 							ZipcodeBean bean = vlist.get(i);
 							String postnum = bean.getPostnum();
@@ -71,7 +70,8 @@
 							String gu = bean.getGu();
 							String streets = bean.getStreet();
 							String streetNum = bean.getStreetNum();
-							String addrs = city + " " + gu + " " + streets + " ";
+							streetNum = streetNum.replaceAll("(\r\n|\r|\n|\n\r)", " ");
+							String addrs = city + " " + gu + " " + streets + " " + streetNum + " ";
 							 
 					%>
 				<tr>

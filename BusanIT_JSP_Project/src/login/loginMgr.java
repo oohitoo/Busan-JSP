@@ -7,132 +7,42 @@ import java.util.Vector;
 
 public class loginMgr {
 
-	private DBConnectionMgr pool;
-	private Connection conn = null;
-	private PreparedStatement psmt;
-	private ResultSet rs;
-	String sql;
+	DBConnectionMgr pool;
 	
-	public loginMgr()
-	{
+	public loginMgr(){
 		pool = DBConnectionMgr.getInstance();
 	}
-	
-	// DB연결 테스트 한다고 작성 하였음.
-	// 페이지가 정상 수정이 완료 되면 삭제할 예정.
-	public boolean dbcomment() {
+
+	//insert Member_tb
+	public boolean insertMember(loginBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
 		boolean flag = false;
-		
 		try {
-			conn = pool.getConnection();
-			sql = "SELECT count(*) FROM address";
-			psmt = conn.prepareStatement(sql);			
-			rs = psmt.executeQuery();			
-			flag = rs.next();			
-		}
-		catch (Exception e) {
+			con = pool.getConnection();
+			sql = "";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bean.getId());
+			pstmt.setString(2, bean.getPwd());
+			pstmt.setString(3, bean.getName());
+			pstmt.setString(4, bean.getPhone());
+			pstmt.setString(5, bean.getZipcode());
+			pstmt.setString(6, bean.getAddress());
+
+			if(pstmt.executeUpdate()==1)
+				flag = true;			
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
-			pool.freeConnection(conn, psmt, rs);
+		} finally {
+			pool.freeConnection(con, pstmt);
 		}
 		return flag;
 	}
-	
-	//insert Member_tb
-		public boolean insertMember(loginBean bean) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			boolean flag = false;
-			try {
-				con = pool.getConnection();
-				sql = "insert into Member_tb(id, pwd, name, phone, zipcode, address) values(?,?,?,?,?,?)";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, bean.getId());
-				pstmt.setString(2, bean.getPwd());
-				pstmt.setString(3, bean.getName());
-				pstmt.setString(4, bean.getPhone());
-				pstmt.setString(5, bean.getZipcode());
-				pstmt.setString(6, bean.getAddress());
-				
-				if(pstmt.executeUpdate()==1)
-					flag = true;			
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt);
-			}
-			return flag;
-		}
-	
-	
-	//ID �ߺ�Ȯ��
-		public boolean checkId(String id) 
-		{
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			boolean flag = false;
-			try {
-				con = pool.getConnection();
-				//���̺� �̸� ����
-				sql = "select id from ���̺��̸� where id =?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, id);
-				rs = pstmt.executeQuery();
-				flag = rs.next();//true�̸� �ߺ�, false�̸� �ߺ� �ƴ�...
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt, rs);
-			}
-			return flag;	
-		}
-		
-	//우편번호 검색
-		public Vector<ZipcodeBean> zipcodeRead(String street){
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			
-			Vector<ZipcodeBean> vlist = new Vector<ZipcodeBean>();
-			
-			try {
-				con = pool.getConnection();
-				sql = "SELECT * FROM address WHERE street LIKE ?";
-				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setString(1, "%" + street + "%");
-				
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					
-					ZipcodeBean bean = new ZipcodeBean();
-					bean.setIdx(rs.getInt(1));
-					bean.setPostnum(rs.getString(2));
-					bean.setCity(rs.getString(3));
-					bean.setGu(rs.getString(4));
-					bean.setStreet(rs.getString(5));
-					bean.setStreetNum(rs.getString(6));					
-					vlist.addElement(bean);
-				}
-			} 
-			catch (Exception e) {
-				e.printStackTrace();
-			} 
-			finally {
-				pool.freeConnection(con, pstmt, rs);
-			}
-			return vlist;
-		}
-		
-	//�α���
-	public boolean loginCustomer(String id, String pwd) 
-	{
+
+
+	//
+	public boolean checkId(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -140,8 +50,70 @@ public class loginMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			//���̺��̸� ����
-			sql = "select id from ���̺��̸� where id =? and pwd =?";
+			sql = "select id from membertb where id =?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			flag = rs.next();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		} 
+		finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;	
+	}
+
+	//우편번호 검색
+	public Vector<ZipcodeBean> zipcodeRead(String street){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+
+		Vector<ZipcodeBean> vlist = new Vector<ZipcodeBean>();
+
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * FROM address WHERE street LIKE ?";
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, "%" + street + "%");
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+
+				ZipcodeBean bean = new ZipcodeBean();
+				bean.setIdx(rs.getInt(1));
+				bean.setPostnum(rs.getString(2));
+				bean.setCity(rs.getString(3));
+				bean.setGu(rs.getString(4));
+				bean.setStreet(rs.getString(5));
+				bean.setStreetNum(rs.getString(6));					
+				vlist.addElement(bean);
+			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		} 
+		finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+
+	//
+	public boolean loginCustomer(String id, String pwd) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select id from membertb where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -155,117 +127,4 @@ public class loginMgr {
 		return flag;
 	}
 
-	//ȸ������ ��������
-	public loginBean getMember(String id) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		loginBean bean = new loginBean();
-		
-		try {
-			con = pool.getConnection();
-			//���̺��̸� ����
-			sql = "select * from ���̺��̸� where id=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,id);
-			rs = pstmt.executeQuery();
-			if(rs.next())
-			{
-				bean.setId(rs.getString("id"));
-				bean.setPwd(rs.getString("pwd"));
-				bean.setName(rs.getString("name"));
-				bean.setPhone(rs.getString("phnoe"));				
-				bean.setZipcode(rs.getString("zipcode"));
-				bean.setAddress(rs.getString("address"));
-				
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return bean;
-	}
-	
-	
-	
-	//���̵� ã��
-	public void FinloginId(loginBean bean)
-	{
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			//���̺� �̸� ����
-			sql = "select id from ���̺��̸�  where name=?, phone=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getPhone());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-		
-	}
-	
-	
-	//��й�ȣ ã��
-	public void FinloginPwd(loginBean bean)
-	{
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			//���̺� �̸� ����
-			sql = "select pwd from ���̺��̸�  where id=? name=?, phone=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getId());
-			pstmt.setString(2, bean.getName());
-			pstmt.setString(3, bean.getPhone());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return;
-		
-	}
-	
-	//ȸ������ ����
-		public boolean updateMember(loginBean bean) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			boolean flag = false;
-			try {
-				con = pool.getConnection();
-				//���̺��̸� ����
-				sql = "update ���̺��̸� set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
-				pstmt = con.prepareStatement(sql);			
-				pstmt.setString(1, bean.getPwd());
-				pstmt.setString(2, bean.getName());
-				pstmt.setString(3, bean.getPhone());
-				pstmt.setString(4, bean.getZipcode());
-				pstmt.setString(5, bean.getAddress());
-							
-				if(pstmt.executeUpdate()==1)
-					flag = true;			
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt);
-			}
-			return flag;
-			
-			
-		}
-	
-	
 }

@@ -1,43 +1,63 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%
+	request.setCharacterEncoding("EUC-KR");
+	String id  = (String)session.getAttribute("idKey"); 
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<title>êµ¬ë§¤ìž íŽ˜ì´ì§€</title>
+<title>±¸¸ÅÀÚ ÆäÀÌÁö</title>
 
 <!-- Custom fonts for this template -->
 <link rel="stylesheet" href="css/MainIndex.css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-</head>
 
 <body id="page-top">
-	<!-- ìƒë‹¨ ì´ë¯¸ì§€ ë° í•´ë” ì´ë¯¸ì§€ -->
+	<!-- »ó´Ü ÀÌ¹ÌÁö ¹× ÇØ´õ ÀÌ¹ÌÁö -->
 	<div class="container">
-		<a href="index.jsp"><img src=" " width="200px" height="200px" alt="Logoì´ë¯¸ì§€" /></a>
-		<a href="index.jsp"><img src=" " width="900px" height="100px" alt="Logoì´ë¯¸ì§€" /></a>
+		<a href="index.jsp"><img src=" " alt="LogoÀÌ¹ÌÁö" /></a>
+		<a href="index.jsp"><img src=" " alt="LogoÀÌ¹ÌÁö" /></a>
 	</div>
-	<!-- ìƒë‹¨ ì´ë¯¸ì§€ ë° í—¤ë” ì¢…ë£Œ -->
+	<!-- »ó´Ü ÀÌ¹ÌÁö ¹× Çì´õ Á¾·á -->
 	<hr>
-	<!-- ì•„ì´ë”” ë° ë¡œê·¸ì¸ ì— ê´€ë ¨ëœ ì •ë³´ -->
+	<!-- ¾ÆÀÌµð ¹× ·Î±×ÀÎ ¿¡ °ü·ÃµÈ Á¤º¸ -->
 	<div class="container">
 		<div class="Maincontainer">
+			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="login/login.jsp">ì£¼ë¬¸ë‚´ì—­</a>
+					<a href="login/login.jsp">ÁÖ¹®³»¿ª</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/member.jsp">íšŒì›ê°€ìž…</a>
+					<a href="login/member.jsp">È¸¿ø°¡ÀÔ</a>
 				</div>
 				<div class="main_3 main_common">
-					<a href="login/login.jsp">ë¡œê·¸ì¸</a>
+					<a href="login/login.jsp">·Î±×ÀÎ</a>
 				</div>
 			</div>
+			<% }
+				else{
+			%>
+				<div class="main_1 main_common">
+					<a href="login/logout.jsp">·Î±×¾Æ¿ô</a>
+				</div>				
+				<div class="main_1 main_common">
+					<a href="#">Àå¹Ù±¸´Ï</a>
+				</div>
+				<div class="main_2 main_common">
+					<a href="#">È¸¿øÁ¤º¸¼öÁ¤</a>
+				</div>
+				<div class="main_3 main_common">
+					<a href="#"><%= id %>´Ô</a>
+				</div>
+			<%
+				}
+			%>
 		</div>
 	</div>
-	<!-- ì•„ì´ë”” ë° ë¡œê·¸ì¸ ì— ê´€ë ¨ëœ ì •ë³´ ì¢…ë£Œ -->
-	<!-- ê°€ìš´ë° ë¶€ë¶„ ì‹œìž‘  -->
+	<!-- ¾ÆÀÌµð ¹× ·Î±×ÀÎ ¿¡ °ü·ÃµÈ Á¤º¸ Á¾·á -->
+	<!-- °¡¿îµ¥ ºÎºÐ ½ÃÀÛ  -->
 	<br>
 	<hr>
 	<div class="container">
@@ -51,7 +71,7 @@
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
 						</div>
-						ë°°ë‹¬ê°€
+						¹è´Þ°¡
 					</a>
 					<!-- Divider -->
 					<hr class="sidebar-divider my-0">
@@ -59,41 +79,41 @@
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
 						<a class="nav-link" href="Index.html">
-							<span>íŒë§¤ ìƒíƒœ</span>
+							<span>ÆÇ¸Å »óÅÂ</span>
 						</a>
 					</li>
 
 					<!-- Divider -->
 					<hr class="sidebar-divider">
 
-					<!-- ì¡°ë¦¬ ìƒíƒœ -->
+					<!-- Á¶¸® »óÅÂ -->
 					<!-- Heading -->
-					<div class="sidebar-heading">ë©”ë‰´ í•­ëª©</div>
+					<div class="sidebar-heading">¸Þ´º Ç×¸ñ</div>
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>ì¤‘ì‹</span>
+							<span>Áß½Ä</span>
 						</a>
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>í•œì‹</span>
+							<span>ÇÑ½Ä</span>
 						</a>
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>í”¼ìž</span>
+							<span>ÇÇÀÚ</span>
 						</a>
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>ì¹˜í‚¨</span>
+							<span>Ä¡Å²</span>
 						</a>
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>íŒ¨ìŠ¤íŠ¸í‘¸ë“œ</span>
+							<span>ÆÐ½ºÆ®Çªµå</span>
 						</a>
 					</li>
 					
@@ -101,18 +121,18 @@
 					<hr class="sidebar-divider">
 					
 					<!-- Heading -->
-					<div class="sidebar-heading">ë‚´ì •ë³´</div>
+					<div class="sidebar-heading">³»Á¤º¸</div>
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>íšŒì›ì •ë³´</span>
+							<span>È¸¿øÁ¤º¸</span>
 						</a>
 					</li>
 					
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>ë‚˜ì˜ ë¦¬ë·° ê´€ë¦¬</span>
+							<span>³ªÀÇ ¸®ºä °ü¸®</span>
 						</a>
 					</li>	
 					
@@ -121,7 +141,7 @@
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
 						<a class="nav-link" href="tables.html">
-							<span>ê³ ê°ì„¼í„°</span>
+							<span>°í°´¼¾ÅÍ</span>
 						</a>
 					</li>	
 
@@ -130,49 +150,48 @@
 
 				</ul>
 				<!-- End of Sidebar -->
-				<!-- ì™¼ìª½ ë©”ë‰´ë°” ì¢…ë£Œ -->
-				<!-- ì˜¤ë¥¸ìª½ ë©”ì¸ ë¶€ë¶„ ì‹œìž‘ -->
+				<!-- ¿ÞÂÊ ¸Þ´º¹Ù Á¾·á -->
+				<!-- ¿À¸¥ÂÊ ¸ÞÀÎ ºÎºÐ ½ÃÀÛ -->
 				<table
 					style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
 					<tr>
-						<td colspan="2"><h3 class="panel-title">ë©”ë‰´ ëª©ë¡</h3></td>
+						<td colspan="2"><h3 class="panel-title">¸Þ´º ¸ñ·Ï</h3></td>
 					</tr>
 					<tr>
 						<td>
 							<div class="alert alert-success" style="margin: 10px;">
-								<h3>ì¤‘ì‹ë©”ë‰´</h3>
+								<h3>Áß½Ä¸Þ´º</h3>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-dark" style="margin: 10px;">
-								<h3>í•œì‹ë©”ë‰´</h3>
+								<h3>ÇÑ½Ä¸Þ´º</h3>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<div class="alert alert-danger" style="margin: 10px;">
-								<h3>í”¼ìžë©”ë‰´</h3>
+								<h3>ÇÇÀÚ¸Þ´º</h3>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-warning" style="margin: 10px;">
-								<h3>ì¹˜í‚¨ë©”ë‰´</h3>
+								<h3>Ä¡Å²¸Þ´º</h3>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<div class="alert alert-info" style="margin: 10px;">
-								<h3>íŒ¨ìŠ¤íŠ¸í‘¸ë“œ</h3>
+								<h3>ÆÐ½ºÆ®Çªµå</h3>
 							</div>
 						</td>
 					</tr>
 				</table>
 			</div>
-			<!-- ë©”ì¸ ë¶€ë¶„ ì•ˆì— ë²„íŠ¼ì‹ ë¶€ë¶„ ì¢…ë£Œ -->
+			<!-- ¸ÞÀÎ ºÎºÐ ¾È¿¡ ¹öÆ°½Ä ºÎºÐ Á¾·á -->
 		</div>
 	</div>
-	<!-- ì˜¤ë¥¸ìª½ ë©”ì¸ ë¶€ë¶„ ì¢…ë£Œ -->
+	<!-- ¿À¸¥ÂÊ ¸ÞÀÎ ºÎºÐ Á¾·á -->
 </body>
-</html>

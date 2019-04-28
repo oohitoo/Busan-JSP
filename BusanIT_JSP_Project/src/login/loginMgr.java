@@ -77,7 +77,7 @@ public class loginMgr {
 			try {
 				con = pool.getConnection();
 				//
-				sql = "select id from ���̺��̸� where id =?";
+				sql = "select id from membertb where id =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
@@ -140,7 +140,7 @@ public class loginMgr {
 		try {
 			con = pool.getConnection();
 			//
-			sql = "select id from ���̺��̸� where id =? and pwd =?";
+			sql = "select id from membertb where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%	String id = (String) session.getAttribute("idKey");%>
 <head>
 <meta charset="utf-8">
-
 <!-- Custom fonts for this template -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
@@ -14,31 +12,26 @@
 </head>
 
 <body id="page-top">
-
 	<!-- Page Wrapper -->
 	<div id="wrapper">
-
 <!-- Sidebar -->
 		<ul	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
 			<!-- Sidebar - Brand -->
 			<a	class="sidebar-brand d-flex align-items-center justify-content-center" href="storeMain.html">
 			<div class="sidebar-brand-icon rotate-n-15">
 			<i class="fas fa-laugh-wink"></i>
 	</div>
 			<div class="sidebar-brand-text mx-3">
-
 <!-- 앱 이름 -->배달가
-
-			</div>
-			</a>
-
+			</div></a>
+			
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item">
 			<a class="nav-link" href="#" onclick="window.location.reload(true);">
+			
 			<!-- 클릭시 refresh -->
 			<span>판매 상태</span></a></li>
 
@@ -92,8 +85,8 @@
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<h1></h1>
-	<!-- 가게 이름 -->
-					<h1 class="h3 mb-2 text-gray-800">지금까지 이런 치킨은 없었다</h1>
+<!-- 가게 이름 -->
+					<h1 class="h3 mb-2 text-gray-800"><%=id%></h1>
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -160,5 +153,4 @@
 	</div>
 	<!-- End of Page Wrapper -->
 </body>
-
 </html>

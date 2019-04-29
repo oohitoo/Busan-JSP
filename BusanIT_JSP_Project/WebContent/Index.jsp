@@ -3,7 +3,6 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <title>구매자 페이지</title>
 
@@ -15,7 +14,7 @@
 
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
-	<div class="container" style="background: mistyrose;"><br>
+	<div class="container"><br>
 		<a href="Index.jsp">
 			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
@@ -34,10 +33,10 @@
 					<a href="login/login.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/member.jsp">회원가입</a>
+					<a href="login/member.html">회원가입</a>
 				</div>
 				<div class="main_3 main_common">
-					<a href="login/login.jsp">로그인</a>
+					<a href="login/login.html">로그인</a>
 				</div>
 			</div>
 			<% }
@@ -75,7 +74,7 @@
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
 						</div>
-						배달가
+						<img src="img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
 					</a>
 					<!-- Divider -->
 					<hr class="sidebar-divider my-0">

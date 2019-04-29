@@ -26,13 +26,13 @@
 								<!-- 사용자 이름 -->
 								<div class="form-group">
 									<label for="username" class="text-primary">사업자 번호:</label><br>
-								<input type="text" name="id" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx" value="admin">
+								<input type="number" name="id" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx" value="1231212345">
 									</div>
 
 								<!-- 비밀번호 -->
 								<div class="form-group">
 									<label for="password" class="text-primary">비밀번호:</label><br>
-									<input type="password" name="pwd" id="password" class="form-control" required value="admin">
+									<input type="password" name="pwd" id="password" class="form-control" required value="1111">
 								</div>
 
 								<!-- Remember me Check Box -->

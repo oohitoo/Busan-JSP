@@ -1,4 +1,4 @@
-package login;
+package shoplogin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +44,7 @@ public class loginMgr {
 	}
 
 
-	//
+	//check ID
 	public boolean checkId(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -68,26 +68,20 @@ public class loginMgr {
 		return flag;	
 	}
 
-	//�슦�렪踰덊샇 寃��깋
+	//ZipCode 
 	public Vector<ZipcodeBean> zipcodeRead(String street){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-
 		Vector<ZipcodeBean> vlist = new Vector<ZipcodeBean>();
-
 		try {
 			con = pool.getConnection();
 			sql = "SELECT * FROM address WHERE street LIKE ?";
 			pstmt = con.prepareStatement(sql);
-
 			pstmt.setString(1, "%" + street + "%");
-
 			rs = pstmt.executeQuery();
-
 			while(rs.next()) {
-
 				ZipcodeBean bean = new ZipcodeBean();
 				bean.setPostnum(rs.getString(1));
 				bean.setCity(rs.getString(2));
@@ -106,8 +100,8 @@ public class loginMgr {
 		return vlist;
 	}
 
-	//
-	public boolean loginCustomer(String id, String pwd) {
+	//Shop Log In
+	public boolean loginShop(String id, String pwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -129,5 +123,4 @@ public class loginMgr {
 		}
 		return flag;
 	}
-
 }

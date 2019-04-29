@@ -7,8 +7,7 @@
 <meta charset="utf-8">
 <!-- Custom fonts for this template -->
 <link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
@@ -26,13 +25,14 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="storeMain.html">
+				href="shopMain.html">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
 				<div class="sidebar-brand-text mx-3">
 					<!-- 앱 이름 -->
-					<img src="../img/Logo_2.png" alt="logo이미지" width="70px" height="70px" style="padding: 10px;">
+					<!-- logo Image -->
+					<img src="../img/Logo_1.png" alt="logo이미지" width="220px" height="70px" style="padding: 10px;">
 				</div>
 				
 			</a>
@@ -78,7 +78,7 @@
 			<hr class="sidebar-divider d-none d-md-block">
 			<!-- log out -->
 			<li class="nav-item active"><a class="nav-link"
-				href="storeLogIn.jsp"> <span>Log Out</span></a></li>
+				href="shopLogIn.jsp"> <span>Log Out</span></a></li>
 		</ul>
 		<!-- End of Sidebar -->
 

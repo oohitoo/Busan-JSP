@@ -12,17 +12,17 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="storeMain.html" method="post">
+                        <form id="login-form" class="form" action="shopMain.html" method="post">
                         
                         <!-- 회원가입 -->
                             <h3 class="text-center text-primary" >Sign Up</h3>
                         	<div align="right">
-                                <label for="username" class="text-primary"><a href="storeLogIn.jsp">Log In</a></label><br>
+                                <label for="username" class="text-primary"><a href="shopLogIn.jsp">Log In</a></label><br>
                             </div><br/>
                         <!-- 사업자 번호 -->
                             <div class="form-group">
                                 <label for="sregnumber" class="text-primary">사업자 번호:</label><br>
-                                <input type="tel" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx">
+                                <input type="number" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx">
                             </div>
                         <!-- 비밀번호 -->
                             <div class="form-group">
@@ -31,8 +31,8 @@
                             </div>
                        <!-- 가게 이름 -->
                             <div class="form-group">
-                                <label for="storename" class="text-primary">상호 명:</label><br>
-                                <input type="text" name="username" id="storename" class="form-control" required>
+                                <label for="shopname" class="text-primary">상호 명:</label><br>
+                                <input type="text" name="username" id="shopname" class="form-control" required>
                             </div>
                         <!-- 전화 번호 -->
                             <div class="form-group">

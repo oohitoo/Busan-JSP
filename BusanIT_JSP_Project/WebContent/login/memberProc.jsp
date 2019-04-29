@@ -1,8 +1,8 @@
 <!-- memberProc.jsp -->
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%request.setCharacterEncoding("EUC-KR");%>
-<jsp:useBean id="mgr" class="login.loginMgr"/>
-<jsp:useBean id="bean" class="login.loginBean"/>
+<jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
+<jsp:useBean id="bean" class="shoplogin.loginBean"/>
 <jsp:setProperty property="*" name="bean"/>
 <%
 	boolean result = mgr.insertMember(bean);

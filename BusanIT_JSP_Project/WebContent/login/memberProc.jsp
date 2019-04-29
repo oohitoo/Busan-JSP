@@ -7,10 +7,10 @@
 <%
 	boolean result = mgr.insertMember(bean);
 	String msg = "회원가입에 실패 하였습니다.";
-	String location = "meber.jsp";
+	String location = "member.html";
 	if(result) {
 		msg = "회원가입을 하였습니다.";
-		location = "login.jsp?id=" + bean.getId();
+		location = "login.html?id=" + bean.getId();
 	}
 %>
 <script>

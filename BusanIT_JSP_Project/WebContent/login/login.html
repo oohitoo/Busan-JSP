@@ -16,14 +16,14 @@
 </head>
 <script type="text/javascript">
 	function loginCheck() {
-		if (document.id.value == "") {
-			alert("Input your Id");
-			document.loginFrm.id.focus();
+		if (document.loginFrm.id.value == "") {
+			 alert("Input your Id"); 
+			 document.loginFrm.id.focus(); 
 			return;
 		}
-		if (document.pwd.value == "") {
-			alert("Input your Pwd");
-			document.loginFrm.pwd.focus();
+		else if (document.loginFrm.pwd.value == "") {
+			 alert("Input your Pwd");
+			document.loginFrm.pwd.focus(); 
 			return;
 		}
 		document.loginFrm.submit();
@@ -37,7 +37,7 @@
 				class="row justify-content-center align-items-center">
 				<div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="loginProc.jsp"
+						<form name="loginFrm" id="login-form" class="form" action="loginProc.jsp"
 							method="post">
 
 							<!-- 로그인 -->
@@ -46,7 +46,7 @@
 							<!-- 사용자 아이디 -->
 							<div class="form-group">
 								<label for="username" class="text-info">사용자 아이디:</label><br>
-								<input type="text" name="id" id="username" class="form-control">
+								<input type="email" name="id" id="username" class="form-control">
 							</div>
 
 							<!-- 비밀번호 -->
@@ -61,17 +61,17 @@
 									<span><b>기억하기</b></span> 
 									<span><input id="remember-me" name="remember-me" type="checkbox"></span>
 								</label><br> 
-								<input type="submit" name="submit" class="btn btn-info btn-md" value="login" onclick="loginCheck()">
+								<input type="button" name="submit" class="btn btn-info btn-md" value="login" onclick="loginCheck()" >
 							</div>
 							
 							<!-- 찾기  & 가입하기 -->
 
 							<br />
 							<div style="float: left">
-								<input type="button" class="btn btn-info btn-md" value="Find Id/Pwd" onclick="javascript:location.href=FindId.html">
+								<input type="button" class="btn btn-info btn-md" value="Find Id/Pwd" onClick="javascript:location.href='FindId.jsp'">
 							</div>
 							<div style="float: right"> 
-								<a href="member.jsp" class="text-info">가입하기</a>
+								<a href="member.html" class="text-info">가입하기</a>
 							</div>
 						</form>
 					</div>

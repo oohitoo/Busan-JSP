@@ -18,6 +18,30 @@ public class loginMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
+	public boolean TestDb() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select * from membertb";
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				flag = true;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
+	}
 	
 	public boolean dbcomment() {
 		boolean flag = false;
@@ -46,14 +70,14 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				sql = "insert into Member_tb(id, pwd, name, phone, zipcode, address) values(?,?,?,?,?,?)";
+				sql = "insert into membertb(id, pwd, name, phonenumber, cPostNumber, cAddress) values(?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getId());
 				pstmt.setString(2, bean.getPwd());
 				pstmt.setString(3, bean.getName());
-				pstmt.setString(4, bean.getPhone());
-				pstmt.setString(5, bean.getZipcode());
-				pstmt.setString(6, bean.getAddress());
+				pstmt.setString(4, bean.getPhonenumber());
+				pstmt.setString(5, bean.getcPostNumber());
+				pstmt.setString(6, bean.getcAddress());
 				
 				if(pstmt.executeUpdate()==1)
 					flag = true;			
@@ -77,11 +101,11 @@ public class loginMgr {
 			try {
 				con = pool.getConnection();
 				//
-				sql = "select id from ���̺��̸� where id =?";
+				sql = "select id from membertb where id =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
-				flag = rs.next();//true�̸� �ߺ�, false�̸� �ߺ� �ƴ�...
+				flag = rs.next();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -140,7 +164,7 @@ public class loginMgr {
 		try {
 			con = pool.getConnection();
 			//
-			sql = "select id from ���̺��̸� where id =? and pwd =?";
+			sql = "select id from membertb where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -165,7 +189,7 @@ public class loginMgr {
 		try {
 			con = pool.getConnection();
 			//
-			sql = "select * from ���̺��̸� where id=?";
+			sql = "select * from membertb where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
@@ -174,9 +198,9 @@ public class loginMgr {
 				bean.setId(rs.getString("id"));
 				bean.setPwd(rs.getString("pwd"));
 				bean.setName(rs.getString("name"));
-				bean.setPhone(rs.getString("phnoe"));				
-				bean.setZipcode(rs.getString("zipcode"));
-				bean.setAddress(rs.getString("address"));
+				bean.setPhonenumber(rs.getString("phnoe"));				
+				bean.setcPostNumber(rs.getString("zipcode"));
+				bean.setcAddress(rs.getString("address"));
 				
 			}
 		} catch (Exception e) {
@@ -197,11 +221,10 @@ public class loginMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//���̺� �̸� ����
-			sql = "select id from ���̺��̸�  where name=?, phone=?";
+			sql = "select id from membertb  where name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getPhone());
+			pstmt.setString(2, bean.getPhonenumber());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -221,12 +244,11 @@ public class loginMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			//
-			sql = "select pwd from ���̺��̸�  where id=? name=?, phone=?";
+			sql = "select pwd from membertb where id=? name=?, phone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
-			pstmt.setString(3, bean.getPhone());
+			pstmt.setString(3, bean.getPhonenumber());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -245,14 +267,13 @@ public class loginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				//���̺��̸� ����
-				sql = "update ���̺��̸� set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
+				sql = "update membertb set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
 				pstmt = con.prepareStatement(sql);			
 				pstmt.setString(1, bean.getPwd());
 				pstmt.setString(2, bean.getName());
-				pstmt.setString(3, bean.getPhone());
-				pstmt.setString(4, bean.getZipcode());
-				pstmt.setString(5, bean.getAddress());
+				pstmt.setString(3, bean.getPhonenumber());
+				pstmt.setString(4, bean.getcPostNumber());
+				pstmt.setString(5, bean.getcAddress());
 							
 				if(pstmt.executeUpdate()==1)
 					flag = true;			

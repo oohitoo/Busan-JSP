@@ -18,6 +18,14 @@
 <head>
 <title>우편번호 검색</title>
 <link href="../css/ZipcodeStyle.css" rel="stylesheet" type="text/css">
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
 
 <script type="text/javascript">
 
@@ -31,20 +39,24 @@
 			frm.submit();
 	}
 	function sendAdd(zipcode, adds) {
-		opener.document.regFrm.zipcode.value=zipcode;
-		opener.document.regFrm.address.value=adds;
+		opener.document.signup.cPostnumber.value=zipcode;
+		opener.document.signup.caddress1.value=adds;
 		self.close();
 	}
 </script>
 </head>
-<body bgcolor="#FFFFCC">
+<body >
 	<div align="center">
 		<br />
-		<form name="zipFrm" method="post">
+		<form name="zipFrm" method="post" calss="form-group">
 			<table>
 				<tr>
-					<td><br />도로명 입력 : <input name="street"> 
-					<input type="button" value="검색" onclick="loadSearch()"></td>
+					<td>
+					<br />
+						
+						<label class="text-info"><font size= 4px>	도로명 입력 : </font></label>
+						<input name="street"> 
+						<input type="button" value="검색" onclick="loadSearch()"></td>
 				</tr>
 				<!-- 	검색결과 시작 -->
 				<%
@@ -85,7 +97,8 @@
 					%>
 				<!-- 	검색결과 끝 -->
 				<tr>
-					<td align="center"><br /> <a href="#" onClick="self.close()">닫기</a></td>
+					<td align="center"><br/><a href="#" onclick="self.close()"  class="text-info">	<font size= 4px>닫기</font></a></td>
+					<!-- <td align="center"><br /> <a href="#" onClick="self.close()">닫기</a></td> -->
 				</tr>
 			</table>
 			<input type="hidden" name="search" value="y">

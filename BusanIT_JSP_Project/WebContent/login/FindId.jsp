@@ -53,7 +53,7 @@
                         
                         <!-- 사용자 아이디 -->
                             <div class="form-group">
-                                <label for="username" class="text-info">사용자 이름:</label><br>
+                                <label for="username" class="text-info">사용자 아이디:</label><br>
                                 <input type="text" name="id" id="username" class="form-control">
                             </div>
                             
@@ -63,6 +63,10 @@
                                 <input type="text" name="phone" id="username" class="form-control" >
                             </div>
                             
+                            <div class="form-group">
+                                <label for="username" class="text-info">사용자 전화번호:</label><br>
+                                <input type="text" name="phone" id="username" class="form-control" >
+                            </div>
                             
                             
                         <!-- Remember me Check Box -->

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+<meta charset="UTF-8">
+<title>회원가입</title>
+
+</head>
+
+<script type="text/javascript">
+
+	//Check ID overlap
+	function idCheck(id) {
+		frm = document.regFrm;
+		if (id == "") {
+			alert("Input your Id")
+			frm.id.focus();
+			return;//function get out
+		}
+		url = "idCheck.jsp?id=" + id;
+		window.open(url, "IDCheck", "width=300, height=150");
+	}
+
+	//Search zipcode
+	function zipSearch() {
+		url = "zipSearch.jsp?search=n";
+		open(url, "ZipCodeSearch", "width=500,height=350,scrollbars=yes");
+	}
+</script>
+<body>
+	<div id="signup">
+		<h3 class="text-center text-white pt-5">Sign-up form</h3>
+		<div class="container">
+			<div id="login-row"
+				class="row justify-content-center align-items-center">
+				<div id="login-column" class="col-md-6">
+					<div id="login-box" class="col-md-12">
+						<form id="login-form" class="form" action="loginProc.jsp"
+							method="post">
+
+							<!-- Sign-up -->
+							<h3 class="text-center text-info">Sign-up</h3>
+
+							<!-- 사용자 아이디 -->
+							<div class="form-group">
+								<label for="username" class="text-info">사용자 아이디:</label><br>
+								<input type="text" name="id" id="userid" class="form-control">
+							</div>
+
+							<!-- 비밀번호 -->
+							<div class="form-group">
+								<label for="password" class="text-info">비밀번호:</label><br> <input
+									type="text" name="pwd" id="password" class="form-control">
+							</div>
+							
+							<!-- 비밀번호 확인 -->
+							<div class="form-group">
+								<label for="password" class="text-info">비밀번호 확인:</label><br> <input
+									type="text" name="pwd" id="password" class="form-control">
+							</div>
+							
+							<!-- 사용자 이름 -->
+							<div class="form-group">
+								<label for="username" class="text-info">사용자 이름:</label><br>
+								<input type="text" name="name" id="username" class="form-control">
+							</div>
+							
+							<!-- 우편 번호 -->
+							<div class="form-group" >
+								<label for="username" class="text-info">우편번호: </label>
+								
+							</div>
+							
+							<!-- 우편 번호 -->
+							<div class="form-group" >
+								<label for="username" class="text-info">우편번호 : </label><input type="text" name="name" id="username" width="100px">
+							</div>
+							
+							<!-- 주소 -->
+							<div class="form-group">
+								<label for="username" class="text-info">주소:</label><br>
+								<input type="text" name="address" id="username" class="form-control"><br/>
+								<input type="text" name="address" id="username" class="form-control" placeholder="나머지 주소를 입력하세요">
+							</div>
+
+							
+							<div class="form-group">
+								 
+								<input type="submit" name="submit" class="btn btn-info btn-md" value="가입하기" onclick="inputCheck()">
+							</div>
+							
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+</html>

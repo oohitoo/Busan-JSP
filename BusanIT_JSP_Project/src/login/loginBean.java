@@ -5,10 +5,9 @@ public class loginBean {
 	private String id;
 	private String pwd;
 	private String name;
-	private String phone;
-	private String zipcode;
-	private String address;
-	
+	private String phonenumber;
+	private String cPostNumber;
+	private String cAddress;
 	public String getId() {
 		return id;
 	}
@@ -27,23 +26,24 @@ public class loginBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPhone() {
-		return phone;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
-	public String getZipcode() {
-		return zipcode;
+	public String getcPostNumber() {
+		return cPostNumber;
 	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+	public void setcPostNumber(String cPostNumber) {
+		this.cPostNumber = cPostNumber;
 	}
-	public String getAddress() {
-		return address;
+	public String getcAddress() {
+		return cAddress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setcAddress(String cAddress) {
+		this.cAddress = cAddress;
 	}
 	
+		
 }

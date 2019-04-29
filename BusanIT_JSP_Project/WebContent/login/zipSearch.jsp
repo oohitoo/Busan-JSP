@@ -39,7 +39,7 @@
 			frm.submit();
 	}
 	function sendAdd(zipcode, adds) {
-		opener.document.signup.cPostnumber.value=zipcode;
+		opener.document.signup.cPostNumber.value=zipcode;
 		opener.document.signup.caddress1.value=adds;
 		self.close();
 	}

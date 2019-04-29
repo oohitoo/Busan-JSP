@@ -38,7 +38,7 @@
                         <!-- 사용자 전화번호 -->
                             <div class="form-group">
                                 <label for="password" class="text-info">사용자 전화번호</label><br>
-                                <input type="text" name="phone" id="userphone" class="form-control">
+                                <input type="text" name="phonenumber" id="userphone" class="form-control">
                             </div>
                             
                         <!-- ID찾기 submit  -->
@@ -54,7 +54,7 @@
                         <!-- 사용자 아이디 -->
                             <div class="form-group">
                                 <label for="username" class="text-info">사용자 아이디:</label><br>
-                                <input type="text" name="id" id="username" class="form-control">
+                                <input type="text" name="id" id="userid" class="form-control">
                             </div>
                             
                         <!-- 사용자 이름 -->
@@ -62,10 +62,11 @@
                                 <label for="username" class="text-info">사용자 이름:</label><br>
                                 <input type="text" name="phone" id="username" class="form-control" >
                             </div>
-                            
+                        
+                        <!-- 사용자 전화번호 -->    
                             <div class="form-group">
                                 <label for="username" class="text-info">사용자 전화번호:</label><br>
-                                <input type="text" name="phone" id="username" class="form-control" >
+                                <input type="text" name="phonenumber" id="userphone" class="form-control" >
                             </div>
                             
                             

@@ -6,7 +6,7 @@ public class LoginBean {
 	private String pwd;
 	private String name;
 	private String phonenumber;
-	private String cPostNumber;
+	private String cPostnumber;
 	private String cAddress;
 	
 	public String getId() {
@@ -34,10 +34,10 @@ public class LoginBean {
 		this.phonenumber = phonenumber;
 	}
 	public String getcPostNumber() {
-		return cPostNumber;
+		return cPostnumber;
 	}
 	public void setcPostNumber(String cPostNumber) {
-		this.cPostNumber = cPostNumber;
+		this.cPostnumber = cPostNumber;
 	}
 	public String getcAddress() {
 		return cAddress;

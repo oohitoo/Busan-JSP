@@ -52,15 +52,15 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item active">
-			<a class="nav-link"	href="tables.html"> 
+			<a class="nav-link"	href=""> 
 			<span>배차 대기</span></a></li>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="tables.html"> 
+			<a class="nav-link"	href=""> 
 			<span>배차 완료</span></a></li>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="tables.html"> 
+			<a class="nav-link"	href=""> 
 			<span>배달 완료</span></a></li>
 
 			<!-- Divider -->
@@ -70,7 +70,7 @@
 			<div class="sidebar-heading">관리자 페이지</div>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="tables.html"> 
+			<a class="nav-link"	href="">
 			<span>메뉴 수정</span></a></li>
 
 			<br />
@@ -80,7 +80,7 @@
 			<hr class="sidebar-divider d-none d-md-block">
 			<!-- log out -->
 			<li class="nav-item active">
-			<a class="nav-link"	href="shopLogIn.jsp"> 
+			<a class="nav-link"	href="shopLogOut.jsp"> 
 			<span>Log Out</span></a></li>
 		</ul>
 		<!-- End of Sidebar -->

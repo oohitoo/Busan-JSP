@@ -2,18 +2,18 @@ package shoplogin;
 
 public class loginBean {
 	
-	private String id;
+	private String businessid;
 	private String pwd;
 	private String name;
 	private String phone;
 	private String zipcode;
 	private String address;
 	
-	public String getId() {
-		return id;
+	public String getBusinessid() {
+		return businessid;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String businessid) {
+		this.businessid = businessid;
 	}
 	public String getPwd() {
 		return pwd;

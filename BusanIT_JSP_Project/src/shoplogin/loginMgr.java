@@ -16,7 +16,7 @@ public class loginMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	//Shop Log In
-	public boolean loginShop(String id, String pwd) {
+	public boolean loginShop(String businessid, String pwd) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -27,7 +27,7 @@ public class loginMgr {
 			//
 			sql = "select businessid from shop where businessid = ? and pwd = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setString(1, businessid);
 			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			flag = rs.next();

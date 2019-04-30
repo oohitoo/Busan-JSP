@@ -2,7 +2,7 @@
 <%@page import="login.ZipcodeBean"%>
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
-<jsp:useBean id="mgr" class="login.loginMgr" />
+<jsp:useBean id="mgr" class="login.LoginMgr" />
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String search = request.getParameter("search");

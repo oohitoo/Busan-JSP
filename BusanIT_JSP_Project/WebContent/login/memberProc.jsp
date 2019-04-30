@@ -1,8 +1,8 @@
 <!-- memberProc.jsp -->
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%request.setCharacterEncoding("EUC-KR");%>
-<jsp:useBean id="mgr" class="login.loginMgr"/>
-<jsp:useBean id="bean" class="login.loginBean"/>
+<jsp:useBean id="mgr" class="login.LoginMgr"/>
+<jsp:useBean id="bean" class="login.LoginBean"/>
 <jsp:setProperty property="*" name="bean"/>
 <%
 	String caddress1 = request.getParameter("caddress1");

@@ -1,6 +1,6 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%	request.setCharacterEncoding("UTF-8");	%>
-<%-- <jsp:useBean id="mgr" class="login.loginMgr"/> --%>
+<%@ page contentType="text/html; charset=EUC-KR" %>
+<%	request.setCharacterEncoding("EUC-KR");	%>
+
 <%
 	
 %>
@@ -10,12 +10,15 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<meta charset="UTF-8">
+<meta charset="EUC-KR">
 <title>Find Id & Password</title>
 
 </head>
 <script type="text/javascript">
+	function pageing(page){
 	
+		document.readFrm.submit();
+	}
 </script>
 <body>
     <div id="login">
@@ -24,56 +27,61 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="loginProc.jsp" method="post">
+                        <form id="FindId-form" class="form" action="FindIdProc.jsp" method="get">
                         
-                        <!-- ÏïÑÏù¥Îîî Ï∞æÍ∏∞ -->
+                        <!-- æ∆¿Ãµ √£±‚ -->
                             <h3 class="text-center text-info">Find ID</h3>
                         
-                        <!-- ÏÇ¨Ïö©Ïûê Ïù¥Î¶Ñ -->
+                        <!-- ªÁøÎ¿⁄ ¿Ã∏ß -->
                             <div class="form-group">
-                                <label for="username" class="text-info">ÏÇ¨Ïö©Ïûê Ïù¥Î¶Ñ:</label><br>
-                                <input type="text" name="id" id="username" class="form-control">
+                                <label for="username" class="text-info">ªÁøÎ¿⁄ ¿Ã∏ß:</label><br>
+                                <input type="text" name="name" id="username" class="form-control">
+                                
                             </div>
                             
-                        <!-- ÏÇ¨Ïö©Ïûê Ï†ÑÌôîÎ≤àÌò∏ -->
+                        <!-- ªÁøÎ¿⁄ ¿¸»≠π¯»£ -->
                             <div class="form-group">
-                                <label for="password" class="text-info">ÏÇ¨Ïö©Ïûê Ï†ÑÌôîÎ≤àÌò∏</label><br>
+                                <label for="password" class="text-info">ªÁøÎ¿⁄ ¿¸»≠π¯»£</label><br>
                                 <input type="text" name="phonenumber" id="userphone" class="form-control">
                             </div>
                             
-                        <!-- IDÏ∞æÍ∏∞ submit  -->
+                        <!-- ID√£±‚ submit  -->
                             <div class="form-group">
                                 
-                                <input type="submit" name="Idsubmit" class="btn btn-info btn-md" value="FindId" onclick="javascript:location.href=FindIdProc.jsp" >
+                                <input type="submit" class="btn btn-info btn-md" value="FindId"  >
                             </div>
+                            </form>
                             
+                            
+                            
+                          <form id="FindPwd-form" class="form" action="FindPwdProc.jsp" method="get">  
                         <br/><br/><br/>
-                        <!-- ÎπÑÎ∞ÄÎ≤àÌò∏ Ï∞æÍ∏∞ -->
+                        <!-- ∫Òπ–π¯»£ √£±‚ -->
                             <h3 class="text-center text-info">Find Password</h3>
                         
-                        <!-- ÏÇ¨Ïö©Ïûê ÏïÑÏù¥Îîî -->
+                        <!-- ªÁøÎ¿⁄ æ∆¿Ãµ -->
                             <div class="form-group">
-                                <label for="username" class="text-info">ÏÇ¨Ïö©Ïûê ÏïÑÏù¥Îîî:</label><br>
+                                <label for="username" class="text-info">ªÁøÎ¿⁄ æ∆¿Ãµ:</label><br>
                                 <input type="text" name="id" id="userid" class="form-control">
                             </div>
                             
-                        <!-- ÏÇ¨Ïö©Ïûê Ïù¥Î¶Ñ -->
+                        <!-- ªÁøÎ¿⁄ ¿Ã∏ß -->
                             <div class="form-group">
-                                <label for="username" class="text-info">ÏÇ¨Ïö©Ïûê Ïù¥Î¶Ñ:</label><br>
-                                <input type="text" name="phone" id="username" class="form-control" >
+                                <label for="username" class="text-info">ªÁøÎ¿⁄ ¿Ã∏ß:</label><br>
+                                <input type="text" name="name" id="username" class="form-control" >
                             </div>
                         
-                        <!-- ÏÇ¨Ïö©Ïûê Ï†ÑÌôîÎ≤àÌò∏ -->    
+                        <!-- ªÁøÎ¿⁄ ¿¸»≠π¯»£ -->    
                             <div class="form-group">
-                                <label for="username" class="text-info">ÏÇ¨Ïö©Ïûê Ï†ÑÌôîÎ≤àÌò∏:</label><br>
+                                <label for="username" class="text-info">ªÁøÎ¿⁄ ¿¸»≠π¯»£:</label><br>
                                 <input type="text" name="phonenumber" id="userphone" class="form-control" >
                             </div>
                             
                             
-                        <!-- Remember me Check Box -->
+                        <!-- Pwd√£±‚ submit -->
                             <div class="form-group">
                                 
-                                <input type="submit" name="Pwdsubmit" class="btn btn-info btn-md" value="FindPwd" onclick="javascript:location.href=FindPwdProc.jsp" >
+                                <input type="submit" class="btn btn-info btn-md" value="FindPwd"  >
                             </div>    
                         </form>
                     </div>

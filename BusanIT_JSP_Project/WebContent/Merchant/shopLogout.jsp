@@ -1,9 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@page contentType="text/html;charset=EUC-KR"%>
 <%
-	session.invalidate();	
+    session.invalidate();
 %>
 <script>
-	alert("로그아웃 되었습니다.");
-	location.href = "shopMain.jsp"; // 로그아웃 페이지로 이동
+   alert('오늘도 수고하셨습니다.');
+   location.href= 'shopLogin.jsp';
 </script>
-

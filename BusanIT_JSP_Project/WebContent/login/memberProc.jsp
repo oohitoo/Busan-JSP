@@ -1,18 +1,18 @@
 <!-- memberProc.jsp -->
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=EUC-KR" %>
 <%request.setCharacterEncoding("EUC-KR");%>
-<jsp:useBean id="mgr" class="login.loginMgr"/>
-<jsp:useBean id="bean" class="login.loginBean"/>
+<jsp:useBean id="mgr" class="login.LoginMgr"/>
+<jsp:useBean id="bean" class="login.LoginBean"/>
 <jsp:setProperty property="*" name="bean"/>
 <%
 	String caddress1 = request.getParameter("caddress1");
 	String caddress2 = request.getParameter("caddress2");
 	bean.setcAddress(caddress1 + caddress2);
 	boolean result = mgr.insertMember(bean);
-	String msg = "íšŒì›ê°€ìž…ì— ì‹¤íŒ¨ í•˜ì˜€ìŠµë‹ˆë‹¤.";
+	String msg = "È¸¿ø°¡ÀÔ¿¡ ½ÇÆÐ ÇÏ¿´½À´Ï´Ù.";
 	String location = "member.html";
 	if(result) {
-		msg = "íšŒì›ê°€ìž…ì„ í•˜ì˜€ìŠµë‹ˆë‹¤.";
+		msg = "È¸¿ø°¡ÀÔÀ» ÇÏ¿´½À´Ï´Ù.";
 		location = "login.html";
 	}
 %>

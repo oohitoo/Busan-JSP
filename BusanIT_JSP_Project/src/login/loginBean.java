@@ -1,12 +1,12 @@
 package login;
 
-public class loginBean {
+public class LoginBean {
 	
 	private String id;
 	private String pwd;
 	private String name;
 	private String phonenumber;
-	private String cPostNumber;
+	private String cPostnumber;
 	private String cAddress;
 	
 	public String getId() {
@@ -33,11 +33,11 @@ public class loginBean {
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
-	public String getcPostNumber() {
-		return cPostNumber;
+	public String getcPostnumber() {
+		return cPostnumber;
 	}
-	public void setcPostNumber(String cPostNumber) {
-		this.cPostNumber = cPostNumber;
+	public void setcPostnumber(String cPostnumber) {
+		this.cPostnumber = cPostnumber;
 	}
 	public String getcAddress() {
 		return cAddress;
@@ -45,5 +45,5 @@ public class loginBean {
 	public void setcAddress(String cAddress) {
 		this.cAddress = cAddress;
 	}
-			
+	
 }

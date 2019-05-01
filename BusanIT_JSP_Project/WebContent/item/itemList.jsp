@@ -1,25 +1,32 @@
+<%@page import="MenuList.menu_listBean"%>
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%
 	request.setCharacterEncoding("EUC-KR");
-	String id  = (String)session.getAttribute("idKey"); 
+	String id  = (String)session.getAttribute("idKey");
+	String menu = request.getParameter("menu");
+%>
+<jsp:useBean id="mgr" class="MenuList.menuMgr"/>
+<%
+	Vector<menu_listBean> list= mgr.menuSelect(menu);
 %>
 
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
-<link rel="stylesheet" href="css/MainIndex.css">
+<link rel="stylesheet" href="../css/MainIndex.css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
-		<a href="Index.jsp">
-			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
+		<a href="../Index.jsp">
+			<img src="../img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
-		<a href="Index.jsp">
-			<img src="img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
+		<a href="../Index.jsp">
+			<img src="../img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
 		</a>
 	</div>
 	<!-- 상단 이미지 및 헤더 종료 -->
@@ -30,26 +37,26 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="login/login.jsp">주문내역</a>
+					<a href="../login/login.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/member.html">회원가입</a>
+					<a href="../login/member.html">회원가입</a>
 				</div>
 				<div class="main_3 main_common">
-					<a href="login/login.html">로그인</a>
+					<a href="../login/login.html">로그인</a>
 				</div>
 			</div>
 			<% }
 				else{
 			%>
 				<div class="main_1 main_common">
-					<a href="login/logout.jsp">로그아웃</a>
+					<a href="../login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
 					<a href="#">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/memberUpdate.jsp">회원정보수정</a>
+					<a href="../login/memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common" style="width: 130px">
 					<a href="#"><%= id %>님</a>
@@ -74,7 +81,7 @@
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
 						</div>
-						<img src="img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
+						<img src="../img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
 					</a>
 					<!-- Divider -->
 					<hr class="sidebar-divider my-0">
@@ -95,12 +102,12 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemProc.jsp?menu=중식">
+						<a class="nav-link" href="itemProc.jsp?menu=중식">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemProc.jsp?menu=한식">
+						<a class="nav-link" href="itemProc.jsp?menu=한식">
 							<span>한식</span>
 						</a>
 					</li>
@@ -115,7 +122,7 @@
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드">
+						<a class="nav-link" href="itemList.jsp?menu=패스트푸드">
 							<span>패스트푸드</span>
 						</a>
 					</li>
@@ -155,42 +162,44 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table
-					style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
-					<tr>
-						<td colspan="2"><h3 class="panel-title">메뉴 목록</h3></td>
-					</tr>
-					<tr>
-						<td>
-							<div class="alert alert-success" style="margin: 10px;">
-								<h3>중식메뉴</h3>
-							</div>
-						</td>
-						<td>
-							<div class="alert alert-dark" style="margin: 10px;">
-								<h3>한식메뉴</h3>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="alert alert-danger" style="margin: 10px;">
-								<h3>피자메뉴</h3>
-							</div>
-						</td>
-						<td>
-							<div class="alert alert-warning" style="margin: 10px;">
-								<h3>치킨메뉴</h3>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div class="alert alert-info" style="margin: 10px;">
-								<h3>패스트푸드</h3>
-							</div>
-						</td>
-					</tr>
+				<table border="1" style="margin-left: 150px;">
+				<%
+					if(list.isEmpty()){
+						%>
+						<tr>
+							<td align="center"><br> 검색결과가 없습니다.</td>
+						</tr>
+						<%
+					}
+					else{
+						%>
+						
+						<%
+						for(int i = 0; i < list.size(); ++i){
+							menu_listBean bean = list.get(i);
+							String StoreCond = bean.getStoreCond(); // 카테고리
+							String StoreName= bean.getStorename(); // 가게명
+							String StoreAddrs1 = bean.getStoreaddr1(); //도로명주소
+							String tel = bean.getTel(); //전화번호
+							String BestMenu = bean.getBestmenu();
+						%>
+						<tr>
+							<td rowspan="3" width="140px" height="130px" align="center">이미지</td>
+							<td colspan="2" ><%= StoreName %></td>
+						</tr>
+						
+						<tr>
+							<td><%= StoreAddrs1 %></td>
+							<td align="center"><%= tel %></td>
+						</tr>
+						
+						<tr>
+							<td colspan="2">대표메뉴 : <%= BestMenu %></td>
+						</tr>
+						<%
+							}
+						}
+				%>
 				</table>
 			</div>
 			<!-- 메인 부분 안에 버튼식 부분 종료 -->

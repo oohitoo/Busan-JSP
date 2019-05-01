@@ -49,9 +49,9 @@
 					<a href="#">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/memberUpdate.jsp">회원정보수정</a>
+					<a href="#">회원정보수정</a>
 				</div>
-				<div class="main_3 main_common" style="width: 130px">
+				<div class="main_3 main_common">
 					<a href="#"><%= id %>님</a>
 				</div>
 			<%
@@ -95,12 +95,12 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemProc.jsp?menu=중식">
+						<a class="nav-link" href="tables.html">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemProc.jsp?menu=한식">
+						<a class="nav-link" href="tables.html">
 							<span>한식</span>
 						</a>
 					</li>
@@ -115,7 +115,7 @@
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드">
+						<a class="nav-link" href="tables.html">
 							<span>패스트푸드</span>
 						</a>
 					</li>

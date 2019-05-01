@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
 <head>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -5,8 +7,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Login</title>
-</head>
 
+</head>
 <script type="text/javascript">
 	function loginCheck() {
 		if (document.loginFrm.id.value == "") {
@@ -22,7 +24,6 @@
 		document.loginFrm.submit();
 	}
 </script>
-
 <body>
 	<div id="login">
 		<h3 class="text-center text-white pt-5">Login form</h3>
@@ -31,7 +32,8 @@
 				class="row justify-content-center align-items-center">
 				<div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form name="loginFrm" id="login-form" class="form" action="loginProc.jsp" method="post">
+						<form name="loginFrm" id="login-form" class="form" action="loginProc.jsp"
+							method="post">
 
 							<!-- 로그인 -->
 							<h3 class="text-center text-info">Login</h3>
@@ -44,20 +46,21 @@
 
 							<!-- 비밀번호 -->
 							<div class="form-group">
-								<label for="password" class="text-info">비밀번호:</label><br> <input
-									type="password" name="pwd" id="password" class="form-control">
+								<label for="password" class="text-info">비밀번호:</label><br> 
+									<input type="password" name="pwd" id="password" class="form-control">
 							</div>
 
 							<!-- Remember me Check Box -->
 							<div class="form-group">
 								<label for="remember-me" class="text-info">
-									<span><b>기억하기</b></span> 
+									<span><b>기억하기</b></span> 
 									<span><input id="remember-me" name="remember-me" type="checkbox"></span>
 								</label><br> 
 								<input type="submit" name="submit" class="btn btn-info btn-md" value="login" onclick="loginCheck()" >
 							</div>
 							
 							<!-- 찾기  & 가입하기 -->
+
 							<br />
 							<div style="float: left">
 								<input type="button" class="btn btn-info btn-md" value="Find Id/Pwd" onClick="javascript:location.href='FindId.jsp'">

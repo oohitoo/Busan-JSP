@@ -5,17 +5,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
-public class loginMgr {
-
+public class LoginMgr {
+	
 	private DBConnectionMgr pool;
 	private Connection conn = null;
 	private PreparedStatement psmt;
 	private ResultSet rs;
 	String sql;
 	
-	public loginMgr()
+	public LoginMgr()
 	{
 		pool = DBConnectionMgr.getInstance();
+	}
+	
+	public boolean TestDb() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select * from membertb";
+			pstmt = con.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				flag = true;
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
 	}
 	
 	public boolean dbcomment() {
@@ -38,7 +63,7 @@ public class loginMgr {
 	}
 	
 	//insert Member_tb
-		public boolean insertMember(loginBean bean) {
+		public boolean insertMember(LoginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -51,7 +76,7 @@ public class loginMgr {
 				pstmt.setString(2, bean.getPwd());
 				pstmt.setString(3, bean.getName());
 				pstmt.setString(4, bean.getPhonenumber());
-				pstmt.setString(5, bean.getcPostNumber());
+				pstmt.setString(5, bean.getcPostnumber());
 				pstmt.setString(6, bean.getcAddress());
 				
 				if(pstmt.executeUpdate()==1)
@@ -66,7 +91,8 @@ public class loginMgr {
 	
 	
 	//
-		public boolean checkId(String id) {
+		public boolean checkId(String id) 
+		{
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -86,7 +112,8 @@ public class loginMgr {
 				pool.freeConnection(con, pstmt, rs);
 			}
 			return flag;	
-		}		
+		}
+		
 		
 		public Vector<ZipcodeBean> zipcodeRead(String street){
 			Connection con = null;
@@ -127,7 +154,8 @@ public class loginMgr {
 		}
 		
 	//
-	public boolean loginCustomer(String id, String pwd) {
+	public boolean loginCustomer(String id, String pwd) 
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -151,12 +179,12 @@ public class loginMgr {
 	}
 
 	//
-	public loginBean getMember(String id) {
+	public LoginBean getMember(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		loginBean bean = new loginBean();
+		LoginBean bean = new LoginBean();
 		
 		try {
 			con = pool.getConnection();
@@ -170,9 +198,9 @@ public class loginMgr {
 				bean.setId(rs.getString("id"));
 				bean.setPwd(rs.getString("pwd"));
 				bean.setName(rs.getString("name"));
-				bean.setPhonenumber(rs.getString("phnoe"));				
-				bean.setcPostNumber(rs.getString("zipcode"));
-				bean.setcAddress(rs.getString("address"));
+				bean.setPhonenumber(rs.getString("phonenumber"));				
+				bean.setcPostnumber(rs.getString("cPostNumber"));
+				bean.setcAddress(rs.getString("cAddress"));
 				
 			}
 		} catch (Exception e) {
@@ -183,54 +211,66 @@ public class loginMgr {
 		return bean;
 	}
 	
-	
-	
 	//
-	public void FinloginId(loginBean bean){
+	public String findloginId(LoginBean bean){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		String id = null;
+		ResultSet rs = null;
 		try {
 			con = pool.getConnection();
-			sql = "select id from membertb  where name=?, phone=?";
+			sql = "select id from membertb where name= ? and phonenumber= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getPhonenumber());
-			pstmt.executeUpdate();
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				id = rs.getString("id");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		return;
+		return id;
 		
 	}
 	
 	
 	//
-	public void FinloginPwd(loginBean bean){
+	public String findloginPwd(LoginBean bean)
+	{
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		String pwd = null;
+		ResultSet rs = null;
 		try {
 			con = pool.getConnection();
-			sql = "select pwd from membertb where id=? name=?, phone=?";
+			sql = "select pwd from membertb where id=? and name=? and phonenumber=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getPhonenumber());
-			pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			if(rs.next())
+			{
+				pwd = rs.getString("pwd");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		return;
+		return pwd;
 		
 	}
 	
 	//
-		public boolean updateMember(loginBean bean) {
+		public boolean updateMember(LoginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
@@ -242,7 +282,7 @@ public class loginMgr {
 				pstmt.setString(1, bean.getPwd());
 				pstmt.setString(2, bean.getName());
 				pstmt.setString(3, bean.getPhonenumber());
-				pstmt.setString(4, bean.getcPostNumber());
+				pstmt.setString(4, bean.getcPostnumber());
 				pstmt.setString(5, bean.getcAddress());
 							
 				if(pstmt.executeUpdate()==1)
@@ -252,8 +292,10 @@ public class loginMgr {
 			} finally {
 				pool.freeConnection(con, pstmt);
 			}
-			return flag;		
+			return flag;
+			
 			
 		}
+	
 	
 }

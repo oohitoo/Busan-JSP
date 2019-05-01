@@ -80,7 +80,7 @@
 			<hr class="sidebar-divider d-none d-md-block">
 			<!-- log out -->
 			<li class="nav-item active">
-			<a class="nav-link"	href="shopLogOut.jsp"> 
+			<a class="nav-link"	href="shopLogout.jsp"> 
 			<span>Log Out</span></a></li>
 		</ul>
 		<!-- End of Sidebar -->

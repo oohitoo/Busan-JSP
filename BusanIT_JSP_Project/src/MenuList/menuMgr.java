@@ -26,7 +26,7 @@ public class menuMgr {
 		pool = DB.DBConnectionMgr.getInstance();
 	}
 	
-	public Vector<menu_listBean> menuSelect(String menu){
+	public Vector<menu_listBean> menuSelect(String menu, int start, int end){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -36,11 +36,15 @@ public class menuMgr {
 		
 		try {
 			conn = pool.getConnection();
-			sql = "select * from menu_list where bsnsCond = ?";
+			// limit(start, end) 
+			// (0,5 하면 0~4번까지 5,5) 5~9까지
+			sql = "select * from menu_list where bsnsCond = ? limit ?,?";
 			psmt = conn.prepareStatement(sql);
 			
 			//세팅 해야 될것!! 왜 안햇지.. ㅠㅠ
 			psmt.setString(1, menu);
+			psmt.setInt(2, start);
+			psmt.setInt(3, end);
 			
 			rs = psmt.executeQuery();
 			
@@ -105,5 +109,36 @@ public class menuMgr {
 			pool.freeConnection(conn, psmt);
 		}		
 		return flag;
+	}
+	// 선택한 카테고리의 메뉴 리스트 총 갯수
+	public int getStoreTotalList(String StoreSector) {
+		Connection con = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int Storetotal = 0; // 개시물 총 갯수
+		
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) from menu_list where bsnsCond like ?";
+			psmt = con.prepareStatement(sql);
+			// 가게 이름 받아와서 설정해주기
+			psmt.setString(1, StoreSector);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				// DB에 select된 첫번째 컬럼 반환하기
+				Storetotal = rs.getInt(1);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			pool.freeConnection(con, psmt, rs);
+		}
+		
+		return Storetotal;
 	}
 }

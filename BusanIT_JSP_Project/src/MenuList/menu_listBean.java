@@ -11,6 +11,7 @@ public class menu_listBean {
 	private String tel;
 	private float lat; //위도
 	private float lng; //경도
+	private String restImg;
 	
 	public int getIdx() {
 		return idx;
@@ -71,6 +72,12 @@ public class menu_listBean {
 	}
 	public void setLng(float lng) {
 		this.lng = lng;
+	}
+	public String getRestImg() {
+		return restImg;
+	}
+	public void setRestImg(String restImg) {
+		this.restImg = restImg;
 	}
 	
 }

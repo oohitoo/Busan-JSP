@@ -1,13 +1,26 @@
 package MenuList;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 public class menuMgr {
 	
-	DB.DBConnectionMgr pool;
+	/* 이미지 저장을 하기 위한 시작 */
+	/* 폴더 경로 선택 */
+	public static final String saveFolder = "F:/DTeam/BusanIT_JSP_Project/WebContent/img/storeImage";
+	final String encType = "EUC-KR";
+	final int maxSize = 20 * 1024 * 1024; // 20m
+	/* 이미지 저장을 하기 위한 것 종료 */
+	
+	private DB.DBConnectionMgr pool;
 	
 	public menuMgr() {
 		pool = DB.DBConnectionMgr.getInstance();
@@ -42,6 +55,7 @@ public class menuMgr {
 				bean.setTel(rs.getString("tel"));
 				bean.setLat(rs.getFloat("lat"));
 				bean.setLng(rs.getFloat("lng"));
+				bean.setRestImg(rs.getString("restImg"));
 				
 				vlist.addElement(bean);
 			}
@@ -54,5 +68,42 @@ public class menuMgr {
 		}
 		
 		return vlist;
+	}
+	
+	//가게별 이미지 저장하는곳
+	public boolean ShopimageUpdateFile(HttpServletRequest req, String bsnsCond) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		boolean flag = false;
+		String sql;
+		
+		try {
+			MultipartRequest mult = new MultipartRequest(req, saveFolder, maxSize, encType, new DefaultFileRenamePolicy());
+			String upFile = mult.getFilesystemName("upFile");
+			// 앞에서 넘오는 name 설정 값
+			File f = mult.getFile("upFile");
+			int size = (int)f.length();
+			
+			conn = pool.getConnection();
+			sql = "update menu_list set restImg = ?, restImgsize = ? where bsnsCond = ?";
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, upFile); //파일 설정 하기
+			psmt.setInt(2, size);
+			psmt.setString(3, bsnsCond);
+			System.out.println(upFile + "/" + size + "/" + bsnsCond + "/");
+			System.out.println(psmt.executeUpdate());
+			
+			if(psmt.executeUpdate() == 9) { // 반환될 값임
+				flag = true;
+			}			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			pool.freeConnection(conn, psmt);
+		}		
+		return flag;
 	}
 }

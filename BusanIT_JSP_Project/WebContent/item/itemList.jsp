@@ -162,7 +162,7 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table border="1" style="margin-left: 150px;">
+				<table style="margin-left: 150px;">
 				<%
 					if(list.isEmpty()){
 						%>
@@ -177,14 +177,19 @@
 						<%
 						for(int i = 0; i < list.size(); ++i){
 							menu_listBean bean = list.get(i);
-							String StoreCond = bean.getStoreCond(); // 카테고리
+							/* String StoreCond = bean.getStoreCond(); // 카테고리 */
+							String StoreImage = bean.getRestImg(); // 가게 대표 이미지
 							String StoreName= bean.getStorename(); // 가게명
 							String StoreAddrs1 = bean.getStoreaddr1(); //도로명주소
 							String tel = bean.getTel(); //전화번호
 							String BestMenu = bean.getBestmenu();
 						%>
 						<tr>
-							<td rowspan="3" width="140px" height="130px" align="center">이미지</td>
+							<td rowspan="3" width="140px" height="130px" align="center">
+							<% if(StoreImage != null){%>
+								<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
+							<%}%>
+							</td>
 							<td colspan="2" ><%= StoreName %></td>
 						</tr>
 						

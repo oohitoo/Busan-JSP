@@ -4,7 +4,7 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey");
-	LoginBean bean = mgr.getMember(id);
+	LoginBean bean = mgr.getCustomer(id);
 %>
 <script>
 	function menulist(menu) {
@@ -197,11 +197,16 @@
 											value="<%=bean.getName()%>"></td>
 									</tr>
 									
+									<tr>
+										<td>닉네임</td>
+										<td><input name="cNick" size="15"
+											value="<%=bean.getcNick()%>"></td>
+									</tr>									
 									
 									<tr>
 										<td>우편번호</td>
 										<td><input name="zipcode" size="5"
-											value="<%=bean.getcPostnumber()%>" readonly> <input
+											value="<%=bean.getcPost()%>" readonly> <input
 											type="button" value="우편번호찾기" onClick="zipCheck()"></td>
 									</tr>
 									<tr>

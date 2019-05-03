@@ -1,62 +1,61 @@
-create table memberTB(
+/* �ּ� */
+/* �ּ� ����*/
+create table address(
+	postnum NUMERIC(5),
+	city varchar(10),
+	gu varchar(7),
+	street varchar(25),
+	streetnum varchar(10)
+)COLLATE='euckr_korean_ci';
+
+create table customer(
 	id varchar(30),
 	pwd varchar(30),
-	name varchar(30),
-	phonenumber varchar(20),
-	cPostNumber NUMERIC(6),
-	cAddress varchar(20)
-);
+	name varchar(20),
+	cNick varchar(10),
+	cPhone NUMERIC(20),
+	cPost NUMERIC(6),
+	cAddress varchar(50)
+)COLLATE='euckr_korean_ci';
 
-create table store(
-	businessID varchar(13),
-	storyName varchar(30),
-	sPhone varchar(15),
-	sAddress varchar(200),
-	sCategory varchar(6),
-	PRIMARY KEY(businessID,storyName)
-);
+create table orders(
+	oNum NUMERIC(5),
+	id varchar(30),
+	cNick varchar(10),
+	cAddress varchar(50),
+	rName varchar(10),
+	cPhone NUMERIC(20),
+	mName varchar(15),
+	oDate date,
+	oRequest varchar(20),
+	orderType varchar(5),
+	payType varchar(5)
+)COLLATE='euckr_korean_ci';
 
-create table Memu(
-	businessID varchar(13),
-	storyName varchar(30),
-	mName varchar(10),
+create table review(
+	rName varchar(10),
+	cNick varchar(10),
+	id varchar(30),
+	rDate date,
+	rContent varchar(100)
+)COLLATE='euckr_korean_ci';
+
+create table menu(
+	rName varchar(10),
+	mName varchar(15),
 	mPrice NUMERIC(5),
-	mInfo varchar(30)
-);
+	mInfo varchar(40),
+	mImg varchar(30),
+	mImgsize NUMERIC(20)
+)COLLATE='euckr_korean_ci';
 
-create table Ordertype(
-	oType varchar(5),
-	payType varchar(10)
-);
-
-/* 0 : 만나서 현금 결제 
-	1 : 만나서 카드 결제
-	2 : 바로결제
-*/
-create table Orders(
-	oNum int AUTO_INCREMENT PRIMARY KEY,
-	memberid varchar(30),
-	storyName varchar(30),
-	mName varchar(10),
-	oDate DATE,
-	oCount NUMERIC(3),
-	oPrice NUMERIC(7),
-	oRequest varchar(30)
-);
-
-select id from membertb where id = 'admin';
-
-select * from membertb where id = 'admin' and pwd = 'admin';
-
-select store.storyName, memu.mName, memu.mPrice from store left join Memu on store.storyName = Memu.storyName;
-
-select * from membertb;
-select * from orders;
-
-select membertb.id, orders.memberPhone, membertb.cPostNumber, membertb.cAddress,
-orders.storeName, orders.mName, orders.oDate, orders.oCount, orders.oPrice, orders.oRequest
-from membertb right outer join orders on membertb.phonenumber = orders.memberPhone;
-
-select * from membertb full outer join membertb on membertb.phonenumber = orders.memberPhone;
-
-select * from store left join Memu on store.storyName = Memu.storeName;
+create table restaurant(
+	idx NUMERIC(5),
+	rName varchar(10),
+	rArea varchar(10),
+	rAdressRoad varchar(40),
+	rAdressPost varchar(40),
+	rPhone varchar(15),
+	rImg varchar(30),
+	rImgsize NUMERIC(20),
+)COLLATE='euckr_korean_ci';

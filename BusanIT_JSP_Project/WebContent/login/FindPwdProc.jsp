@@ -11,7 +11,7 @@
 	String findPwd = mgr.findloginId(bean);
 
 	if (findPwd != null) {
-		msg = "찾는 계정은 다음과 같습니다. ";
+		msg = "비밀번호는 다음과 같습니다 :";
 		location = "../Index.jsp";
 	}
 %>

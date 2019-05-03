@@ -4,7 +4,6 @@
 <jsp:useBean id="bean" class="login.LoginBean"/>
 <jsp:setProperty property="*" name="bean"/>
 <%
-
 	String name = request.getParameter("name");
 
 	String msg = "존재하지않는 계정입니다.";
@@ -17,6 +16,6 @@
 	}
 %>
 <script >
-	alert("<%=msg +  findId + name %>");
+	alert("<%=msg + findId + name %>");
 	location.href= "<%=location%>";	
-</script>
+</script> 

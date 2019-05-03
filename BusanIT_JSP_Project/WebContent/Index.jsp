@@ -95,17 +95,17 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemProc.jsp?menu=중식">
+						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemProc.jsp?menu=한식">
+						<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
 							<span>한식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
 							<span>피자</span>
 						</a>
 					</li>
@@ -115,7 +115,7 @@
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드">
+						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
 							<span>패스트푸드</span>
 						</a>
 					</li>

@@ -123,7 +123,7 @@ public class menuMgr {
 			sql = "select count(*) from menu_list where bsnsCond like ?";
 			psmt = con.prepareStatement(sql);
 			// 가게 이름 받아와서 설정해주기
-			psmt.setString(1, StoreSector);
+			psmt.setString(1, "%"+StoreSector+"%");
 			
 			rs = psmt.executeQuery();
 			

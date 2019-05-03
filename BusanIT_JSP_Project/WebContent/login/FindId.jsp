@@ -24,23 +24,23 @@
 						<form id="FindId-form" class="form" action="FindIdProc.jsp" method="get">
 
 							<!-- 아이디 찾기 -->
-							<h3 class="text-center text-info">Find ID</h3>
+							<h3 class="text-center text-primary">Find ID</h3>
 
 							<!-- 사용자 이름 -->
 							<div class="form-group">
-								<label for="username" class="text-info">사용자 이름:</label><br>
+								<label for="username" class="text-primary">사용자 이름:</label><br>
 								<input type="text" name="name" id="username" class="form-control">
 							</div>
 
 							<!-- 사용자 전화번호 -->
 							<div class="form-group">
-								<label for="password" class="text-info">사용자 전화번호</label><br>
-								<input type="text" name="phonenumber" id="userphone" class="form-control">
+								<label for="password" class="text-primary">사용자 전화번호</label><br>
+								<input type="text" name="cPhone" id="userphone" class="form-control">
 							</div>
 
 							<!-- ID찾기 submit  -->
 							<div class="form-group">
-								<input type="submit" class="btn btn-info btn-md" value="FindId">
+								<input type="submit" class="btn btn-primary btn-md" value="FindId">
 							</div>
 						</form>
 						
@@ -49,31 +49,31 @@
 							<br />
 							<br />
 							<!-- 비밀번호 찾기 -->
-							<h3 class="text-center text-info">Find Password</h3>
+							<h3 class="text-center text-primary">Find Password</h3>
 
 							<!-- 사용자 아이디 -->
 							<div class="form-group">
-								<label for="username" class="text-info">사용자 아이디:</label><br>
+								<label for="username" class="text-primary">사용자 아이디:</label><br>
 								<input type="text" name="id" id="userid" class="form-control">
 							</div>
 
 							<!-- 사용자 이름 -->
 							<div class="form-group">
-								<label for="username" class="text-info">사용자 이름:</label><br>
+								<label for="username" class="text-primary">사용자 이름:</label><br>
 								<input type="text" name="name" id="username"
 									class="form-control">
 							</div>
 
 							<!-- 사용자 전화번호 -->
 							<div class="form-group">
-								<label for="username" class="text-info">사용자 전화번호:</label><br>
-								<input type="text" name="phonenumber" id="userphone"
+								<label for="username" class="text-primary">사용자 전화번호:</label><br>
+								<input type="text" name="cPhone" id="userphone"
 									class="form-control">
 							</div>
 
 							<!-- Pwd찾기 submit -->
 							<div class="form-group">
-								<input type="submit" class="btn btn-info btn-md" value="FindPwd">
+								<input type="submit" class="btn btn-primary btn-md" value="FindPwd">
 							</div>
 						</form>
 					</div>

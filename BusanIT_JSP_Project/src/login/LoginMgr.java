@@ -26,7 +26,7 @@ public class LoginMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "select * from membertb";
+			sql = "select * from customer";
 			pstmt = con.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -70,14 +70,15 @@ public class LoginMgr {
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				sql = "insert into membertb(id, pwd, name, phonenumber, cPostNumber, cAddress) values(?,?,?,?,?,?)";
+				sql = "insert into customer(id, pwd, name, cNick , cPhone, cPost, cAddress) values(?,?,?,?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getId());
 				pstmt.setString(2, bean.getPwd());
 				pstmt.setString(3, bean.getName());
-				pstmt.setString(4, bean.getPhonenumber());
-				pstmt.setString(5, bean.getcPostnumber());
-				pstmt.setString(6, bean.getcAddress());
+				pstmt.setString(4, bean.getcNick());
+				pstmt.setString(5, bean.getcPhone());
+				pstmt.setString(6, bean.getcPost());
+				pstmt.setString(7, bean.getcAddress());
 				
 				if(pstmt.executeUpdate()==1)
 					flag = true;			
@@ -101,7 +102,7 @@ public class LoginMgr {
 			try {
 				con = pool.getConnection();
 				//
-				sql = "select id from membertb where id =?";
+				sql = "select id from customer where id =?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
@@ -164,7 +165,7 @@ public class LoginMgr {
 		try {
 			con = pool.getConnection();
 			//
-			sql = "select id from membertb where id =? and pwd =?";
+			sql = "select id from customer where id =? and pwd =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
@@ -179,7 +180,7 @@ public class LoginMgr {
 	}
 
 	//
-	public LoginBean getMember(String id) {
+	public LoginBean getCustomer(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -189,7 +190,7 @@ public class LoginMgr {
 		try {
 			con = pool.getConnection();
 			//
-			sql = "select * from membertb where id=?";
+			sql = "select * from customer where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,id);
 			rs = pstmt.executeQuery();
@@ -198,8 +199,9 @@ public class LoginMgr {
 				bean.setId(rs.getString("id"));
 				bean.setPwd(rs.getString("pwd"));
 				bean.setName(rs.getString("name"));
-				bean.setPhonenumber(rs.getString("phonenumber"));				
-				bean.setcPostnumber(rs.getString("cPostNumber"));
+				bean.setcNick(rs.getString("cNick"));
+				bean.setcPhone(rs.getString("cPhone"));				
+				bean.setcPost(rs.getString("cPost"));
 				bean.setcAddress(rs.getString("cAddress"));
 				
 			}
@@ -220,10 +222,10 @@ public class LoginMgr {
 		ResultSet rs = null;
 		try {
 			con = pool.getConnection();
-			sql = "select id from membertb where name= ? and phonenumber= ?";
+			sql = "select id from customer where name= ? and cPhone= ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getPhonenumber());
+			pstmt.setString(2, bean.getcPhone());
 			
 			rs = pstmt.executeQuery();
 			
@@ -250,11 +252,12 @@ public class LoginMgr {
 		ResultSet rs = null;
 		try {
 			con = pool.getConnection();
-			sql = "select pwd from membertb where id=? and name=? and phonenumber=?";
+			sql = "select pwd from customer where id=? and name=? and cPhone=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
-			pstmt.setString(3, bean.getPhonenumber());
+			pstmt.setString(3, bean.getcPhone());
+			
 			rs = pstmt.executeQuery();
 			if(rs.next())
 			{
@@ -270,20 +273,22 @@ public class LoginMgr {
 	}
 	
 	//
-		public boolean updateMember(LoginBean bean) {
+		public boolean updateCustomer(LoginBean bean) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
 			boolean flag = false;
 			try {
 				con = pool.getConnection();
-				sql = "update membertb set pwd=?, name=?, phone=?, zipcode=?, address=? where id=?";
+				sql = "update customer set pwd=?, name=?, cNick=?, cPhone=?, cPost=?, cAddress=? where id=?";
 				pstmt = con.prepareStatement(sql);			
 				pstmt.setString(1, bean.getPwd());
 				pstmt.setString(2, bean.getName());
-				pstmt.setString(3, bean.getPhonenumber());
-				pstmt.setString(4, bean.getcPostnumber());
-				pstmt.setString(5, bean.getcAddress());
+				pstmt.setString(3, bean.getcNick());
+				pstmt.setString(4, bean.getcPhone());
+				pstmt.setString(5, bean.getcPost());
+				pstmt.setString(6, bean.getcAddress());
+				pstmt.setString(7, bean.getId());
 							
 				if(pstmt.executeUpdate()==1)
 					flag = true;			
@@ -292,8 +297,7 @@ public class LoginMgr {
 			} finally {
 				pool.freeConnection(con, pstmt);
 			}
-			return flag;
-			
+			return flag;			
 			
 		}
 	

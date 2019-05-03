@@ -1,6 +1,7 @@
 package MenuList;
 
 public class menu_listBean {
+	
 	private int idx;
 	private String bsnsSector; //bsnsSector
 	private String StoreCond;

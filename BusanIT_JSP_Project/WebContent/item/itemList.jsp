@@ -21,9 +21,10 @@
 	int start = 0; // 시작번호
 	int end = numPerpage; //끝 번호
 	// Limit 에 들어가는 숫자임 끝 
-
-	nowpage = Integer.parseInt(request.getParameter("nowPage"));
 	
+	// nowpage가 없으면 0으로 설정 
+	nowpage = Integer.parseInt(request.getParameter("nowPage"));
+		
 	start = (nowpage * numPerpage) - numPerpage;
 	out.println("현재페이지"+nowpage);
 	// 총 페이지
@@ -201,7 +202,7 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table border="1" style="margin-left: 150px;">
+				<table style="margin-left: 150px;">
 					<%
 					// 반환된 게시물 을 벡터로 저장
 					Vector<menu_listBean> list = mgr.menuSelect(menu, start, end);
@@ -241,7 +242,10 @@
 					<tr>
 						<td rowspan="3" width="140px" height="130px" align="center">
 							<% if(StoreImage != null){%>
-							<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>"><%}%>
+							<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
+							<%}else{%>
+								<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
+							<%}%>
 						</td>
 						<td colspan="2"><%= StoreName %></td>
 					</tr>
@@ -257,7 +261,7 @@
 					<%}%>
 					<%}%>
 					<tr>
-						<td colspan="3">
+						<td colspan="3" style="text-align: center">
 							<%
 							// 페이징에 표시될 시작변수 및 마지막 변수
 							int pageStart = (nowBlock - 1) * pagePerBlock + 1;
@@ -285,6 +289,11 @@
 							<%} %>
 						<% } %>
 						</td>
+					</tr>
+					<tr height="100px">
+					</tr>
+					<tr height="100px">
+						<td colspan="3" style="text-align: center"><span>Copyright &copy; Your Website 2019</span></td>
 					</tr>
 				</table>
 				

@@ -1,33 +1,38 @@
 function inputCheck(){
     if(document.signup.id.value==""){
-        alert("ì•„ì´ë””ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
+        alert("¾ÆÀÌµð¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
         document.signup.id.focus();
         return;
     }
     if(document.signup.pwd.value==""){
-        alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
+        alert("ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
         document.signup.pwd.focus();
         return;
     }
     if(document.signup.repwd.value==""){
-        alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”");
+        alert("ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä");
         document.signup.repwd.focus();
         return;
     }
     if(document.signup.pwd.value != document.signup.repwd.value){
-        alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+        alert("ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
         document.signup.repwd.value="";
         document.signup.repwd.focus();
         return;
     }
     if(document.signup.name.value==""){
-        alert("ì´ë¦„ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
+        alert("ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
         document.signup.name.focus();
         return;
     }
-    if(document.signup.phonenumber.value==""){
-        alert("ì „í™”ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
-        document.signup.phonenumber.focus();
+    if(document.signup.cNick.value==""){
+        alert("´Ð³×ÀÓÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+        document.signup.cNick.focus();
+        return;
+    }
+    if(document.signup.cPhone.value==""){
+        alert("ÀüÈ­¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+        document.signup.cPhone.focus();
         return;
     }
 
@@ -42,12 +47,12 @@ function inputCheck(){
        dotPos > 3 && spacePos == -1 && commaPos == -1 
        && atPos + 1 < dotPos && dotPos + 1 < eMailSize);
     else {
-          alert('E-mailì£¼ì†Œ í˜•ì‹ì´ ìž˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.\n\r ì•„ì´ë””ë¥¼ ë‹¤ì‹œ ìž…ë ¥í•´ ì£¼ì„¸ìš”!');
+          alert('E-mailÁÖ¼Ò Çü½ÄÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.\n\r ¾ÆÀÌµð¸¦ ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä!');
           document.signup.id.focus();
           return;
     }
-    if(document.signup.cPostNumber.value==""){
-        alert("ìš°íŽ¸ë²ˆí˜¸ë¥¼ ê²€ìƒ‰í•´ ì£¼ì„¸ìš”.");
+    if(document.signup.cPost.value==""){
+        alert("¿ìÆí¹øÈ£¸¦ °Ë»öÇØ ÁÖ¼¼¿ä.");
         return;
     }
 

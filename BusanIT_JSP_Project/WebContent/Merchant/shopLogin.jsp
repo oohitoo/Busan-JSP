@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<% String id = (String) session.getAttribute("idKey");
-%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <html>
 <head>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -15,32 +13,32 @@
                     <div id="login-box" class="col-md-12">
 						<form id="login-form" class="form" action="shopLoginProc.jsp" method="post">
 							
-								<!-- 로그인 -->
+								<!-- �α��� -->
 								<h3 class="text-center text-primary">Log in</h3>
 								
 								<!-- Join Us -->
 								<div id="register-link" class="text-right">
-									<a href="shopSignUp.jsp" class="text-primary">가입문의</a>
+									<a href="shopSignUp.jsp" class="text-primary">���Թ���</a>
 								</div>
 								
-								<!-- 사용자 이름 -->
+								<!-- ����� �̸� -->
 								<div class="form-group">
-									<label for="username" class="text-primary">사업자 번호:</label><br>
-								<input type="number" name="id" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx" value="1231212345">
+									<label for="username" class="text-primary">����� ��ȣ:</label><br>
+								<input type="number" name="businessid" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx" value="1231212345">
 									</div>
 
-								<!-- 비밀번호 -->
+								<!-- ��й�ȣ -->
 								<div class="form-group">
-									<label for="password" class="text-primary">비밀번호:</label><br>
+									<label for="password" class="text-primary">��й�ȣ:</label><br>
 									<input type="password" name="pwd" id="password" class="form-control" required value="1111">
 								</div>
 
 								<!-- Remember me Check Box -->
 								<div class="form-group">
-									<label for="remember-me" class="text-primary"><span>기억하기</span> 
+									<label for="remember-me" class="text-primary"><span>����ϱ�</span> 
 										<span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
 								
-								<!-- 로그인 -->
+								<!-- �α��� -->
 									<input type="submit" name="submit" class="btn btn-primary btn-md" value="submit">
 								</div>
 						</form>

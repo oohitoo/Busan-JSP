@@ -1,23 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="shoplogin.loginBean"%>
+<%@page import="java.util.Vector"%>
+<%@page language="java" contentType="text/html; charset=EUC-KR"	pageEncoding="EUC-KR"%>
+<jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
 <%
-	String businessid = (String) session.getAttribute("idKey");
-	if(businessid==null){
+	String businessName = (String) session.getAttribute("name");
+	if(businessName==null){
 		%>
 		<script>
-		alert("ë¡œê·¸ì¸ì„ í•´ ì£¼ì„¸ìš”");
+		alert("·Î±×ÀÎÀ» ÇØ ÁÖ¼¼¿ä");
 		location.href = "shopLogin.jsp";
 		</script>
 		<%
 	}
-%>
+String business= null;
+Vector<loginBean> shopname = mgr.shopInfo(business); %>
 <head>
-<meta charset="utf-8">
+<meta charset="EUC-KR">
 <!-- Custom fonts for this template -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-<title>íŒë§¤ìž íŽ˜ì´ì§€</title>
+<title>ÆÇ¸ÅÀÚ ÆäÀÌÁö</title>
 </head>
 
 <body id="page-top">
@@ -31,9 +35,9 @@
 					<i class="fas fa-laugh-wink"></i>
 				</div>
 				<div class="sidebar-brand-text mx-3">
-					<!-- ì•± ì´ë¦„ -->
+					<!-- ¾Û ÀÌ¸§ -->
 					<!-- logo Image -->
-					<img src="../img/Logo_1.png" alt="logoì´ë¯¸ì§€" width="220px" height="70px" style="padding: 10px;" href="shopMain.jsp">
+					<img src="../img/Logo_1.png" alt="logoÀÌ¹ÌÁö" width="220px" height="70px" style="padding: 10px;" href="shopMain.jsp">
 				</div>
 			</a>
 
@@ -42,39 +46,39 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link" href="#" onclick="window.location.reload(true);"> 
-			<!-- í´ë¦­ì‹œ refresh --> <span>íŒë§¤	ìƒíƒœ</span></a></li>
+			<!-- Å¬¸¯½Ã refresh --> <span>ÆÇ¸Å »óÅÂ</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
-			<!-- ë°°ë‹¬ ìƒíƒœ -->
-			<div class="sidebar-heading">ë°°ë‹¬ ìƒíƒœ</div>
+			<!-- ¹è´Þ »óÅÂ -->
+			<div class="sidebar-heading">¹è´Þ »óÅÂ</div>
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item active">
 			<a class="nav-link"	href=""> 
-			<span>ë°°ì°¨ ëŒ€ê¸°</span></a></li>
+			<span>¹èÂ÷ ´ë±â</span></a></li>
 
 			<li class="nav-item active">
 			<a class="nav-link"	href=""> 
-			<span>ë°°ì°¨ ì™„ë£Œ</span></a></li>
+			<span>¹èÂ÷ ¿Ï·á</span></a></li>
 
 			<li class="nav-item active">
 			<a class="nav-link"	href=""> 
-			<span>ë°°ë‹¬ ì™„ë£Œ</span></a></li>
+			<span>¹è´Þ ¿Ï·á</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
 			<!-- Heading -->
-			<div class="sidebar-heading">ê´€ë¦¬ìž íŽ˜ì´ì§€</div>
+			<div class="sidebar-heading">°ü¸®ÀÚ ÆäÀÌÁö</div>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="">
-			<span>ë©”ë‰´ ìˆ˜ì •</span></a></li>
+			<a class="nav-link"	href="shopInfoUpdate.jsp">
+			<span>¸Þ´º ¼öÁ¤</span></a></li>
 
-			<br />
-			<br />
+			<br/>
+			<br/>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 			<hr class="sidebar-divider d-none d-md-block">
@@ -94,48 +98,47 @@
 				<div class="container-fluid">
 					<!-- Page Heading -->
 					<h1></h1>
-					<!-- ê°€ê²Œ ì´ë¦„ -->
-					<h1 class="h3 mb-2 text-gray-800"><%=businessid%></h1>
+					<!-- °¡°Ô ÀÌ¸§ -->
+					<h1 class="h3 mb-2 text-gray-800"><%= businessName %></h1>
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">ì£¼ë¬¸ ëª©ë¡</h6>
+							<h6 class="m-0 font-weight-bold text-primary">ÁÖ¹® ¸ñ·Ï</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
 									<thead>
 										<tr>
-											<th>ë²ˆí˜¸</th>
-											<th>ê²½ê³¼ì‹œê°„</th>
-											<th>í”½ì—…/ë°°ë‹¬</th>
-											<th>ë°°ë‹¬ìƒíƒœ</th>
-											<th>ê³ ê° ìš”ì²­ì‚¬í•­</th>
+											<th>¹øÈ£</th>
+											<th>°æ°ú½Ã°£</th>
+											<th>ÇÈ¾÷/¹è´Þ</th>
+											<th>¹è´Þ»óÅÂ</th>
+											<th>°í°´ ¿äÃ»»çÇ×</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>01</td>
-											<td>10ë¶„</td>
-											<td>í”½ì—…</td>
-											<td>ëŒ€ê¸°</td>
-											<td>ë§µê²Œ ë§Œë“¤ì–´ ì£¼ì„¸ìš”</td>
+											<td>10ºÐ</td>
+											<td>ÇÈ¾÷</td>
+											<td>´ë±â</td>
+											<td>¸Ê°Ô ¸¸µé¾î ÁÖ¼¼¿ä</td>
 										</tr>
 
 										<tr>
 											<td>02</td>
-											<td>25ë¶„</td>
-											<td>ë°°ë‹¬</td>
-											<td>ë°°ë‹¬ì™„ë£Œ</td>
-											<td>ì “ê°€ë½ ë‚­ë‚­í•˜ê²Œ ì±™ê²¨ì£¼ì„¸ìš”</td>
+											<td>25ºÐ</td>
+											<td>¹è´Þ</td>
+											<td>¹è´Þ¿Ï·á</td>
+											<td>Á£°¡¶ô ³¶³¶ÇÏ°Ô Ã¬°ÜÁÖ¼¼¿ä</td>
 										</tr>
 										<tr>
 											<td>03
-											<td>55ë¶„</td>
-											<td>ë°°ë‹¬</td>
-											<td>ë°°ë‹¬ ëŒ€ê¸°</td>
-											<td>ë¹¨ë¦¬ ê°€ì ¸ë‹¤ ì£¼ì„¸ìš”</td>
+											<td>55ºÐ</td>
+											<td>¹è´Þ</td>
+											<td>¹è´Þ ´ë±â</td>
+											<td>»¡¸® °¡Á®´Ù ÁÖ¼¼¿ä</td>
 										</tr>
 									</tbody>
 								</table>

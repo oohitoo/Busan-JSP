@@ -1,9 +1,9 @@
-<%@page contentType="text/html;charset=UTF-8"%>
+<%@page contentType="text/html;charset=EUC-KR"%>
 <%
     session.invalidate();
 %>
 <script>
-   alert('Л≤╓К┼≤К▐└ Л┬≤ЙЁ═М∙≤Л┘╗Л┼╣К▀┬К▀╓.');
+   alert('©ю╢ц╣╣ ╪Ж╟Мго╪л╫ю╢о╢ы.');
    location.href="shopLogin.jsp"; 
 </script>
    

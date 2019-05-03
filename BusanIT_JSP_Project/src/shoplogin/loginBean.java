@@ -6,13 +6,13 @@ public class loginBean {
 	private String pwd;
 	private String name;
 	private String phone;
-	private String zipcode;
 	private String address;
+	private String category;
 	
 	public String getBusinessid() {
 		return businessid;
 	}
-	public void setId(String businessid) {
+	public void setBusinessid(String businessid) {
 		this.businessid = businessid;
 	}
 	public String getPwd() {
@@ -33,16 +33,16 @@ public class loginBean {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getZipcode() {
-		return zipcode;
-	}
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
 	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 }

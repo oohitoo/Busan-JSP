@@ -3,7 +3,7 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
-
+<!-- 홈페이지 툴  -->
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
@@ -81,7 +81,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="../Index.html">
+						<a class="nav-link" href="Index.html">
 							<span>판매 상태</span>
 						</a>
 					</li>
@@ -95,7 +95,6 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<!-- <a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1"> -->
 						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
@@ -111,7 +110,7 @@
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
+						<a class="nav-link" href="tables.html">
 							<span>치킨</span>
 						</a>
 					</li>
@@ -144,7 +143,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
-						<a class="nav-link" href="Service/Service.jsp">
+						<a class="nav-link" href="list.jsp">
 							<span>고객센터</span>
 						</a>
 					</li>	
@@ -156,57 +155,3 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table
-					style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
-					<tr>
-						<td colspan="2"><h3 class="panel-title">메뉴 목록</h3></td>
-					</tr>
-					<tr>
-						<td>
-							<div class="alert alert-success" style="margin: 10px;">
-								<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
-								<h3>중식메뉴</h3>
-								</a>
-							</div>
-						</td>
-						<td>
-							<div class="alert alert-dark" style="margin: 10px;">
-								<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
-								<h3>한식메뉴</h3>
-								</a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<div class="alert alert-danger" style="margin: 10px;">
-								<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
-								<h3>피자메뉴</h3>
-								</a>
-							</div>
-						</td>
-						<td>
-							<div class="alert alert-warning" style="margin: 10px;">
-								<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
-								<h3>치킨메뉴</h3>
-								</a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div class="alert alert-info" style="margin: 10px;">
-								<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
-								<h3>패스트푸드</h3>
-								</a>
-							</div>
-						</td>
-					</tr>
-				</table>
-				
-			</div>
-			<!-- 메인 부분 안에 버튼식 부분 종료 -->
-		</div>
-	</div>
-	<!-- 오른쪽 메인 부분 종료 -->
-</body>

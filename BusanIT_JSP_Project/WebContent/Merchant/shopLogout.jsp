@@ -4,5 +4,5 @@
 %>
 <script>
    alert('오늘도 수고하셨습니다.');
-   location.href= 'shopLogin.jsp';
+   location.href="shopLogin.jsp"; 
 </script>

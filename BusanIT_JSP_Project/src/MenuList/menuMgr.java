@@ -15,7 +15,8 @@ public class menuMgr {
 	
 	/* 이미지 저장을 하기 위한 시작 */
 	/* 폴더 경로 선택 */
-	public static final String saveFolder = "F:/DTeam/BusanIT_JSP_Project/WebContent/img/storeImage";
+	/*public static final String saveFolder = "F:/DTeam/BusanIT_JSP_Project/WebContent/img/storeImage/";*/
+	public static final String saveFolder = "D:/BusanIT_JSP_Project/BusanIT_JSP_Project/WebContent/img/storeImage/";
 	final String encType = "EUC-KR";
 	final int maxSize = 20 * 1024 * 1024; // 20m
 	/* 이미지 저장을 하기 위한 것 종료 */
@@ -26,7 +27,7 @@ public class menuMgr {
 		pool = DB.DBConnectionMgr.getInstance();
 	}
 	
-	public Vector<menu_listBean> menuSelect(String menu, int start, int end){
+	public Vector<menu_listBean> ShopSelect(String menu, int start, int end){
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
@@ -38,11 +39,11 @@ public class menuMgr {
 			conn = pool.getConnection();
 			// limit(start, end) 
 			// (0,5 하면 0~4번까지 5,5) 5~9까지
-			sql = "select * from menu_list where bsnsCond = ? limit ?,?";
+			sql = "select * from menu_list where bsnsCond like ? limit ?,?";
 			psmt = conn.prepareStatement(sql);
 			
 			//세팅 해야 될것!! 왜 안햇지.. ㅠㅠ
-			psmt.setString(1, menu);
+			psmt.setString(1, "%"+menu+"%");
 			psmt.setInt(2, start);
 			psmt.setInt(3, end);
 			
@@ -124,7 +125,6 @@ public class menuMgr {
 			psmt = con.prepareStatement(sql);
 			// 가게 이름 받아와서 설정해주기
 			psmt.setString(1, "%"+StoreSector+"%");
-			
 			rs = psmt.executeQuery();
 			
 			if(rs.next()) {

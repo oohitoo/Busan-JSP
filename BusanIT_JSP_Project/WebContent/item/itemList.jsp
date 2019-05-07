@@ -26,7 +26,6 @@
 	nowpage = Integer.parseInt(request.getParameter("nowPage"));
 		
 	start = (nowpage * numPerpage) - numPerpage;
-	out.println("현재페이지"+nowpage);
 	// 총 페이지
 	totalPage = (int)Math.ceil((double)totalsize / numPerpage);
 	// 총 블럭 수
@@ -56,6 +55,10 @@
 	function block(block) {
 		document.readFrm.nowPage.value = <%= pagePerBlock %> * (block-1) + 1;
 		document.readFrm.submit();
+	}
+	
+	function storeInfo(store) {
+		location.href = "privateShop.jsp?store="+store;
 	}
 </script>
 
@@ -117,7 +120,7 @@
 				<!-- Sidebar -->
 				<ul	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 					<!-- Sidebar - Brand -->
-					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../Index.jsp">
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
 						</div>
@@ -128,7 +131,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="Index.html">
+						<a class="nav-link" href="../Index.jsp">
 							<span>판매 상태</span>
 						</a>
 					</li>
@@ -142,27 +145,28 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="itemProc.jsp?menu=중식">
+						<!-- <a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1"> -->
+						<a class="nav-link" href="itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="itemProc.jsp?menu=한식">
+						<a class="nav-link" href="itemList.jsp?menu=한식&nowPage=1">
 							<span>한식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="itemList.jsp?menu=피자&nowPage=1">
 							<span>피자</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="itemList.jsp?menu=치킨&nowPage=1">
 							<span>치킨</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="itemList.jsp?menu=패스트푸드">
+						<a class="nav-link" href="itemList.jsp?menu=패스트푸드&nowPage=1">
 							<span>패스트푸드</span>
 						</a>
 					</li>
@@ -202,19 +206,25 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table style="margin-left: 150px;">
-					<%
-					// 반환된 게시물 을 벡터로 저장
-					Vector<menu_listBean> list = mgr.menuSelect(menu, start, end);
-					out.println(start + "/" + end);
-					int listSize = list.size();
-					if(list.isEmpty()){%>
-					<tr>
-						<td align="center"><br> 검색결과가 없습니다.</td>
-					</tr>
-					<%}
-					else{ 
-						%>
+				
+				
+				<%
+				// 반환된 게시물 을 벡터로 저장
+				Vector<menu_listBean> list = mgr.ShopSelect(menu, start, end);
+				int listSize = list.size();
+				if(list.isEmpty()){%>
+					<table style="margin-left: 100px; width: 700px;">
+						<tr>
+							<td align="center"><br> 검색결과가 없습니다.</td>
+						</tr>
+					
+						<tr height="100px">
+							<td colspan="3" style="text-align: center"><span>Copyright Your Website 2019</span></td>
+						</tr>
+					</table>
+					
+				<%}else{%>
+					<table style="margin-left: 150px;">
 					<tr style="height: 70px;">
 						<td colspan="3" style="text-align: center;"><h3><%= menu %></h3></td>
 					</tr>
@@ -247,7 +257,7 @@
 								<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
 							<%}%>
 						</td>
-						<td colspan="2"><%= StoreName %></td>
+						<td colspan="2"><a href="javascript:storeInfo('<%= StoreName %>')"><%= StoreName %></a></td>
 					</tr>
 
 					<tr>
@@ -259,7 +269,7 @@
 						<td colspan="2">대표메뉴 : <%= BestMenu %></td>
 					</tr>
 					<%}%>
-					<%}%>
+					
 					<tr>
 						<td colspan="3" style="text-align: center">
 							<%
@@ -295,6 +305,7 @@
 					<tr height="100px">
 						<td colspan="3" style="text-align: center"><span>Copyright &copy; Your Website 2019</span></td>
 					</tr>
+					<%}%>
 				</table>
 				
 				<form name="readFrm">

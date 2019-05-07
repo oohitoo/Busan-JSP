@@ -1,7 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@page import="shoplogin.loginBean"%>
+<%@page import="java.util.Vector"%>
+<%@page language="java" contentType="text/html; charset=EUC-KR"	pageEncoding="EUC-KR"%>
+<jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
 <%
-	String businessid = (String) session.getAttribute("idKey");
-	if(businessid==null){
+	String businessName = (String) session.getAttribute("name");
+	if(businessName==null){
 		%>
 		<script>
 		alert("로그인을 해 주세요");
@@ -9,7 +12,8 @@
 		</script>
 		<%
 	}
-%>
+String business= null;
+Vector<loginBean> shopname = mgr.shopInfo(business); %>
 <head>
 <meta charset="EUC-KR">
 <!-- Custom fonts for this template -->
@@ -42,7 +46,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link" href="#" onclick="window.location.reload(true);"> 
-			<!-- 클릭시 refresh --> <span>판매상태</span></a></li>
+			<!-- 클릭시 refresh --> <span>판매 상태</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -70,17 +74,17 @@
 			<div class="sidebar-heading">관리자 페이지</div>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="">
+			<a class="nav-link"	href="shopInfoUpdate.jsp">
 			<span>메뉴 수정</span></a></li>
 
-			<br />
-			<br />
+			<br/>
+			<br/>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 			<hr class="sidebar-divider d-none d-md-block">
 			<!-- log out -->
 			<li class="nav-item active">
-			<a class="nav-link"	href="shopLogout.jsp"> 
+			<a class="nav-link"	href="shopLogOut.jsp"> 
 			<span>Log Out</span></a></li>
 		</ul>
 		<!-- End of Sidebar -->
@@ -95,7 +99,7 @@
 					<!-- Page Heading -->
 					<h1></h1>
 					<!-- 가게 이름 -->
-					<h1 class="h3 mb-2 text-gray-800"><%=businessid%></h1>
+					<h1 class="h3 mb-2 text-gray-800"><%= businessName %></h1>
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -103,7 +107,7 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
 									<thead>
 										<tr>
 											<th>번호</th>

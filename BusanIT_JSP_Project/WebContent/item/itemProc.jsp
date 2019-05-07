@@ -13,7 +13,7 @@
 %>
 <jsp:useBean id="mgr" class="MenuList.menuMgr"/>
 <%
-	Vector<menu_listBean> list= mgr.menuSelect(menu,0,7);
+	Vector<menu_listBean> list= mgr.ShopSelect(menu,0,7);
 %>
 
 <!-- 메뉴 목록 보여주는곳 -->

@@ -1,16 +1,12 @@
-<%@page import="java.beans.BeanProperty"%>
-<%@page import="java.beans.beancontext.BeanContext"%>
-<%@page import="shoplogin.loginMgr"%>
-<%@page import="shoplogin.loginBean"%>
-<%@page import="java.util.Vector"%>
-<%@page contentType="text/html; charset=EUC-KR" %>
+<%@ page import="shoplogin.loginMgr"%>
+<%@ page import="shoplogin.loginBean"%>
+<%@ page import="java.util.Vector"%>
+<%@ page contentType="text/html; charset=EUC-KR" %>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
-
 	String business = request.getParameter("businessid");
 	String beanBusinessId, beanBusinessname, beanPhone, beanAddress, beanCategory;
-	
 	Vector<loginBean> vshopInfo =mgr.shopInfo(business);
 	for(int i = 0; i < vshopInfo.size(); ++i){
 		loginBean bean = vshopInfo.get(i);

@@ -8,14 +8,12 @@ import login.DBConnectionMgr;
 import shoplogin.loginBean;
 
 public class loginMgr {
-
 	private String businessid;
 	private String pwd;
 	private String name;
 	private String phone;
 	private String zipcode;
 	private String address;
-	
 	DBConnectionMgr pool;
 	
 	public loginMgr(){
@@ -45,28 +43,21 @@ public class loginMgr {
 		return flag;
 	}
 	
-	
 	//Shop Info
 	public Vector<loginBean> shopInfo(String businessid){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		
 		Vector<loginBean> shopInfo = new Vector<loginBean>();
-		
 		try {
 			con = pool.getConnection();
 			sql = "SELECT * FROM shop WHERE businessid =?";
 			pstmt = con.prepareStatement(sql);
-
 			pstmt.setString(1, businessid);
-			System.out.println(businessid);
-
+			
 			rs = pstmt.executeQuery();
-
 			while(rs.next()) {
-
 				loginBean bean = new loginBean();
 				bean.setBusinessid(rs.getString(1));
 				bean.setPwd(rs.getString(2));
@@ -74,7 +65,6 @@ public class loginMgr {
 				bean.setPhone(rs.getString(4));
 				bean.setAddress(rs.getString(5));
 				bean.setCategory(rs.getString(6));
-				
 				shopInfo.addElement(bean);
 			}
 		} 
@@ -88,25 +78,27 @@ public class loginMgr {
 	}
 	
 	//shop Info Update
-	public void updateShopInfo(loginBean bean) {
+	public boolean updateShopInfo(String pwd, String businessId) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		boolean flag = false;
 		try {
 			con = pool.getConnection();
 			sql = "update shop set pwd =? where businessid =?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getPwd());
-			pstmt.setString(2, bean.getBusinessid());
-			
-			
+			pstmt.setString(1, pwd);
+			pstmt.setString(2, businessId);
 			pstmt.executeUpdate();
+
+			if(pstmt.executeUpdate() == 1) {
+				flag = true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
-		return;
+		return flag;
 	}
-	
 }

@@ -1,41 +1,42 @@
 function inputCheck(){
-	if(document.regFrm.id.value==""){
-		alert("ì•„ì´ë””ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
-		document.regFrm.id.focus();
-		return;
-	}
-	if(document.regFrm.pwd.value==""){
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
-		document.regFrm.pwd.focus();
-		return;
-	}
-	if(document.regFrm.repwd.value==""){
-		alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ í™•ì¸í•´ ì£¼ì„¸ìš”");
-		document.regFrm.repwd.focus();
-		return;
-	}
-	if(document.regFrm.pwd.value != document.regFrm.repwd.value){
-		alert("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
-		document.regFrm.repwd.value="";
-		document.regFrm.repwd.focus();
-		return;
-	}
-	if(document.regFrm.name.value==""){
-		alert("ì´ë¦„ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
-		document.regFrm.name.focus();
-		return;
-	}
-	if(document.regFrm.birthday.value==""){
-		alert("ìƒë…„ì›”ì¼ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
-		document.regFrm.birthday.focus();
-		return;
-	}
-	if(document.regFrm.email.value==""){
-		alert("ì´ë©”ì¼ì„ ìž…ë ¥í•´ ì£¼ì„¸ìš”.");
-		document.regFrm.email.focus();
-		return;
-	}
-    var str=document.regFrm.email.value;	   
+    if(document.signup.id.value==""){
+        alert("¾ÆÀÌµð¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+        document.signup.id.focus();
+        return;
+    }
+    if(document.signup.pwd.value==""){
+        alert("ºñ¹Ð¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+        document.signup.pwd.focus();
+        return;
+    }
+    if(document.signup.repwd.value==""){
+        alert("ºñ¹Ð¹øÈ£¸¦ È®ÀÎÇØ ÁÖ¼¼¿ä");
+        document.signup.repwd.focus();
+        return;
+    }
+    if(document.signup.pwd.value != document.signup.repwd.value){
+        alert("ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+        document.signup.repwd.value="";
+        document.signup.repwd.focus();
+        return;
+    }
+    if(document.signup.name.value==""){
+        alert("ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+        document.signup.name.focus();
+        return;
+    }
+    if(document.signup.cNick.value==""){
+        alert("´Ð³×ÀÓÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+        document.signup.cNick.focus();
+        return;
+    }
+    if(document.signup.cPhone.value==""){
+        alert("ÀüÈ­¹øÈ£¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+        document.signup.cPhone.focus();
+        return;
+    }
+
+    var str=document.signup.id.value;
     var atPos = str.indexOf('@');
     var atLastPos = str.lastIndexOf('@');
     var dotPos = str.indexOf('.'); 
@@ -43,25 +44,21 @@ function inputCheck(){
     var commaPos = str.indexOf(',');
     var eMailSize = str.length;
     if (atPos > 1 && atPos == atLastPos && 
-	   dotPos > 3 && spacePos == -1 && commaPos == -1 
-	   && atPos + 1 < dotPos && dotPos + 1 < eMailSize);
+       dotPos > 3 && spacePos == -1 && commaPos == -1 
+       && atPos + 1 < dotPos && dotPos + 1 < eMailSize);
     else {
-          alert('E-mailì£¼ì†Œ í˜•ì‹ì´ ìž˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.\n\rë‹¤ì‹œ ìž…ë ¥í•´ ì£¼ì„¸ìš”!');
-	      document.regFrm.email.focus();
-		  return;
+          alert('E-mailÁÖ¼Ò Çü½ÄÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.\n\r ¾ÆÀÌµð¸¦ ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä!');
+          document.signup.id.focus();
+          return;
     }
-    if(document.regFrm.zipcode.value==""){
-		alert("ìš°íŽ¸ë²ˆí˜¸ë¥¼ ê²€ìƒ‰í•´ ì£¼ì„¸ìš”.");
-		return;
-	}
-	if(document.regFrm.job.value=="0"){
-		alert("ì§ì—…ì„ ì„ íƒí•´ ì£¼ì„¸ìš”.");
-		document.regFrm.job.focus();
-		return;
-	}
-	document.regFrm.submit();
+    if(document.signup.cPost.value==""){
+        alert("¿ìÆí¹øÈ£¸¦ °Ë»öÇØ ÁÖ¼¼¿ä.");
+        return;
+    }
+
+    document.signup.submit();
 }
 
 function win_close(){
-	self.close();
+    self.close();
 }

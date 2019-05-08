@@ -1,26 +1,20 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
+<jsp:useBean id="mgr" class="login.LoginMgr"/>
 <%
 	  request.setCharacterEncoding("EUC-KR");
-	  String cPath = request.getContextPath();
+
 	  String id = request.getParameter("id");
 	  String pass = request.getParameter("pwd");
-	  
+	  String msg = "로그인에 실패 하였습니다.";
+	  String href = "login.html";
 	  boolean result = mgr.loginCustomer(id, pass);
 	  if(result){
 	    session.setAttribute("idKey",id);
-	    %>
-	    	<script>
-		  		location.href = "../Index.jsp";
-		  	</script>
-	    <%
+	    msg = "로그인에 성공 하였습니다.";
+	    href = "../Index.jsp";
 	  }
-	  else{
-		  %>
-		  	<script>
-		  		alert("로그인에 실패하였습니다.");
-		  		location.href = "login.jsp";
-		  	</script>
-		  <%
-}
 %>
+<script>
+	alert("<%=msg%>");
+	location.href = "<%=href%>";
+</script>

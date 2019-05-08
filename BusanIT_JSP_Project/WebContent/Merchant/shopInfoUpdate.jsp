@@ -42,12 +42,12 @@ if(businessName==null){
                         <!-- 비밀번호 -->
                             <div class="form-group">
                                 <label for="password" class="text-primary">비밀번호:</label><br>
-                                <input type="password" name="password1" id="password1" class="form-control" required>
+                                <input type="password" name="pwd" id="pwd" class="form-control" required>
                             </div>
                        <!-- 비밀번호  확인-->
                             <div class="form-group">
                                 <label for="password" class="text-primary">비밀번호 확인:</label><br>
-                                <input type="password" name="password2" id="password2" class="form-control" required>
+                                <input type="password" name="pwd2" id="pwd2" class="form-control" required>
                             </div>     
                             
                        <!-- 가게 이름 -->
@@ -66,7 +66,6 @@ if(businessName==null){
                                 <input type="text" name="username" id="username" class="form-control" placeholder=<%=businessAddress%> readonly>
                             </div>
 						<!-- 식당 분류 -->
-
 							<div class="form-group">
 								<label for="scategories" class="text-primary">음식 종류:</label><br> 
 								<select class="form-control" id="sel1">
@@ -76,12 +75,12 @@ if(businessName==null){
 									<option>양식</option>
 									<option>기타</option>
 								</select>
-								</div>
+							</div>
 							
-								<!-- 가입하기 Submit -->
-								<div id="register-link" class="text-right">
-									<input type="submit" name="submit" class="btn btn-primary btn-md" value="수정하기">
-								</div>
+						<!-- 가입하기 Submit -->
+							<div id="register-link" class="text-right">
+								<input type="submit" name="submit" class="btn btn-primary btn-md" value="수정하기">
+							</div>
 						</form>
                     </div>
                 </div>

@@ -3,6 +3,6 @@
 	session.invalidate();
 %>
 <script>
-   alert('로그아웃하였습니다.');
-   location.href = "../Index.jsp";
+	alert("로그아웃 하였습니다.");
+	location.href = '../Index.jsp';
 </script>

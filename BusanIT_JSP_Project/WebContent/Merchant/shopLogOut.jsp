@@ -3,6 +3,6 @@
     session.invalidate();
 %>
 <script>
-   alert('¿À´Ãµµ ¼ö°íÇÏ¼Ì½À´Ï´Ù.');
+   alert("���õ� �����ϼ̽��ϴ�.");
    location.href="shopLogin.jsp"; 
 </script>

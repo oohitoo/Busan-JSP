@@ -18,7 +18,6 @@ Vector<loginBean> shopname = mgr.shopInfo(business); %>
 <meta charset="EUC-KR">
 <!-- Custom fonts for this template -->
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 <title>판매자 페이지</title>
@@ -74,8 +73,12 @@ Vector<loginBean> shopname = mgr.shopInfo(business); %>
 			<div class="sidebar-heading">관리자 페이지</div>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="shopInfoUpdate.jsp">
+			<a class="nav-link"	href="">
 			<span>메뉴 수정</span></a></li>
+
+			<li class="nav-item active">
+			<a class="nav-link"	href="shopInfoUpdate.jsp">
+			<span>정보 수정</span></a></li>
 
 			<br/>
 			<br/>

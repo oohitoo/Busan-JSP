@@ -29,7 +29,7 @@ if(businessName==null){
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="shopUpdateProc.jsp"
+						<form id="login-form" class="form" action="shopInfoUpdateProc.jsp"
 							method="post">
 
 							<!-- 회원가입 -->
@@ -95,7 +95,7 @@ if(businessName==null){
 							<div class="row">
 								<div>
 									<label class=newbtn> 
-									<img id="logo" src="http://placehold.it/120x120"> 
+									<img id="logo" src="http://placehold.it/200x200" width="200" height="200"> 
 									<input id="pic"	class='pis' onchange="readURL(this);" type="file">
 									</label>
 								</div>

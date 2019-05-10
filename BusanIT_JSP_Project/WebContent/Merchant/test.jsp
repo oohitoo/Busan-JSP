@@ -1,53 +1,29 @@
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%
-	request.setCharacterEncoding("EUC-KR");
-%>
-<head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ 
+<jsp:include page="shopMenuUpdate.jsp" />
+
 <div class="container">
-	<div class="row">
-	    <div>
-	<label class=newbtn>
-	    <img id="blah" src="http://placehold.it/120x120" >
-	    <input id="pic" class='pis' onchange="readURL(this);" type="file" >
-	</label>
-	</div>
-	</div>
-</div>
-<script>
+    <input type="button" id="add" class="btn btn-success" value="항목추가" />
+    <input type="button" id="clear" class="btn btn-primary" value="항목제거" />
  
- $('.newbtn').bind("click" , function () {
-        $('#pic').click();
- });
+    <div class="table" id="table">
+    </div>
+</div>    
  
-  function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#blah')
-                        .attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#add').click(function(){
+            $('#table').append('<table border="1">')
+            $('#table').append('<tr><td rowspan="3"><img id="logo" src="http://placehold.it/200x200" width="200" height="200"><input id="pic" class="pis" onchange="readURL(this);" type="file"></td><td width="400"><div class="form-group">메뉴 이름<input type="text" class="form-control"></div></td></tr>')
+            $('#table').append('<tr><td width="400"><div class="form-group">가격<input type="text" class="form-control" onkeyUp="this.value = SetComma(this.value)"></div></td></tr>')
+            $('#table').append('<tr><td width="400"><div class="form-group">메뉴 설명<input type="text" class="form-control"></div></td>')
+            $('#table').append('</table>')
+        });
+ 
+    $('#clear').click(function(){
+            $('#table').empty();
+        });
+ 
+    });
 </script>
-<style>
-
-
-#pic{
-     display: none;
-       }
-       
- .newbtn{
-         cursor: pointer;
-      }
-      #blah{
-  max-width:100px;
-  height:100px;
-  margin-top:20px;
-}
-
-</style>

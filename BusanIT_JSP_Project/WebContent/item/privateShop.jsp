@@ -4,6 +4,11 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey");
+	/* 세션 설정 */
+	session.setAttribute("best", "대표메뉴");
+	session.setAttribute("drink", "음류수");
+	session.setAttribute("side", "사이드메뉴");
+	
 	// 앞에서 가게 이름 받아왔음
 	String shopName = request.getParameter("store");
 %>
@@ -21,7 +26,6 @@
 		////d여기
 	}
 %>
-
 
 <title>구매자 페이지</title>
 
@@ -115,27 +119,27 @@
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
 						<!-- <a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1"> -->
-						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
+						<a class="nav-link" href="itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
+						<a class="nav-link" href="itemList.jsp?menu=한식&nowPage=1">
 							<span>한식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
+						<a class="nav-link" href="itemList.jsp?menu=피자&nowPage=1">
 							<span>피자</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
+						<a class="nav-link" href="itemList.jsp?menu=치킨&nowPage=1">
 							<span>치킨</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
+						<a class="nav-link" href="itemList.jsp?menu=패스트푸드&nowPage=1">
 							<span>패스트푸드</span>
 						</a>
 					</li>

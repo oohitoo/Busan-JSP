@@ -1,8 +1,18 @@
+<%@page import="java.util.Vector"%>
+<%@page import="menu.menuBean"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%
 	request.setCharacterEncoding("EUC-KR");
+	String shop = request.getParameter("store");	
+	//세션값 받아오기
+	String best = (String)session.getAttribute("best");
+	String drink = (String)session.getAttribute("drink");
+	String side = (String)session.getAttribute("side");
 %>
+<!-- 메뉴를 가져와야함 -->
+<jsp:useBean id="menuMgr" class="menu.menuMgr"/>
+
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -23,6 +33,7 @@
 #accordion{
     margin-top: 30px;
     margin-bottom: 30px;
+    width: 700px; /* bar 크기 */
 }
 
 #accordion i{
@@ -37,6 +48,10 @@
 
 #accordion div{
     background-color: #fff;
+    margin-left: 50px;
+}
+h3{
+	margin-left: 50px;
 }
 </style>
 <script>
@@ -52,56 +67,167 @@
 	jQuery('.sectiondropdown').click(function() {
 		jQuery("i", this).toggleClass("fa-caret-up fa-caret-down");
 	});
+	
+	function cartView(menu, info, price) {
+		console.log(menu+ "/" + info+"/" + price);
+		sessionStorage.setItem('menu','menu')
+		location.href = "privateShopProc.jsp?menu="+menu+"&info="+info+"&price="+price;
+	}
 </script>
 <div class="container">
 	<div class="row">
-		<div id="accordion">
+		<div id="accordion" style="margin-left: 100px;">
+			<table style="width: 700px; margin-left: 50px; margin-top: 50px;">
+				<tr>
+					<!-- 가게 이름 표시하는 곳 -->
+					<td colspan="3"><h5><%= shop %></h5></td>
+				</tr>
+				<tr>
+					<td rowspan="3" width="100px" height="100px">이미지</td>
+					<td> 최소 주문금액 13,000 원</td>
+				</tr>
+				<tr>						
+					<td>결제방식 : 카드, 현금</td>
+				</tr>
+				<tr>						
+					<td>평균 배달 시간 : 40분, 예약 : 0명</td>
+				</tr>
+				<tr>
+					<td colspan="3">사장님 알림 메세지</td>
+				</tr>
+			</table>
+			<br>
+			<%
+				Vector<menuBean> bestmenu = menuMgr.getMenu(shop, best);
+			%>
+			<!-- 대표메뉴 -->
 			<h3 class="sectiondropdown">
-				Section 1<i class="fa fa-caret-down" aria-hidden="true"></i>
+				대표메뉴<i class="fa fa-caret-down" aria-hidden="true"></i> <!--<i>내려가는 아이콘 모양임</i>  -->
 			</h3>
 			<div style="height: 30% !important;">
-				<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget,
-					quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida
-					in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-					Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum
-					a velit eu ante scelerisque vulputate.</p>
+				<p>
+					<table style="width: 600px; margin-left: 20px; margin-right: 30px;">
+						<%
+						for(int i = 0; i < bestmenu.size(); ++i){
+							menuBean bestbean = bestmenu.get(i);
+							String mImg = bestbean.getmImg(); // 메뉴 이미지
+							String mName = bestbean.getmName(); // 메뉴 이름
+							String mInfo = bestbean.getmInfo(); // 메뉴 설명
+							int mPrice = bestbean.getmPrice(); // 메뉴 가격
+						%>						
+						<tr>
+							<td>
+								<font color="black" size="4">
+									<a href="javascript:cartView('<%=mName%>','<%=mInfo%>','<%=mPrice%>')"><%= mName %></a>
+								</font>
+							</td>
+							<td rowspan="3" width="140px" height="130px" align="center">
+								<% if(mImg != null){ %>
+									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+								<%}else{ %>
+									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+								<%} %>
+							</td>
+						</tr>
+						<tr>
+							<td><font color="#808080" size="3"><%= mInfo %></font></td>
+						</tr>
+						<tr>
+							<td><font color="black" size="3"><li><%= mPrice %> 원</li></font></td>
+						</tr>
+						<%}%>
+					</table>
+				</p>
 			</div>
+			<!-- 대표메뉴 종료 -->
+			<% Vector<menuBean> drinkmenu = menuMgr.getMenu(shop, drink); %>
+			<!-- 음류수 메뉴 -->
 			<h3 class="sectiondropdown">
-				Section 2<i class="fa fa-caret-down" aria-hidden="true"></i>
+				음류수<i class="fa fa-caret-down" aria-hidden="true"></i>
 			</h3>
 			<div style="height: 30% !important;">
-				<p>Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum
-					sit amet purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris
-					turpis porttitor velit, faucibus interdum tellus libero ac justo.
-					Vivamus non quam. In suscipit faucibus urna.</p>
+				<table style="width: 600px; margin-left: 20px; margin-right: 30px;">
+					<%
+					for(int i = 0; i < drinkmenu.size(); ++i){
+						menuBean drinkbean = drinkmenu.get(i);
+						String mImg = drinkbean.getmImg(); // 메뉴 이미지
+						String mName = drinkbean.getmName(); // 메뉴 이름
+						String mInfo = drinkbean.getmInfo(); // 메뉴 설명
+						int mPrice = drinkbean.getmPrice(); // 메뉴 가격
+					%>
+					<tr>
+						<td>
+							<font color="black" size="4">
+								<a href="javascript:cartView('<%=mName%>','<%=mInfo%>','<%=mPrice%>')"><%= mName %></a>
+							</font></td>
+						<td rowspan="3" width="140px" height="130px" align="center">
+							<% if(mImg != null){ %>
+								<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+							<%}else{ %>
+								<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+							<%} %>
+						</td>
+					</tr>
+					<tr>
+						<td><font color="#808080" size="3"><%= mInfo %></font></td>
+					</tr>
+					<tr>
+						<td><font color="black" size="3"><li><%= mPrice %> 원</li></font></td>
+					</tr>
+					<%}%>
+				</table>
 			</div>
+			<!-- 음류수 메뉴 종료 -->
+			<% Vector<menuBean> sidemenu = menuMgr.getMenu(shop, side); %>
 			<h3 class="sectiondropdown">
-				Section 3<i class="fa fa-caret-down" aria-hidden="true"></i>
+				사이드메뉴<i class="fa fa-caret-down" aria-hidden="true"></i>
 			</h3>
 			<div style="height: 30% !important;">
-				<p>Nam enim risus, molestie et, porta ac, aliquam ac, risus.
-					Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in
-					pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac
-					felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam
-					nisi, eu iaculis leo purus venenatis dui.</p>
-			</div>
-			<h3 class="sectiondropdown">
-				Section 4<i class="fa fa-caret-down" aria-hidden="true"></i>
-			</h3>
-			<div style="height: 30% !important;">
-				<p>Cras dictum. Pellentesque habitant morbi tristique senectus
-					et netus et malesuada fames ac turpis egestas. Vestibulum ante
-					ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-					Curae; Aenean lacinia mauris vel est.</p>
-				<p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim
-					consequat lectus. Class aptent taciti sociosqu ad litora torquent
-					per conubia nostra, per inceptos himenaeos.</p>
-			</div>
+				<table style="width: 600px; margin-left: 20px; margin-right: 30px;">
+					<%
+					for(int i = 0; i < sidemenu.size(); ++i){
+						menuBean sidebean = sidemenu.get(i);
+						String mImg = sidebean.getmImg(); // 메뉴 이미지
+						String mName = sidebean.getmName(); // 메뉴 이름
+						String mInfo = sidebean.getmInfo(); // 메뉴 설명
+						int mPrice = sidebean.getmPrice(); // 메뉴 가격
+					%>
+						<tr>
+							<td>
+								<font color="black" size="4">
+									<a href="javascript:cartView('<%=mName%>','<%=mInfo%>','<%=mPrice%>')"><%= mName %></a>
+								</font>
+							</td>
+							<td rowspan="3" width="140px" height="130px" align="center">
+								<% if(mImg != null){ %>
+									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+								<%}else{ %>
+									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+								<%} %>
+							</td>
+						</tr>
+						<tr>
+							<td><font color="#808080" size="3"><%= mInfo %></font></td>
+						</tr>
+						<tr>
+							<td><font color="black" size="3"><li><%= mPrice %> 원</li></font></td>
+						</tr>
+					<%}%>
+				</table>
+			</div>	
+			<table style="width: 600px; margin-left: 50px; margin-top: 50px;">
+				<tr>
+					<td width="300px" style="text-align: center;">
+						<font color="black" size="5">예약</font>
+					</td>
+					<td width="300px" style="text-align: center;">
+						<font color="black" size="5">배달</font>
+					</td>
+				</tr>
+			</table>
 		</div>
+		<!-- 드롭다운 닫힘 -->
 	</div>
 </div>
-
 <script src="https://use.fontawesome.com/9bc7fc2951.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"
-	integrity="sha256-WyjlLy3rvVSitHOXMctYkMCOU6GAletPg+qniNKLCQM="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js" integrity="sha256-WyjlLy3rvVSitHOXMctYkMCOU6GAletPg+qniNKLCQM=" crossorigin="anonymous"></script><%@page import="java.util.Vector"%>

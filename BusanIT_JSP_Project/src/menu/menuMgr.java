@@ -56,4 +56,45 @@ public class menuMgr {
 		}
 		return vlist;
 	}
+	
+	// 메뉴 목록을 가져오는 곳
+	public Vector<menuBean> getMenu(String shop, String Catagore) {
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		Vector<menuBean> mlist = new Vector<>();		
+		
+		try {
+			conn = pool.getConnection();
+			sql = "select * from menu where rName = ? and Catagore = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, shop);
+			psmt.setString(2, Catagore);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				menuBean mBean = new menuBean();
+				mBean.setrName(rs.getString(1));
+				mBean.setCatagore(rs.getString(2));
+				mBean.setmName(rs.getString(3));
+				mBean.setmPrice(rs.getInt(4));		
+				mBean.setmInfo(rs.getString(5));
+				mBean.setmImg(rs.getString(6));
+				mBean.setmImgsize(rs.getString(7));
+				
+				mlist.addElement(mBean);
+			}			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			pool.freeConnection(conn, psmt, rs);
+		}
+		
+		return mlist;
+	}
 }

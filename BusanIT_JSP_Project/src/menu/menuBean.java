@@ -2,12 +2,19 @@ package menu;
 
 public class menuBean {
 	private String rName; // 식당이름
+	private String Catagore;
 	private String mName; // 메뉴이름
 	private int mPrice; // 메뉴가격
 	private String mInfo; // 메뉴 설명
 	private String mImg; // 메뉴 이미지
 	private String mImgsize; // 메뉴 파일 크기
 	
+	public String getCatagore() {
+		return Catagore;
+	}
+	public void setCatagore(String catagore) {
+		Catagore = catagore;
+	}
 	public String getrName() {
 		return rName;
 	}

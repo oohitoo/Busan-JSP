@@ -1,29 +1,120 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- 
-<jsp:include page="shopMenuUpdate.jsp" />
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
 
-<div class="container">
-    <input type="button" id="add" class="btn btn-success" value="í•­ëª©ì¶”ê°€" />
-    <input type="button" id="clear" class="btn btn-primary" value="í•­ëª©ì œê±°" />
- 
-    <div class="table" id="table">
-    </div>
-</div>    
- 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<!-- µ¿Àû Å×ÀÌºí -->
+<table border="1" id="list_table">
+	<colgroup>
+		<!-- column ÀÇ ¼³Á¤À» ÇÒ¼ö ÀÖ´Ù. -->
+		<col style="width:70px;">
+		<col style="width:200px;">
+		<col style="width:300px;">
+		<col style="width:200px;">
+	</colgroup>
+
+	<thead>
+		<tr>
+			<th>No</th>
+			<th>Name</th>
+			<th>Birth</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>park</td>
+			<td>930917</td>
+			<td>
+				<a href="#" class="delete-link">Delete</a>
+			</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>kyung</td>
+			<td>950727</td>
+			<td>
+				<a href="#" class="delete-link">Delete</a>
+			</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>seok</td>
+			<td>901217</td>
+			<td>
+				<a href="#" class="delete-link">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h3>Ãß°¡ ÀÔ·Â Å×ÀÌºí</h3>
+
+<table border="1" id="append_table">
+<colgroup>
+   <col style="width:70px">
+   <col style="width:200px">
+   <col style="width:300px">
+   <col style="width:200px">
+</colgroup>
+
+<thead>
+   <tr>
+      <th><label for="add_no">¹øÈ£</label></th>
+      <th>ÀÌ¸§</th>
+      <th>»ı³â¿ùÀÏ</th>
+      <th>Action</th>
+   </tr>
+</thead>
+
+<tbody>
+   <tr>
+      <td><input type="text" id="add_no"></td>
+      <td><input type="text" id="add_name"></td>
+      <td><input type="text" id="add_birth"></td>
+      <td><button type="button" id="append_row">µ¥ÀÌÅÍ Ãß°¡</button></td>
+   </tr>
+</tbody>
+
+</table>
+
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#add').click(function(){
-            $('#table').append('<table border="1">')
-            $('#table').append('<tr><td rowspan="3"><img id="logo" src="http://placehold.it/200x200" width="200" height="200"><input id="pic" class="pis" onchange="readURL(this);" type="file"></td><td width="400"><div class="form-group">ë©”ë‰´ ì´ë¦„<input type="text" class="form-control"></div></td></tr>')
-            $('#table').append('<tr><td width="400"><div class="form-group">ê°€ê²©<input type="text" class="form-control" onkeyUp="this.value = SetComma(this.value)"></div></td></tr>')
-            $('#table').append('<tr><td width="400"><div class="form-group">ë©”ë‰´ ì„¤ëª…<input type="text" class="form-control"></div></td>')
-            $('#table').append('</table>')
-        });
- 
-    $('#clear').click(function(){
-            $('#table').empty();
-        });
- 
-    });
+$('#append_row').on("click", function () {
+	$('#list_table').append(
+		$('<tr>').append(
+			$('<td>').append($('#add_no').val()),
+			$('<td>').append($('#add_name').val()),
+			$('<td>').append($('#add_birth').val()),
+			$('<td>').append(
+				// property¿Í attributeÀÇ Â÷ÀÌ!!
+				$('<a>').prop('href', '#').addClass('delete-link').append('Delete')
+				// <a href="#" class="delete-link">Delete</a>
+			)
+		)
+	);
+});
+
+$('#list_table').on("click", ".delete-link", function () {
+  /*
+  <tr>
+    <td>3</td>
+    <td>seok</td>
+    <td>901217</td>
+    <td>
+      <a href="#" class="delete-link">Delete</a>
+    </td>
+  </tr>
+  */
+  // this == aÀÇ ºÎ¸ğÀÇ ºÎ¸ğ´Â trÅÂ±×
+  $(this).parent().parent().remove();
+})
 </script>
+
+</body>
+</html>

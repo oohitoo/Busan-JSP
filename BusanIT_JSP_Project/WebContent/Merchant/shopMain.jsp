@@ -73,7 +73,7 @@ Vector<loginBean> shopname = mgr.shopInfo(business); %>
 			<div class="sidebar-heading">관리자 페이지</div>
 
 			<li class="nav-item active">
-			<a class="nav-link"	href="">
+			<a class="nav-link"	href="shopMenuUpdate.jsp">
 			<span>메뉴 수정</span></a></li>
 
 			<li class="nav-item active">

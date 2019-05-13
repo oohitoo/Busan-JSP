@@ -1,14 +1,9 @@
-<%@page import="java.util.ArrayList"%>
-<%@ page contentType="text/html; charset=EUC-KR" %>
-<%
-	request.setCharacterEncoding("EUC-KR");
-%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
-
+<!-- 홈페이지 툴  -->
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
@@ -20,10 +15,10 @@
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
-		<a href="Index.jsp">
+		<a href="../Index.jsp">
 			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
-		<a href="Index.jsp">
+		<a href="../Index.jsp">
 			<img src="img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
 		</a>
 	</div>
@@ -35,7 +30,7 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="cartView.jsp">주문내역</a>
+					<a href="login/login.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="login/member.html">회원가입</a>
@@ -51,7 +46,7 @@
 					<a href="login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="cartView.jsp">장바구니</a>
+					<a href="#">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="login/memberUpdate.jsp">회원정보수정</a>
@@ -86,7 +81,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="../Index.html">
+						<a class="nav-link" href="Index.html">
 							<span>판매 상태</span>
 						</a>
 					</li>
@@ -100,7 +95,6 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<!-- <a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1"> -->
 						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
@@ -116,7 +110,7 @@
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
+						<a class="nav-link" href="tables.html">
 							<span>치킨</span>
 						</a>
 					</li>
@@ -149,7 +143,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
-						<a class="nav-link" href="Service/Service.jsp">
+						<a class="nav-link" href="list.jsp">
 							<span>고객센터</span>
 						</a>
 					</li>	
@@ -161,42 +155,3 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				
-				<table border="1" style="margin-left: 100px; margin-top: 100px;">
-					<tr>
-						<td style="text-align: center;" colspan="3" width="10%" height="50px">주문자 정보</td>
-					</tr>
-					<tr>
-						<td width="300px">주문 목록</td>
-						<td>수량</td>
-						<td>가격</td>
-					</tr>
-					<tr>
-						<td>목록 </td>
-						<td>1 </td>
-						<td>10000 </td>
-					</tr>
-				</table>
-				
-			</div>
-			<!-- 메인 부분 안에 버튼식 부분 종료 -->
-		</div>
-	</div>
-	<!-- 오른쪽 메인 부분 종료 -->
-</body>
-<%-- 
-	
-<%
-	if (session.getAttribute("shopingList") == null) {
-		out.println("없음");
-	} else {
-		ArrayList<String> list = (ArrayList) session.getAttribute("shopingList");
-
-		for (int i = 1; i < list.size(); i++) {
-			out.println(list.get(i));
-			if (i % 3 == 0) {
-				out.println("<br>");
-			}
-		}
-	}
-%> --%>

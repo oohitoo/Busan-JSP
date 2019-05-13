@@ -82,7 +82,7 @@
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
 						<a class="nav-link" href="../Index.html">
-							<span>판매 상태</span>
+							<span>주문과 예약을 동시에 배달 家</span>
 						</a>
 					</li>
 

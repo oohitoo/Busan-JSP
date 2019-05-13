@@ -80,7 +80,7 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="../login/login.jsp">주문내역</a>
+					<a href="../cartView.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="../login/member.html">회원가입</a>
@@ -96,7 +96,7 @@
 					<a href="../login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="#">장바구니</a>
+					<a href="../cartView.jsp">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="../login/memberUpdate.jsp">회원정보수정</a>

@@ -162,30 +162,78 @@
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
 				
-				<table border="1" style="margin-left: 100px; margin-top: 100px;">
+				<table style="margin-left: 100px; margin-top: 50px; width: 700px; color: black;" >
+					<tr align="center">
+						<td colspan="3" style="height: 100px">
+							<span style="font-size: 2.0em; color: navy">주문자 정보</span>
+						</td>
+					</tr>
+
+					<tr align="center" style="height: 30px">
+						<td>
+							<span style="color: black">주문목록</span>
+						</td>
+						<td width="50px">수량</td>
+						<td width="150px">가격</td>
+					</tr>
+					<!-- 세션값 반복 돌리면 됨 -->
 					<tr>
-						<td style="text-align: center;" colspan="3" width="10%" height="50px">주문자 정보</td>
+						<td>주문목록들 ~~~~~~~~~~</td>
+						<td width="50px">수량 ~~~~~~~~~~</td>
+						<td width="150px"><center>30000</center></td>
+					</tr>
+					<!-- 세션값 반복 종료 구간 -->
+					<tr>
+						<td colspan="3">
+							<hr>
+						</td>
 					</tr>
 					<tr>
-						<td width="300px">주문 목록</td>
-						<td>수량</td>
-						<td>가격</td>
+						<td colspan="3">
+							<table style="width: 700px; height: 150px; margin-left: 100px">
+								<tr>
+									<td width="50px">주소 :</td>
+									<td colspan="2"><input type="text" name="addres" size="50"></td>
+								</tr>
+								<tr>
+									<td>전화번호 : </td>
+									<td colspan="2"><input type="tel" name="numbers" size="50"></td>
+								</tr>
+								<tr>
+									<td>요청사항 : </td>
+									<td colspan="2"><input type="text" name="numbers" size="50"></td>
+								</tr>
+							</table>						
+						</td>
 					</tr>
 					<tr>
-						<td>목록 </td>
-						<td>1 </td>
-						<td>10000 </td>
+						<td colspan="3">
+							<table style="width: 700px">
+								<tr height="100px;">
+									<td></td>
+								</tr>
+								<tr>
+									<td align="center">
+										<span style="font-size: 1.5em;">결제방식 :</span> &nbsp;&nbsp;&nbsp;&nbsp;
+											<select name="payType" style="font-size: 1.2em;">
+													<option>만나서 카드결제</option>
+													<option>만나서 현금결제</option>
+													<option>카드 결제</option>
+													<option>무통장 입금</option>
+											</select>
+									</td>
+								</tr>
+							</table>
+						</td>
 					</tr>
-				</table>
-				
+				</table>	
 			</div>
 			<!-- 메인 부분 안에 버튼식 부분 종료 -->
 		</div>
 	</div>
 	<!-- 오른쪽 메인 부분 종료 -->
 </body>
-<%-- 
-	
+<%-- 	
 <%
 	if (session.getAttribute("shopingList") == null) {
 		out.println("없음");

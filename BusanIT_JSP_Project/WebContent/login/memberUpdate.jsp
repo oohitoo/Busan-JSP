@@ -39,7 +39,7 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="login.jsp">주문내역</a>
+					<a href="../cartView.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="member.html">회원가입</a>
@@ -55,10 +55,10 @@
 					<a href="logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="#">장바구니</a>
+					<a href="../cartView.jsp">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="memberUpdate">회원정보수정</a>
+					<a href="memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common">
 					<a href="#"><%= id %>님</a>

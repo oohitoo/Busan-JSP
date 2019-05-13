@@ -12,7 +12,9 @@
 
 	if (list == null) {
 		list = new ArrayList<String>();
+		list.add(0,"0");
 		session.setAttribute("shopingList", list);
+		session.setMaxInactiveInterval(60 * 60);
 	}
 
 	list.add(menu);

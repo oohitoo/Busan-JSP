@@ -3,10 +3,18 @@
 <h2>장바구니</h2>
 <hr>
 <%
-	ArrayList<String> list = (ArrayList) session.getAttribute("shopingList");
+	if (session.getAttribute("shopingList") == null) {
+		out.println("없음");
+	}
+	else {
+		ArrayList<String> list = (ArrayList) session.getAttribute("shopingList");
 
-	for (int i = 0; i < list.size(); i++) {
-		out.println(list.get(i) + "<br>");
+		for (int i = 1; i < list.size(); i++) {
+			out.println(list.get(i));
+			if (i % 3 == 0) {
+				out.println("<br>");
+			}
+		}
 	}
 %>
 

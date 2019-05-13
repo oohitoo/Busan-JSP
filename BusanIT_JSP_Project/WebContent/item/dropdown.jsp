@@ -70,6 +70,7 @@ h3{
 	
 	function cartView(menu, info, price) {
 		console.log(menu+ "/" + info+"/" + price);
+		/* 세션 만드는법 이였음. */
 		sessionStorage.setItem('menu','menu')
 		location.href = "privateShopProc.jsp?menu="+menu+"&info="+info+"&price="+price;
 	}

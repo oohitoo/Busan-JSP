@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import Service.ServiceBean;
+
 public class ServiceMgr {
 	private 					DBConnectionMgr 	pool;
 	public static final 	String SAVEFOLDER 	= "C://Jsp//eclipse-workspace//eclipse-workspace//Test_JSP//work//Test_JSP//WebContent//Service//fileupload/";
@@ -292,13 +294,54 @@ public class ServiceMgr {
 		}
 	
 	//Service Reply (답변)
-	
+		public void replyService(ServiceBean bean) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				sql = "insert Service(name,content,subject,ref,pos,depth,regdate,pass,count,ip)";
+				sql += "values(?, ?, ?, ?, ?, ?, now(), ?, 0, ?)";
+													//		날짜 ,        조회수
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,  bean.getName());
+				pstmt.setString(2,  bean.getContent());
+				pstmt.setString(3,  bean.getSubject());
+				pstmt.setInt(4,  bean.getRef());			//원글의 ref값 저장, ref는 값을 그룹시켜준다 
+				pstmt.setInt(5, bean.getPos()+1);		//답변은 원글바로밑에 잡히므로 원래있던 것을 1씩증가시키고 자리를 만듬 (밑메소드)
+				pstmt.setInt(6, bean.getDepth()+1);
+				pstmt.setString(7, bean.getPass());
+				pstmt.setString(8,bean.getIp());
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+			return;
+			
+		}
 	
 	//Service Reply Up(답변 위치값 증가)
-	
-	
-	//Service Download
-	
+		public void replyUpService(int ref, int pos) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				con = pool.getConnection();
+				sql = "update Service set pos=pos+1 where ref= ? and pos > ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, ref);
+				pstmt.setInt(2, pos);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+			return;
+			
+		}
 	
 	//Post 1000
 	public void post1000(){

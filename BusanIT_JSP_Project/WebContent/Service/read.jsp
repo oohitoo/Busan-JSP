@@ -3,7 +3,7 @@
 <%@page import="Service.UtilMgr"%>
 <jsp:useBean id="mgr" class="Service.ServiceMgr" />
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<jsp:include page="list.jsp" />
+<jsp:include page="form.jsp" />
 
 <%
 	request.setCharacterEncoding("EUC-KR");
@@ -38,7 +38,7 @@
 		
 	}
 	function list() {
-		document.listFrm.action = "Service.jsp";
+		document.listFrm.action = "ServiceMain.jsp";
 		document.listFrm.submit();
 	}
 </script>

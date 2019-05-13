@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
  <%@ page import="Service.ServiceBean"%>
- <jsp:include page="list.jsp" />
+ <jsp:include page="form.jsp" />
  <!-- 파일 업로드 -->
 <% 
 	  int num = Integer.parseInt(request.getParameter("num"));

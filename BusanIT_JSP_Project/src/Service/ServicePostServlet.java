@@ -16,7 +16,7 @@ public class ServicePostServlet extends HttpServlet {
 		request.setCharacterEncoding("EUC-KR");
 		ServiceMgr mgr = new ServiceMgr();
 		mgr.insertService(request);
-		response.sendRedirect("Service.jsp");
+		response.sendRedirect("ServiceMain.jsp");
 	}
 
 }

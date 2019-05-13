@@ -43,20 +43,17 @@ if(businessName==null){
 							<div class="form-group">
 								<label for="sregnumber" class="text-primary">사업자 번호:</label><br>
 								<input type="number" min="0" id="username"
-									oninput="validity.valid||(value='');" class="form-control"
-									placeholder=<%=businessId%> readonly>
+									oninput="validity.valid||(value='');" class="form-control" placeholder=<%=businessId%> readonly>
 							</div>
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label for="password" class="text-primary">비밀번호:</label><br>
-								<input type="password" name="pwd" id="pwd" class="form-control"
-									required>
+								<input type="password" name="pwd" id="pwd" class="form-control"required>
 							</div>
 							<!-- 비밀번호  확인-->
 							<div class="form-group">
 								<label for="password" class="text-primary">비밀번호 확인:</label><br>
-								<input type="password" name="pwd2" id="pwd2"
-									class="form-control" required>
+								<input type="password" name="pwd2" id="pwd2" class="form-control" required>
 							</div>
 
 							<!-- 가게 이름 -->
@@ -91,7 +88,7 @@ if(businessName==null){
 							</div>
 
 							<!-- image upload -->
-							<label for="scategories" class="text-primary">로고 선택:</label>
+							<label for="scategories" class="text-primary">식당   로고 선택:</label>
 							<div class="row">
 								<div>
 									<label class=newbtn> 

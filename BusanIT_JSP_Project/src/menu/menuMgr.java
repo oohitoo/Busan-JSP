@@ -39,7 +39,7 @@ public class menuMgr {
 			while(rs.next()) {
 				menuBean bean = new menuBean();
 				bean.setrName(rs.getString("rName"));
-				bean.setmName(rs.getString("mName"));
+				bean.setMenu(rs.getString("menu"));
 				bean.setmPrice(rs.getInt("mPrice"));
 				bean.setmInfo(rs.getString("mInfo"));
 				bean.setmImg(rs.getString("mImg"));

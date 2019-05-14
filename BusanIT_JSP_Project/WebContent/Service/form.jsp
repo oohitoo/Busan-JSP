@@ -143,7 +143,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
-						<a class="nav-link" href="Service.jsp">
+						<a class="nav-link" href="ServiceMain.jsp">
 							<span>∞Ì∞¥ºæ≈Õ</span>
 						</a>
 					</li>	

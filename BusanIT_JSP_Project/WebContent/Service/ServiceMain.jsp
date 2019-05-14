@@ -156,9 +156,9 @@
 				for(int i=0;i<numPerPage;i++){
 					if(i==listSize) break;
 					ServiceBean bean = vlist.get(i);
-					int num = bean.getNum();
+					int num = bean.getSnum();
 					String subject = bean.getSubject();
-					String name = bean.getName();
+					String name = bean.getSname();
 					String regdate = bean.getRegdate();
 					int depth = bean.getDepth();
 					int count = bean.getCount();

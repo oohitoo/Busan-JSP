@@ -10,17 +10,20 @@
 	String id  = (String)session.getAttribute("idKey"); 
 %>
 <%
+
 	  request.setCharacterEncoding("EUC-KR");
-	  int num = Integer.parseInt(request.getParameter("num"));
+	  int num = Integer.parseInt(request.getParameter("snum"));
 	  String nowPage = request.getParameter("nowPage");
 	  String keyField = request.getParameter("keyField");
 	  String keyWord = request.getParameter("keyWord");
 	  String numPerPage = request.getParameter("numPerPage");
 	  //조회수 증가
+	  
 	  mgr.upCount(num);
 	  //게시물 읽어오기
+	  
 	  ServiceBean bean = mgr.getService(num);
-	  String name = bean.getName();
+	  String name = bean.getSname();
 	  String subject = bean.getSubject();
       String regdate = bean.getRegdate();
 	  String content = bean.getContent();

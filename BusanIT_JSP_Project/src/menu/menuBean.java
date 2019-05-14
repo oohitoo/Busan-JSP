@@ -1,6 +1,8 @@
 package menu;
 
 public class menuBean {
+	
+	private int idx; //인덱스 번호
 	private String rName; // 식당이름
 	private String Catagore;
 	private String mName; // 메뉴이름
@@ -8,7 +10,13 @@ public class menuBean {
 	private String mInfo; // 메뉴 설명
 	private String mImg; // 메뉴 이미지
 	private String mImgsize; // 메뉴 파일 크기
-	
+		
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getCatagore() {
 		return Catagore;
 	}

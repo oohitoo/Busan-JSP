@@ -1,9 +1,9 @@
+<%@page import="orders.ordersBean"%>
+<%@page import="java.util.Hashtable"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<%
-	request.setCharacterEncoding("EUC-KR");
-%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
@@ -177,11 +177,25 @@
 						<td width="150px">가격</td>
 					</tr>
 					<!-- 세션값 반복 돌리면 됨 -->
-					<tr>
+					<%
+						int total = 0; //전체값
+						Hashtable<String, ordersBean> hCart = cMgr.getCartList();
+						
+						if(hCart.isEmpty()){
+						%>
+							<td colspan="3" align="center"> 장바구니 목록이 없습니다.</td>
+						<%
+						}else{
+							%>
+							한글
+							<%
+						}
+					%>
+					<!-- <tr>
 						<td>주문목록들 ~~~~~~~~~~</td>
 						<td width="50px">수량 ~~~~~~~~~~</td>
 						<td width="150px"><center>30000</center></td>
-					</tr>
+					</tr> -->
 					<!-- 세션값 반복 종료 구간 -->
 					<tr>
 						<td colspan="3">

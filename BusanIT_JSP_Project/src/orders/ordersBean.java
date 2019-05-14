@@ -2,18 +2,25 @@ package orders;
 
 public class ordersBean {
 
-	private String oNum; // 주문번호
-	private String id; // 아이디
-	private String cNick; //닉네임
-	private String cAddress; // 주소
-	private String rName; // 식당이름
-	private String cPhone; // 사용자 폰번호
-	private String mName; // 메뉴 이름
-	private String oDate; // 주문 시간
-	private String oRequest; //요청사항
-	private String orderType; // 배달, 예약이냐
-	private String payType;	 // 결제 타입
+	private String oNum = null; // 주문번호
+	private String id =  null; // 아이디
+	private String cNick = null; //닉네임
+	private String cAddress = null; // 주소
+	private String rName = null; // 식당이름
+	private String cPhone = null; // 사용자 폰번호
+	private String mName = ""; // 메뉴 이름
+	private int count = 0;
+	private String oDate = null; // 주문 시간
+	private String oRequest = null; //요청사항
+	private String orderType = null; // 배달, 예약이냐
+	private String payType = null;	 // 결제 타입
 	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
 	public String getoNum() {
 		return oNum;
 	}

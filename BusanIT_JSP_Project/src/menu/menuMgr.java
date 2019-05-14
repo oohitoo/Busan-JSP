@@ -38,8 +38,9 @@ public class menuMgr {
 			
 			while(rs.next()) {
 				menuBean bean = new menuBean();
+				bean.setIdx(rs.getInt("idx"));
 				bean.setrName(rs.getString("rName"));
-				bean.setmName(rs.getString("mName"));
+				bean.setmName(rs.getString("Menu"));
 				bean.setmPrice(rs.getInt("mPrice"));
 				bean.setmInfo(rs.getString("mInfo"));
 				bean.setmImg(rs.getString("mImg"));
@@ -68,7 +69,7 @@ public class menuMgr {
 		
 		try {
 			conn = pool.getConnection();
-			sql = "select * from menu where rName = ? and Catagore = ?";
+			sql = "select * from menu where rName = ? and Category = ?";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, shop);
 			psmt.setString(2, Catagore);
@@ -77,13 +78,14 @@ public class menuMgr {
 			
 			while(rs.next()) {
 				menuBean mBean = new menuBean();
-				mBean.setrName(rs.getString(1));
-				mBean.setCatagore(rs.getString(2));
-				mBean.setmName(rs.getString(3));
-				mBean.setmPrice(rs.getInt(4));		
-				mBean.setmInfo(rs.getString(5));
-				mBean.setmImg(rs.getString(6));
-				mBean.setmImgsize(rs.getString(7));
+				mBean.setIdx(rs.getInt(1));
+				mBean.setrName(rs.getString(2));
+				mBean.setCatagore(rs.getString(3));
+				mBean.setmName(rs.getString(4));
+				mBean.setmPrice(rs.getInt(5));		
+				mBean.setmInfo(rs.getString(6));
+				mBean.setmImg(rs.getString(7));
+				mBean.setmImgsize(rs.getString(8));
 				
 				mlist.addElement(mBean);
 			}			

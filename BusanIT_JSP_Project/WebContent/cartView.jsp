@@ -1,12 +1,19 @@
+<%@page import="Service.UtilMgr"%>
+<%@page import="java.util.Enumeration"%>
 <%@page import="orders.ordersBean"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
+<jsp:useBean id="menuMgr" class="menu.menuMgr"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
+	
+	if(id == null){
+		response.sendRedirect("Index.jsp");
+	}
 %>
 
 <title>구매자 페이지</title>
@@ -162,7 +169,7 @@
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
 				
-				<table style="margin-left: 100px; margin-top: 50px; width: 700px; color: black;" >
+				<table border="1" style="margin-left: 100px; margin-top: 50px; width: 700px; color: black;" >
 					<tr align="center">
 						<td colspan="3" style="height: 100px">
 							<span style="font-size: 2.0em; color: navy">주문자 정보</span>
@@ -185,10 +192,34 @@
 						%>
 							<td colspan="3" align="center"> 장바구니 목록이 없습니다.</td>
 						<%
-						}else{
+						}
+						else{
+							// 줄줄이 사탕 객체
+							Enumeration<String> hCartKey = hCart.keys();
+							// 요소 값이 더이상 있을때 까지
+							while(hCartKey.hasMoreElements()){
+								//hCart에 저장된 주문 객체를 return 
+								ordersBean order = hCart.get(hCartKey.nextElement());
+								String productName = order.getmName();
+								//상품 객체(상품 가격, 상품 이름)
+								/* productBean pbean = pMgr.getproduct(productNo);
+								int price = pbean.getPrice(); // 상품 가격
+								int quantity = order.getQuantity(); // 주문 수량
+								int subTotal = price * quantity; //상품 총액
+								total += subTotal; //주문전체 총액
+								String pName = pbean.getName(); */
 							%>
-							한글
-							<%
+							<tr>
+								<td><%= productName %></td>
+							</tr>
+						<% } %>
+						<tr>
+							<td colspan="3" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %></td>
+							<td align="center">
+								<a href="orderProc.jsp">주문하기</a>
+							</td>
+						</tr>
+						<%
 						}
 					%>
 					<!-- <tr>

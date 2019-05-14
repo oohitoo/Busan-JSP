@@ -5,21 +5,10 @@
 <jsp:setProperty property="*" name="order"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
-%>
-<%
-	String menu = request.getParameter("menu");
-	String info = request.getParameter("info");
-	String price = request.getParameter("price");
-	
 	String id = (String)session.getAttribute("idKey");
-	int count = Integer.parseInt(request.getParameter("count"));
 	
 	if(id == null){
-		%>
-		<script>
-			history.back();
-		</script>
-		<%
+		response.sendRedirect("../login/login.html");
 	}
 	else{
 		String flag = request.getParameter("flag");
@@ -30,16 +19,17 @@
 			msg = "장바구니에 추가하였습니다.";
 		}
 		else if(flag.equals("update")){
-			/* cMgr.updateCart(order); */
+			cMgr.updateCart(order);
 			msg = "장바구니에 수정하였습니다.";
 		}
 		else if(flag.equals("del")){
-			/* cMgr.deleteCart(order); */
+			cMgr.deleteCart(order);
 			msg = "장바구니에 삭제하였습니다.";
 		}
-	}
+	
 %>
-<%-- <script>
-	alert("<%=menu%>가(이) 추가되었습니다.");
+<script>
+	alert("<%= msg %>");
 	history.go(-1);
-</script> --%>
+</script>
+<% } %>

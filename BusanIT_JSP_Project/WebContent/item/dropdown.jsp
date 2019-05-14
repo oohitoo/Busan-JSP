@@ -35,17 +35,14 @@
     margin-bottom: 30px;
     width: 700px; /* bar Å©±â */
 }
-
 #accordion i{
     float: right;
     margin-right: 15px;
 }
-
 #accordion p{
     padding: 10px;
     margin: 0 !important;
 }
-
 #accordion div{
     background-color: #fff;
     margin-left: 50px;
@@ -70,6 +67,7 @@ h3{
 	
 	function cartView(menu, info, price) {
 		console.log(menu+ "/" + info+"/" + price);
+		/* location.href = "privateShopProc.jsp?flag=insert"+"&menu="+menu; */
 		location.href = "privateShopProc.jsp?menu="+menu+"&info="+info+"&price="+price+"&count="+1+"&flag=insert";
 	}
 </script>

@@ -7,7 +7,7 @@
 	  String nowPage = request.getParameter("nowPage");
 	  ServiceBean bean = (ServiceBean)session.getAttribute("bean");
 	  String subject = bean.getSubject();
-	  String name = bean.getName(); 
+	  String name = bean.getSname(); 
 	  String content = bean.getContent(); 
 %>
 <html>

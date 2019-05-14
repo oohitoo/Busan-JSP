@@ -12,7 +12,7 @@
 <%
 
 	  request.setCharacterEncoding("EUC-KR");
-	  int num = Integer.parseInt(request.getParameter("snum"));
+	  int num = Integer.parseInt(request.getParameter("num"));
 	  String nowPage = request.getParameter("nowPage");
 	  String keyField = request.getParameter("keyField");
 	  String keyWord = request.getParameter("keyWord");

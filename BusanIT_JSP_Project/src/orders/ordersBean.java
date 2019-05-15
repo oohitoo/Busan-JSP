@@ -2,22 +2,23 @@ package orders;
 
 public class ordersBean {
 
-	private String oNum; // 주문번호
+	private int oNum; // 주문번호
 	private String id; // 아이디
 	private String cNick; //닉네임
 	private String cAddress; // 주소
 	private String rName; // 식당이름
 	private String cPhone; // 사용자 폰번호
-	private String mName; // 메뉴 이름
+	private String menu; // 메뉴 이름
+	private int count; // 주문 수량
 	private String oDate; // 주문 시간
 	private String oRequest; //요청사항
 	private String orderType; // 배달, 예약이냐
 	private String payType;	 // 결제 타입
-	
-	public String getoNum() {
+
+	public int getoNum() {
 		return oNum;
 	}
-	public void setoNum(String oNum) {
+	public void setoNum(int oNum) {
 		this.oNum = oNum;
 	}
 	public String getId() {
@@ -50,11 +51,17 @@ public class ordersBean {
 	public void setcPhone(String cPhone) {
 		this.cPhone = cPhone;
 	}
-	public String getmName() {
-		return mName;
+	public String getMenu() {
+		return menu;
 	}
-	public void setmName(String mName) {
-		this.mName = mName;
+	public void setMenu(String menu) {
+		this.menu = menu;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
 	}
 	public String getoDate() {
 		return oDate;
@@ -80,6 +87,4 @@ public class ordersBean {
 	public void setPayType(String payType) {
 		this.payType = payType;
 	}
-	
-	
 }

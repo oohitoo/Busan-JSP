@@ -1,7 +1,10 @@
+<%@page import="orders.ordersBean"%>
 <%@page import="shoplogin.loginBean"%>
 <%@page import="java.util.Vector"%>
 <%@page language="java" contentType="text/html; charset=EUC-KR"	pageEncoding="EUC-KR"%>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
+<jsp:useBean id="ordersMgr" class="orders.ordersMgr"/>
+<jsp:setProperty property="*" name="oBean"/>
 <%
 	String businessName = (String) session.getAttribute("name");
 	if(businessName==null){
@@ -13,7 +16,8 @@
 		<%
 	}
 String business= null;
-Vector<loginBean> shopname = mgr.shopInfo(business); %>
+Vector<loginBean> shopname = mgr.shopInfo(business); 
+%>
 <head>
 <meta charset="EUC-KR">
 <!-- Custom fonts for this template -->
@@ -148,13 +152,51 @@ Vector<loginBean> shopname = mgr.shopInfo(business); %>
 											<td>03</td>
 											<td>대기</td>
 											<td>5분</td>
-											<td>치킨</td>
+											<td>볼케이노 치킨</td>
 											<td>3</td>
 											<td>픽업</td>
 											<td>미리 결재</td>
 											<td style="text-align: left;">젓가락 낭낭하게 챙겨주세요</td>
 										</tr>
 										<!--자동테이블 -->
+										<%
+											Vector<ordersBean> orderList = ordersMgr.orderList(businessName);
+											int listSize = orderList.size(), no=0;
+											if(orderList.isEmpty()){
+												out.println("아직 주문이 없네요. 홍보를 조금 더 해볼까요?");
+											}else{
+												for(int i=0; i<orderList.size(); i++){
+													if(i==orderList.size()) break;
+													ordersBean oBean = orderList.get(i);
+													int idx = oBean.getoNum();
+													int count = oBean.getCount();
+													String id = oBean.getId();
+													String cNick = oBean.getcNick();
+													String cAddress = oBean.getcAddress();
+													String cPhone = oBean.getcPhone();
+													String menu = oBean.getMenu();
+													String oDate = oBean.getoDate();
+													String oRequest = oBean.getoRequest();
+													String orderType = oBean.getOrderType();
+													String payType = oBean.getPayType();
+													no++;
+										%>
+										<script>
+										alert(<%=businessName%>)
+										</script>
+												<tr>
+													<td><%=no %></td>
+													<td>대기</td><!-- 어케 변경? -->
+													<td><%=oDate %></td>
+													<td><%=menu %></td>
+													<td><%=count %></td>
+													<td><%=orderType %></td>
+													<td><%=payType %></td>
+													<td style="text-align: left;">젓가락 낭낭하게 챙겨주세요</td>
+												</tr>
+												<%} %>
+											<%} %>
+										
 										
 										<!-- 자동 테이블 -->
 										

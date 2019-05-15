@@ -46,7 +46,6 @@ public class menuMgr {
 				bean.setmInfo(rs.getString("mInfo"));
 				bean.setmImg(rs.getString("mImg"));
 				bean.setmImgsize(rs.getString("mImgsize"));
-				
 				vlist.addElement(bean);
 			}
 		}

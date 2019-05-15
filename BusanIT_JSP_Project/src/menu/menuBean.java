@@ -1,12 +1,27 @@
 package menu;
 
 public class menuBean {
+	private int idx;
 	private String rName; // 식당이름
 	private String menu; // 메뉴이름
 	private int mPrice; // 메뉴가격
 	private String mInfo; // 메뉴 설명
 	private String mImg; // 메뉴 이미지
 	private String mImgsize;
+	private String category;
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getrName() {
 		return rName;
 	}

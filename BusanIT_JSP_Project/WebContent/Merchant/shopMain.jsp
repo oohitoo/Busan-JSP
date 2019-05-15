@@ -111,38 +111,53 @@ Vector<loginBean> shopname = mgr.shopInfo(business); %>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
-									<thead>
+									<thead style="text-align: center;">
 										<tr>
 											<th>번호</th>
-											<th>경과시간</th>
-											<th>픽업/배달</th>
 											<th>배달상태</th>
-											<th>고객 요청사항</th>
+											<th>경과시간</th>
+											<th>주문메뉴</th>
+											<th>주문수량</th>
+											<th>픽업/배달</th>
+											<th>지불방법</th>
+											<th>고객 요청 사항</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody style="text-align: center;">
 										<tr>
 											<td>01</td>
-											<td>10분</td>
+											<td>배달 중</td>
+											<td>20분</td>
+											<td>치킨</td>
+											<td>2</td>
 											<td>픽업</td>
-											<td>대기</td>
-											<td>맵게 만들어 주세요</td>
+											<td>현장 카드</td>
+											<td style="text-align: left;">달다리하게 맥주도</td>
 										</tr>
-
 										<tr>
 											<td>02</td>
-											<td>25분</td>
-											<td>배달</td>
-											<td>배달완료</td>
-											<td>젓가락 낭낭하게 챙겨주세요</td>
+											<td>조리중</td>
+											<td>10분</td>
+											<td>불닭</td>
+											<td>1</td>
+											<td>픽업</td>
+											<td>현장 현금</td>
+											<td style="text-align: left;">맵게 만들어 주세요</td>
 										</tr>
 										<tr>
-											<td>03
-											<td>55분</td>
-											<td>배달</td>
-											<td>배달 대기</td>
-											<td>빨리 가져다 주세요</td>
+											<td>03</td>
+											<td>대기</td>
+											<td>5분</td>
+											<td>치킨</td>
+											<td>3</td>
+											<td>픽업</td>
+											<td>미리 결재</td>
+											<td style="text-align: left;">젓가락 낭낭하게 챙겨주세요</td>
 										</tr>
+										<!--자동테이블 -->
+										
+										<!-- 자동 테이블 -->
+										
 									</tbody>
 								</table>
 							</div>

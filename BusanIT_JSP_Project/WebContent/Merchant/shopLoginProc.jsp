@@ -19,7 +19,6 @@
 		if(beanBusinessId.equals(business)){
 			%>
 				<script>
-					alert("로그인 성공");
 					<% session.setAttribute("name", beanBusinessname);%>
 					<% session.setAttribute("businessId", beanBusinessId);%>
 					<% session.setAttribute("phone", beanPhone);%>

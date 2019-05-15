@@ -38,7 +38,9 @@ public class menuMgr {
 			
 			while(rs.next()) {
 				menuBean bean = new menuBean();
+				bean.setIdx(rs.getInt("idx"));
 				bean.setrName(rs.getString("rName"));
+				bean.setCategory(rs.getString("category"));
 				bean.setMenu(rs.getString("menu"));
 				bean.setmPrice(rs.getInt("mPrice"));
 				bean.setmInfo(rs.getString("mInfo"));
@@ -55,5 +57,48 @@ public class menuMgr {
 			pool.freeConnection(conn, psmt, rs);
 		}
 		return vlist;
+	}
+	
+	//메뉴 추가
+	public void insertMenu(menuBean mbean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "insert menu(rName, category, menu, mprice, minfo, mimg) VALUES(?,?,?,?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mbean.getrName());
+			pstmt.setString(2, mbean.getCategory());
+			pstmt.setString(3, mbean.getMenu());
+			pstmt.setInt(4, mbean.getmPrice());
+			pstmt.setString(5, mbean.getmInfo());
+			pstmt.setString(6, mbean.getmImg());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
+	}
+	
+	//메뉴 삭제
+	public void deleteMenu(int idx) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con = pool.getConnection();
+			sql = "DELETE FROM menu WHERE idx=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return;
 	}
 }

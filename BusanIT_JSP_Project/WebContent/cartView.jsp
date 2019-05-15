@@ -1,6 +1,7 @@
+<%@page import="menu.menuBean"%>
 <%@page import="Service.UtilMgr"%>
 <%@page import="java.util.Enumeration"%>
-<%@page import="orders.ordersBean"%>
+<%@page import="menu.ordersBean"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
@@ -14,6 +15,8 @@
 	if(id == null){
 		response.sendRedirect("Index.jsp");
 	}
+	int num = 1;
+	
 %>
 
 <title>구매자 페이지</title>
@@ -23,7 +26,17 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+<script>
+	function creatUpdate(menu, num) {
+		var count = document.getElementById("count" + num).value;
+		console.log(count);
+		location.href = "item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count; 
+	}
+	function creatdelete(menu, num) {
+		var count = document.getElementById("count" + num).value;
+		location.href = "item/privateShopProc.jsp?menu="+menu+"&flag=del&count="+count; 
+	}
+</script>
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
@@ -39,7 +52,9 @@
 	<!-- 아이디 및 로그인 에 관련된 정보 -->
 	<div class="container">
 		<div class="Maincontainer">
-			<% if(id == null){ %>
+			<%
+				if(id == null){
+			%>
 			<div class="main">
 				<div class="main_1 main_common">
 					<a href="cartView.jsp">주문내역</a>
@@ -51,8 +66,9 @@
 					<a href="login/login.html">로그인</a>
 				</div>
 			</div>
-			<% }
-				else{
+			<%
+				}
+					else{
 			%>
 				<div class="main_1 main_common">
 					<a href="login/logout.jsp">로그아웃</a>
@@ -64,7 +80,7 @@
 					<a href="login/memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common" style="width: 130px">
-					<a href="#"><%= id %>님</a>
+					<a href="#"><%=id%>님</a>
 				</div>
 			<%
 				}
@@ -178,49 +194,61 @@
 
 					<tr align="center" style="height: 30px">
 						<td>
-							<span style="color: black">주문목록</span>
+							<span style="color: black">주문목록 ( 주문가게 명 )</span>
 						</td>
-						<td width="50px">수량</td>
+						<td width="130px">수량</td>
 						<td width="150px">가격</td>
 					</tr>
 					<!-- 세션값 반복 돌리면 됨 -->
 					<%
 						int total = 0; //전체값
-						Hashtable<String, ordersBean> hCart = cMgr.getCartList();
-						
-						if(hCart.isEmpty()){
-						%>
+									Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
+									
+									if(hCart.isEmpty()){
+					%>
 							<td colspan="3" align="center"> 장바구니 목록이 없습니다.</td>
 						<%
-						}
-						else{
-							// 줄줄이 사탕 객체
-							Enumeration<String> hCartKey = hCart.keys();
-							// 요소 값이 더이상 있을때 까지
-							while(hCartKey.hasMoreElements()){
-								//hCart에 저장된 주문 객체를 return 
-								ordersBean order = hCart.get(hCartKey.nextElement());
-								String productName = order.getmName();
-								//상품 객체(상품 가격, 상품 이름)
-								/* productBean pbean = pMgr.getproduct(productNo);
-								int price = pbean.getPrice(); // 상품 가격
-								int quantity = order.getQuantity(); // 주문 수량
-								int subTotal = price * quantity; //상품 총액
-								total += subTotal; //주문전체 총액
-								String pName = pbean.getName(); */
-							%>
-							<tr>
-								<td><%= productName %></td>
-							</tr>
-						<% } %>
+							}
+										else{
+											// 줄줄이 사탕 객체
+											Enumeration<String> hCartKey = hCart.keys();
+											// 요소 값이 더이상 있을때 까지
+											while(hCartKey.hasMoreElements()){
+												
+												String shop = (String)session.getAttribute("store");
+												//hCart에 저장된 주문 객체를 return 
+												menu.ordersBean order = hCart.get(hCartKey.nextElement());
+												String menuName = order.getmName();
+												//상품 객체(상품 가격, 상품 이름)								
+												menuBean bean = menuMgr.getmenuBean(shop, menuName);
+												int price = bean.getmPrice();
+												int count = order.getCount(); // 주문수량
+												out.println(count);
+												int subTotal = count * price; // 상품 총액
+												total += subTotal;
+						%>
+						<tr>							
+							<td rowspan="2"><%=menuName %> ( <%= shop %> )</td>
+							<td align="center">
+							<input type="text" id="count<%= num %>" size="3" value="<%= count %>"></td>
+							<td rowspan="2" align="center"><%= price %> 원</td>
+						</tr>
 						<tr>
-							<td colspan="3" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %></td>
+							<td align="center">
+								<input type="button" value = "수정" size="3" onclick = "javascript:creatUpdate('<%= menuName%>', '<%= num%>')">
+								<input type="button" value = "삭제" size="3" onclick = "javascript:creatdelete('<%= menuName%>', '<%= num%>')">
+							</td>
+						</tr>
+						<tr>
+						<% num++;} %>
+							<td colspan="2" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %> 원</td>
 							<td align="center">
 								<a href="orderProc.jsp">주문하기</a>
 							</td>
 						</tr>
 						<%
-						}
+						
+										}
 					%>
 					<!-- <tr>
 						<td>주문목록들 ~~~~~~~~~~</td>

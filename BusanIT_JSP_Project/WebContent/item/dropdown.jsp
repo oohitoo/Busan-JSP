@@ -132,8 +132,10 @@ h3{
 						<tr>
 							<td><font color="black" size="3"><li><%= mPrice %> 원</li></font></td>
 						</tr>
+						<input type="hidden" id= "menuName" value="<%= mName %>">
 						<%}%>
 					</table>
+					
 				</p>
 			</div>
 			<!-- 대표메뉴 종료 -->

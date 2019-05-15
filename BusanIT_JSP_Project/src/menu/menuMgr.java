@@ -99,4 +99,40 @@ public class menuMgr {
 		
 		return mlist;
 	}
+	
+	public menuBean getmenuBean(String shopName, String menu) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		menuBean bean = new menuBean();
+		
+		try {
+			con = pool.getConnection();
+			sql = "select * from menu where rName = ? and Menu = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, shopName);
+			pstmt.setString(2, menu);
+
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				bean.setIdx(rs.getInt("idx"));
+				bean.setrName(rs.getString("rName"));
+				bean.setCatagore(rs.getString("Category"));
+				bean.setmName(rs.getString("Menu"));
+				bean.setmPrice(rs.getInt("mPrice"));
+				bean.setmInfo(rs.getString("mInfo"));
+				bean.setmImg(rs.getString("mImg"));
+				bean.setmImgsize(rs.getString("mImgsize"));
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return bean;
+	}
 }

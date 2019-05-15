@@ -1,4 +1,4 @@
-package orders;
+package menu;
 
 public class ordersBean {
 

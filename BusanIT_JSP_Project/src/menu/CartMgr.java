@@ -1,7 +1,6 @@
 package menu;
 
 import java.util.Hashtable;
-import orders.ordersBean;
 
 public class CartMgr {
 
@@ -11,6 +10,7 @@ public class CartMgr {
 	// 새로운 장바구니
 	public void addCart(ordersBean order) {
 		String menuName = order.getmName();
+		System.out.println(menuName);
 		int count = order.getCount(); // 주문 수량
 		if(count > 0) {
 			//cart에 기존에 저장된 것이 있다면
@@ -33,6 +33,7 @@ public class CartMgr {
 	//cart update
 	public void updateCart(ordersBean order) {
 		String menuName = order.getmName();
+		System.err.println(menuName);
 		// 동일한 Key 값은 덮어쓰기
 		hCart.put(menuName, order);
 	}
@@ -43,7 +44,7 @@ public class CartMgr {
 	}
 	//cart list
 	public Hashtable<String, ordersBean> getCartList(){
-		System.out.println(hCart.size());
+		System.out.println("size : "+hCart.size());
 		return hCart;
 	}
 }

@@ -1,7 +1,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
-<jsp:useBean id="order" class="orders.ordersBean" />
+<jsp:useBean id="order" class="menu.ordersBean" />
 <jsp:setProperty property="*" name="order"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
@@ -13,6 +13,8 @@
 	else{
 		String flag = request.getParameter("flag");
 		String msg = "";
+		order.setmName(request.getParameter("menu"));
+		order.setCount(Integer.parseInt(request.getParameter("count")));
 		order.setId(id);
 		if(flag.equals("insert")){
 			cMgr.addCart(order);
@@ -30,6 +32,6 @@
 %>
 <script>
 	alert("<%= msg %>");
-	history.go(-1);
+	location.href= "../cartView.jsp";
 </script>
 <% } %>

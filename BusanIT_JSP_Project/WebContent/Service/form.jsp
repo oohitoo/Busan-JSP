@@ -15,10 +15,10 @@
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
-		<a href="../Index.jsp">
+		<a href="Index.jsp">
 			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
-		<a href="../Index.jsp">
+		<a href="Index.jsp">
 			<img src="img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
 		</a>
 	</div>
@@ -143,7 +143,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
-						<a class="nav-link" href="list.jsp">
+						<a class="nav-link" href="ServiceMain.jsp">
 							<span>고객센터</span>
 						</a>
 					</li>	

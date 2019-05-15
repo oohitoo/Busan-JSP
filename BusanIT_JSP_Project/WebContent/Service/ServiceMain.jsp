@@ -3,7 +3,7 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <jsp:useBean id="mgr" class="Service.ServiceMgr"/>
 <!-- 메인페이지! -->
-<jsp:include page="list.jsp" />
+<jsp:include page="form.jsp" />
 <%
 
 		request.setCharacterEncoding("EUC-KR");
@@ -62,7 +62,7 @@
 		%>
 <html>
 <head>
-	<title>JSPService</title>
+	<title>Service</title>
 <link href="style.css" rel="stylesheet"type="text/css">
 <script type="text/javascript">
 		function pageing(page){
@@ -85,7 +85,7 @@
 			
 		}
 		function list(){
-			document.listFrm.action="list.jsp";		
+			document.listFrm.action="ServiceMain.jsp";		
 			document.listFrm.submit();
 			
 		}
@@ -106,7 +106,7 @@
 <div align="center"><p/><br/>
 <h1>고객센터</h1><br/>
 
-<form  name="searchFrm"  method="post" action="list.jsp">
+<form  name="searchFrm"  method="post" action="ServiceMain.jsp">
 	<table class="type09" border="0" width="900" align=center cellpadding="4" cellspacing="0">
  		<tr>
  		<!--검색줄-->
@@ -156,9 +156,9 @@
 				for(int i=0;i<numPerPage;i++){
 					if(i==listSize) break;
 					ServiceBean bean = vlist.get(i);
-					int num = bean.getNum();
+					int num = bean.getSnum();
 					String subject = bean.getSubject();
-					String name = bean.getName();
+					String name = bean.getSname();
 					String regdate = bean.getRegdate();
 					int depth = bean.getDepth();
 					int count = bean.getCount();
@@ -224,7 +224,7 @@
 		</td>
 		<td align="right">
 			<a href="post.jsp">[글쓰기]</a>
-			<a href="Service.jsp">[처음으로]</a>
+			<a href="ServiceMain.jsp">[처음으로]</a>
 		</td>
 </table>
 <hr width="750"/>

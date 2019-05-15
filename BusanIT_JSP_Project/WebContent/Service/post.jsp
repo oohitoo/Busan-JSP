@@ -4,7 +4,7 @@
 	String id  = (String)session.getAttribute("idKey"); 
 %>
 <!-- 글 작성페이지 -->
-<jsp:include page="list.jsp" />
+<jsp:include page="form.jsp" />
 
 <form name="postFrm" method="post" action="ServicePost" enctype="multipart/form-data">
 <div align=left><p/><br/>
@@ -48,7 +48,7 @@
 				<td colspan="2">
 					 <input type="submit" value="등록">
 					 <input type="reset" value="다시쓰기">
-					 <input type="button" value="리스트" onClick="javascript:location.href='Service.jsp'">
+					 <input type="button" value="리스트" onClick="javascript:location.href='ServiceMain.jsp'">
 				</td>
 			</tr>
 		</table>

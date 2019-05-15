@@ -240,15 +240,16 @@
 							</td>
 						</tr>
 						<tr>
-						<% num++;} %>
+						<% 
+						num++;
+						} %>
 							<td colspan="2" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %> 원</td>
 							<td align="center">
 								<a href="orderProc.jsp">주문하기</a>
 							</td>
 						</tr>
 						<%
-						
-										}
+						}
 					%>
 					<!-- <tr>
 						<td>주문목록들 ~~~~~~~~~~</td>

@@ -3,13 +3,14 @@
 <%@page import="Service.UtilMgr"%>
 <jsp:useBean id="mgr" class="Service.ServiceMgr" />
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<jsp:include page="list.jsp" />
+<jsp:include page="form.jsp" />
 
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
 <%
+
 	  request.setCharacterEncoding("EUC-KR");
 	  int num = Integer.parseInt(request.getParameter("num"));
 	  String nowPage = request.getParameter("nowPage");
@@ -17,10 +18,12 @@
 	  String keyWord = request.getParameter("keyWord");
 	  String numPerPage = request.getParameter("numPerPage");
 	  //조회수 증가
+	  
 	  mgr.upCount(num);
 	  //게시물 읽어오기
+	  
 	  ServiceBean bean = mgr.getService(num);
-	  String name = bean.getName();
+	  String name = bean.getSname();
 	  String subject = bean.getSubject();
       String regdate = bean.getRegdate();
 	  String content = bean.getContent();
@@ -38,7 +41,7 @@
 		
 	}
 	function list() {
-		document.listFrm.action = "Service.jsp";
+		document.listFrm.action = "ServiceMain.jsp";
 		document.listFrm.submit();
 	}
 </script>

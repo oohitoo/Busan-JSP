@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=EUC-KR" %>
  <%@ page import="Service.ServiceBean"%>
- <jsp:include page="list.jsp" />
+ <jsp:include page="form.jsp" />
  <!--파일 업로드  -->
 <% 
 	  int num = Integer.parseInt(request.getParameter("num"));
 	  String nowPage = request.getParameter("nowPage");
 	  ServiceBean bean = (ServiceBean)session.getAttribute("bean");
 	  String subject = bean.getSubject();
-	  String name = bean.getName(); 
+	  String name = bean.getSname(); 
 	  String content = bean.getContent(); 
 	  String filename = bean.getFilename();
 %>

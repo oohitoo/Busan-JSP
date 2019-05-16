@@ -6,7 +6,7 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String)session.getAttribute("idKey");
-	
+	String shop = (String)session.getAttribute("shop");
 	if(id == null){
 		response.sendRedirect("../login/login.html");
 	}
@@ -32,6 +32,6 @@
 %>
 <script>
 	alert("<%= msg %>");
-	location.href= "../cartView.jsp";
+	location.href = "../cart/cartView.jsp";
 </script>
 <% } %>

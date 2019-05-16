@@ -15,10 +15,10 @@
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
-		<a href="Index.jsp">
+		<a href="../Index.jsp">
 			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
-		<a href="Index.jsp">
+		<a href="../Index.jsp">
 			<img src="img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
 		</a>
 	</div>
@@ -30,29 +30,29 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="login/login.jsp">주문내역</a>
+					<a href="../cart/cartView.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/member.html">회원가입</a>
+					<a href="../login/member.html">회원가입</a>
 				</div>
 				<div class="main_3 main_common">
-					<a href="login/login.html">로그인</a>
+					<a href="../login/login.html">로그인</a>
 				</div>
 			</div>
 			<% }
 				else{
 			%>
 				<div class="main_1 main_common">
-					<a href="login/logout.jsp">로그아웃</a>
+					<a href="../login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="#">장바구니</a>
+					<a href="../cart/cartView.jsp">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/memberUpdate.jsp">회원정보수정</a>
+					<a href="../login/memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common" style="width: 130px">
-					<a href="#"><%= id %>님</a>
+					<a href="../login/memberUpdate.jsp"><%= id %>님</a>
 				</div>
 			<%
 				}

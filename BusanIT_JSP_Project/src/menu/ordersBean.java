@@ -14,7 +14,14 @@ public class ordersBean {
 	private String oRequest = null; //요청사항
 	private String orderType = null; // 배달, 예약이냐
 	private String payType = null;	 // 결제 타입
+	private String orderStatus;
 	
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 	public int getCount() {
 		return count;
 	}

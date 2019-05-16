@@ -52,7 +52,7 @@
 					<a href="login/memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common" style="width: 130px">
-					<a href="#"><%= id %>님</a>
+					<a href="login/memberUpdate.jsp"><%= id %>님</a>
 				</div>
 			<%
 				}

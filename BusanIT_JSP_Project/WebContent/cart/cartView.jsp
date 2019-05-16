@@ -45,11 +45,33 @@
 	}
 	/* Order proc로 넘기기 */
 	function order() {
-		var addres = document.getElementById("addres").value;
-		var numbers = document.getElementById("numbers").value;
-		var request = document.getElementById("request").value;
+		/*  1. 테이블의 td는 tageName으로 자르기 
+			2. split을 이용하여 자른다.
+			3. 출력한다.
+		*/
+		var str = document.getElementsByTagName('td')[8].childNodes[0].nodeValue;
+		var strsplit = str.split(' ');
 		
-		location.href = "orderProc.jsp?addres="+addres+"&numbers="+numbers+"&request="+request;
+		if(parseInt(strsplit[3]) <= "14"){
+			alert("최소 주문 금액을 맞춰주세요.");
+		}
+		else{
+			var addres = document.getElementById("addres").value;
+			var phoneNumber = document.getElementById("phoneNumber").value;
+			var request = document.getElementById("request").value;
+			var Box = document.getElementById("payType");
+			var selectBox = Box.options[Box.selectedIndex].value;
+			location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
+		}
+	}
+	function reset() {
+		addres = document.getElementById("addres").value ="";
+		phoneNumber = document.getElementById("phoneNumber").value = "";
+		request = document.getElementById("request").value ="";
+		Box = document.getElementById("payType") = "";
+	}
+	function back() {
+		history.back();
 	}
 </script>
 <body id="page-top">
@@ -86,16 +108,16 @@
 					else{
 			%>
 				<div class="main_1 main_common">
-					<a href="login/logout.jsp">로그아웃</a>
+					<a href="../login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
 					<a href="cartView.jsp">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="login/memberUpdate.jsp">회원정보수정</a>
+					<a href="../login/memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common" style="width: 130px">
-					<a href="#"><%=id%>님</a>
+					<a href="../login/memberUpdate.jsp"><%=id%>님</a>
 				</div>
 			<%
 				}
@@ -172,7 +194,7 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="../login/memberUpdate.jsp">
 							<span>회원정보</span>
 						</a>
 					</li>
@@ -200,7 +222,7 @@
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
 				
-				<table border="1" style="margin-left: 100px; margin-top: 50px; width: 700px; color: black;" >
+				<table style="margin-left: 100px; margin-top: 50px; width: 700px; color: black;" >
 					<tr align="center">
 						<td colspan="3" style="height: 100px">
 							<span style="font-size: 2.0em; color: navy">주문자 정보</span>
@@ -211,7 +233,7 @@
 						<td>
 							<span style="color: black">주문목록 ( 주문가게 명 )</span>
 						</td>
-						<td width="130px">수량</td>
+						<td width="130px" style="height: 50px">수량</td>
 						<td width="150px">가격</td>
 					</tr>
 					<!-- 세션값 반복 돌리면 됨 -->
@@ -238,9 +260,8 @@
 												menuBean bean = menuMgr.getmenuBean(shop, menuName);
 												int price = bean.getmPrice();
 												int count = order.getCount(); // 주문수량
-												out.println(count);
 												int subTotal = count * price; // 상품 총액
-												total += subTotal;
+												total += subTotal; // 주문전체 총액
 						%>
 						<tr>							
 							<td rowspan="2"><%=menuName %> ( <%= shop %> )</td>
@@ -258,21 +279,22 @@
 						<% 
 						num++;
 						} %>
-							<td colspan="2" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %> 원</td>
+							<td colspan="2" align="center" id="minimum" style="height: 52px;">총 주문금액 : <%= UtilMgr.monFormat(total) %> 원</td>
 							<td align="center">
 								<!-- <a href="orderProc.jsp">주문하기</a> -->
 								<a href="javascript:order()">주문하기</a>
 							</td>
 						</tr>
-						<%
+					<%
 						}
-					%>
+					%>	
 					<!-- <tr>
 						<td>주문목록들 ~~~~~~~~~~</td>
 						<td width="50px">수량 ~~~~~~~~~~</td>
 						<td width="150px"><center>30000</center></td>
 					</tr> -->
 					<!-- 세션값 반복 종료 구간 -->
+					
 					<% 
 						LoginBean loginBean = loginMgr.getCustomer(id);
 					%>
@@ -283,14 +305,14 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<table style="width: 700px; height: 150px; margin-left: 100px">
+							<table style="width: 700px; height: 150px; margin-left: 100px; margin-top: 50px;">
 								<tr>
 									<td width="50px">주소 :</td>
 									<td colspan="2"><input type="text" id="addres" size="50" value="<%= loginBean.getcAddress()%>"></td>
 								</tr>
 								<tr>
 									<td>전화번호 : </td>
-									<td colspan="2"><input type="tel" id="numbers" size="50" value="<%= loginBean.getcPhone()%>"></td>
+									<td colspan="2"><input type="tel" id="phoneNumber" size="50" value="<%= loginBean.getcPhone()%>"></td>
 								</tr>
 								<tr>
 									<td>요청사항 : </td>
@@ -299,28 +321,39 @@
 							</table>						
 						</td>
 					</tr>
+						
 					<tr>
-						<td colspan="3">
+						<td colspan="2">
 							<table style="width: 700px">
-								<tr height="100px;">
+								<tr height="70px;">
 									<td></td>
 								</tr>
 								<tr>
 									<td align="center">
 										<span style="font-size: 1.5em;">결제방식 :</span> &nbsp;&nbsp;&nbsp;&nbsp;
-											<select name="payType" style="font-size: 1.2em;">
-													<option>만나서 카드결제</option>
-													<option>만나서 현금결제</option>
-													<option>카드 결제</option>
-													<option>무통장 입금</option>
+											<select id="payType" style="font-size: 1.2em;">
+													<option value="만나서 카드결제" selected>만나서 카드결제</option>
+													<option value="만나서 현금결제">만나서 현금결제</option>
+													<option value="카드 결제">카드 결제</option>
+													<option value="무통장 입금">무통장 입금</option>
 											</select>
 									</td>
 								</tr>
-							</table>
-							
+							</table>							
 						</td>
 					</tr>
-				</table>	
+					<tr>
+						<td colspan="3" align="center" style="height: 152px">
+							<span style="border-radius: 20px;" class="btn btn-success btn-lg">
+								<a href="javascript:back()">뒤로가기</a>
+							</span>
+							<span style="border-radius: 20px;" class="btn btn-success btn-lg">
+								<a href="javascript:reset()">다시작성</a>
+							</span>
+						</td>
+					</tr>
+				</table>
+				
 			</div>
 			<!-- 메인 부분 안에 버튼식 부분 종료 -->
 		</div>

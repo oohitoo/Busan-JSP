@@ -20,6 +20,11 @@ public class ordersMgr {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+				
+		/* 이런식으로 부르면 될것 같음.
+		 MemberBean bean = getMember(id);
+		 * */
+		
 		try {
 			con = pool.getConnection();
 			sql = "insert into orders ";

@@ -18,7 +18,7 @@
 		%>
 		<script>
 			alert("로그인 후 사용 바랍니다.");
-			location.href ="login/login.html";
+			location.href ="../login/login.html";
 		</script>
 		<%
 	}
@@ -36,12 +36,20 @@
 <script>
 	function creatUpdate(menu, num) {
 		var count = document.getElementById("count" + num).value;
-		console.log(count);
+		
 		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count; 
 	}
 	function creatdelete(menu, num) {
 		var count = document.getElementById("count" + num).value;
 		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=del&count="+count; 
+	}
+	/* Order proc로 넘기기 */
+	function order() {
+		var addres = document.getElementById("addres").value;
+		var numbers = document.getElementById("numbers").value;
+		var request = document.getElementById("request").value;
+		
+		location.href = "orderProc.jsp?addres="+addres+"&numbers="+numbers+"&request="+request;
 	}
 </script>
 <body id="page-top">
@@ -250,7 +258,8 @@
 						<% num++;} %>
 							<td colspan="2" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %> 원</td>
 							<td align="center">
-								<a href="orderProc.jsp">주문하기</a>
+								<!-- <a href="orderProc.jsp">주문하기</a> -->
+								<a href="javascript:order()">주문하기</a>
 							</td>
 						</tr>
 						<%
@@ -275,15 +284,15 @@
 							<table style="width: 700px; height: 150px; margin-left: 100px">
 								<tr>
 									<td width="50px">주소 :</td>
-									<td colspan="2"><input type="text" name="addres" size="50" value="<%= loginBean.getcAddress()%>"></td>
+									<td colspan="2"><input type="text" id="addres" size="50" value="<%= loginBean.getcAddress()%>"></td>
 								</tr>
 								<tr>
 									<td>전화번호 : </td>
-									<td colspan="2"><input type="tel" name="numbers" size="50" value="<%= loginBean.getcPhone()%>"></td>
+									<td colspan="2"><input type="tel" id="numbers" size="50" value="<%= loginBean.getcPhone()%>"></td>
 								</tr>
 								<tr>
 									<td>요청사항 : </td>
-									<td colspan="2"><input type="text" name="numbers" size="50" placeholder="40자리 까지 작성 할 수 있어요"></td>
+									<td colspan="2"><input type="text" id="request" size="50" placeholder="40자리 까지 작성 할 수 있어요"></td>
 								</tr>
 							</table>						
 						</td>
@@ -306,6 +315,7 @@
 									</td>
 								</tr>
 							</table>
+							
 						</td>
 					</tr>
 				</table>	

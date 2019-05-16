@@ -9,7 +9,11 @@
 <jsp:useBean id="loginBean" class="login.LoginBean"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
-
+	
+	/* 가져와보자 */
+	String shop = (String)session.getAttribute("shop");// 가게 이름
+	String addres = request.getParameter("addres");
+	
 	String msg = ""; // 내용 출력 할 것
 	Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
 	Enumeration<String> hCartKey = hCart.keys(); //값을 찾아서 hCartKey
@@ -19,10 +23,25 @@
 			// 장바구니에 있던 주문 객체
 			ordersBean order = hCart.get(hCartKey.nextElement());
 			//주문 처리
+			out.print(addres);
 			out.print(order.getmName()); // 메뉴이름 가져와짐
-			out.print(session.getAttribute("shop")); // 세션으로 가게 이름 가져옴
 			out.print(session.getId().substring(session.getId().length()-5, session.getId().length())); // 세션값
-			//주문번호는 mgr 가서 처리 (날짜 + 세션값 4자리), 
+			//주문번호는 mgr 가서 처리 (날짜 + 세션값 4자리), 회원정보(id, 닉네임,주소), 가게 이름, 번호, 주문수량, 요청사항, 결제방식(만카,만현), status
+			
+			/* DB가서 할 것
+				1. 날짜 + 세션값 4자리
+				2. status
+				1. 회원 (id, 닉네임, 주소) [시도해보자]
+			   Proc에서 할 것			    
+			    - 2. 가게이름
+			    3. 번호
+			    4. 주문수량
+			    5. 요청사항
+			    6. 결제방식
+			    7. order 넘기면 됨
+			*/
+			
+			/* LoginBean loginBean = loginMgr.getCustomer(id); */
 			
 			//장바구니 삭제
 			

@@ -13,7 +13,13 @@
 	String id  = (String)session.getAttribute("idKey"); 
 	
 	if(id == null){
-		response.sendRedirect("Index.jsp");
+		%>
+		<script>
+			alert("로그인 후 사용 바랍니다.");
+			
+		</script>
+		<%
+		response.sendRedirect("login/login.html");
 	}
 	int num = 1;
 	
@@ -40,7 +46,7 @@
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
-		<a href="Index.jsp">
+		<a href="../Index.jsp">
 			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
 		<a href="Index.jsp">
@@ -247,8 +253,7 @@
 							</td>
 						</tr>
 						<%
-						
-										}
+						}
 					%>
 					<!-- <tr>
 						<td>주문목록들 ~~~~~~~~~~</td>

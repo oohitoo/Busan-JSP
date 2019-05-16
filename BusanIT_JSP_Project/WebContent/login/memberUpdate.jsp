@@ -39,7 +39,7 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="../cartView.jsp">주문내역</a>
+					<a href="login.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="member.html">회원가입</a>
@@ -55,10 +55,10 @@
 					<a href="logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="../cartView.jsp">장바구니</a>
+					<a href="#">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
-					<a href="memberUpdate.jsp">회원정보수정</a>
+					<a href="memberUpdate">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common">
 					<a href="#"><%= id %>님</a>
@@ -166,65 +166,7 @@
 				<!-- 오른쪽 메인 부분 시작 -->
 				
 <!-- 				여기에 메인부분!!! -->
-						<div align="center">
-				<br /> <br />
-				<form name="regFrm" method="post" action="memberUpdateProc.jsp">
-					<table align="center" cellpadding="5" >
-						<tr>
-							<td align="center" valign="middle" bgcolor="#FFFFCC">
-								<table border="1" cellpadding="2" align="center" width="600">
-									<tr align="center" bgcolor="#996600">
-										<td colspan="3"><font color="#FFFFFF"><b>회원 수정</b></font></td>
-									</tr>
-									<tr>
-										<td width="20%">아이디</td>
-										<td width="80%"><input name="id" size="15"
-											value="<%=bean.getId() %>" readonly></td>
-									</tr>
-									<tr>
-										<td>패스워드</td>
-										<td><input type="password" name="pwd" size="15"
-											value="<%=bean.getPwd()%>"></td>
-									</tr>
-									<tr>
-										<td>패스워드확인</td>
-										<td><input type="password" name="repwd" size="15"
-											></td>
-									</tr>
-									<tr>
-										<td>이름</td>
-										<td><input name="name" size="15"
-											value="<%=bean.getName()%>"></td>
-									</tr>
-									
-									<tr>
-										<td>닉네임</td>
-										<td><input name="cNick" size="15"
-											value="<%=bean.getcNick()%>"></td>
-									</tr>									
-									
-									<tr>
-										<td>우편번호</td>
-										<td><input name="zipcode" size="5"
-											value="<%=bean.getcPost()%>" readonly> <input
-											type="button" value="우편번호찾기" onClick="zipCheck()"></td>
-									</tr>
-									<tr>
-										<td>주소</td>
-										<td><input name="address" size="45" value="<%=bean.getcAddress() %>"></td>
-									</tr>
-									
-									<tr>
-										<td colspan="3" align="center">
-										<input type="submit" value="수정완료"> &nbsp; &nbsp; 
-										<input type="reset" value="다시쓰기"></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
+					<%@include file="in_memberUpdate.jsp" %>
 				
 			</div>
 			

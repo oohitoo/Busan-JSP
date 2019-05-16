@@ -4,7 +4,8 @@
 	pageEncoding="EUC-KR"%>
 <%
 	request.setCharacterEncoding("EUC-KR");
-	String shop = request.getParameter("store");	
+	String shop = request.getParameter("store");
+	session.setAttribute("shop", shop);
 	//세션값 받아오기
 	String best = (String)session.getAttribute("best");
 	String drink = (String)session.getAttribute("drink");
@@ -220,7 +221,7 @@ h3{
 						<font color="black" size="5">예약</font>
 					</td>
 					<td width="300px" style="text-align: center;">
-						<font color="black" size="5">배달</font>
+						<a href="../cart/cartView.jsp"><font color="black" size="5">배달</font></a>
 					</td>
 				</tr>
 			</table>

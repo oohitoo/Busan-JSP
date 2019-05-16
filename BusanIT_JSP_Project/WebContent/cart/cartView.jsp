@@ -1,3 +1,4 @@
+<%@page import="login.LoginBean"%>
 <%@page import="menu.menuBean"%>
 <%@page import="Service.UtilMgr"%>
 <%@page import="java.util.Enumeration"%>
@@ -8,12 +9,18 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
 <jsp:useBean id="menuMgr" class="menu.menuMgr"/>
+<jsp:useBean id="loginMgr" class="login.LoginMgr"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 	
 	if(id == null){
-		response.sendRedirect("Index.jsp");
+		%>
+		<script>
+			alert("로그인 후 사용 바랍니다.");
+			location.href ="../login/login.html";
+		</script>
+		<%
 	}
 	int num = 1;
 	
@@ -22,29 +29,37 @@
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
-<link rel="stylesheet" href="css/MainIndex.css">
+<link rel="stylesheet" href="../css/MainIndex.css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
 <script>
 	function creatUpdate(menu, num) {
 		var count = document.getElementById("count" + num).value;
-		console.log(count);
-		location.href = "item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count; 
+		
+		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count; 
 	}
 	function creatdelete(menu, num) {
 		var count = document.getElementById("count" + num).value;
-		location.href = "item/privateShopProc.jsp?menu="+menu+"&flag=del&count="+count; 
+		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=del&count="+count; 
+	}
+	/* Order proc로 넘기기 */
+	function order() {
+		var addres = document.getElementById("addres").value;
+		var numbers = document.getElementById("numbers").value;
+		var request = document.getElementById("request").value;
+		
+		location.href = "orderProc.jsp?addres="+addres+"&numbers="+numbers+"&request="+request;
 	}
 </script>
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
-		<a href="Index.jsp">
-			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
+		<a href="../Index.jsp">
+			<img src="../img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
-		<a href="Index.jsp">
-			<img src="img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
+		<a href="../Index.jsp">
+			<img src="../img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
 		</a>
 	</div>
 	<!-- 상단 이미지 및 헤더 종료 -->
@@ -102,7 +117,7 @@
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
 						</div>
-						<img src="img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
+						<img src="../img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
 					</a>
 					<!-- Divider -->
 					<hr class="sidebar-divider my-0">
@@ -124,27 +139,27 @@
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
 						<!-- <a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1"> -->
-						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=한식&nowPage=1">
 							<span>한식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=피자&nowPage=1">
 							<span>피자</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=치킨&nowPage=1">
 							<span>치킨</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=패스트푸드&nowPage=1">
 							<span>패스트푸드</span>
 						</a>
 					</li>
@@ -202,9 +217,9 @@
 					<!-- 세션값 반복 돌리면 됨 -->
 					<%
 						int total = 0; //전체값
-									Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
+						Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
 									
-									if(hCart.isEmpty()){
+						if(hCart.isEmpty()){
 					%>
 							<td colspan="3" align="center"> 장바구니 목록이 없습니다.</td>
 						<%
@@ -245,7 +260,8 @@
 						} %>
 							<td colspan="2" align="center">총 주문금액 : <%= UtilMgr.monFormat(total) %> 원</td>
 							<td align="center">
-								<a href="orderProc.jsp">주문하기</a>
+								<!-- <a href="orderProc.jsp">주문하기</a> -->
+								<a href="javascript:order()">주문하기</a>
 							</td>
 						</tr>
 						<%
@@ -257,6 +273,9 @@
 						<td width="150px"><center>30000</center></td>
 					</tr> -->
 					<!-- 세션값 반복 종료 구간 -->
+					<% 
+						LoginBean loginBean = loginMgr.getCustomer(id);
+					%>
 					<tr>
 						<td colspan="3">
 							<hr>
@@ -267,15 +286,15 @@
 							<table style="width: 700px; height: 150px; margin-left: 100px">
 								<tr>
 									<td width="50px">주소 :</td>
-									<td colspan="2"><input type="text" name="addres" size="50"></td>
+									<td colspan="2"><input type="text" id="addres" size="50" value="<%= loginBean.getcAddress()%>"></td>
 								</tr>
 								<tr>
 									<td>전화번호 : </td>
-									<td colspan="2"><input type="tel" name="numbers" size="50"></td>
+									<td colspan="2"><input type="tel" id="numbers" size="50" value="<%= loginBean.getcPhone()%>"></td>
 								</tr>
 								<tr>
 									<td>요청사항 : </td>
-									<td colspan="2"><input type="text" name="numbers" size="50"></td>
+									<td colspan="2"><input type="text" id="request" size="50" placeholder="40자리 까지 작성 할 수 있어요"></td>
 								</tr>
 							</table>						
 						</td>
@@ -298,6 +317,7 @@
 									</td>
 								</tr>
 							</table>
+							
 						</td>
 					</tr>
 				</table>	
@@ -313,7 +333,6 @@
 		out.println("없음");
 	} else {
 		ArrayList<String> list = (ArrayList) session.getAttribute("shopingList");
-
 		for (int i = 1; i < list.size(); i++) {
 			out.println(list.get(i));
 			if (i % 3 == 0) {

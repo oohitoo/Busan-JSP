@@ -30,7 +30,7 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="cartView.jsp">주문내역</a>
+					<a href="cart/cartView.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="login/member.html">회원가입</a>
@@ -46,7 +46,7 @@
 					<a href="login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="cartView.jsp">장바구니</a>
+					<a href="cart/cartView.jsp">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="login/memberUpdate.jsp">회원정보수정</a>
@@ -156,8 +156,7 @@
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table
-					style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
+				<table style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
 					<tr>
 						<td colspan="2"><h3 class="panel-title">메뉴 목록</h3></td>
 					</tr>
@@ -202,8 +201,7 @@
 							</div>
 						</td>
 					</tr>
-				</table>
-				
+				</table>				
 			</div>
 			<!-- 메인 부분 안에 버튼식 부분 종료 -->
 		</div>

@@ -42,7 +42,7 @@ public class ordersMgr {
 				oBean.setoDate(rs.getString("oDate"));
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
-				oBean.setPayType(rs.getString("payType"));
+				oBean.setOrderStatus(rs.getString("orderStatus"));
 				olist.addElement(oBean);
 			}
 			

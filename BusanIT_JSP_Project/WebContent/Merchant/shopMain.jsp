@@ -2,6 +2,8 @@
 <%@page import="shoplogin.loginBean"%>
 <%@page import="java.util.Vector"%>
 <%@page language="java" contentType="text/html; charset=EUC-KR"	pageEncoding="EUC-KR"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
 <jsp:useBean id="ordersMgr" class="orders.ordersMgr"/>
 <jsp:setProperty property="*" name="oBean"/>
@@ -15,8 +17,6 @@
 		</script>
 		<%
 	}
-String business= null;
-Vector<loginBean> shopname = mgr.shopInfo(business); 
 %>
 <head>
 <meta charset="EUC-KR">
@@ -123,42 +123,12 @@ Vector<loginBean> shopname = mgr.shopInfo(business);
 											<th>주문메뉴</th>
 											<th>주문수량</th>
 											<th>픽업/배달</th>
-											<th>지불방법</th>
 											<th>고객 요청 사항</th>
 										</tr>
 									</thead>
 									<tbody style="text-align: center;">
-										<tr>
-											<td>01</td>
-											<td>배달 중</td>
-											<td>20분</td>
-											<td>치킨</td>
-											<td>2</td>
-											<td>픽업</td>
-											<td>현장 카드</td>
-											<td style="text-align: left;">달다리하게 맥주도</td>
-										</tr>
-										<tr>
-											<td>02</td>
-											<td>조리중</td>
-											<td>10분</td>
-											<td>불닭</td>
-											<td>1</td>
-											<td>픽업</td>
-											<td>현장 현금</td>
-											<td style="text-align: left;">맵게 만들어 주세요</td>
-										</tr>
-										<tr>
-											<td>03</td>
-											<td>대기</td>
-											<td>5분</td>
-											<td>볼케이노 치킨</td>
-											<td>3</td>
-											<td>픽업</td>
-											<td>미리 결재</td>
-											<td style="text-align: left;">젓가락 낭낭하게 챙겨주세요</td>
-										</tr>
 										<!--자동테이블 -->
+										<tr>
 										<%
 											Vector<ordersBean> orderList = ordersMgr.orderList(businessName);
 											int listSize = orderList.size(), no=0;
@@ -178,26 +148,36 @@ Vector<loginBean> shopname = mgr.shopInfo(business);
 													String oDate = oBean.getoDate();
 													String oRequest = oBean.getoRequest();
 													String orderType = oBean.getOrderType();
-													String payType = oBean.getPayType();
+													String orderStatus = oBean.getOrderStatus();
 													no++;
+										
+													//요청시간 String
+													String reqDateStr = oDate;
+													//현재시간 Date
+													Date curDate = new Date();
+													SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+													
+													//요청시간을 Date로 parsing 후 time가져오기
+													Date reqDate = dateFormat.parse(oDate);
+													long reqDateTime = reqDate.getTime();
+													//현재시간을 요청시간의 형태로 format 후 time 가져오기
+													curDate = dateFormat.parse(dateFormat.format(curDate));
+													long curDateTime = curDate.getTime();
+													//분으로 표현
+													long minute = (curDateTime - reqDateTime) / 60000;
+																																						
 										%>
-										<script>
-										alert(<%=businessName%>)
-										</script>
-												<tr>
+												
 													<td><%=no %></td>
-													<td>대기</td><!-- 어케 변경? -->
-													<td><%=oDate %></td>
+													<td><%=orderStatus %></td><!-- 어케 변경? -->
+													<td><%=minute + "분 경과"%></td>
 													<td><%=menu %></td>
 													<td><%=count %></td>
 													<td><%=orderType %></td>
-													<td><%=payType %></td>
 													<td style="text-align: left;">젓가락 낭낭하게 챙겨주세요</td>
 												</tr>
-												<%} %>
-											<%} %>
-										
-										
+												<%} //for%>
+											<%} //if else%>
 										<!-- 자동 테이블 -->
 										
 									</tbody>

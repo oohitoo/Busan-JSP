@@ -13,8 +13,7 @@ public class ordersBean {
 	private String oDate; // 주문 시간
 	private String oRequest; //요청사항
 	private String orderType; // 배달, 예약이냐
-	private String payType;	 // 결제 타입
-
+	private String orderStatus;	 // 결제 타입
 	public int getoNum() {
 		return oNum;
 	}
@@ -81,10 +80,12 @@ public class ordersBean {
 	public void setOrderType(String orderType) {
 		this.orderType = orderType;
 	}
-	public String getPayType() {
-		return payType;
+	public String getOrderStatus() {
+		return orderStatus;
 	}
-	public void setPayType(String payType) {
-		this.payType = payType;
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
+
+	
 }

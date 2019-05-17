@@ -150,31 +150,46 @@
 													String orderType = oBean.getOrderType();
 													String orderStatus = oBean.getOrderStatus();
 													no++;
-										
-													//요청시간 String
-													String reqDateStr = oDate;
-													//현재시간 Date
-													Date curDate = new Date();
-													SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
 													
-													//요청시간을 Date로 parsing 후 time가져오기
-													Date reqDate = dateFormat.parse(oDate);
-													long reqDateTime = reqDate.getTime();
-													//현재시간을 요청시간의 형태로 format 후 time 가져오기
-													curDate = dateFormat.parse(dateFormat.format(curDate));
-													long curDateTime = curDate.getTime();
-													//분으로 표현
-													long minute = (curDateTime - reqDateTime) / 60000;
-																																						
+													//주문 시간 및 현재시간
+													SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+													// oDate;
+													Date curDate = new Date();
+													
 										%>
-												
 													<td><%=no %></td>
 													<td><%=orderStatus %></td><!-- 어케 변경? -->
-													<td><%=minute + "분 경과"%></td>
+													<td>
+													<%
+													//시간 형 변환
+													String cDate = dateFormat.format(curDate);
+													
+													Date oD = dateFormat.parse(oDate);
+													Date cD = dateFormat.parse(cDate);
+													
+													//시간 차이
+													long diff = Math.abs(oD.getTime() - cD.getTime());
+													long sec = diff / 1000;
+													long min = diff / (1000*60);
+													long hour = diff / (1000*60*60);
+													long day = diff / (1000*60*60*24);
+													
+														if(0<sec&&sec<60){%>
+														<%=sec %>초 전
+														<%}else if(0<min&&min<60){%>
+														<%=min %>분 전
+														<%}else if(0<hour&&hour<24){%>
+														<%=hour %>시간 전
+														<%}else{%>
+														 <%=day %>일 전 <!-- 일전은 왜 안되지? -->
+														<%}%>
+															
+
+													</td>
 													<td><%=menu %></td>
 													<td><%=count %></td>
 													<td><%=orderType %></td>
-													<td style="text-align: left;">젓가락 낭낭하게 챙겨주세요</td>
+													<td style="text-align: left;"><%=oRequest %></td>
 												</tr>
 												<%} //for%>
 											<%} //if else%>

@@ -7,7 +7,7 @@ import java.util.Vector;
 
 public class menuMgr {
 	
-	/* 이미지 저장 및 불러오기 위해서 떄문에 함.ㅜㅜ*/
+	// 이미지저장 및 불러오기 위해서 만들어 놓음
 	public static final String saveFolder = "F:/DTeam/BusanIT_JSP_Project/WebContent/img/storeImage/";
 	final String encType = "EUC-KR";
 	final int maxSize = 20 * 1024 * 1024; // 20M로 설정

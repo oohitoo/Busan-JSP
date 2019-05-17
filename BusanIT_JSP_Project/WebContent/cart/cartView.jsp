@@ -52,8 +52,13 @@
 		var str = document.getElementsByTagName('td')[8].childNodes[0].nodeValue;
 		var strsplit = str.split(' ');
 		
-		if(parseInt(strsplit[3]) <= "14"){
-			alert("최소 주문 금액을 맞춰주세요.");
+		if(parseInt(strsplit[3]) <= "13"){
+			var popupX = (window.screen.width / 2) - (400 / 2);
+			var popupY = (window.screen.height / 2) - (190 / 2);
+			
+			/* alert("최소 주문 금액을 맞춰주세요."); */
+			url = "orderMinium.html";
+			window.open(url, "orderMinium", "width=400, height=190, resizable=no, left="+ popupX + ",top="+ popupY);
 		}
 		else{
 			var addres = document.getElementById("addres").value;

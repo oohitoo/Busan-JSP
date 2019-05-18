@@ -3,7 +3,7 @@
 <jsp:useBean id="mMgr" class="login.LoginMgr"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
-	String Id  = (String)session.getAttribute("idKey");
+	String Id  = (String)session.getAttribute("idKey");	
 	LoginBean bBean = mMgr.getCustomer(Id);
 	
 	

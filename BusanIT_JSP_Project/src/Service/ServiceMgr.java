@@ -141,7 +141,7 @@ public class ServiceMgr {
 			    	 
 			    	  bean.setRegdate(rs.getString("regdate"));
 			    	  bean.setCount(rs.getInt("count"));
-			    	  bean.setFilename(rs.getString("filename"));
+			    	  /*bean.setFilename(rs.getString("filename"));*/
 			    	  vlist.addElement(bean);
 			      }
 			    } catch (Exception e) {

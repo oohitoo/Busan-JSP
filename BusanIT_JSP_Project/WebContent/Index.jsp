@@ -125,6 +125,13 @@
 					<hr class="sidebar-divider">
 					
 					<!-- Heading -->
+					<% if(id == null){%>
+					<li class="nav-item active">
+						<a class="nav-link" href="Service/ServiceMain.jsp">
+							<span>고객센터</span>
+						</a>
+					</li>
+					<% }else{ %>
 					<div class="sidebar-heading">내정보</div>
 					
 					<!-- Nav Item - Tables -->
@@ -147,10 +154,10 @@
 						<a class="nav-link" href="Service/ServiceMain.jsp">
 							<span>고객센터</span>
 						</a>
-					</li>	
-
-					<!-- Divider -->
+					</li>						
 					<hr class="sidebar-divider">
+					<% } %>
+					<!-- Divider -->
 
 				</ul>
 				<!-- End of Sidebar -->
@@ -198,7 +205,7 @@
 								<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
 								<h3>패스트푸드</h3>
 								</a>
-							</div>
+							</div>							 
 						</td>
 					</tr>
 				</table>				

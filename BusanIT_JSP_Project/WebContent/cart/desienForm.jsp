@@ -81,7 +81,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="Index.html">
+						<a class="nav-link" href="desienTest.jsp">
 							<span>판매 상태</span>
 						</a>
 					</li>
@@ -95,27 +95,27 @@
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=한식&nowPage=1">
 							<span>한식</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=피자&nowPage=1">
 							<span>피자</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="../item/itemList.jsp?menu=치킨&nowPage=1">
 							<span>치킨</span>
 						</a>
 					</li>
 					<li class="nav-item active">
-						<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
+						<a class="nav-link" href="../item/itemList.jsp?menu=패스트푸드&nowPage=1">
 							<span>패스트푸드</span>
 						</a>
 					</li>
@@ -123,18 +123,25 @@
 					<!-- Divider -->
 					<hr class="sidebar-divider">
 					
+					<% if(id == null){%>
+					<li class="nav-item active">
+						<a class="nav-link" href="../Service/ServiceMain.jsp">
+							<span>고객센터</span>
+						</a>
+					</li>	
+					<% }else{ %>
 					<!-- Heading -->
 					<div class="sidebar-heading">내정보</div>
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="../login/memberUpdate.jsp">
 							<span>회원정보</span>
 						</a>
 					</li>
 					
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="#">
 							<span>나의 리뷰 관리</span>
 						</a>
 					</li>	
@@ -143,11 +150,11 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
-						<a class="nav-link" href="ServiceMain.jsp">
+						<a class="nav-link" href="../Service/ServiceMain.jsp">
 							<span>고객센터</span>
 						</a>
 					</li>	
-
+					<% } %>
 					<!-- Divider -->
 					<hr class="sidebar-divider">
 

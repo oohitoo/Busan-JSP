@@ -123,7 +123,7 @@
 					<td class="col-sm-8 col-md-6">
 						<div class="media">
 							<a class="thumbnail pull-left" href="#" style="width: 90px; height: 90px;">
-								<img class="media-object" src="../img/menuImg/ready.gif" style="width: 72px; height: 72px;">
+								<img class="media-object" src="../img/ready.gif" style="width: 72px; height: 72px;">
 							</a>
 							<div class="media-body">
 								<!-- 메뉴 이름 -->

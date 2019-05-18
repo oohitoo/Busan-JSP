@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.12.0/jquery.js"></script>
+<script>
+	$(window).load(function() {
+		var notibutton = $("#notibutton");
+		/* alert('Test'); */
+		//데스크탑 알림 권한 요청
+		Notification.requestPermission(function(result) {
+
+			//요청을 거절하면,
+			if (result === 'denied') {
+				return;
+			}
+			//요청을 허용하면,
+			else {
+				return;
+			}
+		});
+		notibutton.on("click", function() {
+			alert("test");
+		});
+	});
+</script>
+<body>
+	<input id="notificationMessage" type="text" class="form-control" />
+	<button id="notibutton" type="button">알림</button>
+</body>
+</html>

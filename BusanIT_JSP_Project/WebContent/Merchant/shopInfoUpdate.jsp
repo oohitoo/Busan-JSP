@@ -32,12 +32,8 @@ if(businessName==null){
 						<form id="login-form" class="form" action="shopInfoUpdateProc.jsp"
 							method="post">
 
-							<!-- 회원가입 -->
+							<!-- 회원정보수정 -->
 							<h3 class="text-center text-primary">Shop Info Update</h3>
-							<div align="right">
-								<label for="username" class="text-primary"><a
-									href="shopLogIn.jsp">Log In</a></label><br>
-							</div>
 							<br />
 							<!-- 사업자 번호 -->
 							<div class="form-group">
@@ -60,7 +56,7 @@ if(businessName==null){
 							<div class="form-group">
 								<label for="shopname" class="text-primary">상호 명:</label><br>
 								<input type="text" name="username" id="shopname"
-									class="form-control" placeholder=<%=businessName%> readonly>
+									class="form-control" placeholder="<%=businessName%>" readonly>
 							</div>
 							<!-- 전화 번호 -->
 							<div class="form-group">
@@ -92,7 +88,7 @@ if(businessName==null){
 							<div class="row">
 								<div>
 									<label class=newbtn> 
-									<img id="logo" src="http://placehold.it/200x200" width="200" height="200"> 
+									<img id="logo" src="http://placehold.it/100x100" width="100" height="100"> 
 									<input id="pic"	class='pis' onchange="readURL(this);" type="file">
 									</label>
 								</div>

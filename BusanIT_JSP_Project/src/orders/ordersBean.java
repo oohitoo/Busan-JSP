@@ -2,7 +2,7 @@ package orders;
 
 public class ordersBean {
 
-	private int oNum; // 주문번호
+	private String oNum; // 주문번호
 	private String id; // 아이디
 	private String cNick; //닉네임
 	private String cAddress; // 주소
@@ -14,10 +14,19 @@ public class ordersBean {
 	private String oRequest; //요청사항
 	private String orderType; // 배달, 예약이냐
 	private String orderStatus;	 // 결제 타입
-	public int getoNum() {
+	private String[] oSatus; //배달상태
+	
+	
+	public String[] getoSatus() {
+		return oSatus;
+	}
+	public void setoSatus(String[] oSatus) {
+		this.oSatus = oSatus;
+	}
+	public String getoNum() {
 		return oNum;
 	}
-	public void setoNum(int oNum) {
+	public void setoNum(String oNum) {
 		this.oNum = oNum;
 	}
 	public String getId() {
@@ -86,6 +95,4 @@ public class ordersBean {
 	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
-
-	
 }

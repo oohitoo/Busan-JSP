@@ -25,13 +25,13 @@ public class ordersMgr {
 		
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=?";
+			sql = "select * from orders where rName=? order by oDate";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				ordersBean oBean = new ordersBean();
-				oBean.setoNum(rs.getInt("oNum"));
+				oBean.setoNum(rs.getString("oNum"));
 				oBean.setCount(rs.getInt("count"));
 				oBean.setId(rs.getString("id"));
 				oBean.setcNick(rs.getString("cNick"));
@@ -53,5 +53,23 @@ public class ordersMgr {
 			pool.freeConnection(conn, psmt, rs);
 		}
 		return olist;
+	}
+	
+	//주문 상태 update
+	public void updateOrder(String orderStatus, String oNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			con=pool.getConnection();
+			sql="update orders(orderStatus) values(?) where oNum=?";
+			pstmt=con.prepareStatement(sql);		
+			pstmt.setString(1, orderStatus);
+			pstmt.setString(2, oNum);
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			pool.freeConnection(con, pstmt);
+		}return;
 	}
 }

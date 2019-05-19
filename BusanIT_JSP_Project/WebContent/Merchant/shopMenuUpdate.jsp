@@ -50,11 +50,10 @@ function noEvent() { // 새로 고침 방지
         return false;
     }
 }
-
+document.onkeydown = noEvent;
 function del(idx){
 	location.href = "shopMenuUpdateProc.jsp?idx="+idx;
 }
-document.onkeydown = noEvent;
 </script>
 </head>
 <body>
@@ -114,7 +113,8 @@ document.onkeydown = noEvent;
 								      <td><input type="text" name="mInfo" class="form-control"></td>
 								      <td><input type="text" name="mImg" class="form-control" placeholder="null"></td>
 								      <input type="hidden" name="rName" value="<%=businessName %>">
-								      <td><button type="submit" class="btn btn-success" value="항목추가"> + </button></td>								   </tr>
+								      <td><button type="submit" class="btn btn-success" value="항목추가"> + </button></td>
+								   </tr>
 								   </form>
 								</tbody>
 							</table>

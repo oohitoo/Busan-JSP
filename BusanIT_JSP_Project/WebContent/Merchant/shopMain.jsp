@@ -24,14 +24,125 @@
 	rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-<title>판매자 페이지</title>
 <script>
-function orderStatusUpdate(){
-	locaion.href = "shopOrderStatusProc.jsp?oNum="+oNum
+function updateOrderStatus(orderStatus , oNum){
+	location.href="shopOrderStatusProc.jsp?orderStatus="+orderStatus+"&oNum="+oNum;	
 }
 </script>
+<title>판매자 페이지</title>
 </head>
+<style>
+@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') 
 
+.funkyradio div {
+  clear: both;
+  overflow: hidden;
+}
+
+.funkyradio label {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.funkyradio input[type="radio"]:empty,
+.funkyradio input[type="checkbox"]:empty {
+  display: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label,
+.funkyradio input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.funkyradio input[type="radio"]:empty ~ label:before,
+.funkyradio input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #888;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked ~ label,
+.funkyradio input[type="checkbox"]:checked ~ label {
+  color: #777;
+}
+
+.funkyradio input[type="radio"]:checked ~ label:before,
+.funkyradio input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus ~ label:before,
+.funkyradio input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked ~ label:before,
+.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.funkyradio-primary input[type="radio"]:checked ~ label:before,
+.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.funkyradio-success input[type="radio"]:checked ~ label:before,
+.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.funkyradio-danger input[type="radio"]:checked ~ label:before,
+.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #d9534f;
+}
+
+.funkyradio-warning input[type="radio"]:checked ~ label:before,
+.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #f0ad4e;
+}
+
+.funkyradio-info input[type="radio"]:checked ~ label:before,
+.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5bc0de;
+}
+</style>
 <body id="page-top">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -137,7 +248,7 @@ function orderStatusUpdate(){
 											<%
 											Vector<ordersBean> orderList = ordersMgr.orderList(businessName);
 											int listSize = orderList.size(), no=1;
-											String oNumTest = "null";/* oNum 같을때 test */
+											String oNumCheck = "null";/* oNum 같을때 test */
 											if(orderList.isEmpty()){
 												%>
 											<th colspan="7" class="text-primary">
@@ -166,31 +277,27 @@ function orderStatusUpdate(){
 										%>
 											<td>
 													<%
-													if(oNumTest.equals(oNum)){%>
+													if(oNumCheck.equals(oNum)){%>
 													<%}else{%>
 														<%=no %>
 													<%} %>
 											</td>
 											<td>
 													<%
-													if(oNumTest.equals(oNum)){%>
+													if(oNumCheck.equals(oNum)){%>
 													<%}else{%>
 													<!-- 미완성 -->
-														<form method="post" action="">
-															<select onchange='javascript:orderStatusUpdate("<%=oNum %>")' name="oStatus">
-																<option value="0"><%=orderStatus %>
-																<option value="1">하나
-																<option value="2">둘
-																<option value="3">셋
-																<option value="4">넷 
-																<input type="hidden" name="oNum" value="<%=oNum %>">
-															</select>
-												</form>
+												    <div class="container">
+													  <button onclick = "javascript:updateOrderStatus('1', '<%=oNum %>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1")?"primary":"info"%>" name="oStatus">하나</button>
+													  <button onclick = "javascript:updateOrderStatus('2', '<%=oNum %>')" type="button" value="2" class="btn btn-<%=orderStatus.equals("2")?"primary":"info"%>" name="oStatus">둘</button>
+													  <button onclick = "javascript:updateOrderStatus('3', '<%=oNum %>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3")?"primary":"info"%>" name="oStatus">셋</button>
+													  <button onclick = "javascript:updateOrderStatus('4', '<%=oNum %>')" type="button" value="4" class="btn btn-<%=orderStatus.equals("4")?"primary":"info"%>" name="oStatus">넷</button>
+													</div>
 													<%} %>
 											</td>
 											<td>
 												<%
-													if(oNumTest.equals(oNum)){%>
+													if(oNumCheck.equals(oNum)){%>
 													<%}else{%>
 														<%
 														//시간 형 변환
@@ -218,20 +325,20 @@ function orderStatusUpdate(){
 											<td><%=count %></td>
 											<td>
 												<%
-												if(oNumTest.equals(oNum)){no--;%>
+												if(oNumCheck.equals(oNum)){no--;%>
 												<%}else{%>
 													<%=orderType %>
 												<%} %>
 											</td>
 											<td style="text-align: left;">
 												<%
-												if(oNumTest.equals(oNum)){%>
+												if(oNumCheck.equals(oNum)){%>
 												<%}else{%>
 													<%=oRequest %>
 												<%} %>
 											</td>
 										</tr>
-										<%oNumTest=oNum; no++;%>
+										<%oNumCheck=oNum; no++;%>
 										<%}//for%>
 										<%} //if else%>
 										<!-- 자동 테이블 -->

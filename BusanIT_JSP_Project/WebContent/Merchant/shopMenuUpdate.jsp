@@ -62,62 +62,62 @@ function del(idx){
         <div class="container">
             <div class="row justify-content-center align-items-center">
 
-							<!-- Menu List -->
-							<table class="table table-bordered" id="list_table" width="100%" cellspacing="0" style="text-align: center;">
-							<thead>
+				<!-- Menu List -->
+				<table class="table table-bordered" id="list_table" width="100%" cellspacing="0" style="text-align: center;">
+				<thead>
+					<tr>
+						<th class="text-primary" width="70">No</th>
+						<th class="text-primary">메뉴 이름</th>
+						<th class="text-primary">카테고리</th>
+						<th class="text-primary">가격</th>
+						<th class="text-primary">메뉴 설명</th>
+						<th class="text-primary">메뉴 사진</th>
+						<th class="text-primary">추가/삭제</th>
+					</tr>
+				</thead>
+						<%
+							Vector<menuBean> menuList = menuMgr.menuSelect(businessName);
+							int listSize = menuList.size(), no=0;
+							if(menuList.isEmpty()){
+								out.println("등록된 메뉴가 없습니다.");
+							}else{
+								for(int i=0; i<menuList.size(); i++){
+									if (i==menuList.size()) break;
+									menuBean bean = menuList.get(i);
+									int idx = bean.getIdx();
+									String menu = bean.getMenu();
+									String mCategory = bean.getCategory();
+									int mPrice = bean.getmPrice();
+									String mInfo = bean.getmInfo();
+									String mImg = bean.getmImg();
+									no++;
+						%>
 								<tr>
-									<th class="text-primary" width="70">No</th>
-									<th class="text-primary">메뉴 이름</th>
-									<th class="text-primary">카테고리</th>
-									<th class="text-primary">가격</th>
-									<th class="text-primary">메뉴 설명</th>
-									<th class="text-primary">메뉴 사진</th>
-									<th class="text-primary">추가/삭제</th>
+									<td><%=no %></td>
+									<td><%=mCategory %></td>
+									<td><%=menu %></td>
+									<td><%=NumberFormat.getInstance().format(mPrice) %></td> <!-- 천단위 콤마 찍기 -->
+									<td><%=mInfo %></td>
+									<td><%=mImg %></td>
+									<td><button type="button" class="btn btn-danger" onclick="javascript:del(<%=idx%>)">-</button></td>
 								</tr>
-							</thead>
-									<%
-										Vector<menuBean> menuList = menuMgr.menuSelect(businessName);
-										int listSize = menuList.size(), no=0;
-										if(menuList.isEmpty()){
-											out.println("등록된 메뉴가 없습니다.");
-										}else{
-											for(int i=0; i<menuList.size(); i++){
-												if (i==menuList.size()) break;
-												menuBean bean = menuList.get(i);
-												int idx = bean.getIdx();
-												String menu = bean.getMenu();
-												String mCategory = bean.getCategory();
-												int mPrice = bean.getmPrice();
-												String mInfo = bean.getmInfo();
-												String mImg = bean.getmImg();
-												no++;
-									%>
-											<tr>
-												<td><%=no %></td>
-												<td><%=mCategory %></td>
-												<td><%=menu %></td>
-												<td><%=NumberFormat.getInstance().format(mPrice) %></td> <!-- 천단위 콤마 찍기 -->
-												<td><%=mInfo %></td>
-												<td><%=mImg %></td>
-												<td><button type="button" class="btn btn-danger" onclick="javascript:del(<%=idx%>)">-</button></td>
-											</tr>
-											<% }%>
-										<% }%>
-										<tbody>
-								   <form name="frm" method="post" action="">
-								   <tr style="text-align: center;">
-								      <td><input type="text" name="add_no" class="form-control" value="<%=no+1 %>" style="text-align: center;"/>
-								      <td><input type="text" name="menu" class="form-control"></td>
-								      <td><input type="text" name="category" class="form-control"></td>
-								      <td><input type="text" name="mPrice" class="form-control"></td>
-								      <td><input type="text" name="mInfo" class="form-control"></td>
-								      <td><input type="text" name="mImg" class="form-control" placeholder="null"></td>
-								      <input type="hidden" name="rName" value="<%=businessName %>">
-								      <td><button type="submit" class="btn btn-success" value="항목추가"> + </button></td>
-								   </tr>
-								   </form>
-								</tbody>
-							</table>
+								<% }%>
+							<% }%>
+							<tbody>
+					   <form name="frm" method="post" action="">
+					   <tr style="text-align: center;">
+					      <td><input type="text" name="add_no" class="form-control" value="<%=no+1 %>" style="text-align: center;"/>
+					      <td><input type="text" name="menu" class="form-control"></td>
+					      <td><input type="text" name="category" class="form-control"></td>
+					      <td><input type="text" name="mPrice" class="form-control"></td>
+					      <td><input type="text" name="mInfo" class="form-control"></td>
+					      <td><input type="text" name="mImg" class="form-control" placeholder="null"></td>
+					      <input type="hidden" name="rName" value="<%=businessName %>">
+					      <td><button type="submit" class="btn btn-success" value="항목추가"> + </button></td>
+					   </tr>
+					   </form>
+					</tbody>
+				</table>
             </div>
         </div>
     </div>

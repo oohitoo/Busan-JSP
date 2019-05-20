@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.Vector;
 
 public class ordersMgr {
-
 	
 	private DB.DBConnectionMgr pool;
 	
@@ -62,10 +61,12 @@ public class ordersMgr {
 		String sql = null;
 		try {
 			con=pool.getConnection();
-			sql="update orders(orderStatus) values(?) where oNum=?";
+			sql="update orders SET orderStatus=? where oNum=?";
 			pstmt=con.prepareStatement(sql);		
 			pstmt.setString(1, orderStatus);
 			pstmt.setString(2, oNum);
+			
+			pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {

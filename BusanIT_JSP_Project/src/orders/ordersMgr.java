@@ -65,7 +65,6 @@ public class ordersMgr {
 			pstmt=con.prepareStatement(sql);		
 			pstmt.setString(1, orderStatus);
 			pstmt.setString(2, oNum);
-			
 			pstmt.executeUpdate();
 		}catch(Exception e){
 			e.printStackTrace();

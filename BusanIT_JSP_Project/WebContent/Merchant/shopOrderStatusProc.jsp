@@ -6,6 +6,7 @@
 	
 	String oNum = request.getParameter("oNum");
 	String orderStatus = request.getParameter("orderStatus");
+	ordersMgr.updateOrder(orderStatus, oNum);
 %>
 <script type="text/javascript">
 	location.href = "shopMain.jsp";

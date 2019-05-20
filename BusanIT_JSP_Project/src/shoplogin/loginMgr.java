@@ -65,6 +65,7 @@ public class loginMgr {
 				bean.setPhone(rs.getString(4));
 				bean.setAddress(rs.getString(5));
 				bean.setCategory(rs.getString(6));
+				bean.setImage(rs.getString(7));
 				shopInfo.addElement(bean);
 			}
 		} 
@@ -100,5 +101,28 @@ public class loginMgr {
 			pool.freeConnection(con, pstmt);
 		}
 		return flag;
+	}
+	
+	//order count
+	public int getNumCnt(String oNum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int rcnt = 0;
+		try {
+			con = pool.getConnection();
+			sql = "select count(*) from orders where oNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, oNum);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				rcnt = rs.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return rcnt;
 	}
 }

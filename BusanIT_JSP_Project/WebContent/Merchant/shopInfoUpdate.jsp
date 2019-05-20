@@ -21,6 +21,31 @@ if(businessName==null){
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <title>Update Info</title>
+<script>
+	$('.newbtn').bind("click", function() 
+			{$('#pic').click();});
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$('#logo').attr('src', e.target.result);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
+<style>
+	#pic {display: none;}
+	.newbtn {cursor: pointer;}
+	#blah {
+			max-width: 100px;
+			height: 100px;
+			margin-top: 20px;
+			}
+</style>
 </head>
 <body>
     <div id="signup">
@@ -74,7 +99,7 @@ if(businessName==null){
 							<!-- 식당 분류 -->
 							<div class="form-group">
 								<label for="scategories" class="text-primary">음식 종류:</label><br>
-								<select class="form-control" id="sel1">
+								<select class="form-control" name="scategories" id="scategories">
 									<option>한식</option>
 									<option>중식</option>
 									<option>일식</option>
@@ -84,40 +109,17 @@ if(businessName==null){
 							</div>
 
 							<!-- image upload -->
-							<label for="scategories" class="text-primary">식당   로고 선택:</label>
-							<div class="row">
-								<div>
-									<label class=newbtn> 
-									<img id="logo" src="http://placehold.it/100x100" width="100" height="100"> 
-									<input id="pic"	class='pis' onchange="readURL(this);" type="file">
-									</label>
+							<div class="form-group">
+								<label for="scategories" class="text-primary">식당 로고 선택:</label><br>
+								<div class="row">
+									<div>
+										<label class=newbtn> 
+										<img id="logo" src="http://placehold.it/60x60" width="60" height="60">
+											<input id="pic" class='pis' onchange="readURL(this);" type="file">
+										</label>
+									</div>
 								</div>
 							</div>
-							<script>
-								$('.newbtn').bind("click", function() 
-										{$('#pic').click();});
-
-								function readURL(input) {
-									if (input.files && input.files[0]) {
-										var reader = new FileReader();
-
-										reader.onload = function(e) {
-											$('#logo').attr('src', e.target.result);
-										};
-
-										reader.readAsDataURL(input.files[0]);
-									}
-								}
-							</script>
-							<style>
-								#pic {display: none;}
-								.newbtn {cursor: pointer;}
-								#blah {
-										max-width: 100px;
-										height: 100px;
-										margin-top: 20px;
-										}
-							</style>
 
 							<!-- Update Submit -->
 							<div id="register-link" class="text-right">

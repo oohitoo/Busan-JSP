@@ -5,7 +5,9 @@
 	request.setCharacterEncoding("EUC-KR");
 	String pwd = request.getParameter("pwd");
 	String pwd2 = request.getParameter("pwd2");
+	String scategories = request.getParameter("scategories");
 	String businessId = (String) session.getAttribute("businessId");
+
 	
 	if (pwd.equals(pwd2)) {
 		boolean flag = mgr.updateShopInfo(pwd, businessId);

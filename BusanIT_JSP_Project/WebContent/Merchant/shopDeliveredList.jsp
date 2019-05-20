@@ -163,8 +163,17 @@ function updateOrderStatus(orderStatus , oNum){
 			</a>
 
 			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-			<hr class="sidebar-divider d-none d-md-block">
+			<hr class="sidebar-divider my-0">
+
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item">
+			<a class="nav-link" href="#" onclick="window.location.reload(true);"> <!-- 클릭시 refresh --> 
+			<span>판매 상태</span>
+			</a>
+			</li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider">
 
 			<!-- 배달 상태 -->
 			<div class="sidebar-heading">배달 상태</div>
@@ -237,19 +246,19 @@ function updateOrderStatus(orderStatus , oNum){
 										<!--자동테이블 -->
 										<tr>
 											<%
-											Vector<ordersBean> orderListMain = ordersMgr.orderListMain(businessName);
-											int listSize = orderListMain.size(), no=1;
+											Vector<ordersBean> orderList = ordersMgr.orderDelieveredList(businessName);
+											int listSize = orderList.size(), no=1;
 											String oNumCheck = "null";/* oNum 같을때 test */
-											if(orderListMain.isEmpty()){
+											if(orderList.isEmpty()){
 												%>
 											<th colspan="7" class="text-primary">
 												<%out.println("아직 주문이 없네요. 홍보를 조금 더 해볼까요?"); %>
 											</th>
 											<%}else{
 												int rcnt = 1 , scnt = 0;
-												for(int i=0; i<orderListMain.size(); i++){
-													if(i==orderListMain.size()) break;
-													ordersBean oBean = orderListMain.get(i);
+												for(int i=0; i<orderList.size(); i++){
+													if(i==orderList.size()) break;
+													ordersBean oBean = orderList.get(i);
 													String oNum = oBean.getoNum();
 													int count = oBean.getCount();
 													String id = oBean.getId();

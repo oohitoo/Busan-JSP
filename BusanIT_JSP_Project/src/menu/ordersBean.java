@@ -8,13 +8,15 @@ public class ordersBean {
 	private String cAddress = null; // 주소
 	private String rName = null; // 식당이름
 	private String cPhone = null; // 사용자 폰번호
-	private String mName = ""; // 메뉴 이름
+	private String menu = ""; // 메뉴 이름
 	private int count = 0;
 	private String oDate = null; // 주문 시간
 	private String oRequest = null; //요청사항
 	private String orderType = null; // 배달, 예약이냐
 	private String payType = null;	 // 결제 타입
 	private String orderStatus;
+	private int mPrice;
+	private int totalPrice;
 	
 	public String getOrderStatus() {
 		return orderStatus;
@@ -64,11 +66,11 @@ public class ordersBean {
 	public void setcPhone(String cPhone) {
 		this.cPhone = cPhone;
 	}
-	public String getmName() {
-		return mName;
+	public String getMenu() {
+		return menu;
 	}
-	public void setmName(String mName) {
-		this.mName = mName;
+	public void setMenu(String menu) {
+		this.menu = menu;
 	}
 	public String getoDate() {
 		return oDate;
@@ -93,6 +95,18 @@ public class ordersBean {
 	}
 	public void setPayType(String payType) {
 		this.payType = payType;
+	}
+	public int getmPrice() {
+		return mPrice;
+	}
+	public void setmPrice(int mPrice) {
+		this.mPrice = mPrice;
+	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 	

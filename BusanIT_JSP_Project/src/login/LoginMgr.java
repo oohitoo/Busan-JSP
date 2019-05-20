@@ -18,49 +18,6 @@ public class LoginMgr {
 		pool = DBConnectionMgr.getInstance();
 	}
 	
-	public boolean TestDb() {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		boolean flag = false;
-		try {
-			con = pool.getConnection();
-			sql = "select * from customer";
-			pstmt = con.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				flag = true;
-			}
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return flag;
-	}
-	
-	public boolean dbcomment() {
-		boolean flag = false;
-		
-		try {
-			conn = pool.getConnection();
-			sql = "SELECT count(*) FROM address";
-			psmt = conn.prepareStatement(sql);			
-			rs = psmt.executeQuery();			
-			flag = rs.next();			
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		finally {
-			pool.freeConnection(conn, psmt, rs);
-		}
-		return flag;
-	}
 	
 	//insert Member_tb
 		public boolean insertMember(LoginBean bean) {
@@ -78,8 +35,7 @@ public class LoginMgr {
 				pstmt.setString(4, bean.getcNick());
 				pstmt.setString(5, bean.getcPhone());
 				pstmt.setString(6, bean.getcPost());
-				pstmt.setString(7, bean.getcAddress());
-				
+				pstmt.setString(7, bean.getcAddress());	
 				if(pstmt.executeUpdate()==1)
 					flag = true;			
 			} catch (Exception e) {
@@ -128,20 +84,15 @@ public class LoginMgr {
 				con = pool.getConnection();
 				sql = "SELECT * FROM address WHERE street LIKE ?";
 				pstmt = con.prepareStatement(sql);
-				
 				pstmt.setString(1, "%" + street + "%");
-				
 				rs = pstmt.executeQuery();
-				
 				while(rs.next()) {
-					
 					ZipcodeBean bean = new ZipcodeBean();
 					bean.setPostnum(rs.getString(1));
 					bean.setCity(rs.getString(2));
 					bean.setGu(rs.getString(3));
 					bean.setStreet(rs.getString(4));
 					bean.setStreetNum(rs.getString(5));
-					
 					vlist.addElement(bean);
 				}
 			} 
@@ -203,7 +154,6 @@ public class LoginMgr {
 				bean.setcPhone(rs.getString("cPhone"));				
 				bean.setcPost(rs.getString("cPost"));
 				bean.setcAddress(rs.getString("cAddress"));
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,9 +176,7 @@ public class LoginMgr {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getcPhone());
-			
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				id = rs.getString("id");
 			}
@@ -238,7 +186,6 @@ public class LoginMgr {
 			pool.freeConnection(con, pstmt);
 		}
 		return id;
-		
 	}
 	
 	
@@ -257,7 +204,6 @@ public class LoginMgr {
 			pstmt.setString(1, bean.getId());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getcPhone());
-			
 			rs = pstmt.executeQuery();
 			if(rs.next())
 			{
@@ -288,8 +234,7 @@ public class LoginMgr {
 				pstmt.setString(4, bean.getcPhone());
 				pstmt.setString(5, bean.getcPost());
 				pstmt.setString(6, bean.getcAddress());
-				pstmt.setString(7, bean.getId());
-							
+				pstmt.setString(7, bean.getId());						
 				if(pstmt.executeUpdate()==1)
 					flag = true;			
 			} catch (Exception e) {

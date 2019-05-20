@@ -4,12 +4,12 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript" src="script.js"></script>
+
 <meta charset="EUC-KR">
 <title>회원가입</title>
 
 </head>
-
+<script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
 	//Check ID overlap
 	function idCheck(id) {
@@ -40,7 +40,10 @@
 							method="post">
 
 							<!-- Sign-up -->
-							<h3 class="text-center text-primary">Sign-up</h3>
+							<a href="../Index.jsp">
+							<h3 class="text-center text-primary">회원가입</h3>
+							</a>
+							<br/>
 
 							<!-- 사용자 아이디 -->
 							<div class="form-group">
@@ -96,7 +99,7 @@
 							
 							<div class="form-group">
 								 
-								<input type="submit" name="submit" class="btn btn-primary btn-md" value="가입하기" onclick="inputCheck()">
+								<input type="button" class="btn btn-primary btn-md" value="가입하기" onclick="inputCheck()">
 							</div>
 							
 

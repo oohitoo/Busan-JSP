@@ -13,7 +13,7 @@
 	else{
 		String flag = request.getParameter("flag");
 		String msg = "";
-		order.setmName(request.getParameter("menu"));
+		order.setMenu(request.getParameter("menu"));
 		order.setCount(Integer.parseInt(request.getParameter("count")));
 		order.setId(id);
 		if(flag.equals("insert")){

@@ -28,7 +28,7 @@
 	}
 %>
 <!-- desienForm 디자인 폼 -->
-<jsp:include page="desienForm.jsp" />
+<jsp:include page="designForm.jsp" />
 <!-- 가게 상세 페이지 -->
 <jsp:include page="dropdown.jsp" />
 

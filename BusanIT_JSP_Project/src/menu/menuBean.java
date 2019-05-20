@@ -5,7 +5,7 @@ public class menuBean {
 	private int idx; //인덱스 번호
 	private String rName; // 식당이름
 	private String Catagore;
-	private String mName; // 메뉴이름
+	private String menu; // 메뉴이름
 	private int mPrice; // 메뉴가격
 	private String mInfo; // 메뉴 설명
 	private String mImg; // 메뉴 이미지
@@ -29,11 +29,11 @@ public class menuBean {
 	public void setrName(String rName) {
 		this.rName = rName;
 	}
-	public String getmName() {
-		return mName;
+	public String getMenu() {
+		return menu;
 	}
-	public void setmName(String mName) {
-		this.mName = mName;
+	public void setMenu(String menu) {
+		this.menu = menu;
 	}
 	public int getmPrice() {
 		return mPrice;

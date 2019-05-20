@@ -4,7 +4,7 @@
 <jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
 <jsp:useBean id="menuMgr" class="menu.menuMgr"/>
 <jsp:useBean id="loginMgr" class="login.LoginMgr"/>
-<jsp:useBean id="oMgr" class="orders.ordersMgr"/>
+<jsp:useBean id="oMgr" class="menu.ordersMgr"/>
 <jsp:useBean id="loginBean" class="login.LoginBean"/>
 
 <!-- 
@@ -43,7 +43,7 @@
 		while(hCartKey.hasMoreElements()){
 			// 장바구니에 있던 주문 객체
 			ordersBean order = hCart.get(hCartKey.nextElement());
-			menuBean bean = menuMgr.getmenuBean(shop, order.getmName());
+			menuBean bean = menuMgr.getmenuBean(shop, order.getMenu());
 			//주문 처리
 			oMgr.insertOrder(order, orderNum, addres, shop, numbers, req, payType);
 			//장바구니 삭제
@@ -55,7 +55,7 @@
 		msg = "장바구니가 비어 있습니다.";
 	}	
 %>
-<script>
+ <script>
 	alert("<%= msg%>");
-	location.href = 'orderList.jsp';
-</script>
+	location.href = '../orderdetail/orderList.jsp';
+</script> 

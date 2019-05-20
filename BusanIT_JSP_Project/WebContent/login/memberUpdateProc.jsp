@@ -8,6 +8,8 @@
 <%
 	String caddress1 = request.getParameter("caddress1");
 	String caddress2 = request.getParameter("caddress2");
+	out.println(caddress1);
+	out.println(caddress2);
 	bean.setcAddress(caddress1 + caddress2);
 	boolean result = mgr.updateCustomer(bean);
 	if(result) {

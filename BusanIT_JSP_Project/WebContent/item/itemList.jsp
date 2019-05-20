@@ -37,7 +37,7 @@
 	//페이징 & 블럭처리 종료
 	
 %>
-<jsp:include page="desienForm.jsp" />
+<jsp:include page="designForm.jsp" />
 
 <script type="text/javascript">
 	function paging(page) {

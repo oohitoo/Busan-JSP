@@ -24,7 +24,9 @@
 						<form id="FindId-form" class="form" action="FindIdProc.jsp" method="get">
 
 							<!-- 아이디 찾기 -->
+							<a href="../Index.jsp">
 							<h3 class="text-center text-primary">Find ID</h3>
+							</a>
 
 							<!-- 사용자 이름 -->
 							<div class="form-group">
@@ -49,7 +51,9 @@
 							<br />
 							<br />
 							<!-- 비밀번호 찾기 -->
+							<a href="../Index.jsp">
 							<h3 class="text-center text-primary">Find Password</h3>
+							</a>
 
 							<!-- 사용자 아이디 -->
 							<div class="form-group">

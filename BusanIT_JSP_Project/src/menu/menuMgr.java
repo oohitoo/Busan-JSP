@@ -40,7 +40,7 @@ public class menuMgr {
 				menuBean bean = new menuBean();
 				bean.setIdx(rs.getInt("idx"));
 				bean.setrName(rs.getString("rName"));
-				bean.setmName(rs.getString("Menu"));
+				bean.setMenu(rs.getString("menu"));
 				bean.setmPrice(rs.getInt("mPrice"));
 				bean.setmInfo(rs.getString("mInfo"));
 				bean.setmImg(rs.getString("mImg"));
@@ -81,7 +81,7 @@ public class menuMgr {
 				mBean.setIdx(rs.getInt(1));
 				mBean.setrName(rs.getString(2));
 				mBean.setCatagore(rs.getString(3));
-				mBean.setmName(rs.getString(4));
+				mBean.setMenu(rs.getString(4));
 				mBean.setmPrice(rs.getInt(5));		
 				mBean.setmInfo(rs.getString(6));
 				mBean.setmImg(rs.getString(7));
@@ -121,7 +121,7 @@ public class menuMgr {
 				bean.setIdx(rs.getInt("idx"));
 				bean.setrName(rs.getString("rName"));
 				bean.setCatagore(rs.getString("Category"));
-				bean.setmName(rs.getString("Menu"));
+				bean.setMenu(rs.getString("Menu"));
 				bean.setmPrice(rs.getInt("mPrice"));
 				bean.setmInfo(rs.getString("mInfo"));
 				bean.setmImg(rs.getString("mImg"));

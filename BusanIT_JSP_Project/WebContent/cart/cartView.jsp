@@ -22,7 +22,7 @@
 	}
 	int num = 1;
 %>
-<jsp:include page="desienForm.jsp" />
+<jsp:include page="designForm.jsp" />
 <%-- <%@ include file="desienTest.jsp"%> --%>
 
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -63,6 +63,7 @@
 			var request = document.getElementById("request").value;
 			var Box = document.getElementById("payType");
 			var selectBox = Box.options[Box.selectedIndex].value;
+			
 			console.log(selectBox);
 			location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
 		}
@@ -95,6 +96,7 @@
 			<!-- 반복 돌리기 끝  -->
 			<%
 				int total = 0; //전체값
+				int subTotal =0;
 				Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
 				
 				if(hCart.isEmpty()){
@@ -111,12 +113,12 @@
 					String shop = (String)session.getAttribute("store"); // 가게 명
 					//hCart에 저장된 주문 객체를 return 
 					menu.ordersBean order = hCart.get(hCartKey.nextElement());
-					String menuName = order.getmName();
+					String menuName = order.getMenu();
 					//상품 객체(상품 가격, 상품 이름)								
 					menuBean bean = menuMgr.getmenuBean(shop, menuName);
 					int price = bean.getmPrice(); // 상품 가격
 					int count = order.getCount(); // 주문수량
-					int subTotal = count * price; // 상품 총액
+					subTotal = count * price; // 상품 총액
 					total += subTotal; // 주문전체 총액
 			%>
 				<tr>

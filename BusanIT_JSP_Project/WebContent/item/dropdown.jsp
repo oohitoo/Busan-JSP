@@ -71,6 +71,9 @@ h3{
 		/* location.href = "privateShopProc.jsp?flag=insert"+"&menu="+menu; */
 		location.href = "privateShopProc.jsp?menu="+menu+"&info="+info+"&price="+price+"&count="+1+"&flag=insert";
 	}
+	function reserve(){
+		document.readFrm.submit();
+	}
 </script>
 <div class="container">
 	<div class="row">
@@ -109,14 +112,14 @@ h3{
 						for(int i = 0; i < bestmenu.size(); ++i){
 							menuBean bestbean = bestmenu.get(i);
 							String mImg = bestbean.getmImg(); // 메뉴 이미지
-							String mName = bestbean.getmName(); // 메뉴 이름
+							String menu = bestbean.getMenu(); // 메뉴 이름
 							String mInfo = bestbean.getmInfo(); // 메뉴 설명
 							int mPrice = bestbean.getmPrice(); // 메뉴 가격
 						%>						
 						<tr>
 							<td>
 								<font color="black" size="4">
-									<a href="javascript:cartView('<%=mName%>','<%=mInfo%>','<%=mPrice%>')"><%= mName %></a>
+									<a href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%= menu %></a>
 								</font>
 							</td>
 							<td rowspan="3" width="140px" height="130px" align="center">
@@ -133,7 +136,7 @@ h3{
 						<tr>
 							<td><font color="black" size="3"><li><%= mPrice %> 원</li></font></td>
 						</tr>
-						<input type="hidden" id= "menuName" value="<%= mName %>">
+						<input type="hidden" id= "menuName" value="<%= menu %>">
 						<%}%>
 					</table>
 					
@@ -151,14 +154,14 @@ h3{
 					for(int i = 0; i < drinkmenu.size(); ++i){
 						menuBean drinkbean = drinkmenu.get(i);
 						String mImg = drinkbean.getmImg(); // 메뉴 이미지
-						String mName = drinkbean.getmName(); // 메뉴 이름
+						String menu = drinkbean.getMenu(); // 메뉴 이름
 						String mInfo = drinkbean.getmInfo(); // 메뉴 설명
 						int mPrice = drinkbean.getmPrice(); // 메뉴 가격
 					%>
 					<tr>
 						<td>
 							<font color="black" size="4">
-								<a href="javascript:cartView('<%=mName%>','<%=mInfo%>','<%=mPrice%>')"><%= mName %></a>
+								<a href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%= menu %></a>
 							</font></td>
 						<td rowspan="3" width="140px" height="130px" align="center">
 							<% if(mImg != null){ %>
@@ -188,14 +191,14 @@ h3{
 					for(int i = 0; i < sidemenu.size(); ++i){
 						menuBean sidebean = sidemenu.get(i);
 						String mImg = sidebean.getmImg(); // 메뉴 이미지
-						String mName = sidebean.getmName(); // 메뉴 이름
+						String menu = sidebean.getMenu(); // 메뉴 이름
 						String mInfo = sidebean.getmInfo(); // 메뉴 설명
 						int mPrice = sidebean.getmPrice(); // 메뉴 가격
 					%>
 						<tr>
 							<td>
 								<font color="black" size="4">
-									<a href="javascript:cartView('<%=mName%>','<%=mInfo%>','<%=mPrice%>')"><%= mName %></a>
+									<a href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%= menu %></a>
 								</font>
 							</td>
 							<td rowspan="3" width="140px" height="130px" align="center">
@@ -218,13 +221,21 @@ h3{
 			<table style="width: 600px; margin-left: 50px; margin-top: 50px;">
 				<tr>
 					<td width="300px" style="text-align: center;">
-						<font color="black" size="5">예약</font>
+						<font color="black" size="5">
+<%-- 						<a href="../reserve/main.jsp?shop=<%=shop%>"> --%>
+						<a href="javascript:reserve()">
+						예약
+						</a>
+						</font>
 					</td>
 					<td width="300px" style="text-align: center;">
 						<a href="../cart/cartView.jsp"><font color="black" size="5">배달</font></a>
 					</td>
 				</tr>
 			</table>
+			<form name="readFrm" action="../reserve/reserve.jsp">										
+					<input type="hidden" name="shop" value="<%= shop %>" />				
+			</form>
 		</div>
 		<!-- 드롭다운 닫힘 -->
 	</div>

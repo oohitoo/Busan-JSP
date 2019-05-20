@@ -22,7 +22,7 @@
 	}
 	int num = 1;
 %>
-<jsp:include page="desienForm.jsp" />
+<jsp:include page="designForm.jsp" />
 <%-- <%@ include file="desienTest.jsp"%> --%>
 
 <script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -111,7 +111,7 @@
 					String shop = (String)session.getAttribute("store"); // 가게 명
 					//hCart에 저장된 주문 객체를 return 
 					menu.ordersBean order = hCart.get(hCartKey.nextElement());
-					String menuName = order.getmName();
+					String menuName = order.getMenu();
 					//상품 객체(상품 가격, 상품 이름)								
 					menuBean bean = menuMgr.getmenuBean(shop, menuName);
 					int price = bean.getmPrice(); // 상품 가격

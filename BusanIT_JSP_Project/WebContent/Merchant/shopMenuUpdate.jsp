@@ -55,7 +55,7 @@ function del(idx){
 	location.href = "shopMenuUpdateProc.jsp?idx="+idx;
 }
 </script>
-<title>Update Info</title>
+<title>Update Menu</title>
 </head>
 <body id="page-top">
 	<!-- Page Wrapper -->
@@ -129,7 +129,7 @@ function del(idx){
 					<h1 class="h3 mb-2 text-gray-800"><%=businessName %></h1>
 					<div class="card shadow mb-4">
 					<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">주문 목록</h6>
+							<h6 class="m-0 font-weight-bold text-primary">메뉴 목록</h6>
 						</div>
 						<div class="card-body">
 					<!-- DataTales -->
@@ -169,11 +169,17 @@ function del(idx){
 									<td><%=menu %></td>
 									<td><%=NumberFormat.getInstance().format(mPrice) %></td> <!-- 천단위 콤마 찍기 -->
 									<td><%=mInfo %></td>
-									<td><%=mImg %></td>
+									<td>
+									<% if(mImg != null){%>
+										<img src="../img/menuImg/<%=mImg %>" alt="이미지 준비중" width="100px" height="100px">
+									<%}else{ %>
+										<img src="../img/menuImg/<%=mImg %>" alt="이미지 준비중" width="100px" height="100px">
+									<%} %> 
+									</td>
 									<td><button type="button" class="btn btn-danger" onclick="javascript:del(<%=idx%>)">-</button></td>
 								</tr>
-								<% }%>
-							<% }%>
+								<% } //for%>
+							<% } //else%>
 							<tbody>
 					   <form name="frm" method="post" action="">
 					   <tr style="text-align: center;">
@@ -182,7 +188,7 @@ function del(idx){
 					      <td><input type="text" name="category" class="form-control"></td>
 					      <td><input type="text" name="mPrice" class="form-control"></td>
 					      <td><input type="text" name="mInfo" class="form-control"></td>
-					      <td><input type="text" name="mImg" class="form-control" placeholder="null"></td>
+					      <td><input type="file" name="mImg" class="upload-hidden" ></td>
 					      <input type="hidden" name="rName" value="<%=businessName %>">
 					      <td><button type="submit" class="btn btn-success" value="항목추가"> + </button></td>
 					   </tr>

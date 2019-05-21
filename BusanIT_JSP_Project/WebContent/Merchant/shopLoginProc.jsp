@@ -3,37 +3,23 @@
 <%@ page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr"/>
+<jsp:useBean id="loginBean" class="shoplogin.loginBean"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
-	String business = request.getParameter("businessid");
-	String beanBusinessId, beanBusinessname, beanPhone, beanAddress, beanCategory;
-	Vector<loginBean> vshopInfo =mgr.shopInfo(business);
-	for(int i = 0; i < vshopInfo.size(); ++i){
-		loginBean bean = vshopInfo.get(i);
-		beanBusinessId = bean.getBusinessid();
-		beanBusinessname = bean.getName();
-		beanPhone = bean.getPhone();
-		beanAddress = bean.getAddress();
-		beanCategory = bean.getCategory();
-				
-		if(beanBusinessId.equals(business)){
-			%>
-				<script>
-					<% session.setAttribute("name", beanBusinessname);%>
-					<% session.setAttribute("businessId", beanBusinessId);%>
-					<% session.setAttribute("phone", beanPhone);%>
-					<% session.setAttribute("address", beanAddress);%>
-					<% session.setAttribute("category", beanCategory);%>
-					location.href= 'shopMain.jsp';
-				</script>
-			<%
-			break;
-		}else{
-			%>
-				<script>
-					alert("로그인 실패");
-				</script>
-			<%
-		}break;
+	String businessid = request.getParameter("businessid");
+	String pwd = request.getParameter("pwd");
+	String msg = "로그인에 실패하셨습니다.";
+	String href = "shoplogin.jsp";
+	
+	boolean flag = mgr.loginShop(businessid, pwd);
+	if(flag){
+	session.setAttribute("name", loginBean.getBsnsNm());
+	msg= "로그인 성공";
+	href="shopMain.jsp";
 	}
 %>
+<script>
+	alert("<%=msg%>");
+	locaiton.href="<%=href%>";
+</script>
+	

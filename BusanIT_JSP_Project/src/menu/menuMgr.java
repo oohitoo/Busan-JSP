@@ -1,9 +1,15 @@
 package menu;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class menuMgr {
 	
@@ -82,6 +88,43 @@ public class menuMgr {
 		return;
 	}
 	
+	//가게별 이미지 저장하는곳
+		public boolean ShopimageUpdateFile(HttpServletRequest req) {
+			Connection conn = null;
+			PreparedStatement psmt = null;
+			boolean flag = false;
+			String sql;
+			
+			try {
+				MultipartRequest mult = new MultipartRequest(req, saveFolder, maxSize, encType, new DefaultFileRenamePolicy());
+				String upFile = mult.getFilesystemName("upFile");
+				// 앞에서 넘오는 name 설정 값
+				File f = mult.getFile("upFile");
+				int size = (int)f.length();
+				
+				conn = pool.getConnection();
+				sql = "update menu_list set restImg = ?, restImgsize = ? where bsnsCond = ?";
+				psmt = conn.prepareStatement(sql);
+				
+				psmt.setString(1, upFile); //파일 설정 하기
+				psmt.setInt(2, size);
+				psmt.setString(3, bsnsCond);
+				System.out.println(upFile + "/" + size + "/" + bsnsCond + "/");
+				System.out.println(psmt.executeUpdate());
+				
+				if(psmt.executeUpdate() == 9) { // 반환될 값임
+					flag = true;
+				}			
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				pool.freeConnection(conn, psmt);
+			}		
+			return flag;
+		}
+		
 	//메뉴 삭제
 	public void deleteMenu(int idx) {
 		Connection con = null;

@@ -24,15 +24,12 @@ if(businessName==null){
 <script>
 	$('.newbtn').bind("click", function() 
 			{$('#pic').click();});
-
 	function readURL(input) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
-
 			reader.onload = function(e) {
 				$('#logo').attr('src', e.target.result);
 			};
-
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
@@ -54,8 +51,7 @@ if(businessName==null){
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="shopInfoUpdateProc.jsp"
-							method="post">
+						<form id="login-form" class="form" action="shopInfoUpdateProc.jsp" method="post" enctype="multipart/form-data">
 
 							<!-- 회원정보수정 -->
 							<h3 class="text-center text-primary">Shop Info Update</h3>
@@ -115,12 +111,12 @@ if(businessName==null){
 									<div>
 										<label class=newbtn> 
 										<img id="logo" src="http://placehold.it/60x60" width="60" height="60">
-											<input id="pic" class='pis' onchange="readURL(this);" type="file">
+											<input type="file" name="pic" id="pic" class='pis' onchange="readURL(this);">
 										</label>
 									</div>
 								</div>
 							</div>
-
+							<input type="hidden" name="businessId" value="<%=businessId %>">
 							<!-- Update Submit -->
 							<div id="register-link" class="text-right">
 								<input type="submit" name="submit" class="btn btn-primary btn-md" value="수정하기">

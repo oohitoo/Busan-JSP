@@ -97,8 +97,8 @@
 
 					<tr>
 						<td rowspan="3" width="140px" height="130px" align="center">
-							<% if(StoreImage != null){%>
-							<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
+							<% if(StoreImage == null){%>
+							<img alt="이미지준비중" width="100px" height="100px" src="../img/menuImg/ready.gif">
 							<%}else{%>
 								<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
 							<%}%>

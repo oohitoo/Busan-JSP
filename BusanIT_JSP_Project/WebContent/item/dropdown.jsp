@@ -123,8 +123,8 @@ h3{
 								</font>
 							</td>
 							<td rowspan="3" width="140px" height="130px" align="center">
-								<% if(mImg != null){ %>
-									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+								<% if(mImg == null){ %>
+									<img src="../img/menuImg/ready.gif" alt="이미지 준비중" width="100px" height="100px">
 								<%}else{ %>
 									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
 								<%} %>
@@ -164,8 +164,8 @@ h3{
 								<a href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%= menu %></a>
 							</font></td>
 						<td rowspan="3" width="140px" height="130px" align="center">
-							<% if(mImg != null){ %>
-								<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+							<% if(mImg == null){ %>
+								<img src="../img/menuImg/ready.gif" alt="이미지 준비중" width="100px" height="100px">
 							<%}else{ %>
 								<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
 							<%} %>
@@ -202,8 +202,8 @@ h3{
 								</font>
 							</td>
 							<td rowspan="3" width="140px" height="130px" align="center">
-								<% if(mImg != null){ %>
-									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
+								<% if(mImg == null){ %>
+									<img src="../img/menuImg/ready.gif" alt="이미지 준비중" width="100px" height="100px">
 								<%}else{ %>
 									<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px">
 								<%} %>

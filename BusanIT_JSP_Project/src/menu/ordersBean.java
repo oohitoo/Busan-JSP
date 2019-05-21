@@ -17,6 +17,7 @@ public class ordersBean {
 	private String orderStatus;
 	private int mPrice;
 	private int totalPrice;
+	private String mImg;
 	
 	public String getOrderStatus() {
 		return orderStatus;
@@ -107,6 +108,12 @@ public class ordersBean {
 	}
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	public String getmImg() {
+		return mImg;
+	}
+	public void setmImg(String mImg) {
+		this.mImg = mImg;
 	}
 	
 	

@@ -160,21 +160,20 @@ public class ordersMgr {
 	}
 
 	//주문 내역들 가져오기 (위에서 가져온 주문번호로..)
-	public Vector<ordersBean> orderList(Vector<ordersBean> vorderlist){
+	public Vector<ordersBean> orderList(String id){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-
 		Vector<ordersBean> vlist = new Vector<ordersBean>();
 		try {
 			
 				con = pool.getConnection();
 				sql = "select o.*, m.mPrice, (m.mPrice * o.count) totalPrice  "
 						+ "from menu m, orders o "
-						+ "where m.rName = o.rName and onum=? and o.menu = m.menu;";
+						+ "where m.rName = o.rName and id=? and o.menu = m.menu order by odate desc, mPrice desc";
 				pstmt = con.prepareStatement(sql);
-				
+				pstmt.setString(1, id);
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					ordersBean pBean = new ordersBean();
@@ -192,6 +191,51 @@ public class ordersMgr {
 					pBean.setOrderStatus(rs.getString(12));
 					pBean.setmPrice(rs.getInt(13));
 					pBean.setTotalPrice(rs.getInt(14));
+					vlist.addElement(pBean);
+				} //--while
+
+		}//--try
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	
+	public Vector<ordersBean> orderDetail(String id,String oDate){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> vlist = new Vector<ordersBean>();
+		try {
+			
+				con = pool.getConnection();
+				sql = "select o.*, m.mPrice, m.mImg,(m.mPrice * o.count) totalPrice  "
+						+ "from menu m, orders o "
+						+ "where m.rName = o.rName and id=? and o.menu = m.menu and Odate=? order by mPrice desc";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, oDate);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean pBean = new ordersBean();
+					pBean.setoNum(rs.getString(1));
+					pBean.setId(rs.getString(2));
+					pBean.setcNick(rs.getString(3));
+					pBean.setcAddress(rs.getString(4));
+					pBean.setrName(rs.getString(5));
+					pBean.setcPhone(rs.getString(6));
+					pBean.setMenu(rs.getString(7));
+					pBean.setCount(rs.getInt(8));
+					pBean.setoDate(rs.getString(9));
+					pBean.setoRequest(rs.getString(10));
+					pBean.setOrderType(rs.getString(11));
+					pBean.setOrderStatus(rs.getString(12));
+					pBean.setmPrice(rs.getInt(13));
+					pBean.setmImg(rs.getString(14));
+					pBean.setTotalPrice(rs.getInt(15));
 					vlist.addElement(pBean);
 				} //--while
 

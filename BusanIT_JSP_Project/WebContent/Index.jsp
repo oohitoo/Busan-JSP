@@ -3,6 +3,7 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
+<jsp:include page="noti0518.html"/>
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->

@@ -23,28 +23,9 @@
 				return;
 			}
 		});
-		notibutton.on("click", function() {
-			/* alert("test"); */
-			var message = notiMessage.val();
-			if(message !== null && message.length > 0){
-				var option = {
-					boby : message,
-					icon : iconURI
-				}
-				
-				//데스크탑 알림 요청
-				var notification = new Notification("주문이 완료되었습니다.", option);
-				
-				//알림 후 5초뒤,
-				setTimeout(function () {					
-					notification.close();
-				}, 5000);
-			}
-		});
 	});
 </script>
 <body>
-	<input id="notiMessage" type="hidden" class="form-control" value="정상적으로 주문이 완료되었습니다."/>
-	<button id="notibutton" type="button">알림</button>
+	
 </body>
 </html>

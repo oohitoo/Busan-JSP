@@ -6,4 +6,9 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	boolean flag = mgr.ShopimageUpdateFile(request);
+	String msg = "정보 수정에 실패했습니다.";
+	
+	if(flag){
+		msg ="정보 수정에 성공했습니다.";
+	}
 %>

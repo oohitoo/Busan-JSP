@@ -67,13 +67,11 @@ public class loginMgr {
 		ResultSet rs = null;
 		String sql = null;
 		loginBean bean = new loginBean();
-		
 		try {
 			con = pool.getConnection();
 			sql = "SELECT * FROM menu_list WHERE businessid =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, businessid);
-			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				bean.setBusinessid(rs.getString("businessid"));

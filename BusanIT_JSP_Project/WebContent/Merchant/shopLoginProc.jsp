@@ -13,13 +13,16 @@
 	
 	boolean flag = mgr.loginShop(businessid, pwd);
 	if(flag){
-	session.setAttribute("name", loginBean.getBsnsNm());
-	msg= "로그인 성공";
-	href="shopMain.jsp";
+		
+		loginBean bean = mgr.shopInfo(businessid);
+		session.setAttribute("name", bean.getBsnsNm());
+		session.setAttribute("businessid", businessid);
+		msg= "로그인 성공";
+		href="shopMain.jsp";
 	}
 %>
 <script>
 	alert("<%=msg%>");
-	locaiton.href="<%=href%>";
+	location.href="<%=href%>";
 </script>
 	

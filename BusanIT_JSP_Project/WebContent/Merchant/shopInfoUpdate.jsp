@@ -1,9 +1,9 @@
+<%@page import="shoplogin.loginBean"%>
+<jsp:useBean id="mgr" class="shoplogin.loginMgr" />
+<jsp:useBean id="ordersMgr" class="orders.ordersMgr" />
 <%
 String businessName = (String) session.getAttribute("name");
-String businessId = (String) session.getAttribute("businessId");
-String businessPhone = (String) session.getAttribute("phone");
-String businessAddress = (String) session.getAttribute("address");
-String businessCategory = (String) session.getAttribute("category");
+String businessid = (String) session.getAttribute("businessid");
 if(businessName==null){
 		%>
 		<script>
@@ -33,6 +33,16 @@ if(businessName==null){
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
+	
+	function pwdCheck(){
+		if(document.getElementById("pwd").value == document.getElementById("pwd2").value){
+			if(confirm("수정하시겠습니까?")){
+				document.form.action=location.href="shopInfoUpdateProc.jsp";
+			}
+		}else{
+			alert("비밀번호가 일치하지 않습니다.");
+		}
+	}
 </script>
 <style>
 	#pic {display: none;}
@@ -43,6 +53,7 @@ if(businessName==null){
 			margin-top: 20px;
 			}
 </style>
+<%loginBean bean = mgr.shopInfo(businessid); %>
 </head>
 <body>
     <div id="signup">
@@ -51,7 +62,7 @@ if(businessName==null){
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="login-form" class="form" action="shopInfoUpdateProc.jsp" method="post" enctype="multipart/form-data">
+						<form id="form" class="form" action="javascript:pwdCheck()" method="post" enctype="multipart/form-data">
 
 							<!-- 회원정보수정 -->
 							<h3 class="text-center text-primary">Shop Info Update</h3>
@@ -59,8 +70,8 @@ if(businessName==null){
 							<!-- 사업자 번호 -->
 							<div class="form-group">
 								<label for="sregnumber" class="text-primary">사업자 번호:</label><br>
-								<input type="number" min="0" id="username"
-									oninput="validity.valid||(value='');" class="form-control" placeholder=<%=businessId%> readonly>
+								<input type="number" id="username"
+									oninput="validity.valid||(value='');" class="form-control" placeholder=<%=businessid%> readonly>
 							</div>
 							<!-- 비밀번호 -->
 							<div class="form-group">
@@ -82,15 +93,13 @@ if(businessName==null){
 							<!-- 전화 번호 -->
 							<div class="form-group">
 								<label for="sphone" class="text-primary">전화 번호:</label><br>
-								<input type="tel" class="form-control"
-									pattern="^\d{3}-\d{4}-\d{4}$" placeholder=<%=businessPhone%>
-									readonly>
+								<input type="text" class="form-control"	placeholder="<%=bean.getTel()%>" readonly>
 							</div>
 							<!-- 주소 -->
 							<div class="form-group">
 								<label for="saddress" class="text-primary">업장 주소:</label><br>
 								<input type="text" name="username" id="username"
-									class="form-control" placeholder=<%=businessAddress%> readonly>
+									class="form-control" placeholder="<%=bean.getAddrRoad()%>" readonly>
 							</div>
 							<!-- 식당 분류 -->
 							<div class="form-group">
@@ -100,7 +109,7 @@ if(businessName==null){
 									<option>중식</option>
 									<option>일식</option>
 									<option>양식</option>
-									<option>기타</option>
+									<option>패스트푸드</option>
 								</select>
 							</div>
 
@@ -111,12 +120,12 @@ if(businessName==null){
 									<div>
 										<label class=newbtn> 
 										<img id="logo" src="http://placehold.it/60x60" width="60" height="60">
-											<input type="file" name="pic" id="pic" class='pis' onchange="readURL(this);">
+											<input type="file" name="pic" id="pic" class="pic" onchange="readURL(this);" value="<%=bean.getRestImg()%>">
 										</label>
 									</div>
 								</div>
 							</div>
-							<input type="hidden" name="businessId" value="<%=businessId %>">
+							<input type="hidden" name="businessId" value="<%=businessid %>">
 							<!-- Update Submit -->
 							<div id="register-link" class="text-right">
 								<input type="submit" name="submit" class="btn btn-primary btn-md" value="수정하기">

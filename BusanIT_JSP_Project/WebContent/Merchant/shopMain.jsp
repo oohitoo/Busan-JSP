@@ -9,7 +9,8 @@
 <jsp:useBean id="ordersMgr" class="orders.ordersMgr" />
 <jsp:setProperty property="*" name="oBean" />
 <%
-	String businessName = (String) session.getAttribute("name");
+	String businessName = String.valueOf(session.getAttribute("name"));
+	
 	if(businessName==null){
 		%>
 <script>

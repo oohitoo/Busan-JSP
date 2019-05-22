@@ -8,7 +8,14 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
+	int end = 10, a=0;
 	
+	if(request.getParameter("end")!=null){
+		if(Integer.parseInt(request.getParameter("end"))>0){
+			a = Integer.parseInt(request.getParameter("end"));
+		}
+		end += a;
+	}
 %>
 <jsp:include page="designForm.jsp" />
 <!------ Include the above in your HEAD tag ---------->
@@ -16,7 +23,10 @@
 	function no(oDate) {
 		location.href = "orderdetail.jsp?oDate=" + oDate;
 	}
-	
+	function plus(end){
+		document.readFrm.end.value= <%=end%>;
+		document.readFrm.submit();
+	}
 </script>
 
 <div class="container-fluid">
@@ -49,8 +59,8 @@
 
 					<%
 						//얻은 오더넘버로 주문목록 정보 얻기
-						Vector<ordersBean> list = mgr.orderList(id/* , start, end */);
-
+						
+						Vector<ordersBean> list = mgr.orderList(id, end);
 						if (list.isEmpty()) {
 					%>
 					<tr>
@@ -90,7 +100,16 @@
 						} //if
 					%>
 				</tbody>
+				
 			</table>
+			<table width="800px">
+				<tr align ="center">
+					<td><input type="button" value="더보기" onclick="javascript:plus('<%=end%>')"></td>
+				</tr>
+			</table>
+			<form name="readFrm" action="">
+				<input type="hidden" name="end" value=<%=end%>>	
+			</form>
 			<!-- 페이징 처리-->
 		</div>
 

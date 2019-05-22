@@ -18,7 +18,14 @@ public class ordersBean {
 	private int mPrice;
 	private int totalPrice;
 	private String mImg;
-	
+	private String[] oSatus; //배달상태
+		
+	public String[] getoSatus() {
+		return oSatus;
+	}
+	public void setoSatus(String[] oSatus) {
+		this.oSatus = oSatus;
+	}
 	public String getOrderStatus() {
 		return orderStatus;
 	}

@@ -9,8 +9,7 @@
 <jsp:useBean id="ordersMgr" class="menu.ordersMgr" />
 <jsp:setProperty property="*" name="oBean" />
 <%
-	String businessName = String.valueOf(session.getAttribute("name"));
-	
+	String businessName = (String) session.getAttribute("name");
 	if(businessName==null){
 		%>
 <script>
@@ -106,7 +105,7 @@ function updateOrderStatus(orderStatus , oNum){
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">주문 목록</h6>
+							<h6 class="m-0 font-weight-bold text-primary">결재 완료 목록</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -126,19 +125,19 @@ function updateOrderStatus(orderStatus , oNum){
 										<!--자동테이블 -->
 										<tr>
 											<%
-											Vector<ordersBean> orderListMain = ordersMgr.orderListMain(businessName);
-											int listSize = orderListMain.size(), no=1;
+											Vector<ordersBean> orderList = ordersMgr.orderPaidList(businessName);
+											int listSize = orderList.size(), no=1;
 											String oNumCheck = "null";/* oNum 같을때 test */
-											if(orderListMain.isEmpty()){
+											if(orderList.isEmpty()){
 												%>
 											<th colspan="7" class="text-primary">
 												<%out.println("아직 주문이 없네요. 홍보를 조금 더 해볼까요?"); %>
 											</th>
 											<%}else{
 												int rcnt = 1 , scnt = 0;
-												for(int i=0; i<orderListMain.size(); i++){
-													if(i==orderListMain.size()) break;
-													ordersBean oBean = orderListMain.get(i);
+												for(int i=0; i<orderList.size(); i++){
+													if(i==orderList.size()) break;
+													ordersBean oBean = orderList.get(i);
 													String oNum = oBean.getoNum();
 													int count = oBean.getCount();
 													String id = oBean.getId();

@@ -160,11 +160,13 @@ public class ordersMgr {
 	}
 
 	//주문 내역들 가져오기 (위에서 가져온 주문번호로..)
-	public Vector<ordersBean> orderList(String id){
+	public Vector<ordersBean> orderList(String id/*, int start, int end*/){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
+		/*System.out.println(start);
+		System.out.println(end);*/
 		Vector<ordersBean> vlist = new Vector<ordersBean>();
 		try {
 			
@@ -174,6 +176,9 @@ public class ordersMgr {
 						+ "where m.rName = o.rName and id=? and o.menu = m.menu order by odate desc, mPrice desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
+/*				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);*/
+				
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					ordersBean pBean = new ordersBean();

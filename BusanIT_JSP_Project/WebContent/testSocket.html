@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	/* 1. 소켓 생성 */
+	var webSocket = new WebSocket('ws://localhost:8080/BusanIT_JSP_Project/broadcasting');
+	/* var order = document.getElementById('neworder'); */
+	/* 	var text = document.getElementById('text'); */
+
+	 webSocket.onerror = function(event) {
+      onError(event)
+    };
+    webSocket.onopen = function(event) {
+      onOpen(event)
+    };
+    webSocket.onmessage = function(event) {
+      onMessage(event)
+    };
+	 
+    /* 소켓 open */
+	function onOpen(event) {
+		document.getElementById('text').innerHTML = "통신완료";
+		console.log("통신완료");
+	}
+
+	/* 소켓 error */
+	function onError(event) {
+		document.getElementById('text').innerHTML ="소켓 error";
+		console.log("소켓에러");
+	}
+
+	function send() {
+		document.getElementById('text').innerHTML = document.getElementById('neworder').value;
+		webSocket.send(document.getElementById('neworder').value);
+	}
+</script>
+<body>
+	<input type="button" id="order" value="주문" onclick="send()">
+	<input type="hidden" id="neworder" value="새로운 주문이 들어 왔습니다.">
+	<div id="text"></div>
+</body>
+</html>

@@ -45,7 +45,6 @@ public class loginMgr {
 		loginBean bean = new loginBean();
 		try {
 			con = pool.getConnection();
-			//
 			sql = "select businessId from menu_list where businessId = ? and pwd = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, businessid);
@@ -138,13 +137,12 @@ public class loginMgr {
 			String upFile = multi.getFilesystemName("pic");
 			// 앞에서 넘오는 name 설정 값
 			pwd = multi.getParameter("pwd"); 
-			pwd2 = multi.getParameter("pwd2");
 			scategories = multi.getParameter("scategories"); 
 			businessid = multi.getParameter("businessId");
 			File f = multi.getFile("pic");
 			int size = (int)f.length();
 			conn = pool.getConnection();
-			sql = "update shop set sImage = ?, sSize = ?, pwd = ?, scategory = ? where businessid = ?";
+			sql = "update menu_list set restImg = ?, restImgsize = ?, pwd = ?, bsnsCond = ? where businessid = ?";
 			psmt = conn.prepareStatement(sql);
 			
 			psmt.setString(1, upFile); //파일 설정 하기
@@ -155,7 +153,7 @@ public class loginMgr {
 			psmt.executeUpdate();
 			
 			System.out.println(psmt.executeUpdate());
-			if(psmt.executeUpdate() == 1) { // 반환될 값임
+			if(psmt.executeUpdate() == 2) { // 반환될 값임
 				flag = true;
 			}			
 		}

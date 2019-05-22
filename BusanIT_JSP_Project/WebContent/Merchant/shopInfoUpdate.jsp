@@ -37,7 +37,7 @@ if(businessName==null){
 	function pwdCheck(){
 		if(document.getElementById("pwd").value == document.getElementById("pwd2").value){
 			if(confirm("수정하시겠습니까?")){
-				document.form.action=location.href="shopInfoUpdateProc.jsp";
+				document.form1.submit();
 			}
 		}else{
 			alert("비밀번호가 일치하지 않습니다.");
@@ -62,11 +62,11 @@ if(businessName==null){
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
 					<div id="login-box" class="col-md-12">
-						<form id="form" class="form" action="javascript:pwdCheck()" method="post" enctype="multipart/form-data">
 
 							<!-- 회원정보수정 -->
 							<h3 class="text-center text-primary">Shop Info Update</h3>
 							<br />
+							<form  name="form1" class="form" action="shopInfoUpdateProc.jsp" method="post" enctype="multipart/form-data">
 							<!-- 사업자 번호 -->
 							<div class="form-group">
 								<label for="sregnumber" class="text-primary">사업자 번호:</label><br>
@@ -104,12 +104,12 @@ if(businessName==null){
 							<!-- 식당 분류 -->
 							<div class="form-group">
 								<label for="scategories" class="text-primary">음식 종류:</label><br>
-								<select class="form-control" name="scategories" id="scategories">
-									<option>한식</option>
-									<option>중식</option>
-									<option>일식</option>
-									<option>양식</option>
-									<option>패스트푸드</option>
+								<select class="form-control" name="scategories" id="scategories" placeholder="<%=bean.getBsnsCond()%>">
+									<option value="한식" (<%=bean.getBsnsCond() == "한식" %>)? selected="selected" : "">한식</option>
+									<option value="중식" (<%=bean.getBsnsCond() == "중식" %>)? selected="selected" : "">중식</option>
+									<option value="피자" (<%=bean.getBsnsCond() == "피자" %>)? selected="selected" : "">피자</option>
+									<option value="치킨" (<%=bean.getBsnsCond() == "치킨" %>)? selected="selected" : "">치킨</option>
+									<option value="패스트푸드" (<%=bean.getBsnsCond() == "패스트푸드" %>)? selected="selected" : "">패스트푸드</option>
 								</select>
 							</div>
 
@@ -128,7 +128,7 @@ if(businessName==null){
 							<input type="hidden" name="businessId" value="<%=businessid %>">
 							<!-- Update Submit -->
 							<div id="register-link" class="text-right">
-								<input type="submit" name="submit" class="btn btn-primary btn-md" value="수정하기">
+								<input type="button" name="submit1" onclick="javascript:pwdCheck()" class="btn btn-primary btn-md" value="수정하기">
 							</div>
 						</form>
                     </div>

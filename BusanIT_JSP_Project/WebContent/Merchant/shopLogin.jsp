@@ -24,7 +24,7 @@
 								<!-- 사용자 이름 -->
 								<div class="form-group">
 									<label for="username" class="text-primary">사업자 번호:</label><br>
-								<input type="number" name="businessid" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx" value="0000001001">
+								<input type="number" name="businessid" min="0" id="username" oninput="validity.valid||(value='');" class="form-control" placeholder="xxx-xx-xxxxx" value="0000002222">
 									</div>
 
 								<!-- 비밀번호 -->

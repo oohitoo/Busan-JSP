@@ -9,7 +9,7 @@
 	String businessid = request.getParameter("businessid");
 	String pwd = request.getParameter("pwd");
 	String msg = "로그인에 실패하셨습니다.";
-	String href = "shoplogin.jsp";
+	String href = "shopLogin.jsp";
 	
 	boolean flag = mgr.loginShop(businessid, pwd);
 	if(flag){
@@ -17,7 +17,7 @@
 		loginBean bean = mgr.shopInfo(businessid);
 		session.setAttribute("name", bean.getBsnsNm());
 		session.setAttribute("businessid", businessid);
-		msg= "로그인 성공";
+		msg= "환영합니다.";
 		href="shopMain.jsp";
 	}
 %>

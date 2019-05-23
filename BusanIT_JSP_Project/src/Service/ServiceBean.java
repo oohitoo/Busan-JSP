@@ -1,8 +1,8 @@
 package Service;
 
 public class ServiceBean {
-	private int num;
-	private String name;
+	private int snum;
+	private String sname;
 	private String subject;
 	private String content;
 	private int pos;
@@ -14,17 +14,18 @@ public class ServiceBean {
 	private int count;
 	private String filename;
 	private int filesize;
-	public int getNum() {
-		return num;
+	
+	public int getSnum() {
+		return snum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setSnum(int snum) {
+		this.snum = snum;
 	}
-	public String getName() {
-		return name;
+	public String getSname() {
+		return sname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setSname(String sname) {
+		this.sname = sname;
 	}
 	public String getSubject() {
 		return subject;

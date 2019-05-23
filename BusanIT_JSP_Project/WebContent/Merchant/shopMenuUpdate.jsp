@@ -165,8 +165,8 @@ function del(idx){
 						%>
 								<tr>
 									<td><%=no %></td>
-									<td><%=mCategory %></td>
 									<td><%=menu %></td>
+									<td><%=mCategory %></td>
 									<td><%=NumberFormat.getInstance().format(mPrice) %></td> <!-- Ãµ´ÜÀ§ ÄÞ¸¶ Âï±â -->
 									<td><%=mInfo %></td>
 									<td>

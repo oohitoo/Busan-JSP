@@ -3,7 +3,7 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
-
+<jsp:include page="noti0518.html"/>
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
@@ -30,7 +30,7 @@
 			<% if(id == null){ %>
 			<div class="main">
 				<div class="main_1 main_common">
-					<a href="login/login.jsp">주문내역</a>
+					<a href="cart/cartView.jsp">주문내역</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="login/member.html">회원가입</a>
@@ -46,13 +46,13 @@
 					<a href="login/logout.jsp">로그아웃</a>
 				</div>				
 				<div class="main_1 main_common">
-					<a href="#">장바구니</a>
+					<a href="cart/cartView.jsp">장바구니</a>
 				</div>
 				<div class="main_2 main_common">
 					<a href="login/memberUpdate.jsp">회원정보수정</a>
 				</div>
 				<div class="main_3 main_common" style="width: 130px">
-					<a href="#"><%= id %>님</a>
+					<a href="login/memberUpdate.jsp"><%= id %>님</a>
 				</div>
 			<%
 				}
@@ -81,8 +81,8 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="../Index.html">
-							<span>판매 상태</span>
+						<a class="nav-link" href="/Index.jsp">
+							<span>주문과 예약을 동시에 배달 家</span>
 						</a>
 					</li>
 
@@ -125,18 +125,31 @@
 					<hr class="sidebar-divider">
 					
 					<!-- Heading -->
+					<% if(id == null){%>
+					<li class="nav-item active">
+						<a class="nav-link" href="Service/ServiceMain.jsp">
+							<span>고객센터</span>
+						</a>
+					</li>
+					<% }else{ %>
 					<div class="sidebar-heading">내정보</div>
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
+						<a class="nav-link" href="login/memberUpdate.jsp">
 							<span>회원정보</span>
 						</a>
 					</li>
 					
 					<li class="nav-item active">
-						<a class="nav-link" href="tables.html">
-							<span>나의 리뷰 관리</span>
+						<a class="nav-link" href="#">
+							<span>리뷰 관리</span>
+						</a>
+					</li>
+					
+					<li class="nav-item active">
+						<a class="nav-link" href="orderdetail/orderList.jsp">
+							<span>주문 내역</span>
 						</a>
 					</li>	
 					
@@ -144,20 +157,19 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item active">
-						<a class="nav-link" href="Service/Service.jsp">
+						<a class="nav-link" href="Service/ServiceMain.jsp">
 							<span>고객센터</span>
 						</a>
-					</li>	
-
-					<!-- Divider -->
+					</li>						
 					<hr class="sidebar-divider">
+					<% } %>
+					<!-- Divider -->
 
 				</ul>
 				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
-				<table
-					style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
+				<table style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
 					<tr>
 						<td colspan="2"><h3 class="panel-title">메뉴 목록</h3></td>
 					</tr>
@@ -199,11 +211,10 @@
 								<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
 								<h3>패스트푸드</h3>
 								</a>
-							</div>
+							</div>							 
 						</td>
 					</tr>
-				</table>
-				
+				</table>				
 			</div>
 			<!-- 메인 부분 안에 버튼식 부분 종료 -->
 		</div>

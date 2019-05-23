@@ -38,8 +38,8 @@
 			frm.submit();
 	}
 	function sendAdd(zipcode, adds) {
-		opener.document.signup.cPost.value=zipcode;
-		opener.document.signup.caddress1.value=adds;
+		opener.document.member.cPost.value=zipcode;
+		opener.document.member.caddress1.value=adds;
 		self.close();
 	}
 </script>

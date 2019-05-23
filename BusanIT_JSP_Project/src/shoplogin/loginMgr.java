@@ -26,10 +26,9 @@ public class loginMgr {
 	private String address;
 	DBConnectionMgr pool;
 	
-	public static final String SAVEFOLDER = "F:/JSP-Project/BusanIT_JSP_Project/WebContent/img/storeImage/";
+	public static final String SAVEFOLDER = "F:/DTeam/BusanIT_JSP_Project/WebContent/img/storeImage/";
 	public final String ENCTYPE = "EUC-KR";
-	public final int MAXSIZE = 20 * 1024 * 1024; // 20M로 설정
-	/* 이미지 저장 및 불러오기 위해서 함.ㅜㅜ*/
+	public final int MAXSIZE = 20 * 1024 * 1024; 
 	
 	public loginMgr(){
 		pool = DBConnectionMgr.getInstance();
@@ -124,7 +123,6 @@ public class loginMgr {
 		return flag;
 	}
 	
-	//이미지 + shop 정보 수정
 	public boolean ShopimageUpdateFile(HttpServletRequest req) {
 		Connection conn = null;
 		PreparedStatement psmt = null;
@@ -135,7 +133,6 @@ public class loginMgr {
 			MultipartRequest multi = new MultipartRequest(req, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
 			
 			String upFile = multi.getFilesystemName("pic");
-			// 앞에서 넘오는 name 설정 값
 			pwd = multi.getParameter("pwd"); 
 			scategories = multi.getParameter("scategories"); 
 			businessid = multi.getParameter("businessId");
@@ -145,7 +142,7 @@ public class loginMgr {
 			sql = "update menu_list set restImg = ?, restImgsize = ?, pwd = ?, bsnsCond = ? where businessid = ?";
 			psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, upFile); //파일 설정 하기
+			psmt.setString(1, upFile); 
 			psmt.setInt(2, size);
 			psmt.setString(3, pwd);
 			psmt.setString(4, scategories);
@@ -153,7 +150,7 @@ public class loginMgr {
 			psmt.executeUpdate();
 			
 			System.out.println(psmt.executeUpdate());
-			if(psmt.executeUpdate() == 2) { // 반환될 값임
+			if(psmt.executeUpdate() == 1) { 
 				flag = true;
 			}			
 		}

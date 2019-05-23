@@ -1,12 +1,12 @@
 <%@page import="shoplogin.loginMgr"%>
-<%@page import="orders.ordersBean"%>
+<%@page import="menu.*"%>
 <%@page import="shoplogin.loginBean"%>
 <%@page import="java.util.Vector"%>
 <%@page language="java" contentType="text/html; charset=EUC-KR"	pageEncoding="EUC-KR"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr" />
-<jsp:useBean id="ordersMgr" class="orders.ordersMgr" />
+<jsp:useBean id="ordersMgr" class="menu.ordersMgr" />
 <jsp:setProperty property="*" name="oBean" />
 <%
 	String businessName = (String) session.getAttribute("name");

@@ -1,7 +1,7 @@
 <%@page contentType="text/html; charset=EUC-KR"%>
 <%@page import="Service.ServiceBean"%>
 <%@page import="Service.ServiceMgr"%>
-<jsp:include page="list.jsp" />
+<jsp:include page="form.jsp" />
 <!--글 삭제페이지  -->
 <html>
 <head>
@@ -13,11 +13,11 @@
 			ServiceBean bean = (ServiceBean)session.getAttribute("bean");
 			String inPass = request.getParameter("pass");
 			String dbPass = bean.getPass();
-			if(inPass == dbPass){
+			if(inPass.equals(dbPass)){
 				ServiceMgr mgr = new ServiceMgr();
 				mgr.deleteService(num);
 				new ServiceMgr().deleteService(num);
-				String url = "Service.jsp?nowPage" + nowPage;
+				String url = "ServiceMain.jsp?nowPage" + nowPage;
 				response.sendRedirect(url);
 			}else{
 			%>

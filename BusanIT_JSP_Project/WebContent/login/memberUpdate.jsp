@@ -1,235 +1,116 @@
-<%@page import="login.LoginBean" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<jsp:useBean id="mgr" class="login.LoginMgr"/>
+<%@page import="login.LoginBean"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<jsp:useBean id="mgr" class="login.LoginMgr" />
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey");
 	LoginBean bean = mgr.getCustomer(id);
+	
+	//주소 나머지 주소 구분하는 내용
+		String [] totalAddress = bean.getcAddress().split(" ");
+		String caddress1="";	//도로주소 
+		String caddress2="";	//나머지주소
+		
+		//for문으로 주소 구분
+		for(int i =0;i<totalAddress.length;i++){
+			//주소가 null이면 종료
+			if(totalAddress[i]==null) break;
+			
+			//도로주소는 3까지 더하고 나머지 주소는 그 나머지를 다 더함
+			if(i<4){
+				caddress1 = caddress1 + totalAddress[i]+" "; 	
+			}else{
+				caddress2 = caddress2  + totalAddress[i]+" ";
+			}
+		}
 %>
+<script type="text/javascript" src="script.js"></script>
 <script>
 	function menulist(menu) {
 		console.log(menu);
 		location.href = 'item/itemProc.jsp?menu='+menu;
 	}
+	//Search zipcode
+	function zipSearch() {
+		url = "zipSearch.jsp?search=n";
+		open(url, "ZipCodeSearch", "width=500,height=350,scrollbars=yes");
+	}
 </script>
-<title>구매자 페이지</title>
-
-<!-- Custom fonts for this template -->
-<link rel="stylesheet" href="../css/MainIndex.css">
-
-<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-<!-- Custom styles for this template -->
-<link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
-<body id="page-top">
-	<!-- 상단 이미지 및 해더 이미지 -->
-	<div class="container"><br>
-		<a href="../Index.jsp">
-			<img src="../img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
-		</a>
-		<a href="../Index.jsp">
-			<img src="../img/Logo_1.png" width="500px" height="150px" alt="Logo이미지" style="margin-left: 150px;margin-right: 50px;"/>
-		</a>
-	</div>
-	<!-- 상단 이미지 및 헤더 종료 -->
-	<hr>
-	<!-- 아이디 및 로그인 에 관련된 정보 -->
+<jsp:include page="designForm.jsp" />
+<!-- 여기에 메인부분!!! -->
+<div id="memberUpdate">
+	<br />
+	<br />
 	<div class="container">
-		<div class="Maincontainer">
-			<% if(id == null){ %>
-			<div class="main">
-				<div class="main_1 main_common">
-					<a href="login.jsp">주문내역</a>
-				</div>
-				<div class="main_2 main_common">
-					<a href="member.html">회원가입</a>
-				</div>
-				<div class="main_3 main_common">
-					<a href="login.html">로그인</a>
-				</div>
-			</div>
-			<% }
-				else{
-			%>
-				<div class="main_1 main_common">
-					<a href="logout.jsp">로그아웃</a>
-				</div>				
-				<div class="main_1 main_common">
-					<a href="#">장바구니</a>
-				</div>
-				<div class="main_2 main_common">
-					<a href="memberUpdate">회원정보수정</a>
-				</div>
-				<div class="main_3 main_common">
-					<a href="#"><%= id %>님</a>
-				</div>
-			<%
-				}
-			%>
-		</div>
-	</div>
-	<!-- 아이디 및 로그인 에 관련된 정보 종료 -->
-	<!-- 가운데 부분 시작  -->
-	<br>
-	<hr>
-	<div class="container">
-		<div class="row">
-			<!-- Page Wrapper -->
-			<div id="wrapper">
-				<!-- Sidebar -->
-				<ul	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-					<!-- Sidebar - Brand -->
-					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-						<div class="sidebar-brand-icon rotate-n-15">
-							<i class="fas fa-laugh-wink"></i>
+		<div id="memberUpdate-row"
+			class="row justify-content-center align-items-center"
+			style="width: 930px">
+			<div id="memberUpdate-column" class="col-md-6">
+				<div id="memberUpdate-box" class="col-md-12">
+					<form name="member" class="form" action="memberUpdateProc.jsp" >
+						<h3 class="text-center text-primary">회원정보 수정</h3>
+						<!-- 사용자 아이디 -->
+						<div class="form-group">
+							<label for="username" class="text-primary">사용자 아이디:</label><br>
+							<input name="id" class="form-control" value="<%=bean.getId() %>"
+								readonly>
 						</div>
-						<img src="../img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
-					</a>
-					<!-- Divider -->
-					<hr class="sidebar-divider my-0">
-					
-					<!-- Nav Item - Dashboard -->
-					<li class="nav-item">
-						<a class="nav-link" href="../Index.jsp">
-							<span>판매 상태</span>
-						</a>
-					</li>
 
-					<!-- Divider -->
-					<hr class="sidebar-divider">
+						<!-- 비밀번호 -->
+						<div class="form-group">
+							<label for="password" class="text-primary">비밀번호:</label><br>
+							<input type="password" name="pwd" class="form-control" value="<%=bean.getPwd()%>">
+						</div>
 
-					<!-- 조리 상태 -->
-					<!-- Heading -->
-					<div class="sidebar-heading">메뉴 항목</div>
-					
-					<!-- Nav Item - Tables -->
-					<li class="nav-item active">
-						<a class="nav-link" href="../item/itemProc.jsp?menu=중식">
-							<span>중식</span>
-						</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="../item/itemProc.jsp?menu=한식">
-							<span>한식</span>
-						</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="../tables.html">
-							<span>피자</span>
-						</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="../tables.html">
-							<span>치킨</span>
-						</a>
-					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="../tables.html">
-							<span>패스트푸드</span>
-						</a>
-					</li>
-					
-					<!-- Divider -->
-					<hr class="sidebar-divider">
-					
-					<!-- Heading -->
-					<div class="sidebar-heading">내정보</div>
-					
-					<!-- Nav Item - Tables -->
-					<li class="nav-item active">
-						<a class="nav-link" href="../tables.html">
-							<span>회원정보</span>
-						</a>
-					</li>
-					
-					<li class="nav-item active">
-						<a class="nav-link" href="../tables.html">
-							<span>나의 리뷰 관리</span>
-						</a>
-					</li>	
-					
-					<hr class="sidebar-divider my-0">
-					
-					<!-- Nav Item - Dashboard -->
-					<li class="nav-item active">
-						<a class="nav-link" href="../tables.html">
-							<span>고객센터</span>
-						</a>
-					</li>	
+						<!-- 비밀번호 확인 -->
+						<div class="form-group">
+							<label for="password" class="text-primary">비밀번호 확인:</label><br>
+							<input type="password" name="repwd" id="password"
+								class="form-control">
+						</div>
 
-					<!-- Divider -->
-					<hr class="sidebar-divider">
+						<!-- 사용자 이름 -->
+						<div class="form-group">
+							<label for="username" class="text-primary">사용자 이름:</label><br>
+							<input name="name" class="form-control" value="<%=bean.getcNick()%>">
+						</div>
 
-				</ul>
-				<!-- End of Sidebar -->
-				<!-- 왼쪽 메뉴바 종료 -->
-				<!-- 오른쪽 메인 부분 시작 -->
-				
-<!-- 				여기에 메인부분!!! -->
-						<div align="center">
-				<br /> <br />
-				<form name="regFrm" method="post" action="memberUpdateProc.jsp">
-					<table align="center" cellpadding="5" >
-						<tr>
-							<td align="center" valign="middle" bgcolor="#FFFFCC">
-								<table border="1" cellpadding="2" align="center" width="600">
-									<tr align="center" bgcolor="#996600">
-										<td colspan="3"><font color="#FFFFFF"><b>회원 수정</b></font></td>
-									</tr>
-									<tr>
-										<td width="20%">아이디</td>
-										<td width="80%"><input name="id" size="15"
-											value="<%=bean.getId() %>" readonly></td>
-									</tr>
-									<tr>
-										<td>패스워드</td>
-										<td><input type="password" name="pwd" size="15"
-											value="<%=bean.getPwd()%>"></td>
-									</tr>
-									<tr>
-										<td>패스워드확인</td>
-										<td><input type="password" name="repwd" size="15"
-											></td>
-									</tr>
-									<tr>
-										<td>이름</td>
-										<td><input name="name" size="15"
-											value="<%=bean.getName()%>"></td>
-									</tr>
-									
-									<tr>
-										<td>닉네임</td>
-										<td><input name="cNick" size="15"
-											value="<%=bean.getcNick()%>"></td>
-									</tr>									
-									
-									<tr>
-										<td>우편번호</td>
-										<td><input name="zipcode" size="5"
-											value="<%=bean.getcPost()%>" readonly> <input
-											type="button" value="우편번호찾기" onClick="zipCheck()"></td>
-									</tr>
-									<tr>
-										<td>주소</td>
-										<td><input name="address" size="45" value="<%=bean.getcAddress() %>"></td>
-									</tr>
-									
-									<tr>
-										<td colspan="3" align="center">
-										<input type="submit" value="수정완료"> &nbsp; &nbsp; 
-										<input type="reset" value="다시쓰기"></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
-				</form>
+						<!-- 사용자 닉네임 -->
+						<div class="form-group">
+							<label for="username" class="text-primary">사용자 닉네임:</label><br>
+							<input name="cNick" class="form-control" value="<%=bean.getName() %>">
+						</div>
+
+						<!-- 사용자 전화번호 -->
+						<div class="form-group">
+							<label for="username" class="text-primary">사용자 전화번호:</label><br>
+							<input name="cPhone" class="form-control" value="<%=bean.getcPhone() %>">
+						</div>
+
+						<!-- 우편 번호 -->
+						<div class="form-group">
+							<label for="username" class="text-primary">우편번호 : </label>&nbsp;
+							<input type="button" value="우편번호찾기" onClick="zipSearch()">
+							<input name="cPost" size="5" class="form-control"
+								value="<%=bean.getcPost()%>" readonly>
+
+						</div>
+
+						<!-- 주소 -->
+						<div class="form-group">
+							<label for="username" class="text-primary">주소:</label><br>
+							 <input name="caddress1" value="<%=caddress1 %>" class="form-control"><br /> 
+							 <input name="caddress2" value="<%=caddress2 %>" class="form-control" placeholder="나머지 주소를 입력하세요">
+						</div>
+						
+						<div class="form-group">
+							<input type="button" value="수정완료" onclick="inputCheck()"> &nbsp; &nbsp; 
+							<input type="reset" value="다시쓰기">
+						</div>
+					</form>
+				</div>
 			</div>
-				
-			</div>
-			
-			<!-- 메인 부분 안에 버튼식 부분 종료 -->
 		</div>
 	</div>
-	<!-- 오른쪽 메인 부분 종료 -->
-</body>
+</div>

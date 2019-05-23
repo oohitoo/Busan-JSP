@@ -1,6 +1,6 @@
 <%@page import="shoplogin.loginBean"%>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr" />
-<jsp:useBean id="ordersMgr" class="orders.ordersMgr" />
+<jsp:useBean id="ordersMgr" class="menu.ordersMgr" />
 <%
 String businessName = (String) session.getAttribute("name");
 String businessid = (String) session.getAttribute("businessid");

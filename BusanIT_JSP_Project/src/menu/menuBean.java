@@ -1,21 +1,16 @@
 package menu;
 
 public class menuBean {
-	private int idx;
-	private String rName; // 식당이름
-	private String menu; // 메뉴이름
-	private int mPrice; // 메뉴가격
-	private String mInfo; // 메뉴 설명
-	private String mImg; // 메뉴 이미지
-	private String mImgsize;
-	private String category;
 	
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
-	}
+	private int idx; //인덱스 번호  
+	private String rName; // 식당이름 
+	private String category; 
+	private String menu; // 메뉴이름 
+	private int mPrice; // 메뉴가격 1
+	private String mInfo; // 메뉴 설명 
+	private String mImg; // 메뉴 이미지 
+	private String mImgsize; // 메뉴 파일 크기 
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -27,6 +22,12 @@ public class menuBean {
 	}
 	public void setrName(String rName) {
 		this.rName = rName;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	public String getMenu() {
 		return menu;
@@ -57,6 +58,6 @@ public class menuBean {
 	}
 	public void setmImgsize(String mImgsize) {
 		this.mImgsize = mImgsize;
-	} // 메뉴 파일 크기
-	
+	}
+		
 }

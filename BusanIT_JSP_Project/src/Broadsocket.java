@@ -19,7 +19,7 @@ public class Broadsocket {
 	public void onMessage(String message, Session session) throws IOException {
 		System.out.println("메세지 "+ message); //메세지 가져옴
 		String shop = message.split(":")[0];
-		String ma = message.split(":")[1];
+		String maa = message.split(":")[1];
 		System.err.println(shop);
 		synchronized (clients) {
 			// Iterate over the connected sessions

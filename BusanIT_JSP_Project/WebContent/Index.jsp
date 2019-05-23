@@ -81,7 +81,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="/Index.jsp">
+						<a class="nav-link" href="Index.jsp">
 							<span>주문과 예약을 동시에 배달 家</span>
 						</a>
 					</li>
@@ -171,7 +171,7 @@
 				<!-- 오른쪽 메인 부분 시작 -->
 				<table style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
 					<tr>
-						<td colspan="2"><h3 class="panel-title">메뉴 목록</h3></td>
+						<td colspan="2"><h2 class="panel-title" style="color: #486CDA;"><strong>메뉴 목록</strong></h2></td>
 					</tr>
 					<tr>
 						<td>

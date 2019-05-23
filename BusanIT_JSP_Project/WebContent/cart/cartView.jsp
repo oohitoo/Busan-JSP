@@ -104,7 +104,7 @@
 		<span style="font-size: 2.0em; color: navy">주문자 정보</span>
 		<table class="table table-hover" style="width: 900px;">			
 			<thead>
-				<tr>
+				<tr style="color:black">
 					<th>주문목록 ( 가게명 )</th>
 					<th>주&nbsp;문&nbsp;량</th>
 					<th class="text-center">Price</th>
@@ -121,7 +121,7 @@
 				if(hCart.isEmpty()){
 			%>
 				<tr>
-					<td colspan="4" style="text-align: center;">장바구니 목록이 없습니다.</td>
+					<td colspan="4" style="text-align: center; color:black;">장바구니 목록이 없습니다.</td>
 				</tr>
 			<% }else{			
 				// 줄줄이 사탕 객체
@@ -177,8 +177,8 @@
 					<td class="col-sm-1 col-md-1">
 						<p align="center">
 							<!-- <button type="button" class="btn btn-danger">Remove</button> -->
-							<input type="button" value = "수정" size="3" onclick = "javascript:creatUpdate('<%= menuName%>', '<%= num%>')">
-							<input type="button" value = "삭제" size="3" onclick = "javascript:creatdelete('<%= menuName%>', '<%= num%>')">
+							<input type="button" class="btn btn-primary" value = "수정" size="3" onclick = "javascript:creatUpdate('<%= menuName%>', '<%= num%>')">
+							<input type="button" class="btn btn-primary" value = "삭제" size="3" onclick = "javascript:creatdelete('<%= menuName%>', '<%= num%>')">
 						</p>
 					</td>
 				</tr>
@@ -190,7 +190,7 @@
 				<tr>
 					<td align="right">주소 </td>
 					<td colspan="3" align="right">
-						<input type="text" id="addres" size="40" value="<%= loginBean.getcAddress() %>" style="vertical-align:middle;">
+						<input type="text"  class="form-control" id="addres" size="40" value="<%= loginBean.getcAddress() %>" style="vertical-align:middle;">
 					</td>
 					<td>
 					</td>
@@ -200,14 +200,14 @@
 				<tr>
 					<td align="right">전화번호</td>
 					<td colspan="3" align="right">
-						<input type="tel" id="phoneNumber" size="20" value="<%= loginBean.getcPhone() %>">
+						<input type="tel"  class="form-control" id="phoneNumber" size="20" value="<%= loginBean.getcPhone() %>">
 					</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td align="right">요청사항</td>
 					<td colspan="3" align="right">
-						<input type="text" id="request" size="30" placeholder="30자리 까지 작성 할 수 있어요">
+						<input type="text" class="form-control" id="request" size="30" placeholder="30자리 까지 작성 할 수 있어요">
 					</td>
 					<td></td>
 				</tr>
@@ -237,7 +237,7 @@
 				<tr>
 					<td align="right">
 						<button type="button" class="btn btn-default" onclick="javascript:back()">뒤&nbsp;로</button>
-						<button type="button" id="notibutton" class="btn btn-success" onclick="javascript:order()">주문하기</button>
+						<button type="button" id="notibutton" class="btn btn-primary" onclick="javascript:order()">주문하기</button>
 						<input id="notiMessage" type="hidden" class="form-control" value="정상적으로 주문이 완료되었습니다."/>
 					</td>
 					<td></td>

@@ -86,7 +86,7 @@ h3 {
 		<table style="width: 700px; margin-left: 50px; margin-top: 50px;">
 			<tr>
 				<!-- 가게 이름 표시하는 곳 -->
-				<td colspan="3"><h5><%= shop %></h5></td>
+				<td colspan="3"><h5 style="color:balck"><%= shop %></h5></td>
 			</tr>
 			<tr>
 				<td rowspan="3" width="100px" height="100px">이미지</td>

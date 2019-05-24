@@ -177,14 +177,14 @@
 						<td>
 							<div class="alert alert-success" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
-								<h3>중식메뉴</h3>
+								<h3 style="color: black">중식메뉴</h3>
 								</a>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-dark" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
-								<h3>한식메뉴</h3>
+								<h3 style="color: black">한식메뉴</h3>
 								</a>
 							</div>
 						</td>
@@ -193,14 +193,14 @@
 						<td>
 							<div class="alert alert-danger" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
-								<h3>피자메뉴</h3>
+								<h3 style="color: black">피자메뉴</h3>
 								</a>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-warning" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
-								<h3>치킨메뉴</h3>
+								<h3 style="color: black">치킨메뉴</h3>
 								</a>
 							</div>
 						</td>
@@ -209,7 +209,7 @@
 						<td colspan="2">
 							<div class="alert alert-info" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
-								<h3>패스트푸드</h3>
+								<h3 style="color: black">패스트푸드</h3>
 								</a>
 							</div>							 
 						</td>

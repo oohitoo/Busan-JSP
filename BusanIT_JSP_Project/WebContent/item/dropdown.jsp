@@ -124,10 +124,10 @@ h3 {
 		jQuery("i", this).toggleClass("fa-caret-up fa-caret-down");
 	});
 	
-	function cartView(menu, info, price) {
+	function cartView(rName,menu, info, price) {
 		console.log(menu+ "/" + info+"/" + price);
 		/* location.href = "privateShopProc.jsp?flag=insert"+"&menu="+menu; */
-		location.href = "privateShopProc.jsp?menu="+menu+"&info="+info+"&price="+price+"&count="+1+"&flag=insert";
+		location.href = "privateShopProc.jsp?rName="+rName+"&menu="+menu+"&info="+info+"&price="+price+"&count="+1+"&flag=insert";
 	}
 	function reserve(){
 		document.readFrm.submit();
@@ -167,8 +167,7 @@ h3 {
 </script>
 <div class="container">
 	<div class="row">
-		<table style="width: 700px; margin-left: 50px; margin-top: 50px;"
-			border="1">
+		<table style="width: 700px; margin-left: 50px; margin-top: 50px;">
 			<tr>
 				<!-- 가게 이름 표시하는 곳 -->
 				<td colspan="3"><h5 style="color: balck"><%=shop%></h5></td>
@@ -211,7 +210,7 @@ h3 {
 								%>
 								<tr>
 									<td><font color="black" size="4"> <a
-											href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
+											href="javascript:cartView('<%=shop %>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
 									</font></td>
 									<td rowspan="3" width="140px" height="130px" align="center">
 										<%
@@ -262,7 +261,7 @@ h3 {
 								%>
 								<tr>
 									<td><font color="black" size="4"> <a
-											href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
+											href="javascript:cartView('<%=shop %>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
 									</font></td>
 									<td rowspan="3" width="140px" height="130px" align="center">
 										<%
@@ -305,6 +304,7 @@ h3 {
 								style="width: 600px; margin-left: 20px; margin-right: 30px;">
 								<%
 									for (int i = 0; i < sidemenu.size(); ++i) {
+										
 										menuBean sidebean = sidemenu.get(i);
 										String mImg = sidebean.getmImg(); // 메뉴 이미지
 										String menu = sidebean.getMenu(); // 메뉴 이름
@@ -313,7 +313,7 @@ h3 {
 								%>
 								<tr>
 									<td><font color="black" size="4"> <a
-											href="javascript:cartView('<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
+											href="javascript:cartView('<%=shop %>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
 									</font></td>
 									<td rowspan="3" width="140px" height="130px" align="center">
 										<%
@@ -352,13 +352,13 @@ h3 {
 				<td colspan="3">
 					<table style="width: 600px; margin-left: 50px; margin-top: 50px;">
 						<tr>
-							<td width="300px" style="text-align: center;"><font
-								color="black" size="5"> <a href="javascript:reserve()"
-									class="btn btn-primary"><font color="black" size="5">예약</font></a>
-							</font></td>
-							<td width="300px" style="text-align: center;"><a
-								href="../cart/cartView.jsp" class="btn btn-primary"><font
-									color="black" size="5">배달</font></a></td>
+							
+							<td width="300px" style="text-align: center;">
+								<font color="white"><a href="javascript:reserve()" class="btn btn-primary"> 예약</a></font>
+							</td>
+							<td width="300px" style="text-align: center;">
+								<a href="../cart/cartView.jsp" class="btn btn-primary"> 배달</a>
+							</td>
 						</tr>
 					</table>
 					<form name="readFrm" action="../cart/reserve.jsp">

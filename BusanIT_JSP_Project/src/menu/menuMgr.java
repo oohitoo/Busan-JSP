@@ -73,7 +73,6 @@ public class menuMgr {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, shop);
 			psmt.setString(2, Catagore);
-
 			rs = psmt.executeQuery();
 
 			while(rs.next()) {

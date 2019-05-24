@@ -11,7 +11,11 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
+	String shop = (String)session.getAttribute("store");
 	
+	/* IP주소 가져오기 */
+	String strServertIP = request.getServerName();
+
 	if(id == null){
 		%>
 		<script>
@@ -40,6 +44,8 @@
 	}
 	/* Order proc로 넘기기 */
 	function order() {
+		var address = $("#ipaddress").val();
+		console.log(address);
 		/*  1. 테이블의 td는 tageName으로 자르기 
 			2. split을 이용하여 자른다.
 			3. 출력한다.
@@ -83,7 +89,41 @@
 				}, 5000);
 			}
 			
-			location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
+			/* 소켓통신 */
+			var webSocket = new WebSocket('ws://'+location.host+':80/BusanIT_JSP_Project/broadcasting');
+			/* 가게 명  (id)*/
+			var shopName = $("#shopName");			
+			/* 보낼 메세지 */
+			var Message = "주문이 완료되었습니다.\n";
+			
+			webSocket.onerror = function(event) {
+				onError(event)
+			};
+			webSocket.onopen = function(event) {
+				onOpen(event)
+			};
+			webSocket.onmessage = function(event) {
+				onMessage(event)
+			};
+			
+			function onMessage(event) {
+				/* textarea.value += "주문이 완료되었습니다.\n"; */
+				/* alert("주문이 완료되었습니다.\n"); */
+			}
+			function onOpen(event) {
+				/* alert("연결 성공\n"); */
+				send();
+			}
+			function onError(event) {
+				alert(event.data);
+			}
+			function send() {
+				webSocket.send(shopName.val() + ":" + Message);
+				Message = "";
+				location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
+			}
+			
+			/* location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; */
 		}
 	}
 	function reset() {
@@ -130,10 +170,10 @@
 				// 요소 값이 더이상 있을때 까지
 				while(hCartKey.hasMoreElements()){
 					
-					String shop = (String)session.getAttribute("store"); // 가게 명
 					//hCart에 저장된 주문 객체를 return 
 					menu.ordersBean order = hCart.get(hCartKey.nextElement());
 					String menuName = order.getMenu();
+					String rName = order.getrName();
 					//상품 객체(상품 가격, 상품 이름)								
 					menuBean bean = menuMgr.getmenuBean(shop, menuName);
 					int price = bean.getmPrice(); // 상품 가격
@@ -160,7 +200,7 @@
 								</h4>
 								<!-- 가게명 -->
 								<h5 class="media-heading">
-									by <a href="#"><%= shop %></a>
+									by <a href="#"><%= rName %></a>
 								</h5>
 								<span>배달 예정 시간 :</span>
 									<span class="text-success">
@@ -178,8 +218,8 @@
 					<td class="col-sm-1 col-md-1">
 						<p align="center">
 							<!-- <button type="button" class="btn btn-danger">Remove</button> -->
-							<input type="button" value = "수정" size="3" onclick = "javascript:creatUpdate('<%= menuName%>', '<%= num%>')">
-							<input type="button" value = "삭제" size="3" onclick = "javascript:creatdelete('<%= menuName%>', '<%= num%>')">
+							<input type="button" class="btn btn-primary"value = "수정" size="3" onclick = "javascript:creatUpdate('<%= menuName%>', '<%= num%>')">
+							<input type="button" class="btn btn-primary"value = "삭제" size="3" onclick = "javascript:creatdelete('<%= menuName%>', '<%= num%>')">
 						</p>
 					</td>
 				</tr>
@@ -191,7 +231,7 @@
 				<tr>
 					<td align="right">주소 </td>
 					<td colspan="3" align="right">
-						<input type="text" id="addres" size="40" value="<%= loginBean.getcAddress() %>" style="vertical-align:middle;">
+						<input type="text" class="form-control" id="addres" size="40" value="<%= loginBean.getcAddress() %>" style="vertical-align:middle;">
 					</td>
 					<td>
 					</td>
@@ -201,14 +241,14 @@
 				<tr>
 					<td align="right">전화번호</td>
 					<td colspan="3" align="right">
-						<input type="tel" id="phoneNumber" size="20" value="<%= loginBean.getcPhone() %>">
+						<input type="tel" class="form-control" id="phoneNumber" size="20" value="<%= loginBean.getcPhone() %>">
 					</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td align="right">요청사항</td>
 					<td colspan="3" align="right">
-						<input type="text" id="request" size="30" placeholder="30자리 까지 작성 할 수 있어요">
+						<input type="text" class="form-control" id="request" size="30" placeholder="30자리 까지 작성 할 수 있어요">
 					</td>
 					<td></td>
 				</tr>
@@ -217,7 +257,7 @@
 					<td></td>
 					<td>결&nbsp;제&nbsp;방&nbsp;식</td>
 					<td class="text-right">
-							<select id="payType">
+							<select id="payType" class="form-control" style="width:176px;" >
 									<option value="만나서 카드결제" selected>만나서 카드결제</option>
 									<option value="만나서 현금결제">만나서 현금결제</option>
 									<option value="카드 결제">카드 결제</option>
@@ -237,15 +277,17 @@
 				</tr>
 				<tr>
 					<td align="right">
-						<button type="button" class="btn btn-default" onclick="javascript:back()">뒤&nbsp;로</button>
-						<button type="button" id="notibutton" class="btn btn-success" onclick="javascript:order()">주문하기</button>
+						<button type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
+						<button type="button" id="notibutton" class="btn btn-primary" onclick="javascript:order()">주문하기</button>
 						<input id="notiMessage" type="hidden" class="form-control" value="정상적으로 주문이 완료되었습니다."/>
 					</td>
 					<td></td>
 					<td></td>
 					<td></td>
-				</tr>
+				</tr>				
 				<% } // else 끝 %>
+				<input type="hidden" id="shopName" value="<%= shop %>">
+				<input type="hidden" id="ipaddress" value="<%= strServertIP %>">
 			</tbody>
 		</table>
 	</div>

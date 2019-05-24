@@ -91,9 +91,8 @@
 						<!-- 우편 번호 -->
 						<div class="form-group">
 							<label for="username" class="text-primary">우편번호 : </label>&nbsp;
-							<input type="button" value="우편번호찾기" onClick="zipSearch()">
-							<input name="cPost" size="5" class="form-control"
-								value="<%=bean.getcPost()%>" readonly>
+							<input type="button"  class="btn btn-primary" value="우편번호찾기" onClick="zipSearch()" style="height: 33px; padding-top: 4px;">
+							<input name="cPost" size="5" class="form-control" value="<%=bean.getcPost()%>" readonly >
 
 						</div>
 
@@ -105,8 +104,8 @@
 						</div>
 						
 						<div class="form-group">
-							<input type="button" value="수정완료" onclick="inputCheck()"> &nbsp; &nbsp; 
-							<input type="reset" value="다시쓰기">
+							<input type="button" class="btn btn-primary" value="수정완료" onclick="inputCheck()"> &nbsp; &nbsp; 
+							<input type="reset"  class="btn btn-primary" value="다시쓰기">
 						</div>
 					</form>
 				</div>

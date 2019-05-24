@@ -13,6 +13,7 @@
 	else{
 		String flag = request.getParameter("flag");
 		String msg = "";
+		order.setrName(shop);
 		order.setMenu(request.getParameter("menu"));
 		order.setCount(Integer.parseInt(request.getParameter("count")));
 		order.setId(id);

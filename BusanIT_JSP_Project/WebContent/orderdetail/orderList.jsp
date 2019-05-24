@@ -35,8 +35,8 @@
 		<div class="panel-heading">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-3">
-					<h2 class="text-center pull-left" style="padding-left: 30px;">
-						<span class="glyphicon glyphicon-list-alt"> </span>주문 내역
+					<h2 class="text-center pull-left" style="padding-left: 30px; color:black">
+						<span style=" color: navy"><strong>주문 내역</strong></span>
 					</h2>
 				</div>
 
@@ -46,7 +46,7 @@
 		<div class="panel-body table-responsive">
 			<table class="table table-hover">
 				<thead>
-					<tr>
+					<tr style="color: black">
 						<th class="text-center">번호</th>
 						<th class="text-center">주문날짜</th>
 						<th class="text-center">식당이름</th>
@@ -104,7 +104,7 @@
 			</table>
 			<table width="800px">
 				<tr align ="center">
-					<td><input type="button" value="더보기" onclick="javascript:plus('<%=end%>')"></td>
+					<td><input type="button" class="btn btn-primary" value="더보기" onclick="javascript:plus('<%=end%>')"></td>
 				</tr>
 			</table>
 			<form name="readFrm" action="">

@@ -12,44 +12,6 @@
 <!-- Custom styles for this template -->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
-<script type="text/javascript">
-	/* 소켓 처리 해야할것
-		1. 가게별 세션을 담아서 처리
-		2. 보낼때 앞에 가게 이름 붙여서 보내기
-		   2 -1. 가게이름 보낼대 hidden 값에 셋팅해서 가져오기
-		3. 보낸 후 받을때 알람 처리
-	*/
-    
-	var textarea = document.getElementById("messageWindow");
-	var webSocket = new WebSocket('ws://localhost:80/BusanIT_JSP_Project/broadcasting');
-	var inputMessage = document.getElementById('inputMessage');
-	var id = document.getElementById('messid');
-
-	webSocket.onerror = function(event) {
-		onError(event)
-	};
-	webSocket.onopen = function(event) {
-		onOpen(event)
-	};
-	webSocket.onmessage = function(event) {
-		onMessage(event)
-	};
-	function onMessage(event) {
-		textarea.value += "상대 : " + event.data + "\n";
-	}
-	function onOpen(event) {
-		textarea.value += "연결 성공\n";
-	}
-	function onError(event) {
-		alert(event.data);
-	}
-	function send() {
-		textarea.value += "나 : " + inputMessage.value + "\n";
-		webSocket.send(id.value + ":" + inputMessage.value);
-		inputMessage.value = "";
-	}
-</script>
-
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>
@@ -119,7 +81,7 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="/Index.jsp">
+						<a class="nav-link" href="Index.jsp">
 							<span>주문과 예약을 동시에 배달 家</span>
 						</a>
 					</li>
@@ -209,20 +171,20 @@
 				<!-- 오른쪽 메인 부분 시작 -->
 				<table style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
 					<tr>
-						<td colspan="2"><h3 class="panel-title">메뉴 목록</h3></td>
+						<td colspan="2"><h2 class="panel-title" style="color: #486CDA;"><strong>메뉴 목록</strong></h2></td>
 					</tr>
 					<tr>
 						<td>
 							<div class="alert alert-success" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
-								<h3>중식메뉴</h3>
+								<h3 style="color: black">중식메뉴</h3>
 								</a>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-dark" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
-								<h3>한식메뉴</h3>
+								<h3 style="color: black">한식메뉴</h3>
 								</a>
 							</div>
 						</td>
@@ -231,14 +193,14 @@
 						<td>
 							<div class="alert alert-danger" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
-								<h3>피자메뉴</h3>
+								<h3 style="color: black">피자메뉴</h3>
 								</a>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-warning" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
-								<h3>치킨메뉴</h3>
+								<h3 style="color: black">치킨메뉴</h3>
 								</a>
 							</div>
 						</td>
@@ -247,7 +209,7 @@
 						<td colspan="2">
 							<div class="alert alert-info" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
-								<h3>패스트푸드</h3>
+								<h3 style="color: black">패스트푸드</h3>
 								</a>
 							</div>							 
 						</td>

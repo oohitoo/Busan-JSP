@@ -89,7 +89,7 @@
 			}
 			
 			/* 소켓통신 */
-			var webSocket = new WebSocket('ws://localhost:8080/BusanIT_JSP_Project/broadcasting');
+			var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
 			console.log(location.host);
 			/* 가게 명  (id)*/
 			var shopName = $("#shopName");			

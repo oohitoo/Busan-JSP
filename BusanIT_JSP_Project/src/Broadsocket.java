@@ -30,14 +30,12 @@ public class Broadsocket {
 		System.out.println("메세지 "+ message); //메세지 가져옴
 		String shopName = message.split(":")[0];
 		String messages = message.split(":")[1];
-		System.err.println(shopName);
 		synchronized (clients) {
 			// Iterate over the connected sessions
 			// and broadcast the received message
 			// 연결된 세션을 반복 하여 수신된 메세지를 보낸다.
 
 			for(Session shop : shopclients) {
-				System.out.println(shopName);
 				EndpointConfig config = allSession.get(shop);
 				HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
 				if(httpSession.getAttribute("shop").equals(shopName)) {

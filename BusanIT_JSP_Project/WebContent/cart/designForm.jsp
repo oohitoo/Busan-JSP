@@ -4,7 +4,7 @@
 	String id  = (String)session.getAttribute("idKey"); 
 %>
 <!-- 홈페이지 툴  -->
-<jsp:include page="../noti0518.html"/>
+<%-- <jsp:include page="../noti0518.html"/> --%>
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->

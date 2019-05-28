@@ -1,10 +1,7 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Popup Demo</title>
-</head>
+	
 <style type="text/css">
 	body{
 		text-align: center;
@@ -112,32 +109,34 @@
         visibility: visible;
         transform: scale(1.0);
         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-    }
-   
+    }   
 </style>
 
+<meta charset="EUC-KR">
+<title>Popup Demo</title>
+</head>
 <body>
-	<h1>ë ˆì–´ì–´ íŒì—…ì°½ ë„ìš°ê¸°</h1>
-	<!-- ë²„íŠ¼ -->
-	<button class="trigger">ì´ë©”ì¼ ë³´ë‚´ê¸°</button>
-    
-    <!-- íŒì—… ë  ë ˆì´ì–´ --> 
-    <div class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h1 class="title">ë©”ì¼ ë³´ë‚´ê¸°</h1>
-            <form action="#post.php" method="POST">
-              <label for="email">Email</label>
-			  <input type="email" name="email" placeholder="Your email" required="required">
-			  <label></label>
-			  <textarea name="message" placeholder="Test Message" required="required"></textarea>
-			  <input type="button" id="cancel" value="ì·¨ì†Œ">
-			  <input type="submit" id="submit" value="ë³´ë‚´ê¸°">
+	<h1>·¹ÀÌ¾î ÆË¾÷Ã¢ ¶ç¿ì±â</h1>
+	<!-- ¹öÆ°	 -->
+	<button class="trigger">ÀÌ¸ŞÀÏ º¸³»±â</button>
+	
+	<!--  ÆË¾÷ µÉ ·¹ÀÌ¾î -->
+	<div class="modal">
+		<div class="modal-content">
+			<span class="close-button">&times;</span>
+			<h1>¸ŞÀÏ º¸³»±â</h1>
+			<form action="#post.php" method="POST">
+				<label for="emial">Email</label>
+				<input type="email" name="email" placeholder="Your email" required="required">
+				<label></label>
+				<textarea name="message" placeholder="Test Message" required="required"></textarea>
+				<input type="button" id="cancel" value="Ãë¼Ò">
+				<input type="submit" id="submit" value="º¸³»±â">
 			</form>
-        </div>
-    </div>
-
-    <script type="text/javascript">
+		</div>
+	</div>
+	
+	<script type="text/javascript">
 		var modal = document.querySelector(".modal");
 	    var trigger = document.querySelector(".trigger");
 	    var closeButton = document.querySelector(".close-button");
@@ -160,6 +159,6 @@
 	    cancel.addEventListener("click", toggleModal);
 	    window.addEventListener("click", windowOnClick);
 	</script>
-
+	
 </body>
 </html>

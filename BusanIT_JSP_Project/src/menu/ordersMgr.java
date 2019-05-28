@@ -259,7 +259,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=1 or orderStatus=2 or orderStatus=3 or orderStatus=5) order by oDate";
+			sql = "select * from orders where rName=? AND (orderStatus=1 or orderStatus=2 or orderStatus=3 or orderStatus=5) order by oDate desc";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();

@@ -4,7 +4,7 @@
 	String id  = (String)session.getAttribute("idKey"); 
 %>
 <!-- 홈페이지 툴  -->
-<jsp:include page="../noti0518.html"/>
+<%-- <jsp:include page="../noti0518.html"/> --%>
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
@@ -71,7 +71,7 @@
 				<!-- Sidebar -->
 				<ul	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 					<!-- Sidebar - Brand -->
-					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index.jsp">
+					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="../Index.jsp">
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
 						</div>
@@ -82,8 +82,8 @@
 					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
-						<a class="nav-link" href="desienTest.jsp">
-							<span>판매 상태</span>
+						<a class="nav-link" href="../Index.jsp">
+							<span>주문과 예약을 동시에 배달 家</span>
 						</a>
 					</li>
 

@@ -1,4 +1,4 @@
-<%@page import="com.sun.jdi.Location"%>
+<%-- <%@page import="com.sun.jdi.Location"%> --%>
 <%@ page contentType="text/html; charset=EUC-KR" %>
 <% 	request.setCharacterEncoding("EUC-KR");%>
 <script>

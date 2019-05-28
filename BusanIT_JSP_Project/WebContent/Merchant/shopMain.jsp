@@ -11,6 +11,8 @@
 <jsp:setProperty property="*" name="oBean" />
 <%
 	String businessName = (String) session.getAttribute("name");
+	/* 소켓을 위하여 세션 값 저장 */	
+	session.setAttribute("shop", businessName);
 	if (businessName == null) {
 %>
 <script>
@@ -28,16 +30,66 @@
 	rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-<script>
+<!-- Jquery  -->
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- <script>
 	function updateOrderStatus(orderStatus, oNum) {
 		location.href = "shopOrderStatusProc.jsp?orderStatus=" + orderStatus + "&oNum=" + oNum;
 	}
 	setInterval(function(){ location='shopMainProc.jsp'; }, 10000);
-</script>
+</script> -->
+
+<style>
+	img{
+	  margin : 15px 70px;
+	  width :200px;
+	}	
+	.modal {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.1);
+        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+    }
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 1rem 1.5rem;
+        width: 400px;
+        height: 350px;
+        border-radius: 0.5rem;
+    }
+    .close-button {
+        float: right;
+        width: 1.5rem;
+        line-height: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background-color: lightgray;
+    }
+    .close-button:hover {
+        background-color: darkgray;
+    }
+    .show-modal {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1.0);
+        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+    }   
+</style>
 <title>판매자 페이지</title>
 </head>
 <!-- alert include -->
-<jsp:include page="../Merchant/noti0518.html" />
+<%-- <jsp:include page="../Merchant/noti0518.html" /> --%>
 <body id="page-top">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -316,6 +368,18 @@
 				<!-- /.container-fluid -->
 			</div>
 			<!-- End of Main Content -->
+			<input type="hidden" id="shopName" value="<%= businessName %>">
+
+				<!--  팝업 될 레이어 -->
+			<div class="modal">
+				<div class="modal-content">
+					<span class="close-button">&times;</span>
+					<img alt="없다." src="../img/Logo_2.png">
+					<h1 align="center">배달가~ 주문~</h1>
+					<!-- window 클릭시 발생하는 거임 -->
+					<input type="hidden" id="cancel" value="취소">
+				</div>
+			</div>
 
 			<!-- footer include -->
 			<jsp:include page="../Merchant/footer.jsp" />
@@ -324,4 +388,56 @@
 	</div>
 	<!-- End of Page Wrapper -->
 </body>
+<script>
+
+		var modal = document.querySelector(".modal");
+		var closeButton = document.querySelector(".close-button");
+
+		var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
+		var shopName = $("#shopName");
+		
+		webSocket.onerror = function(event) {
+			onError(event)
+		};
+		webSocket.onopen = function(event) {
+			onOpen(event)
+		};
+		webSocket.onmessage = function(event) {
+			onMessage(event)
+		};
+		
+		function onMessage() {
+			/* alert("주문이 도착하였습니다.\n"); */
+			var modal = document.querySelector(".modal");	
+			
+			function toggleModal() {
+		        modal.classList.toggle("show-modal");
+		    }
+
+		    
+		    toggleModal();		    
+			
+		}
+		function onOpen(event) {
+			/* textarea.value += "연결 성공\n"; */
+			/* alert("연결 성공 \n"); */
+		}
+		function onError(event) {
+			alert(event.data);
+		}
+		function send() {
+			/* textarea.value += "나 : " + inputMessage.value + "\n"; */
+			/* webSocket.send(id.value + ":" + inputMessage.value);
+			inputMessage.value = ""; */
+		}
+		closeButton.addEventListener("click", function toggleModal() {
+			modal.classList.toggle("show-modal");
+		});
+
+		window.addEventListener("click", function windowOnClick(event) {
+			if (event.target === modal) {
+				modal.classList.toggle("show-modal");
+			}
+		});
+</script>
 </html>

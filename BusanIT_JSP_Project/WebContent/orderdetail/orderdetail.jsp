@@ -10,6 +10,8 @@
 	Vector<ordersBean> list = mgr.orderDetail(id,oDate);
 	String  orderType=null;
 	int totalPrice = 0;
+	String oRequest=null;
+	
 	
 %>
 <jsp:include page="designForm.jsp" />
@@ -25,7 +27,9 @@
 	<div class="row" style="margin-left: 10px; margin-top: 50px;">
 		<span style="font-size: 2.0em; color: navy"><strong>주문 상세 정보</strong></span>
 			<table style="width: 700px">
-<br>
+				<div>
+					<br/><br/><br/>
+				</div>
 				<tr align="center" style="font-size: 2.0em; color: #486CDA;">
 <% 	for(int i=0;i<1;i++){
 			ordersBean obean = list.get(i);
@@ -36,7 +40,7 @@
 			</table>
 			<table class="table table" style="width: 900px;">
 				<thead>
-					<tr>
+					<tr style="color: black">
 						<th width="456px">메뉴</th>
 						<th width="100px">주&nbsp;문&nbsp;량</th>
 						<th class="text-center" width="126px">가격</th>
@@ -49,6 +53,8 @@
 		ordersBean bean = list.get(i);
 		orderType = bean.getOrderType();
 		totalPrice += bean.getTotalPrice();
+		oRequest = bean.getoRequest();
+		
 		
 %>
 					<tr>
@@ -77,18 +83,19 @@
 					</tr>
 <%} %>
 					<tr>
-						<td >요청 사항</td>
-						<td colspan="2">배달 형태</td>
-						<td align="center"><h5><%=orderType %></h5></td>
+					
+						<td >주문 시간 : <%=oDate.subSequence(0, 16) %></td>
+						<td >배달 형태</td>
+						<td align="right" colspan="2"><strong><%=orderType %></strong></td>
 					</tr>
 					<tr>
-						<td></td>
+						<td>요청 사항  :  <%=oRequest %></td>
 						<td colspan="2"><h4>주문금액</h4></td>
-						<td align="center"><h4> <strong><%=UtilMgr.monFormat(totalPrice)+"원"  %></strong></h4></td>
+						<td align="center" ><h4> <strong><%=UtilMgr.monFormat(totalPrice)+"원"  %></strong></h4></td>
 					</tr>
 					<tr>
 					<td align="right">
-						<button type="button" class="btn btn-default" onclick="javascript:back()" style="cursor:pointer">뒤&nbsp;로</button>
+						<button type="button" class="btn btn-primary" onclick="javascript:back()" style="cursor:pointer">뒤&nbsp;로</button>
 						
 					</td>
 					<td></td>

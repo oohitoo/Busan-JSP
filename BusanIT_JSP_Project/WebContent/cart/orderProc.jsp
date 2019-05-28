@@ -56,6 +56,5 @@
 	}	
 %>
  <script>
-	alert("<%= msg%>");
 	location.href = '../orderdetail/orderList.jsp';
 </script> 

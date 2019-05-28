@@ -72,7 +72,7 @@
 				<%}else{%>
 					<table style="margin-left: 150px;">
 					<tr style="height: 70px;">
-						<td colspan="3" style="text-align: center;"><h3><%= menu %></h3></td>
+						<td colspan="3" style="text-align: center;"><h3 style="color:#486CDA"><strong><%= menu %></strong></h3></td>
 					</tr>
 					<tr>
 						<td colspan="3">총 가게 수 : <%=totalsize%> 개 
@@ -81,8 +81,8 @@
 					</tr>
 					<tr style="height: 50px;">
 						<td></td>
-						<td style="text-align: right;">거리순</td>
-						<td style="text-align: right;">평점순</td>
+						<td style="text-align: right; color:black">거리순</td>
+						<td style="text-align: right; color:black">평점순</td>
 					</tr>
 					<%
 						for(int i = 0; i < list.size(); ++i){
@@ -106,9 +106,9 @@
 						<td colspan="2"><a href="javascript:storeInfo('<%= StoreName %>')"><%= StoreName %></a></td>
 					</tr>
 
-					<tr>
+					<tr style="color:black">
 						<td><%= StoreAddrs1 %></td>
-						<td align="center"><%= tel %></td>
+						<td align="center" style="width:132px;"><%= tel %></td>
 					</tr>
 
 					<tr>

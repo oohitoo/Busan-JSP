@@ -32,12 +32,11 @@
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 <!-- Jquery  -->
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!-- <script>
+<script>
 	function updateOrderStatus(orderStatus, oNum) {
 		location.href = "shopOrderStatusProc.jsp?orderStatus=" + orderStatus + "&oNum=" + oNum;
 	}
-	setInterval(function(){ location='shopMainProc.jsp'; }, 10000);
-</script> -->
+</script>
 
 <style>
 	img{

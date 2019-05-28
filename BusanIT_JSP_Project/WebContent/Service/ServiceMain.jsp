@@ -143,7 +143,7 @@
 
 						} else {
 					%>
-					<table cellspacing="0">
+					<table cellspacing="0"> 
 						<tr align="center">
 							<td width="100">번 호</td>
 							<td width="250">제 목</td>

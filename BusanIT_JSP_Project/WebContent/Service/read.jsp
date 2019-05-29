@@ -19,14 +19,14 @@
 	  //게시물 읽어오기
 	  
 	  ServiceBean bean = mgr.getService(num);
-	  String name = bean.getsName();
+	  String id = bean.getsName();
 	  String subject = bean.getSubject();
       String regdate = bean.getRegdate();
 	  String content = bean.getContent();
 	  String ip = bean.getIp();
 	  String pass = bean.getPass();
 	  int count = bean.getCount();
- 		session.setAttribute("bean", bean);  
+ 
 
 %>
 
@@ -79,8 +79,8 @@ table.type03 td {
 		<td align="center">
 		<table style="width:950px;" >
 			<tr>
-				<th > 이 름 </th>
-				<td><%=name %></td>
+				<th> ID </th>
+				<td><%=id %></td>
 			</tr>
 			<tr>
 			<th > 등록날짜 </th>

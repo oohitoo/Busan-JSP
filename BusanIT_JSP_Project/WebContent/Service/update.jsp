@@ -63,12 +63,12 @@ table.type03 td {
 		<p/>
 		<br />
 <table  class="type03"  style="width:950px;" >
-   <%--  <tr>
-     <!-- <td>성 명</td> -->
+     <tr>
+      <th>ID</th> 
      <td width="80%">
-	  <input name="name" value="<%=name%>" size="30" maxlength="20">
+	 <input name="id" size="10" maxlength="8" readonly value="<%=session.getAttribute("idKey")%>">
 	 </td>
-	</tr> --%>
+	</tr> 
 	<tr>
      	<th>제 목</th>
      <td>

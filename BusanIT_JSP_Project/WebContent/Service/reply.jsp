@@ -5,7 +5,8 @@
 	  String nowPage = request.getParameter("nowPage");
 	  String subject = bean.getSubject();
 	  String content = bean.getContent(); 
-	  String id  = (String)session.getAttribute("idKey");
+		
+	
 %>
 <html>
 <head>
@@ -55,7 +56,11 @@ table.type03 td {
 	<tr>
 		<td align="center">
 		<table style="width:950px;" >
-
+			 <tr>
+      			<th>I D</th> 
+    			<th>
+	 			<input name="id" size="10" maxlength="8" readonly value="<%=session.getAttribute("idKey")%>"></th>
+			</tr> 
 			<tr>
 				<th>Á¦ ¸ñ</th>
 				<th>

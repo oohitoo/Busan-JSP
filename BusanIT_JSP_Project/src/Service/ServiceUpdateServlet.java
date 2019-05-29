@@ -30,7 +30,7 @@ public class ServiceUpdateServlet extends HttpServlet {
 				//update.jsp 요청한 값을 테이블에 수정한다.
 				ServiceBean upBean = new ServiceBean();
 				upBean.setsNum(Integer.parseInt(request.getParameter("num")));
-				upBean.setsName(request.getParameter("name"));
+				upBean.setsName(request.getParameter("id"));
 				upBean.setSubject(request.getParameter("subject"));
 				upBean.setContent(request.getParameter("content"));
 				new ServiceMgr().updateService(upBean);

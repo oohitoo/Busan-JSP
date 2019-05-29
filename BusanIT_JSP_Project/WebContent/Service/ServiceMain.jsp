@@ -253,11 +253,11 @@ body { background: #fff; }
 					
 				</td>
 				</tfoot>
-			<td align="right">
+			<table align="right">
 				<a href="post.jsp">
 				<input type="button" class="btn btn-primary" value="±Û¾²±â">
 				</a>
-			</td>
+			</table>
 		</table>
 		<form name="searchFrm" method="post" action="ServiceMain.jsp">
 			<table class="type09" border="0" width="900" align=center

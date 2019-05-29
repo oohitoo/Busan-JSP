@@ -14,9 +14,9 @@ import Service.ServiceBean;
 
 public class ServiceMgr {
 	private DBConnectionMgr pool;
-		public static final 	String 						SAVEFOLDER 	= "C://Jsp//myapp//WebContent//board//fileupload/";
-		public static final 	String 						ENCTYPE 		= "EUC-KR";
-		public static int 				   						MAXSIZE 			= 10 * 1024 * 1024;
+		public static final String SAVEFOLDER 	= "C://Jsp//myapp//WebContent//board//fileupload/";
+		public static final String 	ENCTYPE = "EUC-KR";
+		public static int 		   MAXSIZE 	= 10 * 1024 * 1024;
 		
 		public ServiceMgr() {
 			pool = DBConnectionMgr.getInstance();
@@ -25,10 +25,10 @@ public class ServiceMgr {
 		
 		//Service Insert : 
 		public void insertService(HttpServletRequest req) {
-			Connection 					con 		= null;
+			Connection con 		= null;
 			PreparedStatement 	pstmt 	= null;
-			ResultSet 					rs 		= null;
-			String 							sql 		= null;
+			ResultSet 	rs 		= null;
+			String 	sql 		= null;
 			try {
 					////////파일업로드/////////
 					File dir = new File(SAVEFOLDER);
@@ -164,7 +164,7 @@ public class ServiceMgr {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				bean.setsNum(rs.getInt("snum"));
-				bean.setsName(rs.getString("sname"));
+				bean.setsName(rs.getString("sid"));
 				bean.setSubject(rs.getString("subject"));
 				bean.setContent(rs.getString("content"));
 				bean.setPos(rs.getInt("pos"));
@@ -229,7 +229,7 @@ public class ServiceMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "UPDATE Service SET sname=?, subject=?, content=? WHERE snum=?";
+			sql = "UPDATE Service SET sid=?, subject=?, content=? WHERE snum=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getsName());	
 			pstmt.setString(2, bean.getSubject());
@@ -250,15 +250,14 @@ public class ServiceMgr {
 			String sql = null;
 			try {
 				con = pool.getConnection();
-				sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip)";
+				sql = "insert Service(sid,content,subject,ref,pos,depth,regdate,pass,count,ip)";
 				sql += "values(?, ?, ?, ?, ?, ?, now(), ?, 0, ?)";
-													//		날짜 ,        조회수
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,  bean.getsName());
 				pstmt.setString(2,  bean.getContent());
 				pstmt.setString(3,  bean.getSubject());
-				pstmt.setInt(4,  bean.getRef());			//원글의 ref값 저장, ref는 값을 그룹시켜준다 
-				pstmt.setInt(5, bean.getPos()+1);		//답변은 원글바로밑에 잡히므로 원래있던 것을 1씩증가시키고 자리를 만듬 (밑메소드)
+				pstmt.setInt(4,  bean.getRef());			
+				pstmt.setInt(5, bean.getPos()+1);		
 				pstmt.setInt(6, bean.getDepth()+1);
 				pstmt.setString(7, bean.getPass());
 				pstmt.setString(8,bean.getIp());

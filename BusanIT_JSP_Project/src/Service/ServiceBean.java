@@ -2,7 +2,7 @@ package Service;
 
 public class ServiceBean {
 	private int snum;
-	private String sname;
+	private String sid;
 	private String subject;
 	private String content;
 	private int pos;
@@ -20,10 +20,10 @@ public class ServiceBean {
 		this.snum = snum;
 	}
 	public String getsName() {
-		return sname;
+		return sid;
 	}
 	public void setsName(String sname) {
-		this.sname =sname;
+		this.sid =sname;
 	}
 	public String getSubject() {
 		return subject;

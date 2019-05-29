@@ -57,10 +57,10 @@ public class ServiceMgr {
 					if(rs.next())
 						ref = rs.getInt(1) + 1; //현재 저장된 num값을 1씩 증가시켜 ref 값으로 리턴.
 					/////////////////////////////////
-					sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip)";
+					sql = "insert Service(sid,content,subject,ref,pos,depth,regdate,pass,count,ip)";
 					sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?)";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, multi.getParameter("sname"));
+					pstmt.setString(1, multi.getParameter("id"));
 					pstmt.setString(2, content);
 					pstmt.setString(3, multi.getParameter("subject"));
 					pstmt.setInt	  (4, ref);
@@ -132,7 +132,7 @@ public class ServiceMgr {
 			      while(rs.next()) {
 			    	  ServiceBean bean = new ServiceBean();
 			    	  bean.setsNum(rs.getInt("snum"));
-			    	  bean.setsName(rs.getString("sname"));
+			    	  bean.setsName(rs.getString("sid"));
 			    	  bean.setSubject(rs.getString("subject"));
 			    	  bean.setPos(rs.getInt("pos"));
 			    	  bean.setRef(rs.getInt("ref"));

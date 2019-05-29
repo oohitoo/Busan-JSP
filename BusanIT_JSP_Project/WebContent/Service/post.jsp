@@ -54,14 +54,14 @@ table.type03 td {
 		<hr/>
 		<p/>
 		<br />
-<table  class="type03" s>
+<table  class="type03">
 	<tr>
 		<td align="center">
 		<table style="width:950px;" >
 			<tr>
-				<th width="10%">성 명</th>
+				<th width="10%">아이디</th>
 				<th width="90%">
-				<input name="sname" size="10" maxlength="8"></th>
+				<input name="id" size="10" maxlength="8" readonly value="<%=session.getAttribute("idKey")%>"></th>
 			</tr>
 			<tr>
 				<th>제 목</th>

@@ -155,7 +155,7 @@ body { background: #fff; }
 						<tr class="text-primary" align="center">
 							<th width="120" >번 호</th>
 							<th width="280">제 목</th>
-							<th width="120">이 름</th>
+							<th width="120">아이디</th>
 							<th width="180">날 짜</th>
 							<th width="130">조회수</th>
 						</tr>
@@ -168,7 +168,7 @@ body { background: #fff; }
 									ServiceBean bean = vlist.get(i);
 									int num = bean.getsNum();
 									String subject = bean.getSubject();
-									String name = bean.getsName();
+									String id = bean.getsName();
 									String regdate = bean.getRegdate();
 									int depth = bean.getDepth();
 									int count = bean.getCount();
@@ -185,7 +185,7 @@ body { background: #fff; }
 											}
 								%> <a href="javascript:read('<%=num%>')"><%=subject%></a> 
 							</td>
-							<td><%=name%></td>
+							<td><%=id%></td>
 							<td><%=regdate%></td>
 							<td><%=count%></td>
 							<%}%>

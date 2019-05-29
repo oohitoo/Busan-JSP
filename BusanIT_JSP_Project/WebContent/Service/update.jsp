@@ -63,12 +63,12 @@ table.type03 td {
 		<p/>
 		<br />
 <table  class="type03"  style="width:950px;" >
-     <tr>
-      <th>ID</th> 
+	  <tr>
+     <th>ID</th>
      <td width="80%">
-	 <input name="id" size="10" maxlength="8" readonly value="<%=session.getAttribute("idKey")%>">
+	  <input name="name" readonly value="<%=name%>" size="30" maxlength="20">
 	 </td>
-	</tr> 
+	</tr>
 	<tr>
      	<th>Á¦ ¸ñ</th>
      <td>

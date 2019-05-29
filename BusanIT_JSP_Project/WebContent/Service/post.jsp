@@ -4,20 +4,19 @@
 <jsp:useBean id="mgr" class="Service.ServiceMgr"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
-	String id  = (String)session.getAttribute("idKey"); 
+/* 	String id  = (String)session.getAttribute("idKey");  */
 %>
 <!-- 글 작성페이지 -->
 <jsp:include page="form.jsp" />
 
 <script>
 function check() {
-	if (frm.comment.value == "") {
+	if (document.content.pass.value == "") {
 		alert("내용을 입력하세요.");
 		document.delFrm.pass.focus();
 		return;
 	}
 	document.delFrm.submit();
-}
 </script>
 <style>
 table.type03 {
@@ -50,7 +49,7 @@ table.type03 td {
 
 <div><p />
 		<br />
-		<img src="img/Service.jpg" width="100%" height="300">
+		<img src="img/Service.jpg" width=100%" height="300">
 		<hr/>
 		<p/>
 		<br />
@@ -59,9 +58,9 @@ table.type03 td {
 		<td align="center">
 		<table style="width:950px;" >
 			<tr>
-				<th width="10%">아이디</th>
+				<th width="10%">성 명</th>
 				<th width="90%">
-				<input name="id" size="10" maxlength="8" readonly value="<%=session.getAttribute("idKey")%>"></th>
+				<input name="name" size="10" maxlength="8"  readonly value="<%=session.getAttribute("idKey")%>"></th>
 			</tr>
 			<tr>
 				<th>제 목</th>
@@ -70,9 +69,9 @@ table.type03 td {
 			</tr>
 			<tr>
 				<th>내 용</th>
-				<th><!-- <textarea style="width:750px; height:400px;" id="textAreaContent" name="content" rows="10" cols="80" onClick="check()"> -->
+				<td><!-- <textarea style="width:750px; height:400px;" id="textAreaContent" name="content" rows="10" cols="80" onClick="check()"> -->
 				<textarea style="width:750px; height:400px;"name="content" rows="10" cols="80"></textarea>
-				</th>
+				</td>
 		<%-- 		<%
 					ServiceBean bean = mgr.insertService(req);
 					

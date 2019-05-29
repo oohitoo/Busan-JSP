@@ -16,7 +16,7 @@ public class ServiceReplyServlet extends HttpServlet {
 		request.setCharacterEncoding("EUC-KR");
 		ServiceMgr mgr = new ServiceMgr();
 		ServiceBean reBean = new ServiceBean();
-		reBean.setsName(request.getParameter("id"));
+		reBean.setsName(request.getParameter("sname"));
 		reBean.setSubject(request.getParameter("subject"));
 		reBean.setContent(request.getParameter("content"));
 		reBean.setRef(Integer.parseInt(request.getParameter("ref")));
@@ -25,7 +25,6 @@ public class ServiceReplyServlet extends HttpServlet {
 		reBean.setPass(request.getParameter("pass"));
 		reBean.setIp(request.getParameter("ip"));
 		
-
 		mgr.replyUpService(reBean.getRef(), reBean.getPos());
 		mgr.replyService(reBean);
 		

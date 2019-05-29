@@ -155,7 +155,7 @@ body { background: #fff; }
 						<tr class="text-primary" align="center">
 							<th width="120" >번 호</th>
 							<th width="280">제 목</th>
-							<th width="120">아이디</th>
+							<th width="120">이 름</th>
 							<th width="180">날 짜</th>
 							<th width="130">조회수</th>
 						</tr>
@@ -168,7 +168,7 @@ body { background: #fff; }
 									ServiceBean bean = vlist.get(i);
 									int num = bean.getsNum();
 									String subject = bean.getSubject();
-									String id = bean.getsName();
+									String name = (String)session.getAttribute("idKey");
 									String regdate = bean.getRegdate();
 									int depth = bean.getDepth();
 									int count = bean.getCount();
@@ -185,7 +185,7 @@ body { background: #fff; }
 											}
 								%> <a href="javascript:read('<%=num%>')"><%=subject%></a> 
 							</td>
-							<td><%=id%></td>
+							<td><%=name%></td>
 							<td><%=regdate%></td>
 							<td><%=count%></td>
 							<%}%>
@@ -253,11 +253,11 @@ body { background: #fff; }
 					
 				</td>
 				</tfoot>
-			<table align="right">
+			<td align="right">
 				<a href="post.jsp">
 				<input type="button" class="btn btn-primary" value="글쓰기">
 				</a>
-			</table>
+			</td>
 		</table>
 		<form name="searchFrm" method="post" action="ServiceMain.jsp">
 			<table class="type09" border="0" width="900" align=center

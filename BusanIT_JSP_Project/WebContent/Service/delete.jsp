@@ -46,8 +46,8 @@
 <body>
 <div align="center"><br/><br/>
 	<table width="100%" cellspacing="0" cellpadding="3">
-		<tr class="text-primary">
-			<td align="center" >
+		<tr>
+			<td>
 				사용자의 비밀번호를 입력해주세요.
 			</td>
 		</tr>
@@ -67,8 +67,8 @@
 						</tr>
 						<tr>
 							<td align="center">
-								<input type="button" class="btn btn-primary" value="삭제완료" onClick="check()"> 
-								<input type="button" class="btn btn-primary" value="뒤로" onClick="history.go(-1)">
+								<input type="button" value="삭제완료" class="btn btn-primary" onClick="check()"> 
+								<input type="button" value="뒤로" class="btn btn-primary" onClick="history.go(-1)">
 							</td>
 						</tr>
 					</table>

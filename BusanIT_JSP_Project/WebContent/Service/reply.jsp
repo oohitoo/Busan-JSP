@@ -3,10 +3,10 @@
 <jsp:include page="form.jsp" />
 <%
 	  String nowPage = request.getParameter("nowPage");
+	  String name = bean.getsName();
 	  String subject = bean.getSubject();
 	  String content = bean.getContent(); 
-		
-	
+	  String id  = (String)session.getAttribute("idKey");
 %>
 <html>
 <head>
@@ -57,10 +57,11 @@ table.type03 td {
 		<td align="center">
 		<table style="width:950px;" >
 			 <tr>
-      			<th>I D</th> 
-    			<th>
-	 			<input name="id" size="10" maxlength="8" readonly value="<%=session.getAttribute("idKey")%>"></th>
-			</tr> 
+   			  <th>ID</th>
+    			 <td width="80%">
+				  <input name="name" readonly value="<%=session.getAttribute("idKey")%>" size="30" maxlength="20">
+				 </td>
+				</tr>
 			<tr>
 				<th>Á¦ ¸ñ</th>
 				<th>
@@ -72,8 +73,8 @@ table.type03 td {
 				<th>
 				<!-- <textarea style="width:750px; height:400px;" id="textAreaContent" name="content" rows="10" cols="80" > -->
 					<textarea style="width:750px; height:400px;"name="content" rows="10" cols="80"><%=content %>
-==========================================================
-</textarea>
+=======================================================
+				</textarea>
 				</th>
 			</tr>
 					

@@ -19,14 +19,14 @@
 	  //게시물 읽어오기
 	  
 	  ServiceBean bean = mgr.getService(num);
-	  String id = bean.getsName();
+	  String name = (String)session.getAttribute("idKey");
 	  String subject = bean.getSubject();
       String regdate = bean.getRegdate();
 	  String content = bean.getContent();
 	  String ip = bean.getIp();
 	  String pass = bean.getPass();
 	  int count = bean.getCount();
- 
+ 		session.setAttribute("bean", bean);  
 
 %>
 
@@ -79,8 +79,8 @@ table.type03 td {
 		<td align="center">
 		<table style="width:950px;" >
 			<tr>
-				<th> ID </th>
-				<td><%=id %></td>
+				<th > ID </th>
+				<td><%=name%></td>
 			</tr>
 			<tr>
 			<th > 등록날짜 </th>
@@ -100,10 +100,10 @@ table.type03 td {
 </table>
 
 <div align="center">
-	  <a href="javascript:list()" ><input type="button" class="btn btn-primary" value="리스트"></a> 
- <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" ><input type="button" class="btn btn-primary" value="수정"></a> 
- <a href="reply.jsp?nowPage=<%=nowPage%>" ><input type="button" class="btn btn-primary" value="답변"></a> 
- <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>"><input type="button" class="btn btn-primary" value="삭제"></a> 
+	 [ <a href="javascript:list()" >리스트</a> | 
+ <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >내용수정</a> |
+ <a href="reply.jsp?nowPage=<%=nowPage%>" >답 변</a> |
+ <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> ]<br/>
  </div>
 </div>
 

@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 @WebServlet({ "/ServicePostServlet", "/Service/ServicePost" })
@@ -14,8 +15,7 @@ public class ServicePostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");
-		ServiceMgr mgr = new ServiceMgr();
-		mgr.insertService(request);
+		ServiceMgr mgr = new ServiceMgr();		
 		response.sendRedirect("ServiceMain.jsp");
 	}
 

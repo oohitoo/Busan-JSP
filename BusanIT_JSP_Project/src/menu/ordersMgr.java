@@ -466,4 +466,64 @@ public class ordersMgr {
 			pool.freeConnection(con, pstmt);
 		}return;
 	}
+	
+	//월 매출 조회
+	public Vector<ordersBean> monthsales(String shopName, String date){ 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> olist = new Vector<>();
+		System.out.println(shopName);
+		try {
+			con = pool.getConnection();
+			sql = "select o.orderType, o.oDate, sum(m.mPrice * o.count) totalPrice from menu m, orders o where m.rName = o.rName and o.menu = m.menu and o.rName = ? and YEAR(o.odate) = ? group by ordertype,odate order by odate;";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, shopName);
+			pstmt.setString(2, date);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean oBean = new ordersBean();
+				oBean.setOrderType(rs.getString("orderType"));
+				oBean.setoDate(rs.getString("oDate"));
+				oBean.setTotalPrice(rs.getInt("totalPrice"));
+				olist.addElement(oBean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return olist;
+	}
+	
+	//일 매출 조회
+	public Vector<ordersBean> dailysales(String shopName, String oDate){ 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> olist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select o.orderType, MONTH(o.oDate) as 월 ,SUBSTR(DATE(o.oDate),9,10) as 일, m.mPrice,o.count, (m.mPrice * o.count) as totalPrice ,sum(m.mPrice * o.count)from menu m, orders o where m.rName = o.rName and o.menu = m.menu and o.rName=? and MONTH(o.oDate) = 4  group by ordertype,odate order by odate; ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, shopName);
+			//oDate를 월만 받으므로 mgr 사용할 시 년도, 일 빼고 '월'값만 넣어야함
+			pstmt.setString(2, "2019-"+oDate +"%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean oBean = new ordersBean();
+				oBean.setOrderType(rs.getString("oderType"));
+				oBean.setoDate(rs.getString("oDate"));
+				oBean.setTotalPrice(rs.getInt("totalPrice"));
+				olist.addElement(oBean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return olist;
+	}
 }

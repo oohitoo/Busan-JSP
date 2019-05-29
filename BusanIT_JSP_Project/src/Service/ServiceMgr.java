@@ -14,68 +14,67 @@ import Service.ServiceBean;
 
 public class ServiceMgr {
 	private DBConnectionMgr pool;
-	public static final String SAVEFOLDER = "C://Jsp//eclipse-workspace//eclipse-workspace//Test_JSP//work//Test_JSP//WebContent//Service//fileupload/";
-	public static final String ENCTYPE = "EUC-KR";
-	public static int MAXSIZE = 10 * 1024 * 1024;
-	
-	public ServiceMgr() {
-		pool = DBConnectionMgr.getInstance();
-	}
-	
-	//Service Insert : 
-	public void insertService(HttpServletRequest req) {
-		Connection 			con 	= null;
-		PreparedStatement 	pstmt 	= null;
-		ResultSet 			rs 		= null;
-		String 				sql 	= null;
-		try {
+		public static final 	String 						SAVEFOLDER 	= "C://Jsp//myapp//WebContent//board//fileupload/";
+		public static final 	String 						ENCTYPE 		= "EUC-KR";
+		public static int 				   						MAXSIZE 			= 10 * 1024 * 1024;
+		
+		public ServiceMgr() {
+			pool = DBConnectionMgr.getInstance();
 			
-				File dir = new File(SAVEFOLDER);
-				if(!dir.exists()) {
-					dir.mkdirs();
-				}
-				MultipartRequest multi 	=
-						new MultipartRequest(req, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
-				String 	filename  	= null;
-				int		filesize 	= 0;
-				if(multi.getFilesystemName("filename")!=null) {
-					filename 	= multi.getFilesystemName("filename");
-					filesize 	= (int)multi.getFile("").length(); 
-					
-				}
-				
-				//게시물 내용
-				String content = multi.getParameter("content");
-				if(multi.getParameter("contentType").equals("TEXT")) {
-					content = UtilMgr.replace(content,"<","&lt;");
-				}
-			
-				con 	= pool.getConnection();
-				sql 	= "SELECT max(snum) FROM Service";
-				pstmt 	= con.prepareStatement(sql);
-				rs 		= pstmt.executeQuery();
-				int ref = 1;
-				if(rs.next())
-					ref = rs.getInt(1) + 1; 
-				sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip,filename,filesize)";
-				sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?, ?, ?)";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, multi.getParameter("sname"));
-				pstmt.setString(2, content);
-				pstmt.setString(3, multi.getParameter("subject"));
-				pstmt.setInt	  (4, ref);
-				pstmt.setString(5, multi.getParameter("pass"));
-				pstmt.setString(6, multi.getParameter("ip"));
-				pstmt.setString(7, filename);
-				pstmt.setInt	  (8, filesize);
-				pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
 		}
-		return;
-	}
+		
+		//Service Insert : 
+		public void insertService(HttpServletRequest req) {
+			Connection 					con 		= null;
+			PreparedStatement 	pstmt 	= null;
+			ResultSet 					rs 		= null;
+			String 							sql 		= null;
+			try {
+					////////파일업로드/////////
+					File dir = new File(SAVEFOLDER);
+					if(!dir.exists()) {
+						dir.mkdirs();
+					}
+					MultipartRequest multi 		 	=
+							new MultipartRequest(req, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
+					String 					filename  	= null;
+					int						filesize 	 	= 0;
+					if(multi.getFilesystemName("filename")!=null) {
+						filename 	= multi.getFilesystemName("filename");
+						filesize 	= (int)multi.getFile("").length(); 
+					}
+					/////////////////////////////////
+					//게시물 내용(content Type : TEXT, HTML)
+					String content = multi.getParameter("content");
+						content = UtilMgr.replace(content,"<","&lt;");
+					
+					////////////////////////////////
+					con 		= pool.getConnection();
+					sql 		= "SELECT max(snum) FROM Service";
+					pstmt 	= con.prepareStatement(sql);
+					rs 		= pstmt.executeQuery();
+					int ref 	= 1;
+					if(rs.next())
+						ref = rs.getInt(1) + 1; //현재 저장된 num값을 1씩 증가시켜 ref 값으로 리턴.
+					/////////////////////////////////
+					sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip)";
+					sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?)";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, multi.getParameter("sname"));
+					pstmt.setString(2, content);
+					pstmt.setString(3, multi.getParameter("subject"));
+					pstmt.setInt	  (4, ref);
+					pstmt.setString(5, multi.getParameter("pass"));
+					pstmt.setString(6, multi.getParameter("ip"));
+					pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return;
+		}
+		
 	//Service Total Count(총 게시물 개수)
 	public int getTotalCount(String keyField, String keyWord) {
 		Connection 		  con 	= null;
@@ -132,16 +131,14 @@ public class ServiceMgr {
 			      rs = pstmt.executeQuery();
 			      while(rs.next()) {
 			    	  ServiceBean bean = new ServiceBean();
-			    	  bean.setSnum(rs.getInt("snum"));
-			    	  bean.setSname(rs.getString("sname"));
+			    	  bean.setsNum(rs.getInt("snum"));
+			    	  bean.setsName(rs.getString("sname"));
 			    	  bean.setSubject(rs.getString("subject"));
 			    	  bean.setPos(rs.getInt("pos"));
 			    	  bean.setRef(rs.getInt("ref"));
-			    	  bean.setDepth(rs.getInt("depth"));
-			    	 
+			    	  bean.setDepth(rs.getInt("depth"));			    	 
 			    	  bean.setRegdate(rs.getString("regdate"));
 			    	  bean.setCount(rs.getInt("count"));
-			    	  /*bean.setFilename(rs.getString("filename"));*/
 			    	  vlist.addElement(bean);
 			      }
 			    } catch (Exception e) {
@@ -166,8 +163,8 @@ public class ServiceMgr {
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				bean.setSnum(rs.getInt("snum"));
-				bean.setSname(rs.getString("sname"));
+				bean.setsNum(rs.getInt("snum"));
+				bean.setsName(rs.getString("sname"));
 				bean.setSubject(rs.getString("subject"));
 				bean.setContent(rs.getString("content"));
 				bean.setPos(rs.getInt("pos"));
@@ -176,8 +173,6 @@ public class ServiceMgr {
 				bean.setRegdate(rs.getString("regdate"));
 				bean.setPass(rs.getString("pass"));
 				bean.setCount(rs.getInt("count"));
-				bean.setFilename(rs.getString("filename"));
-				bean.setFilesize(rs.getInt("filesize"));
 				bean.setIp(rs.getString("ip"));
 			}
 		} catch (Exception e) {
@@ -215,18 +210,6 @@ public class ServiceMgr {
 		String sql = null;
 		try {
 			con = pool.getConnection();
-			sql = "SELECT filename FROM Service WHERE snum = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			rs = pstmt.executeQuery();
-			if(rs.next()&&rs.getString(1)!=null) {
-				if(!rs.getString(1).equals("")) {
-					File file = new File(SAVEFOLDER + rs.getString(1));
-					if(file.exists()) {
-						UtilMgr.delete(SAVEFOLDER + rs.getString(1));
-					}
-				}
-			}
 			sql = "DELETE FROM Service WHERE snum = ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
@@ -248,10 +231,10 @@ public class ServiceMgr {
 			con = pool.getConnection();
 			sql = "UPDATE Service SET sname=?, subject=?, content=? WHERE snum=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getSname());	
+			pstmt.setString(1, bean.getsName());	
 			pstmt.setString(2, bean.getSubject());
 			pstmt.setString(3, bean.getContent());
-			pstmt.setInt	  (4, bean.getSnum());
+			pstmt.setInt	  (4, bean.getsNum());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -260,39 +243,6 @@ public class ServiceMgr {
 		}
 		return;
 	}
-	//Service Update2(파일 수정)
-		public void updateService2(MultipartRequest multi) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			try {
-				con = pool.getConnection();
-				if(multi.getFilesystemName("filename")!=null) {
-					sql = "update Service set sname=?, subject=?, content=?, "
-							+ "filename=? where snum = ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, multi.getParameter("sname"));
-					pstmt.setString(2, multi.getParameter("subject"));
-					pstmt.setString(3, multi.getParameter("content"));
-					pstmt.setString(4, multi.getFilesystemName("filename"));
-					pstmt.setInt(5, Integer.parseInt(multi.getParameter("num")));
-				}else {
-					sql = "update Service set sname=?, subject=?, content=? "
-							+ "where snum = ?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, multi.getParameter("sname"));
-					pstmt.setString(2, multi.getParameter("subject"));
-					pstmt.setString(3, multi.getParameter("content"));
-					pstmt.setInt(4, Integer.parseInt(multi.getParameter("snum")));
-				}
-				pstmt.executeUpdate();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt);
-			}
-		}
-	
 	//Service Reply (답변)
 		public void replyService(ServiceBean bean) {
 			Connection con = null;
@@ -304,7 +254,7 @@ public class ServiceMgr {
 				sql += "values(?, ?, ?, ?, ?, ?, now(), ?, 0, ?)";
 													//		날짜 ,        조회수
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1,  bean.getSname());
+				pstmt.setString(1,  bean.getsName());
 				pstmt.setString(2,  bean.getContent());
 				pstmt.setString(3,  bean.getSubject());
 				pstmt.setInt(4,  bean.getRef());			//원글의 ref값 저장, ref는 값을 그룹시켜준다 
@@ -343,29 +293,8 @@ public class ServiceMgr {
 			
 		}
 	
-	//Post 1000
-	public void post1000(){
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			con = pool.getConnection();
-			sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip,filename,filesize)";
-			sql+="values('aaa', 'bbb', 'ccc', 0, 0, 0, now(), '1111',0, '127.0.0.1', null, 0);";
-			pstmt = con.prepareStatement(sql);
-			for (int i = 0; i < 1000; i++) {
-				pstmt.executeUpdate();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-	}
 	//main
 	public static void main(String[] args) {
-		ServiceMgr mgr = new ServiceMgr();
-		mgr.post1000();
 
 	}
 }

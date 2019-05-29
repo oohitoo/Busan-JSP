@@ -11,7 +11,7 @@
 
 <script>
 function check() {
-	if (document.content.pass.value == "") {
+	if (frm.comment.value == "") {
 		alert("내용을 입력하세요.");
 		document.delFrm.pass.focus();
 		return;
@@ -58,11 +58,11 @@ table.type03 td {
 	<tr>
 		<td align="center">
 		<table style="width:950px;" >
-		<!-- 	<tr>
+			<tr>
 				<th width="10%">성 명</th>
 				<th width="90%">
-				<input name="name" size="10" maxlength="8"></th>
-			</tr> -->
+				<input name="sname" size="10" maxlength="8"></th>
+			</tr>
 			<tr>
 				<th>제 목</th>
 				<th>

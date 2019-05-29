@@ -60,7 +60,14 @@
 <html>
 <head>
 <title>Service</title>
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- 부트스트랩 -->
 <link href="style.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript">
 	function pageing(page) {
 		document.readFrm.nowPage.value = page;
@@ -100,39 +107,39 @@
 
 	}
 </script>
+<style>
+body { background: #fff; }
+.blueone {
+  border-collapse: collapse;
+}  
+.blueone th {
+  padding: 10px;
+  color: #2E76FD;
+  border-bottom: 3px solid #168;
+  text-align: left;
+}
+.blueone td {
+  color: #669;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+.blueone tr:hover td {
+  color: #004;
+}
+
+
+
+</style>
 </head>
 <body>
 	<div align="center">
 		<p />
 		<br />
-		<h1>고객센터</h1>
+		<img src="img/Service.jpg" width="100%" height="300">
+		<hr/>
+		<p/>
 		<br />
-
-		<form name="searchFrm" method="post" action="ServiceMain.jsp">
-			<table class="type09" border="0" width="900" align=center
-				cellpadding="4" cellspacing="0">
-				<tr>
-					<!--검색줄-->
-					<td align="center" valign="bottom">
-						<!-- 셀렉트 박스 --> <select name="keyField" size="1">
-							<option value="subject">제 목</option>
-							<option value="content">내 용</option>
-					</select> <input size="30" name="keyWord"> <input type="button"
-						value="찾기" onClick="javascript:check()"> <input
-						type="hidden" name="nowPage" value="1">
-					</td>
-				</tr>
-			</table>
-		</form>
-		<table>
-			<tr>
-				<td width="700">Total : <%=totalRecord%>Articles( <font
-					color="red"><%=nowPage + "/" + totalPage%></font> )
-				</td>
-			</tr>
-		</table>
-
-		<table>
+		<table >
 			<tr>
 				<td align="center" colspan="2">
 					<%
@@ -143,29 +150,32 @@
 
 						} else {
 					%>
-					<table cellspacing="0">
-						<tr align="center">
-							<td width="100">번 호</td>
-							<td width="250">제 목</td>
-							<td width="100">이 름</td>
-							<td width="150">날 짜</td>
-							<td width="100">조회수</td>
+					<table class="blueone" height="30"><!--  cellspacing="0" class="table table-striped" -->
+					<thead class="head">                
+						<tr class="text-primary" align="center">
+							<th width="120" >번 호</th>
+							<th width="280">제 목</th>
+							<th width="120">이 름</th>
+							<th width="180">날 짜</th>
+							<th width="130">조회수</th>
 						</tr>
+						</thead>
+						
 						<%
 							for (int i = 0; i < numPerPage; i++) {
 									if (i == listSize)
 										break;
 									ServiceBean bean = vlist.get(i);
-									int num = bean.getSnum();
+									int num = bean.getsNum();
 									String subject = bean.getSubject();
-									String name = bean.getSname();
+									String name = bean.getsName();
 									String regdate = bean.getRegdate();
 									int depth = bean.getDepth();
 									int count = bean.getCount();
-									String filename = bean.getFilename();
 						%>
+						<tbody class="body">
 						<tr align="center">
-							<td><%=totalRecord - ((nowPage - 1) * numPerPage) - i%></td>
+							<td><%=totalRecord-((nowPage-1)*numPerPage)-i%></td>
 							<td align="left">
 								<%
 									if (depth > 0) {
@@ -173,69 +183,98 @@
 													out.println("&nbsp;&nbsp;");
 												}
 											}
-								%> <a href="javascript:read('<%=num%>')"><%=subject%></a> <%
- 	if (filename != null && !filename.equals("")) {
- %>
-								<img src="img/icon_file.gif" align="middle"> <%
- 	}
- %>
+								%> <a href="javascript:read('<%=num%>')"><%=subject%></a> 
 							</td>
 							<td><%=name%></td>
 							<td><%=regdate%></td>
 							<td><%=count%></td>
-							<%
-								}
-							%>
+							<%}%>
 						
-					</table> <%
- 	}
- %>
+					</table> 
+					<%}%>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2"><br />
-				<br /></td>
+			</tbody>
+			
+			<tfoot class="foot">
+						<tr>
+				<td colspan="2" align="center">
+				<br />
+				<br />
+				</td>
 			</tr>
 			<tr>
 				<td>
-					<!-- 블락 입력 --> <%
- 	int pageStart = (nowBlock - 1) * pagePerBlock + 1;
- 	int pageEnd = ((pageStart + pagePerBlock) < totalPage) ? (pageStart + pagePerBlock) : totalPage + 1;
- %> <%
- 	if (totalPage != 0) {
- %> <!-- 이전블럭 --> <%
- 	if (nowBlock > 1) {
- %> <a
-					href="javascript:bloc('<%=nowBlock - 1%> ')">prev...</a> <%
- 	}
- %>&nbsp; <!-- 페이징 -->
+					<!-- 블락 입력 --> 
+				<%
+				 	int pageStart = (nowBlock - 1) * pagePerBlock + 1;
+				 	int pageEnd = ((pageStart + pagePerBlock) < totalPage) ? (pageStart + pagePerBlock) : totalPage + 1;
+				 %> 
+				 <%
+				 	if (totalPage != 0) {
+				 %> 
+				 <!-- 이전블럭 --> 
+				 <%
+				 if (nowBlock > 1)
+				 {
+				%> 
+				<a href="javascript:bloc('<%=nowBlock - 1%> ')">prev...</a> 
+				<%}%>&nbsp; <!-- 페이징 -->
+					<%for (; pageStart < pageEnd; pageStart++) 
+					{
+					%> 
+					<a href="javascript:pageing('<%=pageStart%>')"> 
 					<%
-						for (; pageStart < pageEnd; pageStart++) {
-					%> <a href="javascript:pageing('<%=pageStart%>')"> <%
- 	if (nowPage == pageStart) {
- %>
-						<font color="red"> <%
- 	}
- %> [<%=pageStart%>]</a> <%
- 	if (nowPage == pageStart) {
- %>
-					</font> <%
- 	}
- %> <%
- 	} //for
- %>&nbsp; <!-- 다음블럭 --> <%
- 	if (totalBlock > nowBlock) {
- %>
-					<a href="javascript:block('<%=nowBlock + 1%>')">...next</a> <%
- 	}
- %><!-- if -->
+				 	if (nowPage == pageStart) 
+				 	{
+				 %>
+					<font color="red">
+					<%}%> 
+					
+					[<%=pageStart%>]</a> 
+					<%if (nowPage == pageStart)
+					{
+				 	%>
+					</font> 
+					<%}%> 
+					<%}%><!--  for -->
+					&nbsp;
+					 <!-- 다음블럭 --> 
+					 <%
+				 	if (totalBlock > nowBlock) 
+				 	{
+				 	  %>
+			<a href="javascript:block('<%=nowBlock + 1%>')">...next</a> <%
+			 	}
+			 %><!-- if -->
 					<%
 						}
 					%><!--  if-->
+					
 				</td>
-				<td align="right"><a href="post.jsp">[글쓰기]</a> <a
-					href="ServiceMain.jsp">[처음으로]</a></td>
+				</tfoot>
+			<td align="right">
+				<a href="post.jsp">
+				<input type="button" class="btn btn-primary" value="글쓰기">
+				</a>
+			</td>
 		</table>
+		<form name="searchFrm" method="post" action="ServiceMain.jsp">
+			<table class="type09" border="0" width="900" align=center
+				cellpadding="4" cellspacing="0">
+				<tr>
+					<!--검색줄-->
+					<td align="center" valign="bottom">
+						<!-- 셀렉트 박스 --> <select name="keyField" size="1">
+							<option value="subject">제 목</option>
+							<option value="content">내 용</option>
+					</select> <input size="30" name="keyWord"> 
+					<input type="button" value="찾기" onClick="javascript:check()"> 
+						<input type="hidden" name="nowPage" value="1">
+					</td>
+				</tr>
+			</table>
+		</form>
 		<hr width="750" />
 
 		<form name="listFrm" method="post">

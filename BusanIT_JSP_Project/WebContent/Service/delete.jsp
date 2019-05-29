@@ -2,7 +2,6 @@
 <%@page import="Service.ServiceBean"%>
 <%@page import="Service.ServiceMgr"%>
 <jsp:include page="form.jsp" />
-<!--글 삭제페이지  -->
 <html>
 <head>
 <%
@@ -11,11 +10,15 @@
 		String nowPage = request.getParameter("nowPage");
 		if(request.getParameter("pass")!=null) {
 			ServiceBean bean = (ServiceBean)session.getAttribute("bean");
+			//삭제를 요청한 케이스
 			String inPass = request.getParameter("pass");
 			String dbPass = bean.getPass();
+			//자바 기본형 type(8가지)의 비교는 == 이고
+			//참조형(클래스 타입)의 ==는 객체의 주소값 비교
+			//String의 값의 비교는 반드시 equals 해야한다.
 			if(inPass.equals(dbPass)){
-				ServiceMgr mgr = new ServiceMgr();
-				mgr.deleteService(num);
+			/*	ServiceMgr mgr = new ServiceMgr();
+				mgr.deleteService(num);*/
 				new ServiceMgr().deleteService(num);
 				String url = "ServiceMain.jsp?nowPage" + nowPage;
 				response.sendRedirect(url);
@@ -29,8 +32,6 @@
 			}
 		}else{
 %>
-<title>글 삭제</title>
-<link href="style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 	function check() {
 		if (document.delFrm.pass.value == "") {
@@ -45,8 +46,8 @@
 <body>
 <div align="center"><br/><br/>
 	<table width="100%" cellspacing="0" cellpadding="3">
-		<tr>
-			<td height="21" align="center">
+		<tr class="text-primary">
+			<td align="center" >
 				사용자의 비밀번호를 입력해주세요.
 			</td>
 		</tr>
@@ -62,13 +63,12 @@
 							</td>
 						</tr>
 						<tr>
-							<td><hr size="10" color="#eeeeee"/></td>
+							<td><hr size="1" color="#eeeeee"/></td>
 						</tr>
 						<tr>
 							<td align="center">
-								<input type="button" value="삭제완료" onClick="check()"> 
-								<input type="reset" value="다시쓰기">
-								<input type="button" value="뒤로" onClick="history.go(-1)">
+								<input type="button" class="btn btn-primary" value="삭제완료" onClick="check()"> 
+								<input type="button" class="btn btn-primary" value="뒤로" onClick="history.go(-1)">
 							</td>
 						</tr>
 					</table>

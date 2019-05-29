@@ -13,6 +13,7 @@
 	String shopName = request.getParameter("store");
 	session.setAttribute("store", shopName);
 %>
+
 <!-- 메뉴 검색 하러 가즈아~ -->
 <jsp:useBean id="mgr" class="menu.menuMgr" />
 <%

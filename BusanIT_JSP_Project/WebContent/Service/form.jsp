@@ -11,7 +11,19 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+<style>
+<style>
+      div {
+        width: 100%;
+        height: 600px;
+        border: 1px solid #bcbcbc;
+      }
+      .a {
+        background-image: url( "images/background.jpg" );
+      }
+    </style>
 
+</style>
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
 	<div class="container"><br>

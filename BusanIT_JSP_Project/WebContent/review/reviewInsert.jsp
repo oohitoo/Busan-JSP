@@ -22,5 +22,5 @@
 		
 <script>
  	alert("입력완료");
-	location.href = "review.jsp";
+	location.href = "http://localhost/BusanIT_JSP_Project/item/privateShop.jsp";
 </script>

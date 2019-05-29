@@ -7,9 +7,9 @@
 			int num=Integer.parseInt(request.getParameter("rnum"));	
 			mgr.reviewDelete(num);
 		}
-			response.sendRedirect("review.jsp");
+			//response.sendRedirect("review.jsp");
 	
 %>
 <script>
-	location.href="review.jsp";
+	location.href="http://localhost/BusanIT_JSP_Project/item/privateShop.jsp";
 </script>

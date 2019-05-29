@@ -468,25 +468,24 @@ public class ordersMgr {
 	}
 	
 	//월 매출 조회
-	public Vector<ordersBean> monthsales(String shopName, String date){ 
+	public Vector<ordersBean> monthsales(String shopName, int month){ 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		Vector<ordersBean> olist = new Vector<>();
-		System.out.println(shopName);
 		try {
 			con = pool.getConnection();
-			sql = "select o.orderType, o.oDate, sum(m.mPrice * o.count) totalPrice from menu m, orders o where m.rName = o.rName and o.menu = m.menu and o.rName = ? and YEAR(o.odate) = ? group by ordertype,odate order by odate;";
+			sql = "select month(odate) , ordertype,sum(totalprice) totalPrice from (select Menu , sum(count), orderType , (a.mPrice * sum(count)) totalPrice, a.oDate from ( select o.Menu ,sum(o.count) as count, m.mPrice,  o.orderType, o.oDate from orders o, menu m where o.menu = m.Menu and m.rName = o.rName and o.rName = ?  and month(odate) = ? GROUP by m.Menu,o.ordertype ) a group by menu,ordertype) b group by orderType ;";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, shopName);
-			pstmt.setString(2, date);
+			pstmt.setInt(2, month);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ordersBean oBean = new ordersBean();
-				oBean.setOrderType(rs.getString("orderType"));
-				oBean.setoDate(rs.getString("oDate"));
-				oBean.setTotalPrice(rs.getInt("totalPrice"));
+				oBean.setoDate(rs.getString(1));
+				oBean.setOrderType(rs.getString(2));
+				oBean.setTotalPrice(rs.getInt(3));
 				olist.addElement(oBean);
 			}
 		} catch (Exception e) {
@@ -497,8 +496,8 @@ public class ordersMgr {
 		return olist;
 	}
 	
-	//일 매출 조회
-	public Vector<ordersBean> dailysales(String shopName, String oDate){ 
+	//일매출 (해햐앟ㅁ)
+	public Vector<ordersBean> daysales(String shopName, int day){ 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -506,17 +505,14 @@ public class ordersMgr {
 		Vector<ordersBean> olist = new Vector<>();
 		try {
 			con = pool.getConnection();
-			sql = "select o.orderType, MONTH(o.oDate) as 월 ,SUBSTR(DATE(o.oDate),9,10) as 일, m.mPrice,o.count, (m.mPrice * o.count) as totalPrice ,sum(m.mPrice * o.count)from menu m, orders o where m.rName = o.rName and o.menu = m.menu and o.rName=? and MONTH(o.oDate) = 4  group by ordertype,odate order by odate; ";
+			sql = "select month, day, ordertype, sum(totalprice) from (select month(odate) month, DAY(odate) day, orderType , totalprice from	( select o.menu ,o.orderType, o.oDate, (m.mPrice * count) totalprice from orders o, menu m where o.menu = m.Menu and m.rName = o.rName and o.rName = ? and month(odate) = ? ) a group by odate, ordertype,menu ORDER BY odate) b group by ordertype, day";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, shopName);
-			//oDate를 월만 받으므로 mgr 사용할 시 년도, 일 빼고 '월'값만 넣어야함
-			pstmt.setString(2, "2019-"+oDate +"%");
+			pstmt.setInt(2, day);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ordersBean oBean = new ordersBean();
-				oBean.setOrderType(rs.getString("oderType"));
-				oBean.setoDate(rs.getString("oDate"));
-				oBean.setTotalPrice(rs.getInt("totalPrice"));
+				
 				olist.addElement(oBean);
 			}
 		} catch (Exception e) {
@@ -526,4 +522,5 @@ public class ordersMgr {
 		}
 		return olist;
 	}
+
 }

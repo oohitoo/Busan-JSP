@@ -293,8 +293,8 @@
 							<select id="payType" class="form-control" style="width:176px;" >
 									<option value="만나서 카드결제" selected>만나서 카드결제</option>
 									<option value="만나서 현금결제">만나서 현금결제</option>
-									<option value="카드 결제">카드 결제</option>
-									<option value="무통장 입금">무통장 입금</option>
+									<option value="바로 결제">바로 결제</option>
+									
 							</select>
 					</td>
 				</tr>

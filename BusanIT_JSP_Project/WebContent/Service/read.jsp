@@ -19,7 +19,7 @@
 	  //게시물 읽어오기
 	  
 	  ServiceBean bean = mgr.getService(num);
-	  String name = (String)session.getAttribute("idKey");
+	  String name = bean.getsName();
 	  String subject = bean.getSubject();
       String regdate = bean.getRegdate();
 	  String content = bean.getContent();

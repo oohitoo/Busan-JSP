@@ -168,7 +168,7 @@ body { background: #fff; }
 									ServiceBean bean = vlist.get(i);
 									int num = bean.getsNum();
 									String subject = bean.getSubject();
-									String name = (String)session.getAttribute("idKey");
+									String name = bean.getsName();
 									String regdate = bean.getRegdate();
 									int depth = bean.getDepth();
 									int count = bean.getCount();
@@ -253,11 +253,13 @@ body { background: #fff; }
 					
 				</td>
 				</tfoot>
-			<td align="right">
+			<table>
+			<div  align="right">
 				<a href="post.jsp">
 				<input type="button" class="btn btn-primary" value="±Û¾²±â">
 				</a>
-			</td>
+				</div>
+			</table>
 		</table>
 		<form name="searchFrm" method="post" action="ServiceMain.jsp">
 			<table class="type09" border="0" width="900" align=center

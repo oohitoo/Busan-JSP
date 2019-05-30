@@ -24,7 +24,7 @@ public class ServiceMgr {
 		}
 		
 		//Service Insert : 
-		public void insertService(HttpServletRequest req) {
+		public void insertService(HttpServletRequest req, String id) {
 			Connection 					con 		= null;
 			PreparedStatement 	pstmt 	= null;
 			ResultSet 					rs 		= null;
@@ -37,6 +37,9 @@ public class ServiceMgr {
 					}
 					MultipartRequest multi 		 	=
 							new MultipartRequest(req, SAVEFOLDER, MAXSIZE, ENCTYPE, new DefaultFileRenamePolicy());
+					
+				/*	System.out.println(multi.getParameter("sname"));*/
+					
 					String 					filename  	= null;
 					int						filesize 	 	= 0;
 					if(multi.getFilesystemName("filename")!=null) {
@@ -252,13 +255,13 @@ public class ServiceMgr {
 				con = pool.getConnection();
 				sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip)";
 				sql += "values(?, ?, ?, ?, ?, ?, now(), ?, 0, ?)";
-													//		날짜 ,        조회수
+													
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,  bean.getsName());
 				pstmt.setString(2,  bean.getContent());
 				pstmt.setString(3,  bean.getSubject());
-				pstmt.setInt(4,  bean.getRef());			//원글의 ref값 저장, ref는 값을 그룹시켜준다 
-				pstmt.setInt(5, bean.getPos()+1);		//답변은 원글바로밑에 잡히므로 원래있던 것을 1씩증가시키고 자리를 만듬 (밑메소드)
+				pstmt.setInt(4,  bean.getRef());			 
+				pstmt.setInt(5, bean.getPos()+1);
 				pstmt.setInt(6, bean.getDepth()+1);
 				pstmt.setString(7, bean.getPass());
 				pstmt.setString(8,bean.getIp());

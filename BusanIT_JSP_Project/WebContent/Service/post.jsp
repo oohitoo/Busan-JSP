@@ -57,11 +57,19 @@ table.type03 td {
 	<tr>
 		<td align="center">
 		<table style="width:950px;" >
+		<%if(session.getAttribute("idKey")!=null){%>
 			<tr>
 				<th width="10%">己 疙</th>
 				<th width="90%">
-				<input name="name" size="10" maxlength="8"  readonly value="<%=session.getAttribute("idKey")%>"></th>
+				<input name="sname" size="10" maxlength="8"  readonly value="<%=session.getAttribute("idKey")%>"></th>
 			</tr>
+			<%} else{ %>
+			<tr>
+				<th width="10%">己 疙</th>
+				<th width="90%">
+				<input name="sname" size="10" maxlength="8"></th>
+			</tr>
+			<%} %>
 			<tr>
 				<th>力 格</th>
 				<th>

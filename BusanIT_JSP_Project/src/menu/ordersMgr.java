@@ -468,59 +468,65 @@ public class ordersMgr {
 	}
 	
 	//월 매출 조회
-	public Vector<ordersBean> monthsales(String shopName, int month){ 
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		Vector<ordersBean> olist = new Vector<>();
-		try {
-			con = pool.getConnection();
-			sql = "select month(odate) , ordertype,sum(totalprice) totalPrice from (select Menu , sum(count), orderType , (a.mPrice * sum(count)) totalPrice, a.oDate from ( select o.Menu ,sum(o.count) as count, m.mPrice,  o.orderType, o.oDate from orders o, menu m where o.menu = m.Menu and m.rName = o.rName and o.rName = ?  and month(odate) = ? GROUP by m.Menu,o.ordertype ) a group by menu,ordertype) b group by orderType ;";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, shopName);
-			pstmt.setInt(2, month);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				ordersBean oBean = new ordersBean();
-				oBean.setoDate(rs.getString(1));
-				oBean.setOrderType(rs.getString(2));
-				oBean.setTotalPrice(rs.getInt(3));
-				olist.addElement(oBean);
+		public Vector<ordersBean> monthsales(String shopName, int month,int year){ 
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<ordersBean> olist = new Vector<>();
+			try {
+				con = pool.getConnection();
+				sql = "select year(odate),month(odate) , ordertype,sum(totalprice) totalPrice from (select Menu , sum(count), orderType , (a.mPrice * sum(count)) totalPrice, a.oDate from ( select o.Menu ,sum(o.count) as count, m.mPrice,  o.orderType, o.oDate from orders o, menu m where o.menu = m.Menu and m.rName = o.rName and o.rName = ?  and month(odate) = ? and year(odate) =? GROUP by m.Menu,o.ordertype ) a group by menu,ordertype) b group by orderType ;";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, shopName);
+				pstmt.setInt(2, month);
+				pstmt.setInt(3, year);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean oBean = new ordersBean();				
+					oBean.setoYear(rs.getString(1));
+					oBean.setoDate(rs.getString(2));
+					oBean.setOrderType(rs.getString(3));
+					oBean.setTotalPrice(rs.getInt(4));
+					olist.addElement(oBean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
+			return olist;
 		}
-		return olist;
-	}
-	
-	//일매출 (해햐앟ㅁ)
-	public Vector<ordersBean> daysales(String shopName, int day){ 
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		Vector<ordersBean> olist = new Vector<>();
-		try {
-			con = pool.getConnection();
-			sql = "select month, day, ordertype, sum(totalprice) from (select month(odate) month, DAY(odate) day, orderType , totalprice from	( select o.menu ,o.orderType, o.oDate, (m.mPrice * count) totalprice from orders o, menu m where o.menu = m.Menu and m.rName = o.rName and o.rName = ? and month(odate) = ? ) a group by odate, ordertype,menu ORDER BY odate) b group by ordertype, day";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, shopName);
-			pstmt.setInt(2, day);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				ordersBean oBean = new ordersBean();
-				
-				olist.addElement(oBean);
+		
+		//일매출 
+		public Vector<ordersBean> daysales(String shopName, int day, int month,int year){ 
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<ordersBean> olist = new Vector<>();
+			try {
+				con = pool.getConnection();
+				sql = "SELECT YEAR(odate), DAY(odate) DAY, ordertype, SUM(totalprice) FROM (SELECT odate, orderType, totalprice FROM	(SELECT o.menu,o.orderType, o.oDate, (m.mPrice * COUNT) totalprice FROM orders o, menu m	WHERE o.menu = m.Menu AND m.rName = o.rName AND o.rName = ? AND DAY(odate) = ? AND MONTH(odate) = ? and year(odate)=?) a GROUP BY odate, ordertype,menu ORDER BY odate) b GROUP BY ordertype, DAY";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, shopName);
+				pstmt.setInt(2, day);
+				pstmt.setInt(3, month);
+				pstmt.setInt(4, year);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean oBean = new ordersBean();
+					oBean.setoYear(rs.getString(1));
+					oBean.setoDate(rs.getString(2));
+					oBean.setOrderType(rs.getString(3));
+					oBean.setTotalPrice(rs.getInt(4));
+					olist.addElement(oBean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
+			return olist;
 		}
-		return olist;
-	}
-
 }

@@ -16,9 +16,11 @@ public class ordersBean {
 	private String payType = null;	 // 결제 타입
 	private String orderStatus;
 	private int mPrice;
-	private int totalPrice;
+	private int totalPrice;	//합계
 	private String mImg;
 	private String[] oSatus; //배달상태
+	private String oYear;	//odate에서 년도 가져오기
+	
 		
 	public String[] getoSatus() {
 		return oSatus;
@@ -121,6 +123,12 @@ public class ordersBean {
 	}
 	public void setmImg(String mImg) {
 		this.mImg = mImg;
+	}
+	public String getoYear() {
+		return oYear;
+	}
+	public void setoYear(String oYear) {
+		this.oYear = oYear;
 	}
 	
 	

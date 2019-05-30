@@ -32,8 +32,25 @@
 	String req = request.getParameter("request"); //요청 사항
 	String payType = request.getParameter("selectBox"); // 결제 타입
 	
+	//랜덤으로 8자리 숫자+문자 만들기
+	String tempoNum = "";
+    for (int i = 0; i < 8; i++) {
+        int rndVal = (int) (Math.random() * 62);
+        if (rndVal < 10) {
+            tempoNum += rndVal;
+        } else if (rndVal > 35) {
+            tempoNum += (char) (rndVal + 61);
+        } else {
+            tempoNum += (char) (rndVal + 55);
+        }
+    }
+    out.println("tempoNum : " + tempoNum);
+	
+	
 	//주문번호를 작성하기 위해 세션값 가져감.
-	String orderNum = session.getId().substring(session.getId().length()-5, session.getId().length());
+//	String orderNum = session.getId().substring(session.getId().length()-5, session.getId().length());
+	//주문번호를 8자리 숫자+문자로 함
+	String orderNum = tempoNum;
 	
 	String msg = ""; // 내용 출력 할 것
 	Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();

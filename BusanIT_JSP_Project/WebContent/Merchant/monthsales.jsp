@@ -19,8 +19,9 @@
 <!-- Custom styles for this template -->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <script	type="text/javascript">
-	function no(month) {
-		location.href = "daysales.jsp?month="+month;
+	function no(year,month) {
+		location.href = "daysales.jsp?year="+year+"&month="+month;
+		
 	}
 	function previous(year) {
 		var int_year = Number(year);
@@ -49,7 +50,7 @@
 			<!-- 월별 나오게 하기 -->
 			<% for (int i= 1; i <= 12; ++i) {
 				subtotal = 0;
-				Vector<ordersBean> olist = mgr.monthsales(rName, i);
+				Vector<ordersBean> olist = mgr.monthsales(rName, i,year);
 				HashMap<String, Integer> order = new HashMap<>();
 				
 					for (int l=0; l<olist.size(); l++) {
@@ -59,7 +60,7 @@
 					}
 	 			
 			%>
-			<tr align="center" onclick="javascript:no('<%=i%>')">
+			<tr align="center" onclick="javascript:no('<%=year %>','<%=i%>')">
 				<td ><%= i %>월</td> <!-- 월 출력 -->
 				<% 		
 					if(order.containsKey("만나서 카드결제")) {

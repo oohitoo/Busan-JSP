@@ -29,3 +29,26 @@ a:active {
 	color: orange;
 	text-decoration: none;
 }
+.impact{
+	color: #3a3b45;
+	font-weight: bold;
+}
+.baedalga {
+	width : 70%;
+/* 	height: 70%;		 */
+	margin-bottom: 1rem;
+	color: #858796;
+	border-collapse: collapse;
+	margin-left : 15%;
+}
+.baedalga td{
+	padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #e3e6f0;
+}
+.baedalga tr:first-child {
+	color: white;
+}
+.baedalga tr:first-child:hover {
+	color: white;
+}

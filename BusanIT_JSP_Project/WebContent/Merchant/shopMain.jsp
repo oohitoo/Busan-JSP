@@ -2,8 +2,7 @@
 <%@page import="menu.ordersBean"%>
 <%@page import="shoplogin.loginBean"%>
 <%@page import="java.util.Vector"%>
-<%@page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@page language="java" contentType="text/html; charset=EUC-KR"	pageEncoding="EUC-KR"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr" />
@@ -11,7 +10,7 @@
 <jsp:setProperty property="*" name="oBean" />
 <%
 	String businessName = (String) session.getAttribute("name");
-	/* 소켓을 위하여 세션 값 저장 */	
+	/* 소켓을 위하여 세션 값 저장 */
 	session.setAttribute("shop", businessName);
 	if (businessName == null) {
 %>
@@ -19,15 +18,11 @@
 	alert("로그인을 해 주세요");
 	location.href = "shopLogin.jsp";
 </script>
-<%
-	}
-%>
+<%}%>
 <head>
 <meta charset="EUC-KR">
 <!-- Custom fonts for this template -->
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 <!-- Jquery  -->
@@ -37,53 +32,58 @@
 		location.href = "shopOrderStatusProc.jsp?orderStatus=" + orderStatus + "&oNum=" + oNum;
 	}
 </script>
-
 <style>
-	img{
-	  margin : 15px 70px;
-	  width :200px;
-	}	
-	.modal {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(1.1);
-        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-    }
-    .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        padding: 1rem 1.5rem;
-        width: 400px;
-        height: 350px;
-        border-radius: 0.5rem;
-    }
-    .close-button {
-        float: right;
-        width: 1.5rem;
-        line-height: 1.5rem;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 0.25rem;
-        background-color: lightgray;
-    }
-    .close-button:hover {
-        background-color: darkgray;
-    }
-    .show-modal {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1.0);
-        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-    }   
+img {
+	margin: 15px 70px;
+	width: 200px;
+}
+
+.modal {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(1.1);
+	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform
+		0.25s;
+}
+
+.modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 1rem 1.5rem;
+	width: 400px;
+	height: 350px;
+	border-radius: 0.5rem;
+}
+
+.close-button {
+	float: right;
+	width: 1.5rem;
+	line-height: 1.5rem;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 0.25rem;
+	background-color: lightgray;
+}
+
+.close-button:hover {
+	background-color: darkgray;
+}
+
+.show-modal {
+	opacity: 1;
+	visibility: visible;
+	transform: scale(1.0);
+	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
 </style>
 <title>판매자 페이지</title>
 </head>
@@ -95,7 +95,6 @@
 
 		<!-- side bar include -->
 		<jsp:include page="../Merchant/sidebar.jsp" />
-
 
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -115,8 +114,7 @@
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead style="text-align: center;">
 										<tr class="text-primary">
 											<th>번호</th>
@@ -170,39 +168,17 @@
 											<%
 												if (rcnt == 1 && scnt == 0) {
 											%>
-											<td><%=no%></td>
+											<td><button onclick="javascript:onMessage()"><%=no%></button> <%
+ 	no++;
+ %></td>
 											<td>
 												<div class="container">
-													<button
-														onclick="javascript:updateOrderStatus('1', '<%=oNum%>')"
-														type="button" value="1"
-														class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>"
-														name="oStatus">결재 완료</button>
-													<button
-														onclick="javascript:updateOrderStatus('2', '<%=oNum%>')"
-														type="button" value="2"
-														class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>"
-														name="oStatus">배달 준비 중</button>
-													<button
-														onclick="javascript:updateOrderStatus('3', '<%=oNum%>')"
-														type="button" value="3"
-														class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>"
-														name="oStatus">배달 중</button>
-													<button
-														onclick="javascript:updateOrderStatus('4', '<%=oNum%>')"
-														type="button" value="4"
-														class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>"
-														name="oStatus">배달 완료</button>
-													<button
-														onclick="javascript:updateOrderStatus('5', '<%=oNum%>')"
-														type="button" value="5"
-														class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>"
-														name="oStatus">예약</button>
-													<button
-														onclick="javascript:updateOrderStatus('6', '<%=oNum%>')"
-														type="button" value="6"
-														class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>"
-														name="oStatus">완료</button>
+													<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
+													<button onclick="javascript:updateOrderStatus('2', '<%=oNum%>')" type="button" value="2" class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>" name="oStatus">배달 준비 중</button>
+													<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button>
+													<button onclick="javascript:updateOrderStatus('4', '<%=oNum%>')" type="button" value="4" class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>" name="oStatus">배달 완료</button>
+													<button onclick="javascript:updateOrderStatus('5', '<%=oNum%>')" type="button" value="5" class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>" name="oStatus">예약</button>
+													<button onclick="javascript:updateOrderStatus('6', '<%=oNum%>')" type="button" value="6" class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>" name="oStatus">완료</button>
 												</div>
 											</td>
 											<td>
@@ -217,79 +193,40 @@
 																long min = diff / (1000 * 60);
 																long hour = diff / (1000 * 60 * 60);
 																long day = diff / (1000 * 60 * 60 * 24);
-																if (0 < sec && sec < 60) {
-												%> <%=sec%>초 전 <%
- 	} else if (0 < min && min < 60) {
- %>
-												<%=min%>분 전 <%
-													} else if (0 < hour && hour < 24) {
-												%> <%=hour%>시간 전 <%
- 	} else {
- %>
-												<%=day%>일 전 <%
-													}
-												%>
+																if (0 < sec && sec < 60) {%> 
+												<%=sec%>초 전 
+												<%} else if (0 < min && min < 60) {%> 
+												<%=min%>분 전 
+												<%} else if (0 < hour && hour < 24) {%> <%=hour%>시간 전 
+												<%} else {%>
+												<%=day%>일 전
+												<%}%>
 											</td>
 											<td><%=menu%></td>
 											<td><%=count%></td>
 											<td><%=orderType%></td>
 											<td style="text-align: left;"><%=oRequest%></td>
 
-											<%
-												} else {
-											%>
-											<%
-												if (rcnt != 1 && scnt == 0) {
-											%>
-											<td rowspan="<%=rcnt%>"><%=no%></td>
-											<%
-												}
-											%>
+											<%} else {%>
+											<%if (rcnt != 1 && scnt == 0) {%>
+											<td rowspan="<%=rcnt%>"><button onclick="javascript:onMessage()"><%=no%></button> 
+											<%no++;%>
+											</td>
+											<%}%>
 
-											<%
-												if (rcnt != 1 && scnt == 0) {
-											%>
+											<%if (rcnt != 1 && scnt == 0) {%>
 											<td rowspan="<%=rcnt%>">
 												<div class="container">
-													<button
-														onclick="javascript:updateOrderStatus('1', '<%=oNum%>')"
-														type="button" value="1"
-														class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>"
-														name="oStatus">결재 완료</button>
-													<button
-														onclick="javascript:updateOrderStatus('2', '<%=oNum%>')"
-														type="button" value="2"
-														class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>"
-														name="oStatus">배달 준비 중</button>
-													<button
-														onclick="javascript:updateOrderStatus('3', '<%=oNum%>')"
-														type="button" value="3"
-														class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>"
-														name="oStatus">배달 중</button>
-													<button
-														onclick="javascript:updateOrderStatus('4', '<%=oNum%>')"
-														type="button" value="4"
-														class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>"
-														name="oStatus">배달 완료</button>
-													<button
-														onclick="javascript:updateOrderStatus('5', '<%=oNum%>')"
-														type="button" value="5"
-														class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>"
-														name="oStatus">예약</button>
-													<button
-														onclick="javascript:updateOrderStatus('6', '<%=oNum%>')"
-														type="button" value="6"
-														class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>"
-														name="oStatus">완료</button>
+													<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
+													<button onclick="javascript:updateOrderStatus('2', '<%=oNum%>')" type="button" value="2" class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>" name="oStatus">배달 준비 중</button>
+													<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button>
+													<button onclick="javascript:updateOrderStatus('4', '<%=oNum%>')" type="button" value="4" class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>" name="oStatus">배달 완료</button>
+													<button onclick="javascript:updateOrderStatus('5', '<%=oNum%>')" type="button" value="5" class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>" name="oStatus">예약</button>
+													<button onclick="javascript:updateOrderStatus('6', '<%=oNum%>')" type="button" value="6" class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>" name="oStatus">완료</button>
 												</div>
 											</td>
-											<%
-												}
-											%>
-
-											<%
-												if (rcnt != 1 && scnt == 0) {
-											%>
+											<%}%>
+											<%if (rcnt != 1 && scnt == 0) {%>
 											<td rowspan="<%=rcnt%>">
 												<%
 													//시간 형 변환
@@ -302,61 +239,38 @@
 																	long min = diff / (1000 * 60);
 																	long hour = diff / (1000 * 60 * 60);
 																	long day = diff / (1000 * 60 * 60 * 24);
-																	if (0 < sec && sec < 60) {
-												%> <%=sec%>초 전 <%
- 	} else if (0 < min && min < 60) {
- %>
-												<%=min%>분 전 <%
-													} else if (0 < hour && hour < 24) {
-												%> <%=hour%>시간 전 <%
- 	} else {
- %>
-												<%=day%>일 전 <%
-													}
-												%>
+																	if (0 < sec && sec < 60) {%> 
+												<%=sec%>초 전 
+												<%} else if (0 < min && min < 60) {%> 
+												<%=min%>분 전 
+												<%} else if (0 < hour && hour < 24) {%> 
+												<%=hour%>시간 전 
+												<%} else {%>
+												<%=day%>일 전 
+												<%}%>
 											</td>
-											<%
-												}
-											%>
+											<%}%>
 											<td><%=menu%></td>
 											<td><%=count%></td>
 
-											<%
-												if (rcnt != 1 && scnt == 0) {
-											%>
+											<%if (rcnt != 1 && scnt == 0) {%>
 											<td rowspan="<%=rcnt%>"><%=orderType%></td>
-											<%
-												}
-											%>
+											<%}%>
 
 
-											<%
-												if (rcnt != 1 && scnt == 0) {
-											%>
+											<%if (rcnt != 1 && scnt == 0) {%>
 											<td rowspan="<%=rcnt%>" style="text-align: left;"><%=oRequest%>
 											</td>
-											<%
-												}
-											%>
-											<%
-												}
-											%>
+											<%}%>
+											<%}%>
 
 										</tr>
-										<%
-											no++;
-													scnt++;
-													if (mgr.getNumCnt(oNum) == scnt) {
-														scnt = 0;
-													}
-										%>
-										<%
-											} //for
-										%>
-										<%
-											} //if else
-											session.setAttribute("oCnt1", no);
-										%>
+										<%scnt++;
+											if (mgr.getNumCnt(oNum) == scnt) {
+												scnt = 0;
+											}%>
+										<%} //for%>
+										<%} //if else%>
 										<!-- 자동 테이블 -->
 									</tbody>
 								</table>
@@ -367,13 +281,12 @@
 				<!-- /.container-fluid -->
 			</div>
 			<!-- End of Main Content -->
-			<input type="hidden" id="shopName" value="<%= businessName %>">
+			<input type="hidden" id="shopName" value="<%=businessName%>">
 
-				<!--  팝업 될 레이어 -->
+			<!--  팝업 될 레이어 -->
 			<div class="modal">
 				<div class="modal-content">
-					<span class="close-button">&times;</span>
-					<img alt="없다." src="../img/Logo_2.png">
+					<span class="close-button">&times;</span> <img alt="없다." src="../img/Logo_2.png">
 					<h1 align="center">배달가~ 주문~</h1>
 					<!-- window 클릭시 발생하는 거임 -->
 					<input type="hidden" id="cancel" value="취소">
@@ -388,55 +301,51 @@
 	<!-- End of Page Wrapper -->
 </body>
 <script>
+	var modal = document.querySelector(".modal");
+	var closeButton = document.querySelector(".close-button");
+	var webSocket = new WebSocket('ws://' + location.host + '/BusanIT_JSP_Project/broadcasting');
+	var shopName = $("#shopName");
 
+	webSocket.onerror = function(event) {
+		onError(event)
+	};
+	webSocket.onopen = function(event) {
+		onOpen(event)
+	};
+	webSocket.onmessage = function(event) {
+		onMessage(event)
+	};
+
+	function onMessage() {
+		/* alert("주문이 도착하였습니다.\n"); */
 		var modal = document.querySelector(".modal");
-		var closeButton = document.querySelector(".close-button");
 
-		var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
-		var shopName = $("#shopName");
-		
-		webSocket.onerror = function(event) {
-			onError(event)
-		};
-		webSocket.onopen = function(event) {
-			onOpen(event)
-		};
-		webSocket.onmessage = function(event) {
-			onMessage(event)
-		};
-		
-		function onMessage() {
-			/* alert("주문이 도착하였습니다.\n"); */
-			var modal = document.querySelector(".modal");	
-			
-			function toggleModal() {
-		        modal.classList.toggle("show-modal");
-		    }
-
-		    
-		    toggleModal();		    
-			
-		}
-		function onOpen(event) {
-			/* textarea.value += "연결 성공\n"; */
-			/* alert("연결 성공 \n"); */
-		}
-		function onError(event) {
-			alert(event.data);
-		}
-		function send() {
-			/* textarea.value += "나 : " + inputMessage.value + "\n"; */
-			/* webSocket.send(id.value + ":" + inputMessage.value);
-			inputMessage.value = ""; */
-		}
-		closeButton.addEventListener("click", function toggleModal() {
+		function toggleModal() {
 			modal.classList.toggle("show-modal");
-		});
+		}
 
-		window.addEventListener("click", function windowOnClick(event) {
-			if (event.target === modal) {
-				modal.classList.toggle("show-modal");
-			}
-		});
+		toggleModal();
+
+	}
+	function onOpen(event) {
+		/* textarea.value += "연결 성공\n"; */
+		/* alert("연결 성공 \n"); */
+	}
+	function onError(event) {
+		alert(event.data);
+	}
+	function send() {
+		/* textarea.value += "나 : " + inputMessage.value + "\n"; */
+		/* webSocket.send(id.value + ":" + inputMessage.value);
+		inputMessage.value = ""; */
+	}
+	closeButton.addEventListener("click", function toggleModal() {
+		modal.classList.toggle("show-modal");
+	});
+	window.addEventListener("click", function windowOnClick(event) {
+		if (event.target === modal) {
+			modal.classList.toggle("show-modal");
+		}
+	});
 </script>
 </html>

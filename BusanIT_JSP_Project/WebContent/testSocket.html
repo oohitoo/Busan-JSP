@@ -125,12 +125,34 @@
     <div class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h1 class="title">메일 보내기</h1>
-            <form action="#post.php" method="POST">
-              <label for="email">Email</label>
-			  <input type="email" name="email" placeholder="Your email" required="required">
-			  <label></label>
-			  <textarea name="message" placeholder="Test Message" required="required"></textarea>
+             <h1>주문 상세 내역</h1>
+            <form>
+				<table border="1" style="center">
+					<tr>
+						<td>가게 이름</td>
+						<td><%=businessName %></td>
+					</tr>
+					<tr>
+						<td>주문 번호</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>주문 일시</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>결제 방법</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>주문 내역</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>총액</td>
+						<td></td>
+					</tr>
+				</table>
 			  <input type="button" id="cancel" value="취소">
 			  <input type="submit" id="submit" value="보내기">
 			</form>

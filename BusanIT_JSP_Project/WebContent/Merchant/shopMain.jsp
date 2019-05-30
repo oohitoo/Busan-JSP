@@ -51,8 +51,32 @@ img {
 	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform
 		0.25s;
 }
+.modal-detail {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(1.1);
+	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform
+		0.25s;
+}
 
 .modal-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 1rem 1.5rem;
+	width: 400px;
+	height: 350px;
+	border-radius: 0.5rem;
+}
+.modal-content-detail {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -73,12 +97,31 @@ img {
 	border-radius: 0.25rem;
 	background-color: lightgray;
 }
+.close-button-detail {
+	float: right;
+	width: 1.5rem;
+	line-height: 1.5rem;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 0.25rem;
+	background-color: lightgray;
+}
 
 .close-button:hover {
 	background-color: darkgray;
 }
 
+.close-button-detail:hover {
+	background-color: darkgray;
+}
+
 .show-modal {
+	opacity: 1;
+	visibility: visible;
+	transform: scale(1.0);
+	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+.show-modal-detail {
 	opacity: 1;
 	visibility: visible;
 	transform: scale(1.0);
@@ -195,7 +238,8 @@ img {
 												<%=sec%>초 전 
 												<%} else if (0 < min && min < 60) {%> 
 												<%=min%>분 전 
-												<%} else if (0 < hour && hour < 24) {%> <%=hour%>시간 전 
+												<%} else if (0 < hour && hour < 24) {%> 
+												<%=hour%>시간 전 
 												<%} else {%>
 												<%=day%>일 전
 												<%}%>
@@ -207,7 +251,7 @@ img {
 
 											<%} else {%>
 											<%if (rcnt != 1 && scnt == 0) {%>
-											<td rowspan="<%=rcnt%>"><button onclick="javascript:onMessage()"><%=no%></button> 
+											<td rowspan="<%=rcnt%>"><button onclick="javascript:toggleModalDetail()"><%=no%></button> 
 											<%no++;%>
 											</td>
 											<%}%>
@@ -228,16 +272,16 @@ img {
 											<td rowspan="<%=rcnt%>">
 												<%
 													//시간 형 변환
-																	String cDate = dateFormat.format(curDate);
-																	Date oD = dateFormat.parse(oDate);
-																	Date cD = dateFormat.parse(cDate);
-																	//시간 차이
-																	long diff = Math.abs(oD.getTime() - cD.getTime());
-																	long sec = diff / 1000;
-																	long min = diff / (1000 * 60);
-																	long hour = diff / (1000 * 60 * 60);
-																	long day = diff / (1000 * 60 * 60 * 24);
-																	if (0 < sec && sec < 60) {%> 
+													String cDate = dateFormat.format(curDate);
+													Date oD = dateFormat.parse(oDate);
+													Date cD = dateFormat.parse(cDate);
+													//시간 차이
+													long diff = Math.abs(oD.getTime() - cD.getTime());
+													long sec = diff / 1000;
+													long min = diff / (1000 * 60);
+													long hour = diff / (1000 * 60 * 60);
+													long day = diff / (1000 * 60 * 60 * 24);
+													if (0 < sec && sec < 60) {%> 
 												<%=sec%>초 전 
 												<%} else if (0 < min && min < 60) {%> 
 												<%=min%>분 전 
@@ -261,7 +305,7 @@ img {
 											</td>
 											<%}%>
 											<%}%>
-
+										
 										</tr>
 										<%scnt++;
 											if (mgr.getNumCnt(oNum) == scnt) {
@@ -291,48 +335,47 @@ img {
 					<input type="hidden" id="cancel" value="취소">
 				</div>
 			</div>
-			<!-- 주문 상세창 -->
+			<!-- 주문 상세 모달 창 -->
 			<div class="modal-detail">
 				<div class="modal-content-detail">
+					<span class="close-button">&times;</span>
 					<h3>~~님 주문 상세내역</h3>
-					<table border="1">
+					<table border="1" align="center">
 						<tr>
 							<td colspan="1">가게 이름</td>
-							<td colspan="2"><%=businessName %></td>
+							<td colspan="2"><%-- <%=businessName %> --%></td>
 						</tr>
 						<tr>
 							<td colspan="1">주문 번호</td>
-							<td colspan="2"></td>
+							<td colspan="2"><%-- <%=oNum %> --%></td>
 						</tr>
 						<tr>
 							<td colspan="1">주문 일시</td>
-							<td colspan="2"></td>
+							<td colspan="2"><%-- <%=oDate %> --%></td>
 						</tr>
 						<tr>
 							<td colspan="1">결제 수단</td>
-							<td colspan="2"></td>
+							<td colspan="2"><%-- <%=orderType %> --%></td>
 						</tr>
 						<tr>
 							<td colspan="1">배달 주소지</td>
-							<td colspan="2"></td>
+							<td colspan="2"><%-- <%=cAddress %> --%></td>
 						</tr>
 						<tr>
 							<td colspan="1">주문 상품 내역</td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
-							<td>햄버거</td>
-							<td>1개</td>
-							<td>5000원</td>
+							<td rowspan="1"><%-- <%=menu %> --%></td>
+							<td rowspan="1"><%-- <%=count %> --%></td>
+							<td rowspan="1"></td>
 						</tr>
-						<tr>
-							<td>콜라</td>
-							<td>1개</td>
-							<td>1500원</td>
-						</tr>
+						
 					</table>
+					<button>출력하기</button>
 				</div>
-			</div>
+			</div>	
+			<!-- 모달 창 끝 -->
 
 			<!-- footer include -->
 			<jsp:include page="../Merchant/footer.jsp" />
@@ -343,6 +386,7 @@ img {
 </body>
 <script>
 	var modal = document.querySelector(".modal");
+	var modalDetail = document.querySelector(".modal-detail");
 	var closeButton = document.querySelector(".close-button");
 	var webSocket = new WebSocket('ws://' + location.host + '/BusanIT_JSP_Project/broadcasting');
 	var shopName = $("#shopName");
@@ -357,14 +401,16 @@ img {
 		onMessage(event)
 	};
 
+	function toggleModal() {
+		modal.classList.toggle("show-modal");
+	}
+	function toggleModalDetail() {
+		modalDetail.classList.toggle("show-modal-detail");
+	}
+
 	function onMessage() {
 		/* alert("주문이 도착하였습니다.\n"); */
 		var modal = document.querySelector(".modal");
-
-		function toggleModal() {
-			modal.classList.toggle("show-modal");
-		}
-
 		toggleModal();
 
 	}
@@ -383,9 +429,17 @@ img {
 	closeButton.addEventListener("click", function toggleModal() {
 		modal.classList.toggle("show-modal");
 	});
+	closeButton.addEventListener("click", function toggleModalDetail() {
+		modalDetail.classList.toggle("show-modal-detail");
+	});
 	window.addEventListener("click", function windowOnClick(event) {
 		if (event.target === modal) {
 			modal.classList.toggle("show-modal");
+		}
+	});
+	window.addEventListener("click", function windowOnClick(event) {
+		if (event.target === modalDetail) {
+			modalDetail.classList.toggle("show-modal-detail");
 		}
 	});
 </script>

@@ -168,9 +168,7 @@ img {
 											<%
 												if (rcnt == 1 && scnt == 0) {
 											%>
-											<td><button onclick="javascript:onMessage()"><%=no%></button> <%
- 	no++;
- %></td>
+											<td><%=no%><%no++; %></td>
 											<td>
 												<div class="container">
 													<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
@@ -184,16 +182,16 @@ img {
 											<td>
 												<%
 													//시간 형 변환
-																String cDate = dateFormat.format(curDate);
-																Date oD = dateFormat.parse(oDate);
-																Date cD = dateFormat.parse(cDate);
-																//시간 차이
-																long diff = Math.abs(oD.getTime() - cD.getTime());
-																long sec = diff / 1000;
-																long min = diff / (1000 * 60);
-																long hour = diff / (1000 * 60 * 60);
-																long day = diff / (1000 * 60 * 60 * 24);
-																if (0 < sec && sec < 60) {%> 
+													String cDate = dateFormat.format(curDate);
+													Date oD = dateFormat.parse(oDate);
+													Date cD = dateFormat.parse(cDate);
+													//시간 차이
+													long diff = Math.abs(oD.getTime() - cD.getTime());
+													long sec = diff / 1000;
+													long min = diff / (1000 * 60);
+													long hour = diff / (1000 * 60 * 60);
+													long day = diff / (1000 * 60 * 60 * 24);
+													if (0 < sec && sec < 60) {%> 
 												<%=sec%>초 전 
 												<%} else if (0 < min && min < 60) {%> 
 												<%=min%>분 전 
@@ -284,12 +282,55 @@ img {
 			<input type="hidden" id="shopName" value="<%=businessName%>">
 
 			<!--  팝업 될 레이어 -->
+			<!-- 주문 알림 -->
 			<div class="modal">
 				<div class="modal-content">
 					<span class="close-button">&times;</span> <img alt="없다." src="../img/Logo_2.png">
 					<h1 align="center">배달가~ 주문~</h1>
 					<!-- window 클릭시 발생하는 거임 -->
 					<input type="hidden" id="cancel" value="취소">
+				</div>
+			</div>
+			<!-- 주문 상세창 -->
+			<div class="modal-detail">
+				<div class="modal-content-detail">
+					<h3>~~님 주문 상세내역</h3>
+					<table border="1">
+						<tr>
+							<td colspan="1">가게 이름</td>
+							<td colspan="2"><%=businessName %></td>
+						</tr>
+						<tr>
+							<td colspan="1">주문 번호</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td colspan="1">주문 일시</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td colspan="1">결제 수단</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td colspan="1">배달 주소지</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td colspan="1">주문 상품 내역</td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<td>햄버거</td>
+							<td>1개</td>
+							<td>5000원</td>
+						</tr>
+						<tr>
+							<td>콜라</td>
+							<td>1개</td>
+							<td>1500원</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 

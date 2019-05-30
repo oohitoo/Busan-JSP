@@ -7,21 +7,6 @@
 <jsp:useBean id="oMgr" class="menu.ordersMgr"/>
 <jsp:useBean id="loginBean" class="login.LoginBean"/>
 
-<!-- 
-	DB가서 할 것
-		1. 날짜 + 세션값 4자리
-		2. status
-		1. 회원 (id, 닉네임, 주소) [시도해보자]
-	
-	Proc에서 할 것			    
-	   - 2. 가게이름
-	   - 3. 번호
-	   - 4. 주문수량
-	   - 5. 요청사항
-	   - 6. 결제방식
-	   - 7. order 넘기면 됨
-	   - 8. 세션 값 5자리 
- -->
 <%
 	request.setCharacterEncoding("EUC-KR");
 	
@@ -48,7 +33,6 @@
 	
 	
 	//주문번호를 작성하기 위해 세션값 가져감.
-//	String orderNum = session.getId().substring(session.getId().length()-5, session.getId().length());
 	//주문번호를 8자리 숫자+문자로 함
 	String orderNum = tempoNum;
 	
@@ -67,11 +51,14 @@
 			cMgr.deleteCart(order);
 		}
 		msg = "주문이 완료 되었습니다.";
+		// 주문후 table 비우기
+		hCart.clear();
+				
 	}
 	else{
 		msg = "장바구니가 비어 있습니다.";
 	}	
 %>
  <script>
-	location.href = '../orderdetail/orderList.jsp';
+	 location.replace('../orderdetail/orderList.jsp');
 </script> 

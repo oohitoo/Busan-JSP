@@ -88,7 +88,6 @@ img {
 <title>판매자 페이지</title>
 </head>
 <!-- alert include -->
-<%-- <jsp:include page="../Merchant/noti0518.html" /> --%>
 <body id="page-top">
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -341,11 +340,13 @@ img {
 	}
 	closeButton.addEventListener("click", function toggleModal() {
 		modal.classList.toggle("show-modal");
+		location.reload();
 	});
 	window.addEventListener("click", function windowOnClick(event) {
 		if (event.target === modal) {
 			modal.classList.toggle("show-modal");
 		}
+		location.reload();
 	});
 </script>
 </html>

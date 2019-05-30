@@ -15,40 +15,63 @@
 %>
 <html>
 <head>
-<link rel="stylesheet" href="css/MainIndex.css">
+<link rel="stylesheet" href="../css/MainIndex.css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
 <script type="text/javascript">
 	function back() {
 		history.back();
 	}
-	function previous(month) {
+	function previous(year,month) {
 		var int_month = Number(month);
+		var int_year = Number(year);
+		previous_year = int_year
 		previous_month = int_month-1
 		if(previous_month ==0){
 			previous_month = 12;
+			previous_year = int_year-1
 		}
- 		location.href = "daysales.jsp?month="+previous_month;
+ 		location.href = "daysales.jsp?year="+previous_year+"&month="+previous_month;
 	}
-	function next(month) {
+	function next(year,month) {
 		var int_month = Number(month);
+		var int_year = Number(year);
+		previous_year = int_year
 		next_month = int_month+1
 		if(next_month == 13){
 			next_month = 1;
+			previous_year = int_year+1
 		}
- 		location.href = "daysales.jsp?month="+next_month;
+ 		location.href = "daysales.jsp?year="+previous_year+"&month="+next_month;
+	}
+	function main() {
+		location.replace("shopMain.jsp");
 	}
 </script>
 </head>
 <body>
-
-<button align="left" type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
+<div id = "badal">
+		<table class="baedalga table-hover">
+			<tr>
+				<td>
+					<div>
+						<button align="left" type="button" class="btn btn-primary" onclick="javascript:previous('<%= year %>','<%=month%>')">이&nbsp;전&nbsp;달</button>
+					</div>
+				</td>
+				<td colspan="4">
+					<h2 align="center"><%=month %>월 일별 매출 조회</h2>
+				</td>
+				<td>
+					<div style="float: right; margin-right: 50px;">
+						<button align="left" type="button" class="btn btn-primary" onclick="javascript:next('<%= year %>','<%=month%>')">다&nbsp;음&nbsp;달</button>
+					</div>
+			</tr>
+		</table>
+<%-- <button align="left" type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
 <button align="left" type="button" class="btn btn-primary" onclick="javascript:previous('<%=month%>')">이&nbsp;전&nbsp;달</button>
 <button align="left" type="button" class="btn btn-primary" onclick="javascript:next('<%=month%>')">다&nbsp;음&nbsp;달</button>
-	<h2 align="center">
-			<%=month %>월 일별 매출 조회
-	</h2>
+ --%>	
 	<table  class="baedalga table-hover ">
 		<tr style="background: #4e73df 10%" >
 			<td class="text-center">일</td>
@@ -126,5 +149,6 @@
 				<td colspan="3"  align="center"> <%=  UtilMgr.monFormat(yeartotal) %>원</td>
 			</tr>
 	</table>
+</div>
 </body>
 </html>

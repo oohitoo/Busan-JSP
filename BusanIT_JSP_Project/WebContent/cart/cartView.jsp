@@ -9,18 +9,16 @@
 <jsp:useBean id="menuMgr" class="menu.menuMgr"/>
 <jsp:useBean id="loginMgr" class="login.LoginMgr"/>
 <%
-	request.setCharacterEncoding("EUC-KR");
-	String id  = (String)session.getAttribute("idKey"); 
-	String shop = (String)session.getAttribute("store");
-	
-	String totalMenu ="";
-	int cnt =0;
-	
-	/* IP주소 가져오기 */
-	String strServertIP = request.getServerName();
 
-	if(id == null){
-		%>
+	request.setCharacterEncoding("EUC-KR");
+	String id = (String) session.getAttribute("idKey");
+	String shop = (String) session.getAttribute("store");
+
+	String totalMenu = "";
+	int cnt = 0;
+
+	if (id == null) {
+%>
 		<script>
 			alert("로그인 후 사용 바랍니다.");
 			location.href ="../login/login.html";
@@ -89,8 +87,6 @@
 	}
 	/* Order proc로 넘기기 */
 	function order() {
-		var address = $("#ipaddress").val();
-		console.log(address);
 		/*  1. 테이블의 td는 tageName으로 자르기 
 			2. split을 이용하여 자른다.
 			3. 출력한다.
@@ -98,12 +94,9 @@
 		/* var str = document.getElementsByTagName('td')[8].childNodes[0].nodeValue; */
 		var str = document.getElementById("minimum").value;
 		var strsplit = str.split(',');
-		console.log(str);
-		console.log(strsplit);
 		if(parseInt(strsplit[0]) <= "13"){
 			var popupX = (window.screen.width / 2);
 			var popupY = (window.screen.height / 2);
-			console.log("여기");
 			/* alert("최소 주문 금액을 맞춰주세요."); */
 			url = "orderMinium.html";
 			window.open(url, "orderMinium", "width=400, height=190, resizable=no, left="+ popupX + ",top="+ popupY);
@@ -117,7 +110,6 @@
 			
 			/* 소켓통신 */
 			var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
-			console.log(location.host);
 			/* 가게 명  (id)*/
 			var shopName = $("#shopName");			
 			/* 보낼 메세지 */
@@ -150,10 +142,9 @@
 				
 				setTimeout(function() {
 					location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
-				}, 5000); 
+					/* window.location.replace("orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox); */					
+				}, 1000);
 			}
-			
-			/* location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; */
 		}
 	}
 	function reset() {
@@ -320,7 +311,6 @@
 				</tr>				
 				<% } // else 끝 %>
 				<input type="hidden" id="shopName" value="<%= shop %>">
-				<input type="hidden" id="ipaddress" value="<%= strServertIP %>">
 			</tbody>
 		</table>
 		<!--  팝업 될 레이어 -->

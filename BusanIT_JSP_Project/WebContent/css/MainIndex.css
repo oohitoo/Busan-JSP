@@ -52,3 +52,9 @@ a:active {
 .baedalga tr:first-child:hover {
 	color: white;
 }
+.baedalga h2{
+	color: black;
+}
+.baedalga button{
+	margin-left: 40px;
+}

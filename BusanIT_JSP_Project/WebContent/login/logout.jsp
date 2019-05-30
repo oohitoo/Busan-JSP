@@ -4,5 +4,5 @@
 %>
 <script>
 	alert("로그아웃 하였습니다.");
-	location.href = '../Index.jsp';
+	location.replace('../Index.jsp');
 </script>

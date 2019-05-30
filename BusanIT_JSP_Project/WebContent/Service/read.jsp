@@ -17,7 +17,6 @@
 	  
 	  mgr.upCount(num);
 	  //게시물 읽어오기
-	  
 	  ServiceBean bean = mgr.getService(num);
 	  String name = bean.getsName();
 	  String subject = bean.getSubject();
@@ -39,6 +38,17 @@
 		document.cFrm.cnum.value=cnum;
 		document.cFrm.flag.value="del";		
 		document.cFrm.submit();
+		
+	}
+	function button(){
+		var name = document.getParaeter("name").value;
+		
+		if(name!="admin@admin.admin"){
+			alert("권한이 없습니다");
+			return
+		}
+		
+	
 		
 	}
 </script>
@@ -100,10 +110,14 @@ table.type03 td {
 </table>
 
 <div align="center">
-	 [ <a href="javascript:list()" >리스트</a> | 
- <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >내용수정</a> |
- <a href="reply.jsp?nowPage=<%=nowPage%>" >답 변</a> |
- <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> ]<br/>
+	  <a href="javascript:list()" ><input type="button" class="btn btn-primary" value="리스트"> </a>
+ <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >
+ <input type="button" class="btn btn-primary" value="수정"></a> 
+<a href="reply.jsp?nowPage=<%=nowPage%>" >
+ <input type="button" class="btn btn-primary" value="답변" ></a> 	
+ <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">
+ <input type="button" class="btn btn-primary" value="삭제" name="button"></a>
+  <br/>
  </div>
 </div>
 

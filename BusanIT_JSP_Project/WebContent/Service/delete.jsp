@@ -10,15 +10,9 @@
 		String nowPage = request.getParameter("nowPage");
 		if(request.getParameter("pass")!=null) {
 			ServiceBean bean = (ServiceBean)session.getAttribute("bean");
-			//삭제를 요청한 케이스
 			String inPass = request.getParameter("pass");
 			String dbPass = bean.getPass();
-			//자바 기본형 type(8가지)의 비교는 == 이고
-			//참조형(클래스 타입)의 ==는 객체의 주소값 비교
-			//String의 값의 비교는 반드시 equals 해야한다.
 			if(inPass.equals(dbPass)){
-			/*	ServiceMgr mgr = new ServiceMgr();
-				mgr.deleteService(num);*/
 				new ServiceMgr().deleteService(num);
 				String url = "ServiceMain.jsp?nowPage" + nowPage;
 				response.sendRedirect(url);
@@ -44,6 +38,7 @@
 </script>
 </head>
 <body>
+<%if(session.getAttribute("idKey")==name) %>
 <div align="center"><br/><br/>
 	<table width="100%" cellspacing="0" cellpadding="3">
 		<tr>

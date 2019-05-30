@@ -14,6 +14,8 @@ public class ServiceReplyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");
+		boolean master=false;
+		
 		ServiceMgr mgr = new ServiceMgr();
 		ServiceBean reBean = new ServiceBean();
 		reBean.setsName(request.getParameter("sname"));

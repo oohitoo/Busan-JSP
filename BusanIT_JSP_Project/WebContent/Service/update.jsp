@@ -16,13 +16,30 @@
 <link href="style.css" rel="stylesheet" type="text/css">
 <script>
 	function check() {
+		if(document.sFrm.name.value==""){
+	 		alert("이름을 입력하세요.");
+	 		document.sFrm.name.focus();
+	 		return;
+	 	}
+	 	if(document.sFrm.subject.value==""){
+	 		alert("제목을 입력하세요.");
+	 		document.sFrm.subject.focus();
+	 		return;
+	 	}
+	 	if(document.sFrm.content.value==""){
+	 		alert("내용을 입력하세요.");
+	 		document.sFrm.content.focus();
+	 		return;
+	 	}
 	   if (document.updateFrm.pass.value == "") {
 		 alert("수정을 위해 패스워드를 입력하세요.");
 		 document.updateFrm.pass.focus();
-		 return false;
+		 return ;
 		 }
+	   
 	   document.updateFrm.submit();
 	}
+	
 </script>
 <style>
 table.type03 {

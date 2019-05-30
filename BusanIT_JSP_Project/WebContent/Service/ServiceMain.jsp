@@ -254,6 +254,7 @@ body { background: #fff; }
 				</td>
 				</tfoot>
 			<table>
+			
 			<div  align="right">
 				<a href="post.jsp">
 				<input type="button" class="btn btn-primary" value="±Û¾²±â">

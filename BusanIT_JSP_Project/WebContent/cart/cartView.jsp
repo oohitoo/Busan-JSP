@@ -9,14 +9,11 @@
 <jsp:useBean id="menuMgr" class="menu.menuMgr"/>
 <jsp:useBean id="loginMgr" class="login.LoginMgr"/>
 <%
-
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
 	String shop = (String) session.getAttribute("store");
-
 	String totalMenu = "";
 	int cnt = 0;
-
 	if (id == null) {
 %>
 		<script>
@@ -102,6 +99,7 @@
 			window.open(url, "orderMinium", "width=400, height=190, resizable=no, left="+ popupX + ",top="+ popupY);
 		}
 		else{
+			
 			var addres = document.getElementById("addres").value;
 			var phoneNumber = document.getElementById("phoneNumber").value;
 			var request = document.getElementById("request").value;
@@ -140,8 +138,11 @@
 				webSocket.send(shopName.val() + ":" + Message);
 				Message = "";
 				
+				$("div[class=modal]").addClass("show-modal");
+				
+				
 				setTimeout(function() {
-					location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
+					 location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 
 					/* window.location.replace("orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox); */					
 				}, 1000);
 			}
@@ -234,7 +235,7 @@
 						</div>
 					</td>
 					<td class="col-sm-1 col-md-1" style="text-align: center">
-						<input type="text" class="form-control" id="count<%=num %>" value="<%= count %>">
+						<input type="number" class="form-control" id="count<%=num %>" value="<%= count %>">
 					</td>
 					<td class="col-sm-1 col-md-1 text-center">
 						<strong><%= price %></strong>원
@@ -302,7 +303,7 @@
 				<tr>
 					<td align="right">
 						<button type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
-						<button type="button" id="notibutton" class="btn btn-primary trigger" onclick="javascript:order()">주문하기</button>
+						<button type="button" id="notibutton" class="btn btn-primary" onclick="javascript:order()">주문하기</button>
 						<!-- <button class="trigger">이메일 보내기</button> -->
 					</td>
 					<td></td>
@@ -346,25 +347,23 @@
 	</div>
 </div>
 <script type="text/javascript">
-		var modal = document.querySelector(".modal");
-	    var trigger = document.querySelector(".trigger");
-	    var closeButton = document.querySelector(".close-button");
-	    var cancelButton = document.querySelector("#cancel");
 
-	    //console.log(modal);
+ 			var modal = document.querySelector(".modal");
+// 			var trigger = document.querySelector(".trigger");
+		    var closeButton = document.querySelector(".close-button");
+		    var cancelButton = document.querySelector("#cancel");
 
-	    function toggleModal() {
-	        modal.classList.toggle("show-modal");
-	    }
-
-	    function windowOnClick(event) {
-	        if (event.target === modal) {
-	            toggleModal();
-	        }
-	    }
-
-	    trigger.addEventListener("click", toggleModal);
-	    closeButton.addEventListener("click", toggleModal);
-	    cancel.addEventListener("click", toggleModal);
-	    window.addEventListener("click", windowOnClick);
+		    function toggleModal() {
+		        modal.classList.toggle("show-modal");
+		    }
+		    function windowOnClick(event) {
+		        if (event.target === modal) {
+		            toggleModal();
+		        }
+		    }
+// 		    trigger.addEventListener("click", toggleModal);
+		    closeButton.addEventListener("click", toggleModal);
+		    cancel.addEventListener("click", toggleModal);
+		    window.addEventListener("click", windowOnClick); 
+		
 </script>

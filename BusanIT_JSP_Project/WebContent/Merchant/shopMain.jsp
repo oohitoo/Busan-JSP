@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="shoplogin.loginMgr"%>
 <%@page import="menu.ordersBean"%>
 <%@page import="shoplogin.loginBean"%>

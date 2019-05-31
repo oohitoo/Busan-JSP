@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="login.LoginBean"%>
 <%@page import="menu.menuBean"%>
 <%@page import="Service.UtilMgr"%>
@@ -75,8 +81,12 @@
 <script>
 	function creatUpdate(menu, num) {
 		var count = document.getElementById("count" + num).value;
-		
-		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count; 
+		if(count >99)	{
+			alert("한번에 99개까지 주문할수 있어요");
+			count=99;
+		}else{
+		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count;
+		}
 	}
 	function creatdelete(menu, num) {
 		var count = document.getElementById("count" + num).value;
@@ -235,7 +245,7 @@
 						</div>
 					</td>
 					<td class="col-sm-1 col-md-1" style="text-align: center">
-						<input type="number" class="form-control" id="count<%=num %>" value="<%= count %>">
+						<input type="number" class="form-control" id="count<%=num %>" value="<%= count %>" max="99" min="1" style="width:66px;">
 					</td>
 					<td class="col-sm-1 col-md-1 text-center">
 						<strong><%= price %></strong>원

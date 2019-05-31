@@ -42,7 +42,7 @@
 <script>
 	function menulist(menu) {
 		console.log(menu);
-		location.href = 'item/itemProc.jsp?menu='+menu;
+		location.replace ('item/itemProc.jsp?menu='+menu);
 	}
 	//Search zipcode
 	function zipSearch() {

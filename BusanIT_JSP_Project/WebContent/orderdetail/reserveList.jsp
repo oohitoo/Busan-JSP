@@ -42,7 +42,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-3">
 					<h2 class="text-center pull-left" style="padding-left: 30px; color:black">
-						<span style=" color: navy"><strong>주문 내역</strong></span>
+						<span style=" color: navy"><strong>예약 내역</strong></span>
 					</h2>
 				</div>
 
@@ -54,7 +54,7 @@
 				<thead>
 					<tr style="color: black">
 						<th class="text-center">번호</th>
-						<th class="text-center">주문날짜</th>
+						<th class="text-center">예약날짜</th>
 						<th class="text-center">식당이름</th>
 						<th class="text-center">메뉴</th>
 						<th class="text-center">가격</th>
@@ -70,7 +70,7 @@
 						if (list.isEmpty()) {
 					%>
 					<tr>
-						<td colspan="5">주문내역이 없습니다.</td>
+						<td colspan="5">예약내역이 없습니다.</td>
 					</tr>
 					<%
 						} else {

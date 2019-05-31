@@ -14,7 +14,7 @@
 <jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
 <jsp:useBean id="menuMgr" class="menu.menuMgr"/>
 <jsp:useBean id="loginMgr" class="login.LoginMgr"/>
-<%
+<% 
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
 	String shop = (String) session.getAttribute("store");

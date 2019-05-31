@@ -58,3 +58,14 @@ a:active {
 .baedalga button{
 	margin-left: 40px;
 }
+#pop {
+	width: 300px; /* 넓이 */
+	height: 400px; /* 높이 */
+	background: #3d3d3d; /* 배경 */
+	color: #fff; /* 팝업에 들어갈 글자 색상 */
+	position: absolute; /*  */
+	top: 20px; /* 위에서 몇만큼 떨어지는가 */
+	left: 100px; /* 왼쪽에서 얼만큼 */
+	text-align: center; /* 가운데 정렬 */
+	border: 2px solid #000; /* 테두리 색상 및 두께 */
+}

@@ -34,6 +34,7 @@
 		location.href = 'item/itemProc.jsp?menu=' + menu;
 	}
 	function check() {
+		
 		if(document.getElementsByName('name')[0].value <= 1){
 			document.reserve.name.focus();
 			return ;
@@ -46,26 +47,16 @@
 			document.reserve.oDate.focus();
 			return ;
 		}
-		if(document.getElementsByName('시간')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('분')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('인원수')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
 		if(document.getElementsByName('oRequest')[0].value <= 1){
 			document.reserve.oRequest.focus();
 			return ;
 		}
+		document.reserve.submit();
 	}
 </script>
 
 <jsp:include page="designForm.jsp"/>
+
 <div class="container">
 	<div class="row">
 		<div id="accordion" style="margin-left: 50px;">
@@ -89,36 +80,39 @@
 				</tr>
 			</table>
 
-			<form name="reserve" action="reserveProc.jsp">
-
-				<table
-					style="width: 800px; height: 350px; margin-left: 50px; margin-top: 50px;">
+			<form name="reserve" action="reserveProc.jsp" method="get">
+				<table style="width: 800px; height: 350px; margin-left: 50px; margin-top: 50px;">
 					<tr>
 						<td style="width: 150px">
-							<label class="text-primary">예약자
-								성함 </label></td>
+							<label class="text-primary">예약자 성함 </label>
+						</td>
 						<td>
-						<input name="name" class="form-control"
-							style="width: 200px"></td>
+							<input name="name" class="form-control" style="width: 200px">
+						</td>
 						<td style="width: 150px">
-						<label class="text-primary">예약자
-								전화번호</label></td>
+							<label class="text-primary">예약자 전화번호</label>
+						</td>
 						<td colspan="2">
-						<input name="cPhone" class="form-control" value="<%=lBean.getcPhone()%>" style="width: 200px"></td>
-
+							<input name="cPhone" class="form-control" value="<%=lBean.getcPhone()%>" style="width: 200px">
+						</td>
 					</tr>
 
 					<tr>
-						<td><label class="text-primary">예약 날짜 선택</label></td>
-						<td><input type="date" name="oDate" class="form-control" style="width: 200px" value="<%=today%>"></td>
-						<td><label class="text-primary">예약 시간 선택</label></td>
-						<td width="120px;"><select name="hour" style="width: 100px" class="form-control">
+						<td>
+							<label class="text-primary">예약 날짜 선택</label>
+						</td>
+						<td>
+							<input type="date" name="oDate" class="form-control" style="width: 200px" value="<%=today%>">
+						</td>
+						<td>
+							<label class="text-primary">예약 시간 선택</label>
+						</td>
+						<td width="120px;">
+							<select name="hour" style="width: 100px" class="form-control">
 								<option value="">시</option>
-								<%
-									for (int i = 11; i < 20; i++) {
-								%>
-								<option value="<%=i%>시"><%=i%>시
-								</option>
+								<option value="10" selected>10시</option>
+								<% for (int i = 11; i < 20; i++) {%>
+								<option value="<%=i%>"><%=i%>시	</option>
 								<%
 									}
 								%>
@@ -126,8 +120,8 @@
 						<td><select name="min" class="form-control"
 							style="width: 100px">
 								<option value="">분</option>
-								<option value="00분">00분</option>
-								<option value="30분">30분</option>
+								<option value="00" selected>00분</option>
+								<option value="30">30분</option>
 						</select></td>
 					</tr>
 
@@ -151,11 +145,11 @@
 						<td colspan="3"><input name="oRequest" class="form-control"></td>
 					</tr>
 					<tr>
-						<td colspan="5" align="center"><input type="hidden"
-							name="rName" value="<%=shop%>" /> <input type="hidden"
-							name="id" value="<%=id%>" /> <input type="hidden" name="cNick"
-							value="<%=lBean.getcNick()%>" /> 
-							<input type="button" class="btn btn-primary btn-md" value="예약하기" onclick="javascript:check()"></td>
+						<td colspan="5" align="center">
+							<input type="hidden" name="rName" value="<%=shop%>" />
+							<input type="hidden" name="id" value="<%=id%>" /> 
+							<input type="hidden" name="cNick" value="<%=lBean.getcNick()%>" />
+							<input type="button" class="btn btn-primary btn-md" value="예약하기" onclick="check()"></td>
 					</tr>
 				</table>
 			</form>

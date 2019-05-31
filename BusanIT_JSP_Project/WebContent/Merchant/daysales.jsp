@@ -68,10 +68,6 @@
 					</div>
 			</tr>
 		</table>
-<%-- <button align="left" type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
-<button align="left" type="button" class="btn btn-primary" onclick="javascript:previous('<%=month%>')">이&nbsp;전&nbsp;달</button>
-<button align="left" type="button" class="btn btn-primary" onclick="javascript:next('<%=month%>')">다&nbsp;음&nbsp;달</button>
- --%>	
 	<table  class="baedalga table-hover ">
 		<tr style="background: #4e73df 10%" >
 			<td class="text-center">일</td>

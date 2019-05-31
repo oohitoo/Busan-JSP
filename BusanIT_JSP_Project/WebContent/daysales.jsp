@@ -8,6 +8,7 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	int month = Integer.parseInt(request.getParameter("month"));
+	int year = Integer.parseInt(request.getParameter("year"));
 	String rName = "롯데리아 부산양정점";
 	int subtotal, yeartotal = 0;
 	int card=0,cash=0, directpay=0;
@@ -60,7 +61,7 @@
 			<!-- 월별 나오게 하기 -->
 			<% for (int i= 1; i <= 31; ++i) {
 				subtotal = 0;
-				Vector<ordersBean> olist = mgr.daysales(rName, i, month);
+				Vector<ordersBean> olist = mgr.daysales(rName, i, month, year);
 				HashMap<String, Integer> order = new HashMap<>();
 				
 					for (int l=0; l<olist.size(); l++) {

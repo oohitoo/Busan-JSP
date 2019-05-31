@@ -9,13 +9,13 @@
 
 	//oDate처리 부분
 	String date = request.getParameter("oDate");
-	String hour = request.getParameter("hour").substring(0, 2);
-	String min = request.getParameter("min").substring(0, 2);
+	String hour = request.getParameter("hour");
+	String min = request.getParameter("min");	
 	bean.setoDate(date + " " + hour + ":" + min + ":00");
 
 	//id, cNick, rName를 받음
 	String id = request.getParameter("id");
-	String cNick = request.getParameter("cNick");
+	String cNick = request.getParameter("name");
 	String rName = request.getParameter("rName");
 
 	bean.setId(id);
@@ -35,7 +35,8 @@
 	boolean result = mgr.insertreserve(bean);
 	if (result) {
 		msg = "예약에 성공하였습니다.";
-		location = "../Index.jsp";
+		/* location = "../Index.jsp"; */
+		location = "../orderdetail/reserveList.jsp";
 	}
 %>
 <script>

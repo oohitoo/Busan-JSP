@@ -49,7 +49,7 @@
 			<!-- 월별 나오게 하기 -->
 			<% for (int i= 1; i <= 12; ++i) {
 				subtotal = 0;
-				Vector<ordersBean> olist = mgr.monthsales(rName, i);
+				Vector<ordersBean> olist = mgr.monthsales(rName, i,year);
 				HashMap<String, Integer> order = new HashMap<>();
 				
 					for (int l=0; l<olist.size(); l++) {

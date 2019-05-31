@@ -10,7 +10,6 @@
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mgr" class="menu.ordersMgr" />
-
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
@@ -27,14 +26,13 @@
 <!------ Include the above in your HEAD tag ---------->
 <script>
 	function no(oDate) {
-		location.href = "orderdetail.jsp?oDate=" + oDate;
+		location.href = "reservedetail.jsp?oDate=" + oDate;
 	}
 	function plus(end){
 		document.readFrm.end.value= <%=end%>;
 		document.readFrm.submit();
 	}
 </script>
-
 <div class="container-fluid">
 	<div class="panel panel-success"
 		style="margin-left: 10px; margin-top: 50px; width: 850px;">
@@ -42,7 +40,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-3">
 					<h2 class="text-center pull-left" style="padding-left: 30px; color:black">
-						<span style=" color: navy"><strong>주문 내역</strong></span>
+						<span style=" color: navy"><strong>예약 내역</strong></span>
 					</h2>
 				</div>
 
@@ -54,59 +52,57 @@
 				<thead>
 					<tr style="color: black">
 						<th class="text-center">번호</th>
-						<th class="text-center">주문날짜</th>
-						<th class="text-center">식당이름</th>
-						<th class="text-center">메뉴</th>
-						<th class="text-center">가격</th>
+						<th class="text-center">예약 날짜</th>
+						<th class="text-center">식당 이름</th>
+						<th class="text-center">예약 시간</th>
+						<th class="text-center">예약 인원</th>
 					</tr>
 				</thead>
-
 				<tbody>
-
 					<%
 						//얻은 오더넘버로 주문목록 정보 얻기
-						
-						Vector<ordersBean> list = mgr.orderList(id, end);
+						Vector<ordersBean> list = mgr.reserveList(id, end);
 						if (list.isEmpty()) {
 					%>
 					<tr>
-						<td colspan="5">주문내역이 없습니다.</td>
+						<td colspan="5">예약내역이 없습니다.</td>
 					</tr>
 					<%
-						} else {
+						} else  {
 							String oDate = null;
 							int j = 1;
 							for (int i= 0; i < list.size(); i++) {
 								ordersBean bean = list.get(i);
-								
-								String d = bean.getoDate();
-
-								if (oDate == null) {
-									oDate = bean.getoDate();
-								} else if (oDate.equals(bean.getoDate())) {
-									continue;
-								} else {
-									oDate = bean.getoDate();
-									j = j + 1;
+									String d = bean.getoDate();
+									if (oDate == null) {
+										oDate = bean.getoDate();
+									} else if (oDate.equals(bean.getoDate())) {
+										continue;
+									} else {
+										oDate = bean.getoDate();
+										j = j + 1;
 								}
-								
-								
-						
+									//예약 시간 처리하기
+									String month = bean.getoDate().substring(6,7 );
+									String day = bean.getoDate().substring(9, 10);
+									String hour = bean.getoDate().substring(11, 13);
+									String min = bean.getoDate().substring(14, 16);
 					%>
 					<tr class="edit" id="detail" onclick="javascript:no('<%=oDate%>')"
 						style="cursor: pointer">
 						<td id="no" class="text-center"><%=j%></td>
 						<td id="name" class="text-center"><%=bean.getoDate().substring(5, 7) + "월 " + bean.getoDate().substring(8, 10) + "일"%></td>
 						<td id="mobile" class="text-center"><%=bean.getrName()%></td>
-						<td id="mail" class="text-center"><%=bean.getMenu()%></td>
-						<td id="city" class="text-center"><%=UtilMgr.monFormat(bean.getTotalPrice())%></td>
+						<td id="city" class="text-center"><%=month+"월 "+ day+"일  "+ hour+" : "+ min%></td>
+						<td id="mail" class="text-center"><%=bean.getCount()%>명</td>
+						
 					</tr>
-					<%							
-					} //for
+					<%	
+								
+							} //for
 						} //if
 					%>
 				</tbody>
-				
 			</table>
 			<table width="800px">
 				<tr align ="center">
@@ -118,6 +114,5 @@
 			</form>
 			<!-- 페이징 처리-->
 		</div>
-
 	</div>
 </div>

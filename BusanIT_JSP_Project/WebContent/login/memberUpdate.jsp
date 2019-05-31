@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="login.LoginBean"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
@@ -5,6 +11,13 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey");
+	
+	if(id == null){ %>
+		<script>
+			location.replace("login.html");
+		</script>
+	<%}else{
+	
 	LoginBean bean = mgr.getCustomer(id);
 	
 	//주소 나머지 주소 구분하는 내용
@@ -29,7 +42,7 @@
 <script>
 	function menulist(menu) {
 		console.log(menu);
-		location.href = 'item/itemProc.jsp?menu='+menu;
+		location.replace ('item/itemProc.jsp?menu='+menu);
 	}
 	//Search zipcode
 	function zipSearch() {
@@ -113,3 +126,4 @@
 		</div>
 	</div>
 </div>
+<%}%>

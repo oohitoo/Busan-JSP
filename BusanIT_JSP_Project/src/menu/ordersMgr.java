@@ -211,7 +211,6 @@ public class ordersMgr {
 		String sql = null;
 		Vector<ordersBean> vlist = new Vector<ordersBean>();
 		try {
-
 			con = pool.getConnection();
 			sql = "select o.*, m.mPrice, m.mImg,(m.mPrice * o.count) totalPrice  "
 					+ "from menu m, orders o "
@@ -248,6 +247,77 @@ public class ordersMgr {
 		}
 		return vlist;
 	}
+	
+	//예약 내역 가져오기
+		public Vector<ordersBean> reserveList(String id, int end){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<ordersBean> vlist = new Vector<ordersBean>();
+			try {
+				con = pool.getConnection();
+				sql = "select * from orders where id = ? and ordertype='예약' order by odate limit 0,?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, end);
+
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean pBean = new ordersBean();
+					pBean.setId(rs.getString("Id"));
+					pBean.setrName(rs.getString("rName"));
+					pBean.setCount(rs.getInt("count"));
+					pBean.setoDate(rs.getString("oDate"));
+					vlist.addElement(pBean);
+				} //--while
+
+			}//--try
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return vlist;
+		}
+		
+		//예약 상세 정보
+		public Vector<ordersBean> reserveDetail(String id,String oDate){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<ordersBean> vlist = new Vector<ordersBean>();
+			try {
+				con = pool.getConnection();
+				sql = "select * from orders where id = ? and ordertype= '예약' and odate=?;";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setString(2, oDate);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean pBean = new ordersBean();
+					pBean.setoNum(rs.getString("oNum"));
+					pBean.setId(rs.getString("Id"));
+					pBean.setcNick(rs.getString("cNick"));
+					pBean.setrName(rs.getString("rName"));
+					pBean.setcPhone(rs.getString("cPhone"));
+					pBean.setCount(rs.getInt("count"));
+					pBean.setoDate(rs.getString("oDate"));
+					pBean.setoRequest(rs.getString("oRequest"));
+					pBean.setOrderType(rs.getString("orderType"));
+					vlist.addElement(pBean);
+				} //--while
+
+			}//--try
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return vlist;
+		}
+
 
 	public Vector<ordersBean> orderListMain(String ShopName){
 		Connection conn = null;

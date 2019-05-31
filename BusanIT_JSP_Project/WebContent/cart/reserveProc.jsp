@@ -15,7 +15,7 @@
 
 	//id, cNick, rName¸¦ ¹ÞÀ½
 	String id = request.getParameter("id");
-	String cNick = request.getParameter("cNick");
+	String cNick = request.getParameter("name");
 	String rName = request.getParameter("rName");
 
 	bean.setId(id);

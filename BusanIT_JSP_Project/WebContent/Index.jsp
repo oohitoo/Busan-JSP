@@ -160,7 +160,7 @@
 					</li>	
 					
 					<li class="nav-item active">
-						<a class="nav-link" href="orderdetail/orderList.jsp">
+						<a class="nav-link" href="orderdetail/reserveList.jsp">
 							<span>예약 내역</span>
 						</a>
 					</li>

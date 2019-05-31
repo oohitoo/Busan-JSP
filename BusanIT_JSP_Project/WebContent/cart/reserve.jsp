@@ -28,42 +28,7 @@
 		<%
 	}
 %>
-<script>
-	function menulist(menu) {
-		console.log(menu);
-		location.href = 'item/itemProc.jsp?menu=' + menu;
-	}
-	function check() {
-		if(document.getElementsByName('name')[0].value <= 1){
-			document.reserve.name.focus();
-			return ;
-		}
-		if(document.getElementsByName('cPhone')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('oDate')[0].value <= 1){
-			document.reserve.oDate.focus();
-			return ;
-		}
-		if(document.getElementsByName('시간')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('분')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('인원수')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('oRequest')[0].value <= 1){
-			document.reserve.oRequest.focus();
-			return ;
-		}
-	}
-</script>
+
 
 <jsp:include page="designForm.jsp"/>
 <div class="container">
@@ -89,7 +54,7 @@
 				</tr>
 			</table>
 
-			<form name="reserve" action="reserveProc.jsp">
+			<form name="reserve" action="">
 
 				<table
 					style="width: 800px; height: 350px; margin-left: 50px; margin-top: 50px;">
@@ -150,16 +115,55 @@
 						<td><label class="text-primary">요청사항</label></td>
 						<td colspan="3"><input name="oRequest" class="form-control"></td>
 					</tr>
-					<tr>
-						<td colspan="5" align="center"><input type="hidden"
-							name="rName" value="<%=shop%>" /> <input type="hidden"
-							name="id" value="<%=id%>" /> <input type="hidden" name="cNick"
-							value="<%=lBean.getcNick()%>" /> 
-							<input type="button" class="btn btn-primary btn-md" value="예약하기" onclick="javascript:check()"></td>
-					</tr>
-				</table>
+					</table>
+					<input type="hidden" name="rName" value="<%=shop%>" /> 
+							<input type="hidden" name="id" value="<%=id%>" /> 
+							<input type="hidden" name="cNick" value="<%=lBean.getcNick()%>" />
+							<input type="button" class="btn btn-primary btn-md" value="예약하기" onclick="check()">
 			</form>
+					
+					
+					
+						
+							 
+							
+					
+				
 
 		</div>
 	</div>
 </div>
+<script>
+	function menulist(menu) {
+		console.log(menu);
+		location.href = 'item/itemProc.jsp?menu=' + menu;
+	}
+	function check() {
+		if(document.getElementsByName('name')[0].value <= 1){
+			document.reserve.name.focus();
+			return ;
+		}else if(document.getElementsByName('cPhone')[0].value <= 1){
+			document.reserve.cPhone.focus();
+			return ;
+		}else if(document.getElementsByName('oDate')[0].value <= 1){
+			document.reserve.oDate.focus();
+			return ;
+		}else if(document.getElementsByName('시간')[0].value <= 1){
+			document.reserve.cPhone.focus();
+			return ;
+		}else	if(document.getElementsByName('분')[0].value <= 1){
+			document.reserve.cPhone.focus();
+			return ;
+		}else	if(document.getElementsByName('인원수')[0].value <= 1){
+			document.reserve.cPhone.focus();
+			return ;
+		}else	if(document.getElementsByName('oRequest')[0].value <= 1){
+			document.reserve.oRequest.focus();
+			return ;
+		}else if{
+		document.getElementsByName("reserve").action="reserveProc.jsp";
+		document.getElementsByName("reserve").submit();
+		}
+	}
+	
+</script>

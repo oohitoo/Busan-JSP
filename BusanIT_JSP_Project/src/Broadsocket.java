@@ -50,7 +50,6 @@ public class Broadsocket {
 	public void onOpen(EndpointConfig config,Session session) {
 		// Add session to the connected sessions set
 		// 연결된 세션에 추가하기
-		System.out.println(session);		
 		HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
 		allSession.put(session, config);
 		if (httpSession.getAttribute("shop") != null) {

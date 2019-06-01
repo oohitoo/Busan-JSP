@@ -12,20 +12,18 @@ public class ServiceBean {
 	private String pass;
 	private String ip;
 	private int count;
-	private String filename;
-	private int filesize;
 	
-	public int getSnum() {
+	public int getsNum() {
 		return snum;
 	}
-	public void setSnum(int snum) {
+	public void setsNum(int snum) {
 		this.snum = snum;
 	}
-	public String getSname() {
+	public String getsName() {
 		return sname;
 	}
-	public void setSname(String sname) {
-		this.sname = sname;
+	public void setsName(String sname) {
+		this.sname =sname;
 	}
 	public String getSubject() {
 		return subject;
@@ -80,18 +78,6 @@ public class ServiceBean {
 	}
 	public void setCount(int count) {
 		this.count = count;
-	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-	public int getFilesize() {
-		return filesize;
-	}
-	public void setFilesize(int filesize) {
-		this.filesize = filesize;
 	}
 	
 	

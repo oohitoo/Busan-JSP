@@ -29,3 +29,43 @@ a:active {
 	color: orange;
 	text-decoration: none;
 }
+.impact{
+	color: #3a3b45;
+	font-weight: bold;
+}
+.baedalga {
+	width : 70%;
+/* 	height: 70%;		 */
+	margin-bottom: 1rem;
+	color: #858796;
+	border-collapse: collapse;
+	margin-left : 15%;
+}
+.baedalga td{
+	padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #e3e6f0;
+}
+.baedalga tr:first-child {
+	color: white;
+}
+.baedalga tr:first-child:hover {
+	color: white;
+}
+.baedalga h2{
+	color: black;
+}
+.baedalga button{
+	margin-left: 40px;
+}
+#pop {
+	width: 300px; /* 넓이 */
+	height: 400px; /* 높이 */
+	background: #3d3d3d; /* 배경 */
+	color: #fff; /* 팝업에 들어갈 글자 색상 */
+	position: absolute; /*  */
+	top: 20px; /* 위에서 몇만큼 떨어지는가 */
+	left: 100px; /* 왼쪽에서 얼만큼 */
+	text-align: center; /* 가운데 정렬 */
+	border: 2px solid #000; /* 테두리 색상 및 두께 */
+}

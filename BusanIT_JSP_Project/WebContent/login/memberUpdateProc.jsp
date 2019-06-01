@@ -17,7 +17,7 @@
 
 	<script>
 		alert("회원정보를 수정 하였습니다.");
-		location.href="../Index.jsp";
+		location.replace("../Index.jsp");
 		</script>	
 	<%} else{%>
 

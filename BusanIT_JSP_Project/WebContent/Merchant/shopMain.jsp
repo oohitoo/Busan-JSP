@@ -84,7 +84,7 @@ img {
 	background-color: white;
 	padding: 1rem 1.5rem;
 	width: 400px;
-	height: 350px;
+	height: 550px;
 	border-radius: 0.5rem;
 }
 
@@ -211,12 +211,12 @@ img {
 											<%
 												if (rcnt == 1 && scnt == 0) {
 											%>
-											<td><%=no%><%no++; %></td>
+											<td><button onclick="javascript:toggleModalDetail('<%=no%>', '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menu%>','<%=count%>')"><%=no%><%no++; %></button></td>
 											<td>
 												<div class="container">
 													<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
 													<button onclick="javascript:updateOrderStatus('2', '<%=oNum%>')" type="button" value="2" class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>" name="oStatus">배달 준비 중</button>
-													<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button>
+													<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button> <br />
 													<button onclick="javascript:updateOrderStatus('4', '<%=oNum%>')" type="button" value="4" class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>" name="oStatus">배달 완료</button>
 													<button onclick="javascript:updateOrderStatus('5', '<%=oNum%>')" type="button" value="5" class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>" name="oStatus">예약</button>
 													<button onclick="javascript:updateOrderStatus('6', '<%=oNum%>')" type="button" value="6" class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>" name="oStatus">완료</button>
@@ -251,7 +251,7 @@ img {
 
 											<%} else {%>
 											<%if (rcnt != 1 && scnt == 0) {%>
-											<td rowspan="<%=rcnt%>"><button onclick="javascript:toggleModalDetail()"><%=no%></button> 
+											<td rowspan="<%=rcnt%>"><button onclick="javascript:toggleModalDetail('<%=no%>', '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menu%>','<%=count%>')"><%=no%></button> 
 											<%no++;%>
 											</td>
 											<%}%>
@@ -261,7 +261,7 @@ img {
 												<div class="container">
 													<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
 													<button onclick="javascript:updateOrderStatus('2', '<%=oNum%>')" type="button" value="2" class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>" name="oStatus">배달 준비 중</button>
-													<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button>
+													<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button><br />
 													<button onclick="javascript:updateOrderStatus('4', '<%=oNum%>')" type="button" value="4" class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>" name="oStatus">배달 완료</button>
 													<button onclick="javascript:updateOrderStatus('5', '<%=oNum%>')" type="button" value="5" class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>" name="oStatus">예약</button>
 													<button onclick="javascript:updateOrderStatus('6', '<%=oNum%>')" type="button" value="6" class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>" name="oStatus">완료</button>
@@ -311,6 +311,7 @@ img {
 											if (mgr.getNumCnt(oNum) == scnt) {
 												scnt = 0;
 											}%>
+										
 										<%} //for%>
 										<%} //if else%>
 										<!-- 자동 테이블 -->
@@ -328,7 +329,7 @@ img {
 			<!--  팝업 될 레이어 -->
 			<!-- 주문 알림 -->
 			<div class="modal">
-				<div class="modal-content">
+				<div class="modal-content" id="myModal">
 					<span class="close-button">&times;</span> <img alt="없다." src="../img/Logo_2.png">
 					<h1 align="center">배달가~ 주문~</h1>
 					<!-- window 클릭시 발생하는 거임 -->
@@ -336,42 +337,41 @@ img {
 				</div>
 			</div>
 			<!-- 주문 상세 모달 창 -->
-			<div class="modal-detail">
+			<div class="modal-detail" id="myModal1">
 				<div class="modal-content-detail">
 					<span class="close-button">&times;</span>
-					<h3>~~님 주문 상세내역</h3>
+					<h3 id="title">~~님 주문 상세내역</h3>
+					<div id="content">
 					<table border="1" align="center">
 						<tr>
 							<td colspan="1">가게 이름</td>
-							<td colspan="2"><%-- <%=businessName %> --%></td>
+							<td colspan="2"><%=businessName %></td>
 						</tr>
 						<tr>
 							<td colspan="1">주문 번호</td>
-							<td colspan="2"><%-- <%=oNum %> --%></td>
+							<td colspan="2" id="oNum"></td>
 						</tr>
 						<tr>
 							<td colspan="1">주문 일시</td>
-							<td colspan="2"><%-- <%=oDate %> --%></td>
+							<td colspan="2" id="oDate"></td>
 						</tr>
 						<tr>
 							<td colspan="1">결제 수단</td>
-							<td colspan="2"><%-- <%=orderType %> --%></td>
+							<td colspan="2" id="orderType"></td>
 						</tr>
 						<tr>
 							<td colspan="1">배달 주소지</td>
-							<td colspan="2"><%-- <%=cAddress %> --%></td>
+							<td colspan="2" id="cAddress"></td>
 						</tr>
 						<tr>
-							<td colspan="1">주문 상품 내역</td>
-							<td colspan="2"></td>
+							<td colspan="3" align="center">주문 상품 내역</td>
 						</tr>
 						<tr>
-							<td rowspan="1"><%-- <%=menu %> --%></td>
-							<td rowspan="1"><%-- <%=count %> --%></td>
-							<td rowspan="1"></td>
+							<td rowspan="2" id="menu"></td>
+							<td rowspan="1" id="count"></td>
 						</tr>
-						
 					</table>
+					</div>
 					<button>출력하기</button>
 				</div>
 			</div>	
@@ -404,7 +404,13 @@ img {
 	function toggleModal() {
 		modal.classList.toggle("show-modal");
 	}
-	function toggleModalDetail() {
+	function toggleModalDetail(no, oNum, oDate, orderType, cAddress, menu, count) {
+	    $("#oNum").html(oNum);
+	    $("#oDate").html(oDate);
+	    $("#orderType").html(orderType);
+	    $("#cAddress").html(cAddress);
+	    $("#menu").html(menu);
+	    $("#count").html(count);
 		modalDetail.classList.toggle("show-modal-detail");
 	}
 
@@ -443,4 +449,5 @@ img {
 		}
 	});
 </script>
+
 </html>

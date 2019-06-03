@@ -160,12 +160,12 @@ img {
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead style="text-align: center;">
 										<tr class="text-primary">
-											<th>번호</th>
-											<th>배달상태</th>
-											<th>경과시간</th>
-											<th>주문메뉴</th>
-											<th>수량</th>
-											<th>픽업/배달</th>
+											<th>가게 이름</th>
+											<th>주문 번호</th>
+											<th>주문 일시</th>
+											<th>결제 수단</th>
+											<th>배달 주소</th>
+											<th>주문 상품 내역</th>
 											<th>고객 요청 사항</th>
 										</tr>
 									</thead>
@@ -206,12 +206,11 @@ img {
 														Date curDate = new Date();
 														//동일한 숫자로 row 갯수 맞추기
 														rcnt = mgr.getNumCnt(oNum);
-														int menucount=0;
 											%>
 											<%
 												if (rcnt == 1 && scnt == 0) {
 											%>
-											<td><button onclick="javascript:toggleModalDetail('<%=no%>', '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menu%>','<%=count%>')"><%=no%><%no++; %></button></td>
+											<td><button onclick=""><%=no%><%no++; %></button></td>
 											<td>
 												<div class="container">
 													<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
@@ -251,7 +250,7 @@ img {
 
 											<%} else {%>
 											<%if (rcnt != 1 && scnt == 0) {%>
-											<td rowspan="<%=rcnt%>"><button onclick="javascript:toggleModalDetail('<%=no%>', '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menu%>','<%=count%>')"><%=no%></button> 
+											<td rowspan="<%=rcnt%>"><button onclick=""><%=no%></button> 
 											<%no++;%>
 											</td>
 											<%}%>
@@ -336,48 +335,6 @@ img {
 					<input type="hidden" id="cancel" value="취소">
 				</div>
 			</div>
-			<!-- 주문 상세 모달 창 -->
-			<div class="modal-detail" id="myModal1">
-				<div class="modal-content-detail">
-					<span class="close-button">&times;</span>
-					<h3 id="title" align="center">주문 상세내역</h3>
-					<div id="content">
-					<table border="1" align="center">
-						<tr>
-							<td colspan="2">가게 이름</td>
-							<td colspan="5"><%=businessName %></td>
-						</tr>
-						<tr>
-							<td colspan="2">주문 번호</td>
-							<td colspan="5" id="oNum"></td>
-						</tr>
-						<tr>
-							<td colspan="2">주문 일시</td>
-							<td colspan="5" id="oDate"></td>
-						</tr>
-						<tr>
-							<td colspan="2">결제 수단</td>
-							<td colspan="5" id="orderType"></td>
-						</tr>
-						<tr>
-							<td colspan="2">배달 주소지</td>
-							<td colspan="5" id="cAddress"></td>
-						</tr>
-						<tr>
-							<td colspan="7" align="center">주문 상품 내역</td>
-						</tr>
-						<tr>
-							<td colspan="5" id="menu"></td>
-							<td colspan="2" id="count"></td>
-						</tr>
-						<tr>
-							<td colspan="7" align="center"><button>출력하기</button></td>
-						</tr>
-					</table>
-					</div>
-				</div>
-			</div>	
-			<!-- 모달 창 끝 -->
 
 			<!-- footer include -->
 			<jsp:include page="../Merchant/footer.jsp" />
@@ -388,7 +345,6 @@ img {
 </body>
 <script>
 	var modal = document.querySelector(".modal");
-	var modalDetail = document.querySelector(".modal-detail");
 	var closeButton = document.querySelector(".close-button");
 	var webSocket = new WebSocket('ws://' + location.host + '/BusanIT_JSP_Project/broadcasting');
 	var shopName = $("#shopName");
@@ -404,15 +360,6 @@ img {
 	};
 	function toggleModal() {
 		modal.classList.toggle("show-modal");
-	}
-	function toggleModalDetail(no, oNum, oDate, orderType, cAddress, menu, count) {
-	    $("#oNum").html(oNum);
-	    $("#oDate").html(oDate);
-	    $("#orderType").html(orderType);
-	    $("#cAddress").html(cAddress);
-	    $("#menu").html(menu);
-	    $("#count").html(count);
-		modalDetail.classList.toggle("show-modal-detail");
 	}
 	function onMessage() {
 		/* alert("주문이 도착하였습니다.\n"); */
@@ -434,17 +381,9 @@ img {
 	closeButton.addEventListener("click", function toggleModal() {
 		modal.classList.toggle("show-modal");
 	});
-	closeButton.addEventListener("click", function toggleModalDetail() {
-		modalDetail.classList.toggle("show-modal-detail");
-	});
 	window.addEventListener("click", function windowOnClick(event) {
 		if (event.target === modal) {
 			modal.classList.toggle("show-modal");
-		}
-	});
-	window.addEventListener("click", function windowOnClick(event) {
-		if (event.target === modalDetail) {
-			modalDetail.classList.toggle("show-modal-detail");
 		}
 	});
 </script>

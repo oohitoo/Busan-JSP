@@ -7,11 +7,19 @@
 
 <%
 	request.setCharacterEncoding("EUC-KR");
-	String rName = "롯데리아 부산양정점";
 	int year = Integer.parseInt(request.getParameter("year"));
 	int subtotal, yeartotal = 0;
 	int card=0,cash=0, directpay=0,month=0;
+	String businessName = (String) session.getAttribute("name");
+	/* 소켓을 위하여 세션 값 저장 */
+	session.setAttribute("shop", businessName);
+	if (businessName == null) {
 %>
+<script>
+	alert("로그인을 해 주세요");
+	location.href = "shopLogin.jsp";
+</script>
+<%}%>
 <html>
 <head>
 <link rel="stylesheet" href="../css/MainIndex.css">
@@ -38,8 +46,27 @@
 	}
 </script>
 </head>
-<body>
-	<div id = "badal">
+
+<body id="page-top">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+		<!-- side bar include -->
+		<jsp:include page="../Merchant/sidebar.jsp" />
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+					<!-- Page Heading -->
+					<h1></h1>
+					<!-- 가게 이름 -->
+					<h1 class="h3 mb-2 text-gray-800"><%=businessName%></h1>
+					
+					<div id = "badal">
 		<table class="baedalga table-hover">
 			<tr>
 				<td>
@@ -67,7 +94,7 @@
 				<!-- 월별 나오게 하기 -->
 				<% for (int i= 1; i <= 12; ++i) {
 					subtotal = 0;
-					Vector<ordersBean> olist = mgr.monthsales(rName, i,year);
+					Vector<ordersBean> olist = mgr.monthsales(businessName, i,year);
 					HashMap<String, Integer> order = new HashMap<>();
 					
 						for (int l=0; l<olist.size(); l++) {
@@ -141,5 +168,11 @@
 				</tr>
 		</table>
 	</div>
+					
+					<!-- footer include -->
+			<jsp:include page="../Merchant/footer.jsp" />
+					
+	
+	
 </body>
 </html>

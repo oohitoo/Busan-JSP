@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%
 	request.setCharacterEncoding("EUC-KR");
@@ -11,6 +17,15 @@
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
+<!-- 팝업 처리 하기 위함 -->
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#close').click(function() {
+			$('#pop').hide();
+		});
+	});
+</script>
 
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
@@ -153,6 +168,12 @@
 						</a>
 					</li>	
 					
+					<li class="nav-item active">
+						<a class="nav-link" href="orderdetail/reserveList.jsp">
+							<span>예약 내역</span>
+						</a>
+					</li>
+					
 					<hr class="sidebar-divider my-0">
 					
 					<!-- Nav Item - Dashboard -->
@@ -220,4 +241,19 @@
 		</div>
 	</div>
 	<!-- 오른쪽 메인 부분 종료 -->
+	<div id ="pop">
+		<div style="height: 370px;">
+			<img alt="이미지 없음" src="img/Logo_1.png" width="300px;">
+			예약 및 배달을 함께 하는 배달家 입니다.<br>
+			
+			<p>예약시 주의사항</p><br>
+				- 예약을 원할시 메뉴를 클릭하시지 마시고 예약하여 주시기 바랍니다.<br>
+			배달시 주의사항<br>
+				- 주문취소를 원할시 직접 가게에 연락하여 취소 하시기 바랍니다.<br>
+			
+		</div>
+		<div>
+			<div id="close" style="width: 100px; margin: auto;">close</div>
+		</div>
+	</div>
 </body>

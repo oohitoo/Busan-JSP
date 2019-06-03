@@ -153,6 +153,12 @@
 						</a>
 					</li>	
 					
+					<li class="nav-item active">
+						<a class="nav-link" href="../orderdetail/reserveList.jsp">
+							<span>예약 내역</span>
+						</a>
+					</li>
+					
 					<hr class="sidebar-divider my-0">
 					
 					<!-- Nav Item - Dashboard -->

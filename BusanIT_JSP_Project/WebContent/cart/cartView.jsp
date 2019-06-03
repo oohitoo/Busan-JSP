@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="login.LoginBean"%>
 <%@page import="menu.menuBean"%>
 <%@page import="Service.UtilMgr"%>
@@ -8,19 +14,14 @@
 <jsp:useBean id="cMgr" scope="session" class="menu.CartMgr"/>
 <jsp:useBean id="menuMgr" class="menu.menuMgr"/>
 <jsp:useBean id="loginMgr" class="login.LoginMgr"/>
-<%
+<% 
 	request.setCharacterEncoding("EUC-KR");
-	String id  = (String)session.getAttribute("idKey"); 
-	String shop = (String)session.getAttribute("store");
-	
-	String totalMenu ="";
-	int cnt =0;
-	
-	/* IP주소 가져오기 */
-	String strServertIP = request.getServerName();
-
-	if(id == null){
-		%>
+	String id = (String) session.getAttribute("idKey");
+	String shop = (String) session.getAttribute("store");
+	String totalMenu = "";
+	int cnt = 0;
+	if (id == null) {
+%>
 		<script>
 			alert("로그인 후 사용 바랍니다.");
 			location.href ="../login/login.html";
@@ -80,8 +81,12 @@
 <script>
 	function creatUpdate(menu, num) {
 		var count = document.getElementById("count" + num).value;
-		
-		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count; 
+		if(count >99)	{
+			alert("한번에 99개까지 주문할수 있어요");
+			count=99;
+		}else{
+		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count;
+		}
 	}
 	function creatdelete(menu, num) {
 		var count = document.getElementById("count" + num).value;
@@ -89,8 +94,6 @@
 	}
 	/* Order proc로 넘기기 */
 	function order() {
-		var address = $("#ipaddress").val();
-		console.log(address);
 		/*  1. 테이블의 td는 tageName으로 자르기 
 			2. split을 이용하여 자른다.
 			3. 출력한다.
@@ -98,17 +101,15 @@
 		/* var str = document.getElementsByTagName('td')[8].childNodes[0].nodeValue; */
 		var str = document.getElementById("minimum").value;
 		var strsplit = str.split(',');
-		console.log(str);
-		console.log(strsplit);
 		if(parseInt(strsplit[0]) <= "13"){
 			var popupX = (window.screen.width / 2);
 			var popupY = (window.screen.height / 2);
-			console.log("여기");
 			/* alert("최소 주문 금액을 맞춰주세요."); */
 			url = "orderMinium.html";
 			window.open(url, "orderMinium", "width=400, height=190, resizable=no, left="+ popupX + ",top="+ popupY);
 		}
 		else{
+			
 			var addres = document.getElementById("addres").value;
 			var phoneNumber = document.getElementById("phoneNumber").value;
 			var request = document.getElementById("request").value;
@@ -117,7 +118,6 @@
 			
 			/* 소켓통신 */
 			var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
-			console.log(location.host);
 			/* 가게 명  (id)*/
 			var shopName = $("#shopName");			
 			/* 보낼 메세지 */
@@ -148,12 +148,14 @@
 				webSocket.send(shopName.val() + ":" + Message);
 				Message = "";
 				
+				$("div[class=modal]").addClass("show-modal");
+				
+				
 				setTimeout(function() {
-					location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox;
-				}, 5000); 
+					 location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 
+					/* window.location.replace("orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox); */					
+				}, 1000);
 			}
-			
-			/* location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; */
 		}
 	}
 	function reset() {
@@ -243,7 +245,7 @@
 						</div>
 					</td>
 					<td class="col-sm-1 col-md-1" style="text-align: center">
-						<input type="text" class="form-control" id="count<%=num %>" value="<%= count %>">
+						<input type="number" class="form-control" id="count<%=num %>" value="<%= count %>" max="99" min="1" style="width:66px;">
 					</td>
 					<td class="col-sm-1 col-md-1 text-center">
 						<strong><%= price %></strong>원
@@ -293,8 +295,8 @@
 							<select id="payType" class="form-control" style="width:176px;" >
 									<option value="만나서 카드결제" selected>만나서 카드결제</option>
 									<option value="만나서 현금결제">만나서 현금결제</option>
-									<option value="카드 결제">카드 결제</option>
-									<option value="무통장 입금">무통장 입금</option>
+									<option value="바로 결제">바로 결제</option>
+									
 							</select>
 					</td>
 				</tr>
@@ -311,7 +313,7 @@
 				<tr>
 					<td align="right">
 						<button type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
-						<button type="button" id="notibutton" class="btn btn-primary trigger" onclick="javascript:order()">주문하기</button>
+						<button type="button" id="notibutton" class="btn btn-primary" onclick="javascript:order()">주문하기</button>
 						<!-- <button class="trigger">이메일 보내기</button> -->
 					</td>
 					<td></td>
@@ -320,7 +322,6 @@
 				</tr>				
 				<% } // else 끝 %>
 				<input type="hidden" id="shopName" value="<%= shop %>">
-				<input type="hidden" id="ipaddress" value="<%= strServertIP %>">
 			</tbody>
 		</table>
 		<!--  팝업 될 레이어 -->
@@ -356,25 +357,23 @@
 	</div>
 </div>
 <script type="text/javascript">
-		var modal = document.querySelector(".modal");
-	    var trigger = document.querySelector(".trigger");
-	    var closeButton = document.querySelector(".close-button");
-	    var cancelButton = document.querySelector("#cancel");
 
-	    //console.log(modal);
+ 			var modal = document.querySelector(".modal");
+// 			var trigger = document.querySelector(".trigger");
+		    var closeButton = document.querySelector(".close-button");
+		    var cancelButton = document.querySelector("#cancel");
 
-	    function toggleModal() {
-	        modal.classList.toggle("show-modal");
-	    }
-
-	    function windowOnClick(event) {
-	        if (event.target === modal) {
-	            toggleModal();
-	        }
-	    }
-
-	    trigger.addEventListener("click", toggleModal);
-	    closeButton.addEventListener("click", toggleModal);
-	    cancel.addEventListener("click", toggleModal);
-	    window.addEventListener("click", windowOnClick);
+		    function toggleModal() {
+		        modal.classList.toggle("show-modal");
+		    }
+		    function windowOnClick(event) {
+		        if (event.target === modal) {
+		            toggleModal();
+		        }
+		    }
+// 		    trigger.addEventListener("click", toggleModal);
+		    closeButton.addEventListener("click", toggleModal);
+		    cancel.addEventListener("click", toggleModal);
+		    window.addEventListener("click", windowOnClick); 
+		
 </script>

@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="java.util.Vector"%>
 <%@page import="menu.menuBean"%>
 <%@page import="review.reviewMgr"%>
@@ -129,9 +135,7 @@ h3 {
 		/* location.href = "privateShopProc.jsp?flag=insert"+"&menu="+menu; */
 		location.href = "privateShopProc.jsp?rName="+rName+"&menu="+menu+"&info="+info+"&price="+price+"&count="+1+"&flag=insert";
 	}
-	function reserve(){
-		document.readFrm.submit();
-	}
+
 	
 	/* 리뷰단 */
 		function pageing(page){
@@ -354,16 +358,14 @@ h3 {
 						<tr>
 							
 							<td width="300px" style="text-align: center;">
-								<font color="white"><a href="javascript:reserve()" class="btn btn-primary"> 예약</a></font>
+								<font color="white"><a href="../cart/reserve.jsp" class="btn btn-primary"> 예약</a></font>
 							</td>
 							<td width="300px" style="text-align: center;">
 								<a href="../cart/cartView.jsp" class="btn btn-primary"> 배달</a>
 							</td>
 						</tr>
 					</table>
-					<form name="readFrm" action="../cart/reserve.jsp">
-						<input type="hidden" name="shop" value="<%=shop%>" />
-					</form>
+				
 				</td>
 			</tr>
 			<!-- 예약 배달 버튼  끝-->

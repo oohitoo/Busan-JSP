@@ -466,4 +466,137 @@ public class ordersMgr {
 			pool.freeConnection(con, pstmt);
 		}return;
 	}
+
+	//월 매출 조회
+	public Vector<ordersBean> monthsales(String shopName, int month,int year){ 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> olist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select year(odate),month(odate) , ordertype,sum(totalprice) totalPrice from (select Menu , sum(count), orderType , (a.mPrice * sum(count)) totalPrice, a.oDate from ( select o.Menu ,sum(o.count) as count, m.mPrice,  o.orderType, o.oDate from orders o, menu m where o.menu = m.Menu and m.rName = o.rName and o.rName = ?  and month(odate) = ? and year(odate) =? GROUP by m.Menu,o.ordertype ) a group by menu,ordertype) b group by orderType ;";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, shopName);
+			pstmt.setInt(2, month);
+			pstmt.setInt(3, year);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean oBean = new ordersBean();				
+				oBean.setoYear(rs.getString(1));
+				oBean.setoDate(rs.getString(2));
+				oBean.setOrderType(rs.getString(3));
+				oBean.setTotalPrice(rs.getInt(4));
+				olist.addElement(oBean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return olist;
+	}
+
+	//일매출 
+	public Vector<ordersBean> daysales(String shopName, int day, int month,int year){ 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> olist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT YEAR(odate), DAY(odate) DAY, ordertype, SUM(totalprice) FROM (SELECT odate, orderType, totalprice FROM	(SELECT o.menu,o.orderType, o.oDate, (m.mPrice * COUNT) totalprice FROM orders o, menu m	WHERE o.menu = m.Menu AND m.rName = o.rName AND o.rName = ? AND DAY(odate) = ? AND MONTH(odate) = ? and year(odate)=?) a GROUP BY odate, ordertype,menu ORDER BY odate) b GROUP BY ordertype, DAY";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, shopName);
+			pstmt.setInt(2, day);
+			pstmt.setInt(3, month);
+			pstmt.setInt(4, year);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean oBean = new ordersBean();
+				oBean.setoYear(rs.getString(1));
+				oBean.setoDate(rs.getString(2));
+				oBean.setOrderType(rs.getString(3));
+				oBean.setTotalPrice(rs.getInt(4));
+				olist.addElement(oBean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return olist;
+	}
+	
+	//예약 내역 가져오기
+	public Vector<ordersBean> reserveList(String id, int end){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> vlist = new Vector<ordersBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from orders where id = ? and ordertype='예약' order by odate limit 0,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setInt(2, end);
+
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean pBean = new ordersBean();
+				pBean.setId(rs.getString("Id"));
+				pBean.setrName(rs.getString("rName"));
+				pBean.setCount(rs.getInt("count"));
+				pBean.setoDate(rs.getString("oDate"));
+				vlist.addElement(pBean);
+			} //--while
+
+		}//--try
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+
+	//예약 상세 정보
+	public Vector<ordersBean> reserveDetail(String id,String oDate){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> vlist = new Vector<ordersBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from orders where id = ? and ordertype= '예약' and odate=?;";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, oDate);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean pBean = new ordersBean();
+				pBean.setoNum(rs.getString("oNum"));
+				pBean.setId(rs.getString("Id"));
+				pBean.setcNick(rs.getString("cNick"));
+				pBean.setrName(rs.getString("rName"));
+				pBean.setcPhone(rs.getString("cPhone"));
+				pBean.setCount(rs.getInt("count"));
+				pBean.setoDate(rs.getString("oDate"));
+				pBean.setoRequest(rs.getString("oRequest"));
+				pBean.setOrderType(rs.getString("orderType"));
+				vlist.addElement(pBean);
+			} //--while
+
+		}//--try
+		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
 }

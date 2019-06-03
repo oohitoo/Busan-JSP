@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="Service.UtilMgr"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="menu.ordersBean"%>

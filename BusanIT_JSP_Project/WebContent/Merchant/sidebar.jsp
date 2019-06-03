@@ -1,5 +1,12 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
+<%
+	Date d = new Date();
+	SimpleDateFormat SDF_DATE = new SimpleDateFormat("yyyy");
+	String year = SDF_DATE.format(d);
+%>
 <!-- Sidebar -->
 <ul
 	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
@@ -50,11 +57,17 @@
 		href="shopMenuUpdate.jsp"> <span>메뉴 수정</span>
 	</a></li>
 
-	<li class="nav-item active"><a class="nav-link"
-		href="shopInfoUpdate.jsp"> <span>정보 수정</span>
-	</a></li>
-	<br />
-	<br />
+	<li class="nav-item active">
+	<a class="nav-link" href="shopInfoUpdate.jsp">
+		 <span>정보 수정</span>
+	</a>
+	</li>
+	
+	<li class="nav-item active">
+	<a class="nav-link" href="monthsales.jsp?year=<%=year%>">
+		 <span>매출 조회</span>
+	</a>
+	</li>
 	<!-- Divider -->
 	<hr class="sidebar-divider d-none d-md-block">
 	<hr class="sidebar-divider d-none d-md-block">

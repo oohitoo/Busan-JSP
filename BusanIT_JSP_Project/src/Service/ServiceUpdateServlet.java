@@ -29,13 +29,13 @@ public class ServiceUpdateServlet extends HttpServlet {
 			if(inPass.equals(dbPass)) {
 				//update.jsp 요청한 값을 테이블에 수정한다.
 				ServiceBean upBean = new ServiceBean();
-				upBean.setSnum(Integer.parseInt(request.getParameter("num")));
-				upBean.setSname(request.getParameter("name"));
+				upBean.setsNum(Integer.parseInt(request.getParameter("num")));
+				upBean.setsName(request.getParameter("name"));
 				upBean.setSubject(request.getParameter("subject"));
 				upBean.setContent(request.getParameter("content"));
 				new ServiceMgr().updateService(upBean);
 				String nowPage = request.getParameter("nowPage");
-				String url="read.jsp?nowPage=" + nowPage + "&num=" + upBean.getSnum();
+				String url="read.jsp?nowPage=" + nowPage + "&num=" + upBean.getsNum();
 				response.sendRedirect(url);
 				
 			}else {

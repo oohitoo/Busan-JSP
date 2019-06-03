@@ -281,7 +281,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (1,2,3,5) GROUP BY o.oNum order by oDate DESC;";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (1,2,3,5) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -359,7 +359,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=1) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (1) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -377,6 +377,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -399,7 +401,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=4) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (4) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -417,6 +419,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -439,7 +443,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=5) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (5) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -457,6 +461,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -479,7 +485,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=6) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (6) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -497,6 +503,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){

@@ -1,3 +1,4 @@
+<%@page import="java.text.NumberFormat"%>
 <%@page import="shoplogin.loginMgr"%>
 <%@page import="menu.ordersBean"%>
 <%@page import="shoplogin.loginBean"%>
@@ -13,6 +14,7 @@
 	String countCombine ="";
 	String mPriceCombine ="";
 	String subTotalCombine ="";
+	String totalCombineComma ="";
 	int totalCombine=0;
 	String businessName = (String) session.getAttribute("name");
 	/* 소켓을 위하여 세션 값 저장 */
@@ -88,7 +90,7 @@ img {
 	transform: translate(-50%, -50%);
 	background-color: white;
 	padding: 1rem 1.5rem;
-	width: 400px;
+	width: 500px;
 	height: 550px;
 	border-radius: 0.5rem;
 }
@@ -162,7 +164,7 @@ img {
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<table class="table" id="dataTable">
 									<thead style="text-align: center;">
 										<tr class="text-primary">
 											<th>번호</th>
@@ -178,10 +180,10 @@ img {
 										<!--자동테이블 -->
 										<tr>
 											<%
-												Vector<ordersBean> orderListMain = ordersMgr.orderListMain(businessName);
-												int listSize = orderListMain.size(), no = 1;
+												Vector<ordersBean> orderList = ordersMgr.orderListMain(businessName);
+												int listSize = orderList.size(), no = 1;
 												String oNumCheck = "null";/* oNum 같을때 test */
-												if (orderListMain.isEmpty()) {
+												if (orderList.isEmpty()) {
 											%>
 											<th colspan="7" class="text-primary">
 												<%
@@ -192,10 +194,10 @@ img {
 											<%
 												} else {
 													int rcnt = 1, scnt = 0;
-													for (int i = 0; i < orderListMain.size(); i++) {
-														if (i == orderListMain.size())
+													for (int i = 0; i < orderList.size(); i++) {
+														if (i == orderList.size())
 															break;
-														ordersBean oBean = orderListMain.get(i);
+														ordersBean oBean = orderList.get(i);
 														String oNum = oBean.getoNum();
 														int count = oBean.getCount();
 														String id = oBean.getId();
@@ -222,23 +224,23 @@ img {
 																countCombine += mbean.getCount()+"개<br>";															
 																mPriceCombine += oBean.getmPrice()+"원<br>";															
 																subTotalCombine += oBean.getTotalPrice()+"원<br>";															
-																totalCombine += oBean.getTotalPrice();															
+																totalCombine += oBean.getTotalPrice();
+																totalCombineComma = NumberFormat.getInstance().format(totalCombine)+"원";
 															}
 											%>
-										
 											<tr>
-												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>')"><%=no %><%no++; %></td>
+												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>','<%=totalCombineComma%>')"><%=no%><%no++;%></td>
 												<td>
 													<div class="container">
-														<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
-														<button onclick="javascript:updateOrderStatus('2', '<%=oNum%>')" type="button" value="2" class="btn btn-<%=orderStatus.equals("2") ? "primary" : "info"%>" name="oStatus">배달 준비 중</button>
-														<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button>
-														<button onclick="javascript:updateOrderStatus('4', '<%=oNum%>')" type="button" value="4" class="btn btn-<%=orderStatus.equals("4") ? "primary" : "info"%>" name="oStatus">배달 완료</button>
-														<button onclick="javascript:updateOrderStatus('5', '<%=oNum%>')" type="button" value="5" class="btn btn-<%=orderStatus.equals("5") ? "primary" : "info"%>" name="oStatus">예약</button>
-														<button onclick="javascript:updateOrderStatus('6', '<%=oNum%>')" type="button" value="6" class="btn btn-<%=orderStatus.equals("6") ? "primary" : "info"%>" name="oStatus">완료</button>
+														<button onclick="javascript:updateOrderStatus('1', '<%=oNum%>')" type="button" value="1" class="btn btn-sm btn-<%=orderStatus.equals("1") ? "primary" : "info"%>" name="oStatus">결재 완료</button>
+														<button onclick="javascript:updateOrderStatus('2', '<%=oNum%>')" type="button" value="2" class="btn btn-sm btn-<%=orderStatus.equals("2") ? "primary" : "info"%>" name="oStatus">배달 준비 중</button>
+														<button onclick="javascript:updateOrderStatus('3', '<%=oNum%>')" type="button" value="3" class="btn btn-sm btn-<%=orderStatus.equals("3") ? "primary" : "info"%>" name="oStatus">배달 중</button>
+														<button onclick="javascript:updateOrderStatus('4', '<%=oNum%>')" type="button" value="4" class="btn btn-sm btn-<%=orderStatus.equals("4") ? "primary" : "info"%>" name="oStatus">배달 완료</button>
+														<button onclick="javascript:updateOrderStatus('5', '<%=oNum%>')" type="button" value="5" class="btn btn-sm btn-<%=orderStatus.equals("5") ? "primary" : "info"%>" name="oStatus">예약</button>
+														<button onclick="javascript:updateOrderStatus('6', '<%=oNum%>')" type="button" value="6" class="btn btn-sm btn-<%=orderStatus.equals("6") ? "primary" : "info"%>" name="oStatus">완료</button>
 													</div>
 												</td>
-												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>')">
+												<td onclick="javascript:toggleModalDetail('<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombineComma%>')">
 													<%
 															//시간 형 변환
 															String cDate = dateFormat.format(curDate);
@@ -260,7 +262,7 @@ img {
 														<%=day%>일 전
 														<%}%>
 												</td>
-												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>')">
+												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombineComma%>')">
 														<%Vector<ordersBean> mlist = ordersMgr.menuList(oNum);
 															for(int j = 0 ; j < mlist.size(); j++){
 																ordersBean mbean = mlist.get(j);
@@ -268,22 +270,23 @@ img {
 																<%=mbean.getMenu()%><br>
 														<%}%>
 												</td>
-												<td  onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>')">
+												<td  onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombineComma%>')">
 														<%Vector<ordersBean> clist = ordersMgr.menuList(oNum);
 															for(int j = 0 ; j < clist.size(); j++){
 																ordersBean mbean = mlist.get(j);
 														%>
-																<%=mbean.getCount() %><br>
+																<%=mbean.getCount() %>개<br>
 														<%}%>
 												</td>
-												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>')"><%=orderType%></td>
-												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombine%>')"><%=oRequest%></td>
+												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombineComma%>')"><%=orderType%></td>
+												<td onclick="javascript:toggleModalDetail( '<%=oNum%>','<%=oDate%>','<%=orderType%>','<%=cAddress%>','<%=menuCombine%>','<%=countCombine%>','<%=mPriceCombine%>','<%=subTotalCombine%>','<%=totalCombineComma%>')"><%=oRequest%></td>
 											</tr>	
 										<%
 												menuCombine ="";
 												countCombine ="";
 												mPriceCombine ="";
 												subTotalCombine ="";
+												totalCombineComma="";
 												totalCombine =0;
 												} //for%>
 										<%} //if else%>
@@ -311,10 +314,10 @@ img {
 				</div>
 			</div>
 			<!-- 주문 상세 모달 창 -->
-			<div class="modal-detail" id="myModal1">
+			<div class="modal-detail" id="orderReceipt">
 				<div class="modal-content-detail">
 					<span class="close-button">&times;</span>
-					<h3 id="title">주문 상세내역</h3>
+					<h3 id="title" align="center">주문 상세내역</h3>
 					<div id="content">
 					<table border="1" align="center">
 						<tr>
@@ -343,10 +346,10 @@ img {
 							<td colspan="4" align="center">주문 상품 내역</td>
 						</tr>
 						<tr>
-							<td width="500" id="menuCombine"></td>
-							<td width="200" id="mPriceCombine"></td>
-							<td width="200" id="countCombine"></td>
-							<td width="200" id="subTotalCombine"></td>
+							<td width="500" id="menuCombine" align="left"></td>
+							<td width="200" id="mPriceCombine" align="right"></td>
+							<td width="200" id="countCombine" align="right"></td>
+							<td width="200" id="subTotalCombine" align="right"></td>
 						</tr>
 					</table>
 					<table border="1">
@@ -354,11 +357,14 @@ img {
 							<td width="700"align="center">주문 총액</td>
 						</tr>
 						<tr>
-							<td align="right" id="totalCombine"></td>
+							<td align="right" id="totalCombineComma" align="right"></td>
 						</tr>
 					</table>
+					<br>
+						<div align="center">
+							<button value="Print" onclick="javascript:printIt(document.getElementById('orderReceipt').innerHTML)">출력하기</button>
+						</div>
 					</div>
-					<button>출력하기</button>
 				</div>
 			</div>	
 			<!-- 모달 창 끝 -->
@@ -388,7 +394,7 @@ img {
 	function toggleModal() {
 		modal.classList.toggle("show-modal");
 	}
-	function toggleModalDetail(oNum, oDate, orderType, cAddress, menuCombine, countCombine, mPriceCombine, subTotalCombine, totalCombine) {
+	function toggleModalDetail(oNum, oDate, orderType, cAddress, menuCombine, countCombine, mPriceCombine, subTotalCombine, totalCombineComma) {
   	  	$('#oNum').text(oNum);
  	    $('#oDate').text(oDate);
  	    $('#orderType').text(orderType);
@@ -397,7 +403,7 @@ img {
  	    $('#countCombine').html(countCombine);
  	    $('#mPriceCombine').html(mPriceCombine);
  	    $('#subTotalCombine').html(subTotalCombine);
- 	    $('#totalCombine').html(totalCombine);
+ 	    $('#totalCombineComma').html(totalCombineComma);
  	    modalDetail.classList.toggle("show-modal-detail"); 
 	}
 	function onMessage() {
@@ -416,6 +422,17 @@ img {
 		/* textarea.value += "나 : " + inputMessage.value + "\n"; */
 		/* webSocket.send(id.value + ":" + inputMessage.value);
 		inputMessage.value = ""; */
+	}
+	function printIt(printThis)
+	{
+	    var win = null;
+	    win = window.open();
+	    self.focus();
+	    win.document.open();
+	    win.document.write(printThis);
+	    win.document.close();
+	    win.print();
+	    win.close();
 	}
 	closeButton.addEventListener("click", function toggleModal() {
 		modal.classList.toggle("show-modal");

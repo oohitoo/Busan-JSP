@@ -9,7 +9,6 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id  = (String)session.getAttribute("idKey"); 
 %>
-<jsp:include page="noti0518.html"/>
 <title>구매자 페이지</title>
 
 <!-- Custom fonts for this template -->
@@ -29,7 +28,7 @@
 
 <body id="page-top">
 	<!-- 상단 이미지 및 해더 이미지 -->
-	<div class="container"><br>
+	<div class="container">
 		<a href="Index.jsp">
 			<img src="img/Logo_2.png" width="200px" height="200px" alt="Logo이미지"/>
 		</a>
@@ -54,9 +53,7 @@
 					<a href="login/login.html">로그인</a>
 				</div>
 			</div>
-			<% }
-				else{
-			%>
+			<% } else{ %>
 				<div class="main_1 main_common">
 					<a href="login/logout.jsp">로그아웃</a>
 				</div>				
@@ -69,9 +66,7 @@
 				<div class="main_3 main_common" style="width: 130px">
 					<a href="login/memberUpdate.jsp"><%= id %>님</a>
 				</div>
-			<%
-				}
-			%>
+			<%}	%>
 		</div>
 	</div>
 	<!-- 아이디 및 로그인 에 관련된 정보 종료 -->
@@ -80,11 +75,9 @@
 	<hr>
 	<div class="container">
 		<div class="row">
-			<!-- Page Wrapper -->
 			<div id="wrapper">
-				<!-- Sidebar -->
+				<!-- 왼쪽 메뉴바 -->
 				<ul	class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-					<!-- Sidebar - Brand -->
 					<a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index.jsp">
 						<div class="sidebar-brand-icon rotate-n-15">
 							<i class="fas fa-laugh-wink"></i>
@@ -92,25 +85,22 @@
 						<img src="img/Logo_1.png" width="200px" height="50px" alt="Logo이미지"/>
 					</a>
 					<!-- Divider -->
-					<hr class="sidebar-divider my-0">
-					
+					<hr class="sidebar-divider my-0">					
 					<!-- Nav Item - Dashboard -->
 					<li class="nav-item">
 						<a class="nav-link" href="Index.jsp">
 							<span>주문과 예약을 동시에 배달 家</span>
 						</a>
 					</li>
-
-					<!-- Divider -->
+					<!-- 밑줄 -->
 					<hr class="sidebar-divider">
 
-					<!-- 조리 상태 -->
+					<!-- 메뉴 항목 -->
 					<!-- Heading -->
 					<div class="sidebar-heading">메뉴 항목</div>
 					
 					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
-						<!-- <a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1"> -->
 						<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
 							<span>중식</span>
 						</a>
@@ -136,10 +126,10 @@
 						</a>
 					</li>
 					
-					<!-- Divider -->
+					<!-- 밑줄 -->
 					<hr class="sidebar-divider">
 					
-					<!-- Heading -->
+					<!-- 로그인 한 상태에서만 보여줄 메뉴 -->
 					<% if(id == null){%>
 					<li class="nav-item active">
 						<a class="nav-link" href="Service/ServiceMain.jsp">
@@ -149,7 +139,6 @@
 					<% }else{ %>
 					<div class="sidebar-heading">내정보</div>
 					
-					<!-- Nav Item - Tables -->
 					<li class="nav-item active">
 						<a class="nav-link" href="login/memberUpdate.jsp">
 							<span>회원정보</span>
@@ -173,7 +162,7 @@
 							<span>예약 내역</span>
 						</a>
 					</li>
-					
+					<!-- 밑줄 -->
 					<hr class="sidebar-divider my-0">
 					
 					<!-- Nav Item - Dashboard -->
@@ -185,9 +174,7 @@
 					<hr class="sidebar-divider">
 					<% } %>
 					<!-- Divider -->
-
 				</ul>
-				<!-- End of Sidebar -->
 				<!-- 왼쪽 메뉴바 종료 -->
 				<!-- 오른쪽 메인 부분 시작 -->
 				<table style="margin-left: 150px; margin-top: 100px; width: 700px; height: 500px; text-align: center; border-spacing: 30px;">
@@ -198,14 +185,14 @@
 						<td>
 							<div class="alert alert-success" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=중식&nowPage=1">
-								<h3 style="color: black">중식메뉴</h3>
+								<h3>중식메뉴</h3>
 								</a>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-dark" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=한식&nowPage=1">
-								<h3 style="color: black">한식메뉴</h3>
+								<h3>한식메뉴</h3>
 								</a>
 							</div>
 						</td>
@@ -214,14 +201,14 @@
 						<td>
 							<div class="alert alert-danger" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=피자&nowPage=1">
-								<h3 style="color: black">피자메뉴</h3>
+								<h3>피자메뉴</h3>
 								</a>
 							</div>
 						</td>
 						<td>
 							<div class="alert alert-warning" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=치킨&nowPage=1">
-								<h3 style="color: black">치킨메뉴</h3>
+								<h3>치킨메뉴</h3>
 								</a>
 							</div>
 						</td>
@@ -230,7 +217,7 @@
 						<td colspan="2">
 							<div class="alert alert-info" style="margin: 10px;">
 								<a class="nav-link" href="item/itemList.jsp?menu=패스트푸드&nowPage=1">
-								<h3 style="color: black">패스트푸드</h3>
+								<h3>패스트푸드</h3>
 								</a>
 							</div>							 
 						</td>
@@ -249,8 +236,7 @@
 			<p>예약시 주의사항</p><br>
 				- 예약을 원할시 메뉴를 클릭하시지 마시고 예약하여 주시기 바랍니다.<br>
 			배달시 주의사항<br>
-				- 주문취소를 원할시 직접 가게에 연락하여 취소 하시기 바랍니다.<br>
-			
+				- 주문취소를 원할시 직접 가게에 연락하여 취소 하시기 바랍니다.<br>			
 		</div>
 		<div>
 			<div id="close" style="width: 100px; margin: auto;">close</div>

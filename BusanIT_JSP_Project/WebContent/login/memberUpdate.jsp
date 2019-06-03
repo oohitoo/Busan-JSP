@@ -66,8 +66,7 @@
 						<!-- 사용자 아이디 -->
 						<div class="form-group">
 							<label for="username" class="text-primary">사용자 아이디:</label><br>
-							<input name="id" class="form-control" value="<%=bean.getId() %>"
-								readonly>
+							<input name="id" class="form-control" value="<%=bean.getId() %>" readonly>
 						</div>
 
 						<!-- 비밀번호 -->
@@ -79,8 +78,7 @@
 						<!-- 비밀번호 확인 -->
 						<div class="form-group">
 							<label for="password" class="text-primary">비밀번호 확인:</label><br>
-							<input type="password" name="repwd" id="password"
-								class="form-control">
+							<input type="password" name="repwd" id="password" class="form-control">
 						</div>
 
 						<!-- 사용자 이름 -->

@@ -31,144 +31,11 @@
 	int num = 1;
 %>
 <jsp:include page="designForm.jsp" />
-<style>
-	.modal {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(1.1);
-        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-    }
-    .modal-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        padding: 1rem 1.5rem;
-        width: 500px;
-        height: 270px;
-        border-radius: 0.5rem;
-    }
-    .close-button {
-        float: right;
-        width: 1.5rem;
-        line-height: 1.5rem;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 0.25rem;
-        background-color: lightgray;
-    }
-    .close-button:hover {
-        background-color: darkgray;
-    }
-    .show-modal {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1.0);
-        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-    }   
-</style>
 
-<script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<script>
-	function creatUpdate(menu, num) {
-		var count = document.getElementById("count" + num).value;
-		if(count >99)	{
-			alert("한번에 99개까지 주문할수 있어요");
-			count=99;
-		}else{
-		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count;
-		}
-	}
-	function creatdelete(menu, num) {
-		var count = document.getElementById("count" + num).value;
-		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=del&count="+count; 
-	}
-	/* Order proc로 넘기기 */
-	function order() {
-		/*  1. 테이블의 td는 tageName으로 자르기 
-			2. split을 이용하여 자른다.
-			3. 출력한다.
-		*/
-		/* var str = document.getElementsByTagName('td')[8].childNodes[0].nodeValue; */
-		var str = document.getElementById("minimum").value;
-		var strsplit = str.split(',');
-		if(parseInt(strsplit[0]) <= "13"){
-			var popupX = (window.screen.width / 2);
-			var popupY = (window.screen.height / 2);
-			/* alert("최소 주문 금액을 맞춰주세요."); */
-			url = "orderMinium.html";
-			window.open(url, "orderMinium", "width=400, height=190, resizable=no, left="+ popupX + ",top="+ popupY);
-		}
-		else{
-			
-			var addres = document.getElementById("addres").value;
-			var phoneNumber = document.getElementById("phoneNumber").value;
-			var request = document.getElementById("request").value;
-			var Box = document.getElementById("payType");
-			var selectBox = Box.options[Box.selectedIndex].value;
-			
-			/* 소켓통신 */
-			var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
-			/* 가게 명  (id)*/
-			var shopName = $("#shopName");			
-			/* 보낼 메세지 */
-			var Message = "주문이 완료되었습니다.\n";
-			
-			webSocket.onerror = function(event) {
-				onError(event)
-			};
-			webSocket.onopen = function(event) {
-				onOpen(event)
-			};
-			webSocket.onmessage = function(event) {
-				onMessage(event)
-			};
-			
-			function onMessage(event) {
-				/* textarea.value += "주문이 완료되었습니다.\n"; */
-				/* alert("주문이 완료되었습니다.\n"); */
-			}
-			function onOpen(event) {
-				/* alert("연결 성공\n"); */
-				send();
-			}
-			function onError(event) {
-				alert(event.data);
-			}
-			function send() {
-				webSocket.send(shopName.val() + ":" + Message);
-				Message = "";
-				
-				$("div[class=modal]").addClass("show-modal");
-				
-				
-				setTimeout(function() {
-					 location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 
-					/* window.location.replace("orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox); */					
-				}, 1000);
-			}
-		}
-	}
-	function reset() {
-		addres = document.getElementById("addres").value ="";
-		phoneNumber = document.getElementById("phoneNumber").value = "";
-		request = document.getElementById("request").value ="";
-		Box = document.getElementById("payType") = "";
-	}
-	function back() {
-		history.back();
-	}
-	
-</script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script	src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../script/scriptAll.js"></script>
 
 <!------ Include the above in your HEAD tag ---------->
 
@@ -187,10 +54,8 @@
 			<tbody>
 			<!-- 반복 돌리기 끝  -->
 			<%
-				int total = 0; //전체값
-				int subTotal =0;
-				Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
-				
+				int total = 0, subTotal =0; //전체값 , 중간 전체값
+				Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();				
 				if(hCart.isEmpty()){
 			%>
 				<tr>
@@ -211,8 +76,7 @@
 					int price = bean.getmPrice(); // 상품 가격
 					int count = order.getCount(); // 주문수량
 					subTotal = count * price; // 상품 총액
-					total += subTotal; // 주문전체 총액
-					
+					total += subTotal; // 주문전체 총액					
 					totalMenu += menuName+",";
 					cnt++;
 			%>
@@ -220,11 +84,11 @@
 					<td class="col-sm-8 col-md-6">
 						<div class="media">
 						<% if(bean.getmImg() != null){ %>
-							<a class="thumbnail pull-left" href="#" style="width: 90px; height: 90px;">
+							<a class="thumbnail pull-left" style="width: 90px; height: 90px;">
 								<img class="media-object" src="../img/menuImg/<%=bean.getmImg() %>" style="width: 72px; height: 72px;">
 							</a>
 						<% } else{ %>
-							<a class="thumbnail pull-left" href="#" style="width: 90px; height: 90px;">
+							<a class="thumbnail pull-left" style="width: 90px; height: 90px;">
 								<img class="media-object" src="../img/menuImg/ready.gif" style="width: 72px; height: 72px;">
 							</a>
 						<% } %>
@@ -314,7 +178,6 @@
 					<td align="right">
 						<button type="button" class="btn btn-primary" onclick="javascript:back()">뒤&nbsp;로</button>
 						<button type="button" id="notibutton" class="btn btn-primary" onclick="javascript:order()">주문하기</button>
-						<!-- <button class="trigger">이메일 보내기</button> -->
 					</td>
 					<td></td>
 					<td></td>
@@ -357,23 +220,19 @@
 	</div>
 </div>
 <script type="text/javascript">
+	var modal = document.querySelector(".modal");
+    var closeButton = document.querySelector(".close-button");
+    var cancelButton = document.querySelector("#cancel");
 
- 			var modal = document.querySelector(".modal");
-// 			var trigger = document.querySelector(".trigger");
-		    var closeButton = document.querySelector(".close-button");
-		    var cancelButton = document.querySelector("#cancel");
-
-		    function toggleModal() {
-		        modal.classList.toggle("show-modal");
-		    }
-		    function windowOnClick(event) {
-		        if (event.target === modal) {
-		            toggleModal();
-		        }
-		    }
-// 		    trigger.addEventListener("click", toggleModal);
-		    closeButton.addEventListener("click", toggleModal);
-		    cancel.addEventListener("click", toggleModal);
-		    window.addEventListener("click", windowOnClick); 
-		
+    function toggleModal() {
+        modal.classList.toggle("show-modal");
+    }
+    function windowOnClick(event) {
+        if (event.target === modal) {
+            toggleModal();
+        }
+    }
+    closeButton.addEventListener("click", toggleModal);
+    cancel.addEventListener("click", toggleModal);
+    window.addEventListener("click", windowOnClick); 		
 </script>

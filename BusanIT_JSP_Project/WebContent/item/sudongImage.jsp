@@ -1,10 +1,3 @@
-<!-- 
-	테스트용
-	1. 팀장
-	2. 190501 - MenuList 작업
-	3. 목록을 보기 위해 따로 테스트하는 곳
- -->
-
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <html>
 <head>

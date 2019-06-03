@@ -40,8 +40,7 @@
 	nowBlock = (int) Math.ceil((double)nowpage / pagePerBlock);
 	// 현재 총 게시물 : ?개, 총 페이지 수 : ?개
 	//out.println("총 게시물 수" + totalsize + " 총 페이지수" + totalPage + "현재 블럭" + nowBlock);
-	//페이징 & 블럭처리 종료
-	
+	//페이징 & 블럭처리 종료	
 %>
 <jsp:include page="designForm.jsp" />
 
@@ -55,13 +54,11 @@
 		document.readFrm.nowPage.value = <%= pagePerBlock %> * (block-1) + 1;
 		document.readFrm.submit();
 	}
-	
 	function storeInfo(store) {
 		location.href = "privateShop.jsp?store="+store;
-	}
+	}	
 </script>
-			<%
-				// 반환된 게시물 을 벡터로 저장
+			<%// 반환된 게시물 을 벡터로 저장
 				Vector<menu_listBean> list = mgr.ShopSelect(menu, start, end);
 				int listSize = list.size();
 				if(list.isEmpty()){%>
@@ -74,11 +71,14 @@
 							<td colspan="3" style="text-align: center"><span>Copyright Your Website 2019</span></td>
 						</tr>
 					</table>
-					
 				<%}else{%>
 					<table style="margin-left: 150px;">
 					<tr style="height: 70px;">
-						<td colspan="3" style="text-align: center;"><h3 style="color:#486CDA"><strong><%= menu %></strong></h3></td>
+						<td colspan="3" style="text-align: center;">
+							<h3 style="color:#486CDA">
+								<strong><%= menu %></strong>
+							</h3>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="3">총 가게 수 : <%=totalsize%> 개 
@@ -90,8 +90,7 @@
 						<td style="text-align: right; color:black">거리순</td>
 						<td style="text-align: right; color:black">평점순</td>
 					</tr>
-					<%
-						for(int i = 0; i < list.size(); ++i){
+					<% for(int i = 0; i < list.size(); ++i){
 							menu_listBean bean = list.get(i);
 							/* String StoreCond = bean.getStoreCond(); // 카테고리 */
 							String StoreImage = bean.getRestImg(); // 가게 대표 이미지
@@ -99,17 +98,18 @@
 							String StoreAddrs1 = bean.getStoreaddr1(); //도로명주소
 							String tel = bean.getTel(); //전화번호
 							String BestMenu = bean.getBestmenu();
-						%>
-
+					%>
 					<tr>
 						<td rowspan="3" width="140px" height="130px" align="center">
 							<% if(StoreImage == null){%>
-							<img alt="이미지준비중" width="100px" height="100px" src="../img/menuImg/ready.gif">
+								<img alt="이미지준비중" width="100px" height="100px" src="../img/menuImg/ready.gif">
 							<%}else{%>
 								<img alt="이미지준비중" width="100px" height="100px" src="../img/storeImage/<%=StoreImage%>">
 							<%}%>
 						</td>
-						<td colspan="2"><a href="javascript:storeInfo('<%= StoreName %>')"><%= StoreName %></a></td>
+						<td colspan="2">
+							<a href="javascript:storeInfo('<%= StoreName %>')"><%= StoreName %></a>
+						</td>
 					</tr>
 
 					<tr style="color:black">
@@ -120,24 +120,20 @@
 					<tr>
 						<td colspan="2">대표메뉴 : <%= BestMenu %></td>
 					</tr>
-					<%}%>
-					
+					<%}%>					
 					<tr>
 						<td colspan="3" style="text-align: center">
 							<%
 							// 페이징에 표시될 시작변수 및 마지막 변수
 							int pageStart = (nowBlock - 1) * pagePerBlock + 1;
 							int pageEnd = ((pageStart+pagePerBlock)<=totalPage)?(pageStart+pagePerBlock):totalPage+1;
-							if (totalPage != 0) {
-							%>
+							if (totalPage != 0) {%>
 							
 							<!-- 이전블럭 -->
 							<% if (nowBlock > 1) { %>
 								<a href="javascript:block(<%= nowBlock-1%>)">이전</a> <%} %>
 							<!-- 페이징 -->
-							<%
-								for (; pageStart<pageEnd;pageStart++) {
-							%> 
+							<% for (; pageStart<pageEnd;pageStart++) { %> 
 								<a href="javascript:paging(<%= pageStart %>)">
 							<% if (nowpage == pageStart) { %> <font color="red"> <%} %>
 								[<%= pageStart %>]
@@ -152,24 +148,22 @@
 						<% } %>
 						</td>
 					</tr>
+					
 					<tr height="100px">
 					</tr>
+					
 					<tr height="100px">
 						<td colspan="3" style="text-align: center"><span>Copyright &copy; Your Website 2019</span></td>
 					</tr>
+					
 					<%}%>
 				</table>
 				
 				<form name="readFrm">
-					<input type="hidden" name="totalsize" value="<%= totalsize%>" />
-					<input type="hidden" name="nowPage" value="<%= nowpage%>" />					
+					<input type="hidden" name="totalsize" value="<%= totalsize %>" />
+					<input type="hidden" name="nowPage" value="<%= nowpage %>" />					
 					<input type="hidden" name="menu" value="<%= menu %>" />				
 				</form>
-				<p />
-				
-			</div>
-			<!-- 메인 부분 안에 버튼식 부분 종료 -->
-		</div>
-	</div>
+				<p/>
 	<!-- 오른쪽 메인 부분 종료 -->
 </body>

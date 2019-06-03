@@ -4,13 +4,13 @@
 <%@page import="menu.ordersBean"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mgr" class="menu.ordersMgr" />
-
 <%
+	String businessName = (String) session.getAttribute("name");
 	request.setCharacterEncoding("EUC-KR");
+	int month = Integer.parseInt(request.getParameter("month"));
 	int year = Integer.parseInt(request.getParameter("year"));
 	int subtotal, yeartotal = 0;
-	int card = 0, cash = 0, directpay = 0, month = 0;
-	String businessName = (String) session.getAttribute("name");
+	int card = 0, cash = 0, directpay = 0;
 	/* 소켓을 위하여 세션 값 저장 */
 	session.setAttribute("shop", businessName);
 	if (businessName == null) {
@@ -188,11 +188,8 @@
 				</div>
 			</div>
 		</div>
+		<!-- footer include -->
+		<jsp:include page="../Merchant/footer.jsp" />
 	</div>
 </body>
-
-
-<!-- footer include -->
-<jsp:include page="../Merchant/footer.jsp" />
-
 </html>

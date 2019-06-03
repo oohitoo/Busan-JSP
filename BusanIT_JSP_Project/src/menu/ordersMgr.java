@@ -203,7 +203,7 @@ public class ordersMgr {
 		}
 		return vlist;
 	}
-
+	//林巩惑技郴开
 	public Vector<ordersBean> orderDetail(String id,String oDate){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -248,7 +248,28 @@ public class ordersMgr {
 		}
 		return vlist;
 	}
-
+	//林巩 秒家
+	public boolean orderCancle(String id, String odate) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "delete from orders where id =? and odate =?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, odate);
+			if(pstmt.executeUpdate()==1)
+				flag = true;		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return flag;
+	}
+	
 	public Vector<ordersBean> orderListMain(String ShopName){
 		Connection conn = null;
 		PreparedStatement psmt = null;

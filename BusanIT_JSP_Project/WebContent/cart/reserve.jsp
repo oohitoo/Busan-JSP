@@ -28,34 +28,8 @@
 		<%
 	}
 %>
-<script>
-	function menulist(menu) {
-		console.log(menu);
-		location.href = 'item/itemProc.jsp?menu=' + menu;
-	}
-	function check() {
-		
-		if(document.getElementsByName('name')[0].value <= 1){
-			document.reserve.name.focus();
-			return ;
-		}
-		if(document.getElementsByName('cPhone')[0].value <= 1){
-			document.reserve.cPhone.focus();
-			return ;
-		}
-		if(document.getElementsByName('oDate')[0].value <= 1){
-			document.reserve.oDate.focus();
-			return ;
-		}
-		if(document.getElementsByName('oRequest')[0].value <= 1){
-			document.reserve.oRequest.focus();
-			return ;
-		}
-		document.reserve.submit();
-	}
-</script>
-
 <jsp:include page="designForm.jsp"/>
+<script src="../script/scriptAll.js"></script>
 
 <div class="container">
 	<div class="row">
@@ -149,7 +123,7 @@
 							<input type="hidden" name="rName" value="<%=shop%>" />
 							<input type="hidden" name="id" value="<%=id%>" /> 
 							<input type="hidden" name="cNick" value="<%=lBean.getcNick()%>" />
-							<input type="button" class="btn btn-primary btn-md" value="예약하기" onclick="check()"></td>
+							<input type="button" class="btn btn-primary btn-md" value="예약하기" onclick="javascript:check()"></td>
 					</tr>
 				</table>
 			</form>

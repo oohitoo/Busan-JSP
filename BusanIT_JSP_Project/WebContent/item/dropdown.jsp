@@ -9,9 +9,7 @@
 <%@page import="review.reviewMgr"%>
 <%@page import="review.reviewBean"%>
 <%@page import="java.util.Vector"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
-
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <jsp:useBean id="mgr" class="review.reviewMgr" />
 <jsp:useBean id="bean" class="review.reviewBean" />
 <%
@@ -54,28 +52,9 @@
 <!-- 메뉴를 가져와야함 -->
 <jsp:useBean id="menuMgr" class="menu.menuMgr" />
 
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
-<%-- <!-- 리뷰단  -->
-<link href="style.css" rel="stylesheet" type="text/css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-BootStrap CDN
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> --%>
-
-<!-- 리뷰 종료 -->
 
 <style>
 .sectiondropdown {
@@ -355,26 +334,23 @@ h3 {
 			<tr>
 				<td colspan="3">
 					<table style="width: 600px; margin-left: 50px; margin-top: 50px;">
-						<tr>
-							
+						<tr>							
 							<td width="300px" style="text-align: center;">
-								<font color="white"><a href="../cart/reserve.jsp" class="btn btn-primary"> 예약</a></font>
+								<font color="white">
+									<a href="../cart/reserve.jsp" class="btn btn-primary">예약</a>
+								</font>
 							</td>
 							<td width="300px" style="text-align: center;">
-								<a href="../cart/cartView.jsp" class="btn btn-primary"> 배달</a>
+								<a href="../cart/cartView.jsp" class="btn btn-primary">배달</a>
 							</td>
 						</tr>
 					</table>
-				
 				</td>
 			</tr>
 			<!-- 예약 배달 버튼  끝-->
 			<tr>
-
-				<!-- 대표메뉴 -->
-			<tr>
 				<td colspan="3">
-						<jsp:include page="../review/review.jsp" />
+					<jsp:include page="../review/review.jsp" />
 				</td>
 			</tr>
 		</table>
@@ -382,6 +358,4 @@ h3 {
 </div>
 
 <script src="https://use.fontawesome.com/9bc7fc2951.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"
-	integrity="sha256-WyjlLy3rvVSitHOXMctYkMCOU6GAletPg+qniNKLCQM="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"	integrity="sha256-WyjlLy3rvVSitHOXMctYkMCOU6GAletPg+qniNKLCQM="	crossorigin="anonymous"></script>

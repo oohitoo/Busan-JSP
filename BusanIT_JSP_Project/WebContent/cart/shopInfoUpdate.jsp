@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%@page import="shoplogin.loginBean"%>
 <jsp:useBean id="mgr" class="shoplogin.loginMgr" />
 <jsp:useBean id="ordersMgr" class="menu.ordersMgr" />
@@ -13,8 +14,6 @@ if(businessName==null){
 		<%
 	}
 %>
-<!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <html>
 <head>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">

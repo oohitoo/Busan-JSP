@@ -14,9 +14,9 @@
 	String id = (String)session.getAttribute("idKey");
 	String oDate = request.getParameter("oDate");
 	Vector<ordersBean> list = mgr.orderDetail(id,oDate);
-	String  orderType=null;
+	String  orderType=null,oRequest=null, orderStatus = null;
 	int totalPrice = 0;
-	String oRequest=null;
+	
 	
 	
 %>
@@ -24,6 +24,9 @@
 <script>
 	function back() {
 		history.back();
+	}
+	function no(oDate) {
+		location.href = "orderdetailProc.jsp?oDate=" + oDate;
 	}
 </script>
 
@@ -60,7 +63,7 @@
 		orderType = bean.getOrderType();
 		totalPrice += bean.getTotalPrice();
 		oRequest = bean.getoRequest();
-		
+		orderStatus = bean.getOrderStatus();
 		
 %>
 					<tr>
@@ -100,17 +103,18 @@
 						<td align="center" ><h4> <strong><%=UtilMgr.monFormat(totalPrice)+"원"  %></strong></h4></td>
 					</tr>
 					<tr>
-					<td align="right">
+						<td align="right">
 						<button type="button" class="btn btn-primary" onclick="javascript:back()" style="cursor:pointer">뒤&nbsp;로</button>
-						
-					</td>
-					<td></td>
-					<td></td>
-					<td></td>
-				
+						<%if(orderStatus.equals("1")){
+						%>
+							<button type="button" class="btn btn-primary" onclick="javascript:no('<%=oDate%>')" style="cursor:pointer">취&nbsp;소</button>
+						<% } %>		
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
 				</tr>
 				</tbody>
-			
 			</table>
 		</div>
 	</div>

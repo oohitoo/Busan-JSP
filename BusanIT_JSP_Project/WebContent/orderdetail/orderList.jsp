@@ -60,12 +60,9 @@
 						<th class="text-center">가격</th>
 					</tr>
 				</thead>
-
 				<tbody>
-
 					<%
 						//얻은 오더넘버로 주문목록 정보 얻기
-						
 						Vector<ordersBean> list = mgr.orderList(id, end);
 						if (list.isEmpty()) {
 					%>
@@ -89,12 +86,8 @@
 									oDate = bean.getoDate();
 									j = j + 1;
 								}
-								
-								
-						
 					%>
-					<tr class="edit" id="detail" onclick="javascript:no('<%=oDate%>')"
-						style="cursor: pointer">
+					<tr class="edit" id="detail" onclick="javascript:no('<%=oDate%>')" style="cursor: pointer">
 						<td id="no" class="text-center"><%=j%></td>
 						<td id="name" class="text-center"><%=bean.getoDate().substring(5, 7) + "월 " + bean.getoDate().substring(8, 10) + "일"%></td>
 						<td id="mobile" class="text-center"><%=bean.getrName()%></td>

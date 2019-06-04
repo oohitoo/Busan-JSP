@@ -17,6 +17,7 @@ function check() {
 		return;
 	}
 	document.delFrm.submit();
+}
 </script>
 <style>
 table.type03 {

@@ -1,295 +1,271 @@
 <%@page import="review.reviewMgr"%>
 <%@page import="review.reviewBean"%>
 <%@page import="java.util.Vector"%>
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mgr" class="review.reviewMgr" />
 <jsp:useBean id="bean" class="review.reviewBean" />
 
 <%
-	request.setCharacterEncoding("UTF-8");
-	int totalRecord = 0; //ì´ ê²Œì‹œë¬¼ ìˆ˜
-	int numPerPage = 5; //í˜ì´ì§€ë‹¹ ë ˆì½”ë“œ ìˆ˜ 5,10,15,30
-	int pagePerBlock = 15; //ë¸”ëŸ­ë‹¹ í˜ì´ì§€ ìˆ˜
-	int totalPage = 0; //ì´ í˜ì´ì§€ ìˆ˜=(ì˜¬ë¦¼)ì´ê²Œì‹œë¬¼ìˆ˜ / í˜ì´ì§€ë‹¹ ë ˆì½”ë“œ ìˆ˜		
-	int totalBlock = 0; //ì´ ë¸”ëŸ­ ìˆ˜=(ì˜¬ë¦¼) ì´ í˜ì´ì§€ìˆ˜ / ë¸”ëŸ­ë‹¹ í˜ì´ì§€ìˆ˜ 
-	int nowPage = 1; //í˜„ì¬ í˜ì´ì§€
-	int nowBlock = 1; //í˜„ì¬ ë¸”ëŸ­
+  request.setCharacterEncoding("EUC-KR");
+	String shopName = request.getParameter("store");
+/*   int totalRecord = 0; //ÃÑ °Ô½Ã¹° ¼ö */
+  int numPerPage = 15; //ÆäÀÌÁö´ç ·¹ÄÚµå ¼ö 5,10,15,30
+/*   int pagePerBlock = 15; //ºí·°´ç ÆäÀÌÁö ¼ö
+  int totalPage = 0; //ÃÑ ÆäÀÌÁö ¼ö=(¿Ã¸²)ÃÑ°Ô½Ã¹°¼ö / ÆäÀÌÁö´ç ·¹ÄÚµå ¼ö    
+  int totalBlock = 0; //ÃÑ ºí·° ¼ö=(¿Ã¸²) ÃÑ ÆäÀÌÁö¼ö / ºí·°´ç ÆäÀÌÁö¼ö 
+  int nowPage = 1; //ÇöÀç ÆäÀÌÁö
+  int nowBlock = 1; //ÇöÀç ºí·° */
 
-	int num = 0;
-	String id = null;
-	String subject = null;
-	String content = null;
-	String regdate = null;
-	
-	//í•œí˜ì´ì§€ì— ë³´ì—¬ì§ˆ ê²Œì‹œë¬¼ ê°¯ìˆ˜
-	if (request.getParameter("numPerPage") != null && !request.getParameter("numPerPage").equals("null")) {
-		numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
-	}
+  int num = 0;
+  String content = null;
+  String regdate = null;
+  
+  //ÇÑÆäÀÌÁö¿¡ º¸¿©Áú °Ô½Ã¹° °¹¼ö
+  if (request.getParameter("numPerPage") != null && !request.getParameter("numPerPage").equals("null")) {
+    numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
+  }
+ /* 
+  totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
 
-	totalPage = (int) Math.ceil((double) totalRecord / numPerPage);
+  totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock);
 
-	totalBlock = (int) Math.ceil((double) totalPage / pagePerBlock);
-
-	nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock);
+  nowBlock = (int) Math.ceil((double) nowPage / pagePerBlock);
+   */ 
+  String rid  = (String)session.getAttribute("idKey");
+  
+  
 %>
 <!-- <html>
 <head>
 <title></title> -->
-<link href="style.css" rel="stylesheet" type="text/css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+ --><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-<%-- BootStrap CDN --%>
-<!-- Latest compiled and minified CSS -->
-<!-- <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
-<!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-		
+    
 
-	
-		function pageing(page){
-			document.readFrm.nowPage.value=page;
-			document.readFrm.submit();
-		}
-
-		function block(block){
-			document.readFrm.nowPage.value=<%=pagePerBlock%>*(block-1)+1;
-			document.readFrm.submit();
-			}
-		function numPerFn(numPerPage){
-			document.readFrm.numPerPage.value=numPerPage;
-			document.readFrm.submit();
-			
-		}
-		function reviewInsert(){
-			document.insert.action="insertreview.jsp";
-			document.insert.submit();
-			
-		}	
-		function reviewDelete(number){
-			location.href ="reviewDelete.jsp?rnum="+number;
-			
-		}
-		function reviewRead(){
-			document.read.action="reviewRead.jsp";
-			document.read.submit();
-			
-		}
-		
+  
+<%--     function pageing(page){
+      document.readFrm.nowPage.value=page;
+      document.readFrm.submit();
+    }
+function block(block){
+      document.readFrm.nowPage.value=<%=pagePerBlock%>*(block-1)+1;
+      document.readFrm.submit();
+      }
+    function numPerFn(numPerPage){
+      document.readFrm.numPerPage.value=numPerPage;
+      document.readFrm.submit();
+      
+    } --%>
+    function reviewInsert(){
+      if(document.insert.rContent.value==""){
+        alert("³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.");
+        document.insert.rContent.focus();
+        return;
+      }
+      document.insert.action="../review/reviewInsert.jsp";      
+    }  
+    function reviewDelete(number){
+      location.href ="../review/reviewDelete.jsp?rnum="+number;
+    }
+     function doDisplay(i){
+          var con = document.getElementById("myDIV"+i);
+          if(con.style.display=='block'){
+              con.style.display = 'none';
+          }else{
+              con.style.display = 'block';
+          }
+      } 
 </script>
+<style>
+table.type04 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+  margin : 20px 10px;
+}
+table.type04 th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+table.type04 td {
+    width: 250px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+table.type03 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    margin: 20px 10px;
+}
+table.type03 th {
+  width: 80px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #efefef;;
+
+}
+table.type03 td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+</style>
 </head>
+
 <body>
-	<div class="container">
-		<table class="table">
-			<thead>
-				<tr class="info">
-					<th></th>
-					<th>ID</th>
-					<th>Title</th>
-					<th>ë‚´ìš©</th>
-					<th></th>
-					<th>ë³„ì </th>
-					<th>ì‘ì„±ì¼</th>
-				</tr>
-			</thead>
+    <p>
+    <table align="center">
+    <form method="post" name="insert">
+      <table>
+      <th>
+      <img src="../img/Logo_21.png" width= "height=66px">
+      </th>
+      <th>
+      <textarea style="width:700px ; height:66px" name="rContent"></textarea>
+      </th>
+      </table>
+      <div class="radio" align="center">
+          <p>
+          <label class="radio-inline">
+            <input type="radio" name="rStar" id="rStar" value="1" checked="checked">¡Ú¡Ù¡Ù¡Ù¡Ù</label> 
+            <label class="radio-inline"> 
+            <input type="radio" name="rStar" id="rStar" value="2">¡Ú¡Ú¡Ù¡Ù¡Ù</label> 
+            <label class="radio-inline"> 
+            <input type="radio" name="rStar" id="rStar" value="3">¡Ú¡Ú¡Ú¡Ù¡Ù</label> 
+            <label class="radio-inline"> 
+            <input type="radio" name="rStar" id="rStar" value="4">¡Ú¡Ú¡Ú¡Ú¡Ù</label> 
+            <label class="radio-inline"> 
+            <input type="radio" name="rStar" id="rStar" value="5">¡Ú¡Ú¡Ú¡Ú¡Ú</label>
+        </p>
+          <p><input type="image" src="../img/review.png" width="700px" height="50" value="content" onClick="javascript:reviewInsert()"></p>
+      </div>
+        <div align="center">
+        <%
+          Vector<reviewBean> vlist = mgr.reviewList(shopName);
+          int listSize = vlist.size();
+          if (vlist.isEmpty()) {
+            out.println("µî·ÏµÈ ¸®ºä°¡ ¾ø½À´Ï´Ù");
 
-			<tbody>
-				<!--ë¦¬ìŠ¤íŠ¸-->
+          } else {
+        
+        %>
+        </div>
+
+     <input type="hidden" name="rId">
+     <input type="hidden" name="rregdate">
+     </form>
+
+	<table class="type04" align="center">
+			<div class="btn-group">
 				<%
-					Vector<reviewBean> vlist = mgr.reviewList();
-					int listSize = vlist.size();
-					if (vlist.isEmpty()) {
-						out.println("ë“±ë¡ëœ ë¦¬ë·°ê°€ ì—†ìŠµë‹ˆë‹¤");
+        
+          for (int i = 0; i < numPerPage; i++) {
+              if (i == listSize)
+                break;
+              reviewBean pbean = vlist.get(i);
+              int rnum = pbean.getrNum();
+              String rId = pbean.getrId();
+              int rStar = pbean.getrStar();
+              String rcontent = pbean.getrContent();
+              String rregdate = pbean.getrRegdate();
+        %>
 
-					} else {
-				%>
-
-				<%
-					for (int i = 0; i < numPerPage; i++) {
-							if (i == listSize)
-								break;
-							reviewBean pbean = vlist.get(i);
-							int rnum = pbean.getrNum();
-							String rid = pbean.getrId();
-							String rsubject = pbean.getrSubject();
-							int rStar = pbean.getrStar();
-							String rcontent = pbean.getrContent();
-							String rregdate = pbean.getrRegdate();
-				%>
+				<!-- ¸®ºä ½ÃÀÛ -->
+				<div id="js-load" class="main">
+					<tr class="text-primary lists__item js-load"">
 				<tr>
-					<td><%=rnum%></td>
-					<td><%=rid%></td>					
-					<td><a data-toggle="modal" data-target="#myModal<%=rnum%>"<%-- onclick="review_read(${review_Bean.review_num})">${review_Bean.review_title} --%>>
-					<%=rsubject%></a>
-					<td><%=rcontent%></td>
-					<td>
-						<%if(rStar==1){ %><td>â˜…â˜†â˜†â˜†â˜†</td><%} %>
-						<%if(rStar==2){ %><td>â˜…â˜…â˜†â˜†â˜†</td><%} %>
-						<%if(rStar==3){ %><td>â˜…â˜…â˜…â˜†â˜†</td><%} %>
-						<%if(rStar==4){ %><td>â˜…â˜…â˜…â˜…â˜†</td><%} %>
-						<%if(rStar==5){ %><td>â˜…â˜…â˜…â˜…â˜…</td><%} %>			
+					<td><img src="../img/Logo_21.png" width="height=66px"></td>
+					<td><%=rId%></td>
+
+					<!-- drop down -->
+					<td><a href="javascript:doDisplay(<%=i%>);"> <nobr
+								style="display:block; text-overflow:ellipsis; width:80px; overflow:hidden"><%=rcontent %></nobr>
+					</a>
+						<div id="myDIV<%=i %>" style="display: none;">
+							<p><%=rcontent %></p>
+						</div> <%if(rStar==1){ %>
+					<td>¡Ú¡Ù¡Ù¡Ù¡Ù</td>
+					<%} %>
+					<%if(rStar==2){ %><td>¡Ú¡Ú¡Ù¡Ù¡Ù</td>
+					<%} %>
+					<%if(rStar==3){ %><td>¡Ú¡Ú¡Ú¡Ù¡Ù</td>
+					<%} %>
+					<%if(rStar==4){ %><td>¡Ú¡Ú¡Ú¡Ú¡Ù</td>
+					<%} %>
+					<%if(rStar==5){ %><td>¡Ú¡Ú¡Ú¡Ú¡Ú</td>
+					<%} %>
 					</td>
-					<td><%=rregdate%></td>
+					<td><%=rregdate%>&nbsp;<input type="image"
+						src="../img/delete.png" value="content"
+						onClick="javascript:reviewDelete(<%=rnum%>)"></td>
 				</tr>
-					
-			<!-- ì‘ì„±í˜ì´ì§€ -->
-			
-			<div class="modal fade" id="myModal<%=rnum%>" role="dialog">
-
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-	
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Review Detail</h4>
-					</div>
-						<div class="modal-body">						
-							<textarea rows="10" class="form-control" readonly="readonly"
-								id="content"><%=rcontent%></textarea>
-							<!-- readonly ->ì½ê¸°ì „ìš© -->						
-						</div>
-					<form class="form-horizontal" role="form" name="reviewDelete()" method="post">
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" onclick="javascript:reviewDelete(<%=rnum%>)">Delete
-							</button>											
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-
-						</div>
-					</form>
-
+				<div id="js-btn-wrap" class="btn-wrap">
+					<a href="javascript:;" class="button">´õº¸±â</a>
 				</div>
-
 			</div>
-		</div>
-					<%}%>
-
-					<%}%>
-			</tbody>
-
-		</table>
-		<!-- ë²„íŠ¼-->
-		<div class="col-sm-2"></div>
-		<div class="col-sm-4 text-success" style="text-align: right;">
-			<button type="button" class="btn btn-success btn-lg"
-				data-toggle="modal" data-target="#myModal">Write</button>
-		</div>
-		
-		<!-- ì‘ì„±í˜ì´ì§€ -->
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog modal-lg">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-
-					<div class="modal-body">
-
-						<div class="panel-group">
-							<div class="panel panel-success" style="margin-top: 10px;">
-								<div class="panel-heading">Goods Review</div>
-								<div class="panel-body">
-									<%-- form --%>
-									
-									<form class="form-horizontal" role="form" action="reviewInsert.jsp" method="post" accept-charset="UTF-8">
-									<div class="form-group">
-											<label class="control-label col-sm-2">ì‘ì„±ì(ID):</label>
-											<div class="col-sm-10">
-												<input class="form-control" id="rId" name="rId"
-													placeholder="ID">
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="control-label col-sm-2" for="pwd" onClick="javascript:subject()">ì œëª©:</label>
-											<div class="col-sm-10">
-												<input class="form-control" id="rSubject"
-													name="rSubject" placeholder="Title">
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="control-label col-sm-2" for="pwd">ë‚´ìš©:</label>
-											<div class="col-sm-10">
-												<textarea class="form-control" rows="5"
-													placeholder="content" name="rContent" id="rContent"></textarea>
-											</div>
-										</div>
-										<div class="radio" align="center">
-											<label class="radio-inline"> <input type="radio" name="rStar" id="rStar" value="1" checked="checked">â˜…â˜†â˜†â˜†â˜†</label>
-							                  <label class="radio-inline"> <input type="radio" name="rStar" id="rStar" value="2">â˜…â˜…â˜†â˜†â˜†</label>
-							                  <label class="radio-inline"> <input type="radio" name="rStar" id="rStar" value="3">â˜…â˜…â˜…â˜†â˜†</label>
-							                  <label class="radio-inline"> <input type="radio" name="rStar" id="rStar" value="4">â˜…â˜…â˜…â˜…â˜†</label>
-							                  <label class="radio-inline"> <input type="radio" name="rStar" id="rStar" value="5">â˜…â˜…â˜…â˜…â˜…</label>										
-										</div>
-										&nbsp
-									 		
-
-										<!-- <div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<div class="radio">
-								
-									<label class="radio-inline"> <input type="radio" name="review_star" id="review_star" value="1" checked="checked">â˜…â˜†â˜†â˜†â˜†</label>
-									<label class="radio-inline"> <input type="radio" name="review_star" id="review_star" value="2">â˜…â˜…â˜†â˜†â˜†</label>
-									<label class="radio-inline"> <input type="radio" name="review_star" id="review_star" value="3">â˜…â˜…â˜…â˜†â˜†</label>
-									<label class="radio-inline"> <input type="radio" name="review_star" id="review_star" value="4">â˜…â˜…â˜…â˜…â˜†</label>
-									<label class="radio-inline"> <input type="radio" name="review_star" id="review_star" value="5">â˜…â˜…â˜…â˜…â˜…</label>
-									
-								</div>
-							</div>
-						</div> -->
-										<div class="form-group">
-											<div class="col-sm-offset-2 col-sm-10">
-												<button type="submit" class="btn btn-success">ì‘ ì„±</button>
-												<button type="reset" class="btn btn-danger">ì´ˆê¸°í™”</button>
-											</div>
-										</div>
-										<input type="hidden" name="num" value="<%=num %>"> 
-									 		<input type="hidden" name="id" value="<%=id %>"> 
-									 		<input type="hidden" name="subject" value="<%=subject %>"> 
-									 		<input type="hidden" name="content" value="<%=content %>"> 
-									 		<input type="hidden" name="regdate" value="<%=regdate %>"> 
-									</form>
-
-
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-
 			</div>
-		</div>
+        <!-- ¸®ºä ³¡ -->
+        
+        <%}%>
+        </div>
+        </table>
+        <%
+        	}
+        %>
 
-		<!-- detail -->
 
-		
-		
-	
-
-		<form name="listFrm" method="post">
-			<input type="hidden" name="reload" value="true"> <input
-				type="hidden" name="nowPage" value="1">
-		</form>
-		<!--ReadFrm  -->
-		<form name="readFrm">
-			<input type="hidden" name="num"> <input type="hidden"
-				name="nowPage" value="<%=nowPage%>"> 
-				<input type="hidden"name="numPerPage" value="<%=numPerPage%>">
-		</form>
-	</div>
+    </table>
+    <form name="listFrm" method="post">
+      <input type="hidden" name="reload" value="true"> <input
+        type="hidden" name="nowPage" value="1">
+    </form>
+    <!--ReadFrm  -->
+    <form name="readFrm">
+      <input type="hidden" name="num"><%--  <input type="hidden"
+        name="nowPage" value="<%=nowPage%>"> --%>
+         <input type="hidden"
+        name="numPerPage" value="<%=numPerPage%>">
+    </form>
+    
+      
+    <script>
+  $(window).on('load', function () {
+	    load('#js-load', '5');
+	    $("#js-btn-wrap .button").on("click", function () {
+	        load('#js-load', '5', '#js-btn-wrap');
+	    })
+	});
+	 
+	function load(id, cnt, btn) {
+	    var girls_list = id + " .js-load:not(.active)";
+	    var girls_length = $(girls_list).length;
+	    var girls_total_cnt;
+	    if (cnt < girls_length) {
+	        girls_total_cnt = cnt;
+	    } else {
+	        girls_total_cnt = girls_length;
+	        $('.button').hide()
+	    }
+	    $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
+	}
+  </script>
 </body>
 </html>

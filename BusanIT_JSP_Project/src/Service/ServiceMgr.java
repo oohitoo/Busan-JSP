@@ -24,7 +24,7 @@ public class ServiceMgr {
 		}
 		
 		//Service Insert : 
-		public void insertService(HttpServletRequest req) {
+		public void insertService(HttpServletRequest req, String id) {
 			Connection 					con 		= null;
 			PreparedStatement 	pstmt 	= null;
 			ResultSet 					rs 		= null;
@@ -58,9 +58,9 @@ public class ServiceMgr {
 						ref = rs.getInt(1) + 1; //현재 저장된 num값을 1씩 증가시켜 ref 값으로 리턴.
 					/////////////////////////////////
 					sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip)";
-					sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?)";
+                    sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?)";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, multi.getParameter("sname"));
+					pstmt.setString(1, id);
 					pstmt.setString(2, content);
 					pstmt.setString(3, multi.getParameter("subject"));
 					pstmt.setInt	  (4, ref);

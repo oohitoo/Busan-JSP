@@ -4,7 +4,6 @@ public class reviewBean {
 	
 		private int rNum;
 		private String rId;
-		private String rSubject;
 		private String rContent;
 		private String rRegdate;
 		private int rStar;
@@ -19,12 +18,6 @@ public class reviewBean {
 		}
 		public void setrId(String rId) {
 			this.rId = rId;
-		}
-		public String getrSubject() {
-			return rSubject;
-		}
-		public void setrSubject(String rSubject) {
-			this.rSubject = rSubject;
 		}
 		public String getrContent() {
 			return rContent;

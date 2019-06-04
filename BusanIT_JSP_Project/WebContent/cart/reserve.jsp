@@ -29,7 +29,32 @@
 	}
 %>
 <jsp:include page="designForm.jsp"/>
-<script src="../script/scriptAll.js"></script>
+<script>
+function menulist(menu) {
+	console.log(menu);
+	location.href = 'item/itemProc.jsp?menu=' + menu;
+}
+function check() {
+	
+	if(document.getElementsByName('name')[0].value <= 1){
+		document.reserve.name.focus();
+		return ;
+	}
+	if(document.getElementsByName('cPhone')[0].value <= 1){
+		document.reserve.cPhone.focus();
+		return ;
+	}
+	if(document.getElementsByName('oDate')[0].value <= 1){
+		document.reserve.oDate.focus();
+		return ;
+	}
+	if(document.getElementsByName('oRequest')[0].value <= 1){
+		document.reserve.oRequest.focus();
+		return ;
+	}
+	document.reserve.submit();
+}
+</script>
 
 <div class="container">
 	<div class="row">

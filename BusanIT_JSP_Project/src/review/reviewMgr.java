@@ -16,12 +16,11 @@ import java.util.Vector;
 			String sql = null;
 			try {
 				con = pool.getConnection();
-				sql = "insert review_table(rId,rSubject,rContent,rRegdate,rStar) values(?,?,?,now(),?) ";
+				sql = "insert review_table(rId,rContent,rRegdate,rStar) values(?,?,now(),?) ";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getrId());
-				pstmt.setString(2, bean.getrSubject());
-				pstmt.setString(3, bean.getrContent());
-				pstmt.setInt(4, bean.getrStar());
+				pstmt.setString(2, bean.getrContent());
+				pstmt.setInt(3, bean.getrStar());
 				pstmt.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -46,7 +45,6 @@ import java.util.Vector;
 					reviewBean bean = new reviewBean();
 					bean.setrNum(rs.getInt("rNum"));
 					bean.setrId(rs.getString("rId"));
-					bean.setrSubject(rs.getString("rSubject"));
 					bean.setrContent(rs.getString("rContent"));
 					bean.setrRegdate(rs.getString("rRegdate"));
 					bean.setrStar(rs.getInt("rStar"));
@@ -94,7 +92,6 @@ import java.util.Vector;
 				if(rs.next()){
 					bean.setrNum(rs.getInt("rNum"));
 					bean.setrId(rs.getString("rId"));
-					bean.setrSubject(rs.getString("rSubject"));
 					bean.setrContent(rs.getString("rContent"));
 					bean.setrRegdate(rs.getString("rRegdate"));
 					bean.setrStar(rs.getInt("rStar"));

@@ -38,7 +38,6 @@
 </script>
 </head>
 <body>
-<%if(session.getAttribute("idKey")==name) %>
 <div align="center"><br/><br/>
 	<table width="100%" cellspacing="0" cellpadding="3">
 		<tr>

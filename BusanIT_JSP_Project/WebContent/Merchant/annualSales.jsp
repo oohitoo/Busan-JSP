@@ -77,7 +77,7 @@
 											onclick="javascript:previous('<%=year%>')">이&nbsp;전&nbsp;년&nbsp;도</button>
 									</div>
 								</td>
-								<td colspan="4"><h2 align="center"><%=year%>년 월별 매출 조회</h2></td>
+								<td colspan="4"><h2 align="center"><%=year%>년 매출 조회</h2></td>
 								<td>
 									<div style="float: right; margin-right: 50px;">
 										<button type="button" class="btn btn-primary"

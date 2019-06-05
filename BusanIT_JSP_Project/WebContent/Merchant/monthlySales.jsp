@@ -43,7 +43,7 @@
 			previous_month = 12;
 			previous_year = int_year - 1
 		}
-		location.href = "monthlySales.jsp?year=" + previous_year + "&month="
+		location.href = "dailysales.jsp?year=" + previous_year + "&month="
 				+ previous_month;
 	}
 	function next(year, month) {
@@ -55,14 +55,14 @@
 			next_month = 1;
 			previous_year = int_year + 1
 		}
-		location.href = "monthlySales.jsp?year=" + previous_year + "&month="
+		location.href = "dailysales.jsp?year=" + previous_year + "&month="
 				+ next_month;
 	}
 	function main() {
 		location.replace("shopMain.jsp");
 	}
 	function no(year, month,day) {
-		location.href = "monthlySales.jsp?year=" + year + "&month=" + month +"&day=" + day;
+		location.href = "dailysales.jsp?year=" + year + "&month=" + month +"&day=" + day;
 
 	}
 </script>
@@ -95,7 +95,7 @@
 									</div>
 								</td>
 								<td colspan="4">
-									<h2 align="center"><%=year%>년 <%=month%>월 일별 매출 조회
+									<h2 align="center"><%=year%>년 <%=month%>월 매출 조회
 									</h2>
 								</td>
 								<td>

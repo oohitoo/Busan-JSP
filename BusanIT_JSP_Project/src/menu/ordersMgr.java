@@ -102,6 +102,41 @@ public class ordersMgr {
 		}
 	}
 
+	//일 매출 조회
+		public Vector<ordersBean> dailySales(String shopName, int day, int month,int year){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<ordersBean> vlist = new Vector<ordersBean>();
+			try {
+				con = pool.getConnection();
+				sql = "SELECT onum, o.menu,o.orderType, o.oDate, m.mPrice,count, (m.mprice * count) subtotal FROM orders o, menu m WHERE o.menu = m.Menu AND o.rname IN (?) AND YEAR(odate) = ? AND MONTH(odate) = ? AND DAY(odate) = ? group by odate ORDER BY odate;";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, shopName);
+				pstmt.setInt(2, year);
+				pstmt.setInt(3, month);
+				pstmt.setInt(4, day);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean oBean = new ordersBean();
+					oBean.setoNum(rs.getString(1));
+					oBean.setMenu(rs.getString(2));
+					oBean.setOrderType(rs.getString(3));
+					oBean.setoDate(rs.getString(4));
+					oBean.setmPrice(rs.getInt(5));
+					oBean.setCount(rs.getInt(6));
+					oBean.setTotalPrice(rs.getInt(7));
+					vlist.addElement(oBean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return vlist;
+		}
+	
 	//예약할 내용 예약테이블에 데이터 추가
 	public boolean insertreserve(ordersBean bean) {
 		Connection con = null;
@@ -160,50 +195,51 @@ public class ordersMgr {
 	}
 
 	//주문 내역들 가져오기 (위에서 가져온 주문번호로..)
-	public Vector<ordersBean> orderList(String id, int end){
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		Vector<ordersBean> vlist = new Vector<ordersBean>();
-		try {
-			con = pool.getConnection();
-			sql = "select o.*, m.mPrice, (m.mPrice * o.count) totalPrice  "
-					+ "from menu m, orders o "
-					+ "where m.rName = o.rName and id=? and o.menu = m.menu order by odate desc, mPrice desc limit 0,?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setInt(2, end);
+		public Vector<ordersBean> orderList(String id, int end){
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<ordersBean> vlist = new Vector<ordersBean>();
+			try {
+				con = pool.getConnection();
+				sql = "select o.*, m.mPrice, (m.mPrice * o.count) totalPrice  "
+						+ "from menu m, orders o "
+						+ "where m.rName = o.rName and id=? and o.menu = m.menu order by odate desc, mPrice desc limit 0,?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.setInt(2, end);
 
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				ordersBean pBean = new ordersBean();
-				pBean.setoNum(rs.getString(1));
-				pBean.setId(rs.getString(2));
-				pBean.setcNick(rs.getString(3));
-				pBean.setcAddress(rs.getString(4));
-				pBean.setrName(rs.getString(5));
-				pBean.setcPhone(rs.getString(6));
-				pBean.setMenu(rs.getString(7));
-				pBean.setCount(rs.getInt(8));
-				pBean.setoDate(rs.getString(9));
-				pBean.setoRequest(rs.getString(10));
-				pBean.setOrderType(rs.getString(11));
-				pBean.setOrderStatus(rs.getString(12));
-				pBean.setmPrice(rs.getInt(13));
-				pBean.setTotalPrice(rs.getInt(14));
-				vlist.addElement(pBean);
-			} //--while
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ordersBean pBean = new ordersBean();
+					pBean.setoNum(rs.getString(1));
+					pBean.setId(rs.getString(2));
+					pBean.setcNick(rs.getString(3));
+					pBean.setcAddress(rs.getString(4));
+					pBean.setrName(rs.getString(5));
+					pBean.setcPhone(rs.getString(6));
+					pBean.setMenu(rs.getString(7));
+					pBean.setCount(rs.getInt(8));
+					pBean.setoDate(rs.getString(9));
+					pBean.setoRequest(rs.getString(10));
+					pBean.setOrderType(rs.getString(11));
+					pBean.setOrderStatus(rs.getString(12));
+					pBean.setmPrice(rs.getInt(13));
+					pBean.setTotalPrice(rs.getInt(14));
+					vlist.addElement(pBean);
+				} //--while
 
-		}//--try
-		catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
+			}//--try
+			catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return vlist;
 		}
-		return vlist;
-	}
-	//주문상세내역
+		
+	//주문 상세 정보
 	public Vector<ordersBean> orderDetail(String id,String oDate){
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -248,7 +284,7 @@ public class ordersMgr {
 		}
 		return vlist;
 	}
-	//주문 취소
+
 	public boolean orderCancle(String id, String odate) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -280,13 +316,51 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=1 or orderStatus=2 or orderStatus=3 or orderStatus=5) order by oDate desc";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (1,2,3,5) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				ordersBean oBean = new ordersBean();
 				oBean.setoNum(rs.getString("oNum"));
+				oBean.setCount(rs.getInt("count"));
+				oBean.setId(rs.getString("id"));
+				oBean.setcNick(rs.getString("cNick"));
+				oBean.setcAddress(rs.getString("cAddress"));
+				oBean.setrName(rs.getString("rName"));
+				oBean.setcPhone(rs.getString("cPhone"));
+				oBean.setMenu(rs.getString("menu"));
+				oBean.setoDate(rs.getString("oDate"));
+				oBean.setoRequest(rs.getString("oRequest"));
+				oBean.setOrderType(rs.getString("orderType"));
+				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
+				olist.addElement(oBean);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			pool.freeConnection(conn, psmt, rs);
+		}
+		return olist;
+	}
+
+	public Vector<ordersBean> orderListOrderDetail(String oNum){
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql;
+		Vector<ordersBean> olist = new Vector<>();
+		try {
+			conn = pool.getConnection();
+			sql = "select * from orders where oNum = ? GROUP BY orders.oNum";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, oNum);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				ordersBean oBean = new ordersBean();
 				oBean.setCount(rs.getInt("count"));
 				oBean.setId(rs.getString("id"));
 				oBean.setcNick(rs.getString("cNick"));
@@ -308,7 +382,7 @@ public class ordersMgr {
 		}
 		return olist;
 	}
-
+	
 	//주문 List 가게 이름에 따라 불러오기(shopPaidList Page)
 	public Vector<ordersBean> orderPaidList(String ShopName){
 		Connection conn = null;
@@ -320,7 +394,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=1) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (1) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -338,6 +412,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -360,7 +436,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=4) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (4) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -378,6 +454,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -400,7 +478,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=5) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (5) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -418,6 +496,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -440,7 +520,7 @@ public class ordersMgr {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from orders where rName=? AND (orderStatus=6) order by oDate";
+			sql = "select o.*,m.mPrice, (m.mprice * o.count) subtotal from orders o,menu m where o.menu = m.menu and o.rName = ? AND orderstatus in (6) GROUP BY o.oNum order by oDate DESC";
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, ShopName);
 			rs = psmt.executeQuery();
@@ -458,6 +538,8 @@ public class ordersMgr {
 				oBean.setoRequest(rs.getString("oRequest"));
 				oBean.setOrderType(rs.getString("orderType"));
 				oBean.setOrderStatus(rs.getString("orderStatus"));
+				oBean.setmPrice(rs.getInt("mPrice"));
+				oBean.setTotalPrice(rs.getInt("subtotal"));
 				olist.addElement(oBean);
 			}
 		}catch(Exception e){
@@ -614,6 +696,35 @@ public class ordersMgr {
 
 		}//--try
 		catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	
+	public Vector<ordersBean> menuList(String oNum){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<ordersBean> vlist = new Vector<ordersBean>();
+		try {
+			con = pool.getConnection();
+			sql = "select o.menu, count, m.mprice, (m.mprice * count) subtotal from orders o, menu m where oNum =? and o.menu = m.menu group by o.menu";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, oNum);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ordersBean mBean = new ordersBean();
+				mBean.setMenu(rs.getString(1));
+				mBean.setCount(rs.getInt(2));
+				mBean.setmPrice(rs.getInt(3));
+				mBean.setTotalPrice(rs.getInt(4));
+				vlist.addElement(mBean);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt, rs);

@@ -40,6 +40,19 @@ if(businessName==null){%>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Custom styles for this template -->
 <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+<style>
+.hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
+.input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.btn-file{overflow:hidden;position:relative;vertical-align:middle;}.btn-file>input{position:absolute;top:0;right:0;margin:0;opacity:0;filter:alpha(opacity=0);transform:translate(-300px, 0) scale(4);font-size:23px;direction:ltr;cursor:pointer;}
+.fileupload{margin-bottom:9px;}.fileupload .uneditable-input{display:inline-block;margin-bottom:0px;vertical-align:middle;cursor:text;}
+.fileupload .thumbnail{overflow:hidden;display:inline-block;margin-bottom:5px;vertical-align:middle;text-align:center;}.fileupload .thumbnail>img{display:inline-block;vertical-align:middle;max-height:100%;}
+.fileupload .btn{vertical-align:middle;}
+.fileupload-exists .fileupload-new,.fileupload-new .fileupload-exists{display:none;}
+.fileupload-inline .fileupload-controls{display:inline;}
+.fileupload-new .input-append .btn-file{-webkit-border-radius:0 3px 3px 0;-moz-border-radius:0 3px 3px 0;border-radius:0 3px 3px 0;}
+.thumbnail-borderless .thumbnail{border:none;padding:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
+.fileupload-new.thumbnail-borderless .thumbnail{border:1px solid #ddd;}
+</style>
 <script>
 function noEvent() { // 새로 고침 방지
     if (event.keyCode == 116) {
@@ -136,7 +149,15 @@ function del(idx){
 					      <td><input type="text" name="category" class="form-control"></td>
 					      <td><input type="text" name="mPrice" class="form-control"></td>
 					      <td><input type="text" name="mInfo" class="form-control"></td>
-					      <td><input type="file" name="mImg" class="upload-hidden" ></td>
+					      <td>
+							  	<div class="fileupload fileupload-new" data-provides="fileupload">
+							    <span class="btn btn-primary btn-file">
+							    <span class="fileupload-new">사진올리기</span>
+							    <span class="fileupload-exists">사진 설정완료</span>         
+							    <input type="file" />
+							    </span>
+							  	</div>
+						  </td>
 					      <input type="hidden" name="rName" value="<%=businessName %>">
 					      <td><button type="submit" class="btn btn-success" value="항목추가"> + </button></td>
 					   </tr>

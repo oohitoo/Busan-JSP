@@ -64,7 +64,7 @@
 	</li>
 	
 	<li class="nav-item active">
-	<a class="nav-link" href="monthsales.jsp?year=<%=year%>">
+	<a class="nav-link" href="annualSales.jsp?year=<%=year%>">
 		 <span>매출 조회</span>
 	</a>
 	</li>

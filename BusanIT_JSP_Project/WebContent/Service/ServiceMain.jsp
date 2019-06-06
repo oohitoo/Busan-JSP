@@ -75,9 +75,7 @@
 	}
 
 	function block(block) {
-		document.readFrm.nowPage.value =
-<%=pagePerBlock%>
-	* (block - 1) + 1;
+		document.readFrm.nowPage.value = <%=pagePerBlock%> * (block - 1) + 1;
 		document.readFrm.submit();
 	}
 	function check() {
@@ -126,9 +124,6 @@ body { background: #fff; }
 .blueone tr:hover td {
   color: #004;
 }
-
-
-
 </style>
 </head>
 <body>
@@ -147,10 +142,9 @@ body { background: #fff; }
 						int listSize = vlist.size();
 						if (vlist.isEmpty()) {
 							out.println("등록된 게시물이 없습니다");
-
 						} else {
 					%>
-					<table class="blueone" height="30"><!--  cellspacing="0" class="table table-striped" -->
+					<table class="blueone" height="30">
 					<thead class="head">                
 						<tr class="text-primary" align="center">
 							<th width="120" >번 호</th>
@@ -159,19 +153,19 @@ body { background: #fff; }
 							<th width="180">날 짜</th>
 							<th width="130">조회수</th>
 						</tr>
-						</thead>
-						
+						</thead>						
 						<%
 							for (int i = 0; i < numPerPage; i++) {
-									if (i == listSize)
-										break;
-									ServiceBean bean = vlist.get(i);
-									int num = bean.getsNum();
-									String subject = bean.getSubject();
-									String name = (String)session.getAttribute("idKey");
-									String regdate = bean.getRegdate();
-									int depth = bean.getDepth();
-									int count = bean.getCount();
+								if (i == listSize)
+									break;
+								ServiceBean bean = vlist.get(i);
+								int num = bean.getsNum();
+								String subject = bean.getSubject();
+								/* String name = (String)session.getAttribute("idKey"); */
+								String name = bean.getsName();
+								String regdate = bean.getRegdate();
+								int depth = bean.getDepth();
+								int count = bean.getCount();
 						%>
 						<tbody class="body">
 						<tr align="center">
@@ -179,17 +173,17 @@ body { background: #fff; }
 							<td align="left">
 								<%
 									if (depth > 0) {
-												for (int j = 0; j < depth; j++) {
-													out.println("&nbsp;&nbsp;");
-												}
-											}
-								%> <a href="javascript:read('<%=num%>')"><%=subject%></a> 
+										for (int j = 0; j < depth; j++) {
+											out.println("&nbsp;&nbsp;");
+										}
+									}
+								%> 
+								<a href="javascript:read('<%=num%>')"><%=subject%></a> 
 							</td>
 							<td><%=name%></td>
 							<td><%=regdate%></td>
 							<td><%=count%></td>
-							<%}%>
-						
+							<%}%>						
 					</table> 
 					<%}%>
 				</td>
@@ -197,7 +191,7 @@ body { background: #fff; }
 			</tbody>
 			
 			<tfoot class="foot">
-						<tr>
+			<tr>
 				<td colspan="2" align="center">
 				<br />
 				<br />
@@ -215,18 +209,13 @@ body { background: #fff; }
 				 %> 
 				 <!-- 이전블럭 --> 
 				 <%
-				 if (nowBlock > 1)
-				 {
+					 if (nowBlock > 1) {
 				%> 
 				<a href="javascript:bloc('<%=nowBlock - 1%> ')">prev...</a> 
 				<%}%>&nbsp; <!-- 페이징 -->
-					<%for (; pageStart < pageEnd; pageStart++) 
-					{
-					%> 
+					<%for (; pageStart < pageEnd; pageStart++) { %> 
 					<a href="javascript:pageing('<%=pageStart%>')"> 
-					<%
-				 	if (nowPage == pageStart) 
-				 	{
+					<% if (nowPage == pageStart) {
 				 %>
 					<font color="red">
 					<%}%> 
@@ -241,58 +230,52 @@ body { background: #fff; }
 					&nbsp;
 					 <!-- 다음블럭 --> 
 					 <%
-				 	if (totalBlock > nowBlock) 
-				 	{
+				 	if (totalBlock > nowBlock) {
 				 	  %>
-			<a href="javascript:block('<%=nowBlock + 1%>')">...next</a> <%
-			 	}
+						<a href="javascript:block('<%=nowBlock + 1%>')">...next</a> <%
+			 		}
 			 %><!-- if -->
-					<%
-						}
-					%><!--  if-->
-					
+					<%}	%><!--  if-->
 				</td>
 				</tfoot>
-			<td align="right">
-				<a href="post.jsp">
-				<input type="button" class="btn btn-primary" value="글쓰기">
-				</a>
-			</td>
-		</table>
-		<form name="searchFrm" method="post" action="ServiceMain.jsp">
-			<table class="type09" border="0" width="900" align=center
-				cellpadding="4" cellspacing="0">
-				<tr>
-					<!--검색줄-->
-					<td align="center" valign="bottom">
-						<!-- 셀렉트 박스 --> <select name="keyField" size="1">
-							<option value="subject">제 목</option>
-							<option value="content">내 용</option>
-					</select> <input size="30" name="keyWord"> 
-					<input type="button" value="찾기" onClick="javascript:check()"> 
-						<input type="hidden" name="nowPage" value="1">
+				
+					<td align="right">
+						<a href="post.jsp">
+							<input type="button" class="btn btn-primary" value="글쓰기">
+						</a>
 					</td>
-				</tr>
 			</table>
-		</form>
+			
+			<form name="searchFrm" method="post" action="ServiceMain.jsp">
+				<table class="type09" border="0" width="900" align=center
+					cellpadding="4" cellspacing="0">
+					<tr>
+						<!--검색줄-->
+						<td align="center" valign="bottom">
+							<!-- 셀렉트 박스 --> <select name="keyField" size="1">
+								<option value="subject">제 목</option>
+								<option value="content">내 용</option>
+						</select> <input size="30" name="keyWord"> 
+						<input type="button" value="찾기" onClick="javascript:check()"> 
+							<input type="hidden" name="nowPage" value="1">
+						</td>
+					</tr>
+				</table>
+			</form>
 		<hr width="750" />
 
 		<form name="listFrm" method="post">
-			<input type="hidden" name="reload" value="true"> <input
-				type="hidden" name="nowPage" value="1">
+			<input type="hidden" name="reload" value="true">
+			<input type="hidden" name="nowPage" value="1">
 		</form>
 
 		<form name="readFrm">
-
-			<input type="hidden" name="num"> <input type="hidden"
-				name="nowPage" value="<%=nowPage%>"> <input type="hidden"
-				name="keyField" value="<%=keyField%>"> <input
-				type="hidden" name="keyWord" value="<%=keyWord%>"> <input
-				type="hidden" name="numPerPage" value="<%=numPerPage%>">
+			<input type="hidden" name="num">
+			<input type="hidden" name="nowPage" value="<%=nowPage%>">
+			<input type="hidden" name="keyField" value="<%=keyField%>">
+			<input type="hidden" name="keyWord" value="<%=keyWord%>">
+			<input type="hidden" name="numPerPage" value="<%=numPerPage%>">
 		</form>
 	</div>
-
-
 </body>
-
 </html>

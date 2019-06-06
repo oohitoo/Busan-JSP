@@ -27,6 +27,38 @@ public class menuMgr {
 		pool = DB.DBConnectionMgr.getInstance();
 	}
 	
+	public Vector<menu_listBean> ShopImg(String shop){
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		ResultSet rs = null;
+		String sql;
+		
+		Vector<menu_listBean> vlist = new Vector<menu_listBean>();
+		
+		try {
+			conn = pool.getConnection();
+			sql = "select * from menu_list where bsnsNm = ?";
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, shop);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				menu_listBean bean = new menu_listBean();
+				bean.setRestImg(rs.getString("restImg"));
+				vlist.addElement(bean);
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			pool.freeConnection(conn, psmt, rs);
+		}
+		
+		return vlist;
+	}
+	
 	public Vector<menu_listBean> ShopSelect(String menu, int start, int end){
 		Connection conn = null;
 		PreparedStatement psmt = null;

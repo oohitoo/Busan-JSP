@@ -54,22 +54,69 @@ function creatdelete(menu, num) {
 	location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=del&count="+count; 
 }
 
+
+function reset() {
+	addres = document.getElementById("addres").value ="";
+	phoneNumber = document.getElementById("phoneNumber").value = "";
+	request = document.getElementById("request").value ="";
+	Box = document.getElementById("payType") = "";
+}
+function back() {
+	history.back();
+}
+
+
+$(window).load(function(event) {
+	var counts; /* = document.getElementById('count1'); // 수량 */ 
+	var price; // 가격 
+	var subtotal =0;
+	var size = document.getElementById('size').value;
+	
+	
+	for (var i = 1; i <= size; i++) {
+		counts = document.getElementById('count'+ i); // 수량 
+		//price = document.getElementsByTagName('strong')[i - 1].innerText; // 가격
+		//console.log(counts+eval(i).value);
+		
+		$(counts).change(function(event) {
+			subtotal = 0;	
+			for( var j = 1 ; j <=size ; j++){
+				counts = document.getElementById('count'+ j); // 수량
+				price = document.getElementsByTagName('strong')[j - 1].innerText; // 가격
+				
+				
+				subtotal = subtotal + counts.value * price; // subTotal 값
+				function addComma(num) {
+					  var regexp = /\B(?=(\d{3})+(?!\d))/g;
+					  return num.toString().replace(regexp, ',');
+					}
+				$('#total').html("<h3>"+addComma(subtotal)+"원"+"</h3>");
+				$('#minimum').text(addComma(subtotal)+"원");
+				$('.totals').text(addComma(subtotal)+"원");
+				document.getElementById('minimum').value = subtotal; 
+			}			
+		});
+		
+	}
+});
 /* Order proc로 넘기기 */
 function order() {
 	/*  1. 테이블의 td는 tageName으로 자르기 
 			2. split을 이용하여 자른다.
 			3. 출력한다.
 	 */
-	var str = document.getElementById("minimum").value;
-	var strsplit = str.split(',');
-	if(parseInt(strsplit[0]) <= "13"){
+	/* var str = document.getElementById("minimum").value; */
+	var str = $('#minimum').val();
+	console.log(eval(str));
+	
+	if (eval(str) <= 14000){
 		var popupX = (window.screen.width / 2);
 		var popupY = (window.screen.height / 2);
 		
 		url = "orderMinium.html";
 		window.open(url, "orderMinium", "width=400, height=190, resizable=no, left="+ popupX + ",top="+ popupY);
-	}
-	else{
+		
+	}else{
 
 		var addres = document.getElementById("addres").value;
 		var phoneNumber = document.getElementById("phoneNumber").value;
@@ -115,16 +162,8 @@ function order() {
 				location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 					
 			}, 1000);
 		}
+		
 	}
-}
-function reset() {
-	addres = document.getElementById("addres").value ="";
-	phoneNumber = document.getElementById("phoneNumber").value = "";
-	request = document.getElementById("request").value ="";
-	Box = document.getElementById("payType") = "";
-}
-function back() {
-	history.back();
 }
 </script>
 
@@ -147,7 +186,7 @@ function back() {
 			<!-- 반복 돌리기 끝  -->
 			<%
 				int total = 0, subTotal =0; //전체값 , 중간 전체값
-				Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();				
+				Hashtable<String, menu.ordersBean> hCart = cMgr.getCartList();
 				if(hCart.isEmpty()){
 			%>
 				<tr>
@@ -156,6 +195,7 @@ function back() {
 			<% }else{			
 				// 줄줄이 사탕 객체
 				Enumeration<String> hCartKey = hCart.keys();
+				
 				// 요소 값이 더이상 있을때 까지
 				while(hCartKey.hasMoreElements()){
 					
@@ -195,7 +235,7 @@ function back() {
 								</h5>
 								<span>배달 예정 시간 :</span>
 									<span class="text-success">
-										<strong>50분</strong>
+										<b>50분</b>
 									</span>
 							</div>
 						</div>
@@ -262,8 +302,10 @@ function back() {
 					<td></td>					
 					<td>주문금액</td>
 					<td class="text-right">
-						<input type="hidden" id="minimum" size="20" value="<%= UtilMgr.monFormat(total) %>">
-						<h3><%= UtilMgr.monFormat(total) %> 원</h3>
+ 						<input type="hidden" id="minimum" size="20" value="<%= UtilMgr.monFormat(total) %>"> 
+						<%-- <input type="text"  class="form-control" id="minimum" size="20" value="<%= UtilMgr.monFormat(total) %>"> --%>
+						<%-- <h3 id="total"><%= UtilMgr.monFormat(total) %>원</h3> --%>
+						<div id="total"><h3><%= UtilMgr.monFormat(total) %>원</h3></div> 
 					</td>
 				</tr>
 				<tr>
@@ -277,6 +319,8 @@ function back() {
 				</tr>				
 				<% } // else 끝 %>
 				<input type="hidden" id="shopName" value="<%= shop %>">
+				<!-- 총 몇개의 메뉴인가? -->
+				<input type="hidden" id = "size" value="<%=hCart.size()%>">
 			</tbody>
 		</table>
 		<!--  팝업 될 레이어 -->
@@ -302,7 +346,7 @@ function back() {
 					<tr>
 						<td width="100px" align="center">주문 금액</td>
 						<td>:</td>
-						<td colspan="2"style="padding-left: 20px"><%= UtilMgr.monFormat(total) %> 원</td>
+						<td class="totals" colspan="2"style="padding-left: 20px"><%= UtilMgr.monFormat(total) %>원</td>
 					</tr>
 				</table>
 				<!-- window 클릭시 발생하는 거임 -->

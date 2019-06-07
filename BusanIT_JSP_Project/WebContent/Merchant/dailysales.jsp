@@ -173,7 +173,7 @@
 									<%
 											for (int j = 0; j < mlist.size(); j++) {
 													ordersBean mbean = mlist.get(j);
-										%> <%=UtilMgr.monFormat(mbean.getmPrice())%><br> <%}%>
+										%> <%=UtilMgr.monFormat(mbean.getmPrice())%>원<br> <%}%>
 								</td>
 								<td>
 									<%
@@ -185,7 +185,7 @@
 									<%
 											for (int j = 0; j < mlist.size(); j++) {
 													ordersBean mbean = mlist.get(j);
-										%> <%=UtilMgr.monFormat(mbean.getTotalPrice())%> <br> <% totalprice += mbean.getTotalPrice();
+										%> <%=UtilMgr.monFormat(mbean.getTotalPrice())%>원 <br> <% totalprice += mbean.getTotalPrice();
  										}%>
 								</td>
 
@@ -193,7 +193,7 @@
 								<%
 										
 									%>
-								<td><font color="#3a3b45"><b><%=UtilMgr.monFormat(totalprice)%></b></font></td>
+								<td><font color="#3a3b45"><b><%=UtilMgr.monFormat(totalprice)%>원</b></font></td>
 							</tr>
 							<%
 									dailytotal += totalprice;
@@ -202,7 +202,7 @@
 								%>
 							<tr class="impact">
 								<td align="center">합계</td>
-								<td colspan="7" align="center"><%=UtilMgr.monFormat(dailytotal)%>원</td>
+								<td colspan="8" align="center"><%=UtilMgr.monFormat(dailytotal)%>원</td>
 							</tr>
 						</table>
 					</div>

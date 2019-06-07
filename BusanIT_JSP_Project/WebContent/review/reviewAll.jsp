@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@page import="review.reviewMgr"%>
 <%@page import="review.reviewBean"%>
 <%@page import="java.util.Vector"%>
@@ -17,13 +23,9 @@
   String rid  = (String)session.getAttribute("idKey");
   
 %>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
+<jsp:include page="designForm.jsp" />
 <script type="text/javascript">
     
     function reviewInsert(){
@@ -79,33 +81,36 @@ table.type04 td{
 }
 </style>
 </head>
+<div class="container-fluid">
+<div class="panel panel-success" style="margin-left: 10px; margin-top: 50px; width: 850px;">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-3">
+					<h2 class="text-center pull-left" style="padding-left: 30px; color:black">
+						<span style=" color: navy"><strong>주문 내역</strong></span>
+					</h2>
+				</div>
 
-<body>
-    <p>
-        <div align="center">
-        <%
-          Vector<reviewBean> vlist = mgr.reviewList(shopName);
-          int listSize = vlist.size();
-          if (vlist.isEmpty()) {
-            out.println("등록된 리뷰가 없습니다");
-
-          } else {
-        
-        %>
-        </div>
-     
-
+			</div>
+		</div>
 	<table id="js-load" class="type04 main">
-    
-      <%
-        for(int i=0; i<vlist.size(); i++){
-        	 reviewBean pbean = vlist.get(i);
-             int rnum = pbean.getrNum();
-             String id = pbean.getrId();
-             int rStar = pbean.getrStar();
-             String rcontent = pbean.getrContent();
-             String rregdate = pbean.getrRegdate().substring(0, 10);
-             String rNick = pbean.getrNick();
+        <%
+          Vector<reviewBean> vlist = mgr.reviewAll(rid);
+          int listSize = vlist.size();
+          if (vlist.isEmpty()) {%>
+          <tr>
+          	<td>등록된 리뷰가 없습니다</td>
+          </tr>
+          <%} else {%>
+	      <%
+	        for(int i=0; i<vlist.size(); i++){
+	        	 reviewBean pbean = vlist.get(i);
+	             int rnum = pbean.getrNum();
+	             String id = pbean.getrId();
+	             int rStar = pbean.getrStar();
+	             String rcontent = pbean.getrContent();
+	             String rregdate = pbean.getrRegdate().substring(0, 10);
+	             String rNick = pbean.getrNick();
              
         %>
         <tr class="lists__item js-load">
@@ -139,18 +144,8 @@ table.type04 td{
     </tr>
   </table>
     <%} //else%>
-
-    <form name="listFrm" method="post">
-      <input type="hidden" name="reload" value="true"> <input
-        type="hidden" name="nowPage" value="1">
-    </form>
-    <!--ReadFrm  -->
-    <form name="readFrm">
-      <input type="hidden" name="num"><%--  <input type="hidden"
-        name="nowPage" value="<%=nowPage%>"> --%>
-         <%-- <input type="hidden" name="numPerPage" value="<%=numPerPage%>"> --%>
-    </form>
-    
+</div>    
+</div>    
       
 <script>
   $(document).ready(load2());
@@ -170,5 +165,4 @@ table.type04 td{
       $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
   }
   </script>
-</body>
 </html>

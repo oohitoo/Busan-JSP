@@ -28,6 +28,9 @@
 	function no(oDate) {
 		location.href = "orderdetailProc.jsp?oDate=" + oDate;
 	}
+	function review() {
+		location.href = "../review/reviewwrite.jsp";
+	}
 </script>
 
 <!------ Include the above in your HEAD tag ---------->
@@ -100,7 +103,7 @@
 					<tr>
 						<td>요청 사항  :  <%=oRequest %></td>
 						<td colspan="2"><h4>주문금액</h4></td>
-						<td align="center" ><h4> <strong><%=UtilMgr.monFormat(totalPrice)+"원"  %></strong></h4></td>
+						<td align="center" ><h4><strong><%=UtilMgr.monFormat(totalPrice)+"원"  %></strong></h4></td>
 					</tr>
 					<tr>
 						<td align="right">
@@ -108,7 +111,7 @@
 						<%if(orderStatus.equals("1")){
 						%>
 							<button type="button" class="btn btn-primary" onclick="javascript:no('<%=oDate%>')" style="cursor:pointer">취&nbsp;소</button>
-						<% } %>		
+						<% } %>							
 						</td>
 						<td></td>
 						<td></td>
@@ -116,5 +119,10 @@
 				</tr>
 				</tbody>
 			</table>
+			
+			<% if (orderStatus.equals("4") || orderStatus.equals("6")) {%>
+			<jsp:include page="../review/reviewwrite.jsp" />
+			 
+			<%} %>
 		</div>
 	</div>

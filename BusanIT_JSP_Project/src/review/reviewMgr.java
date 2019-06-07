@@ -10,18 +10,42 @@ import java.util.Vector;
 			pool=DBConnectionMgr.getInstance();
 			
 		}
-		public void insertreview(reviewBean bean, String shopName) {
+		
+		public String getcNick(String rid) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			String name = null;
+			try {
+				con = pool.getConnection();
+				sql = "SELECT cnick FROM customer WHERE id = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, rid);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					name = rs.getString("cnick");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return name;
+		}
+		public void insertreview(reviewBean bean, String shopName, String myNick) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
 			try {
 				con = pool.getConnection();
-				sql = "insert review_table(rId,rContent,rRegdate,rStar,shopName) values(?,?,now(),?,?)";
+				sql = "insert review_table(rId,rContent,rRegdate,rStar,shopName,rNick) values(?,?,now(),?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getrId());
 				pstmt.setString(2, bean.getrContent());
 				pstmt.setInt(3, bean.getrStar());
 				pstmt.setString(4, shopName);
+				pstmt.setString(5, myNick);
 				pstmt.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -48,6 +72,37 @@ import java.util.Vector;
 					bean.setrId(rs.getString("rId"));
 					bean.setrContent(rs.getString("rContent"));
 					bean.setrRegdate(rs.getString("rRegdate"));
+					bean.setrNick(rs.getString("rNick"));
+					bean.setrStar(rs.getInt("rStar"));
+					vlist.addElement(bean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return vlist;
+			
+		}
+		public Vector<reviewBean> reviewAll(String id) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<reviewBean> vlist = new Vector<>();
+			try {
+				con = pool.getConnection();
+				sql = "select * from review_table where rId= ? order by rnum desc";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id); 
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					reviewBean bean = new reviewBean();
+					bean.setrNum(rs.getInt("rNum"));
+					bean.setrId(rs.getString("rId"));
+					bean.setrContent(rs.getString("rContent"));
+					bean.setrRegdate(rs.getString("rRegdate"));
+					bean.setrNick(rs.getString("rNick"));
 					bean.setrStar(rs.getInt("rStar"));
 					vlist.addElement(bean);
 				}
@@ -147,6 +202,8 @@ import java.util.Vector;
 			return count;
 			
 		}
+		
+
 		
 	}
 	

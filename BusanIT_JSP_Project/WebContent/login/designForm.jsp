@@ -147,7 +147,7 @@
 					</li>
 					
 					<li class="nav-item active">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="../review/reviewAll.jsp">
 							<span>¸®ºä °ü¸®</span>
 						</a>
 					</li>	

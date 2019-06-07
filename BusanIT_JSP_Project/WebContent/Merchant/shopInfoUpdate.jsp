@@ -119,6 +119,7 @@ if(businessName==null){
 								<div class="row">
 									<div>
 										<label class=newbtn> 
+										&nbsp;&nbsp;&nbsp;
 										<img id="logo" src="http://placehold.it/60x60" width="60" height="60">
 											<input type="file" name="pic" id="pic" class="pic" onchange="readURL(this);" value="<%=bean.getRestImg()%>">
 										</label>

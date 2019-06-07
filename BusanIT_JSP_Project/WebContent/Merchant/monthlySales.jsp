@@ -184,9 +184,9 @@
 							%>
 							<tr class="impact">
 								<td align="center">합계</td>
-								<td align="center"><%=UtilMgr.monFormat(card)%></td>
-								<td align="center"><%=UtilMgr.monFormat(cash)%></td>
-								<td align="center"><%=UtilMgr.monFormat(directpay)%></td>
+								<td align="center"><%=UtilMgr.monFormat(card)%>원</td>
+								<td align="center"><%=UtilMgr.monFormat(cash)%>원</td>
+								<td align="center"><%=UtilMgr.monFormat(directpay)%>원</td>
 								<td colspan="3" align="center"><%=  UtilMgr.monFormat(yeartotal) %>원</td>
 							</tr>
 						</table>

@@ -142,7 +142,7 @@
 						</a>
 					</li>	
 					<% }else{ %>
-					<!-- Heading -->
+					
 					<div class="sidebar-heading">내정보</div>
 					
 					<!-- Nav Item - Tables -->
@@ -153,10 +153,22 @@
 					</li>
 					
 					<li class="nav-item active">
-						<a class="nav-link" href="#">
-							<span>나의 리뷰 관리</span>
+						<a class="nav-link" href="../review/reviewAll.jsp">
+							<span>리뷰 관리</span>
 						</a>
 					</li>	
+					
+					<li class="nav-item active">
+						<a class="nav-link" href="../orderdetail/orderList.jsp">
+							<span>주문 내역</span>
+						</a>
+					</li>	
+					
+					<li class="nav-item active">
+						<a class="nav-link" href="../orderdetail/reserveList.jsp">
+							<span>예약 내역</span>
+						</a>
+					</li>
 					
 					<hr class="sidebar-divider my-0">
 					

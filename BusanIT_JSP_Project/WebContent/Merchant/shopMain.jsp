@@ -222,8 +222,8 @@ img {
 																ordersBean mbean = mmlist.get(j);
 																menuCombine += mbean.getMenu()+"<br>";															
 																countCombine += mbean.getCount()+"개<br>";															
-																mPriceCombine += mbean.getmPrice()+"원<br>";															
-																subTotalCombine += mbean.getTotalPrice()+"원<br>";															
+																mPriceCombine += NumberFormat.getInstance().format(mbean.getmPrice())+"원<br>";															
+																subTotalCombine += NumberFormat.getInstance().format(mbean.getTotalPrice())+"원<br>";															
 																totalCombine += mbean.getTotalPrice();
 																totalCombineComma = NumberFormat.getInstance().format(totalCombine)+"원";
 															}
@@ -316,7 +316,7 @@ img {
 			<!-- 주문 상세 모달 창 -->
 			<div class="modal-detail" id="orderReceipt">
 				<div class="modal-content-detail">
-					<span class="close-button">&times;</span>
+					<span class="close-button-detail">&times;</span>
 					<h3 id="title" align="center">주문 상세내역</h3>
 					<div id="content">
 					<table border="1" align="center">
@@ -436,6 +436,9 @@ img {
 	}
 	closeButton.addEventListener("click", function toggleModal() {
 		modal.classList.toggle("show-modal");
+		setTimeout(function(){
+			location.reload();
+		}, 100);
 	});
 	closeButton.addEventListener("click", function toggleModalDetail() {
 		modalDetail.classList.toggle("show-modal-detail");
@@ -443,6 +446,9 @@ img {
 	window.addEventListener("click", function windowOnClick(event) {
 		if (event.target === modal) {
 			modal.classList.toggle("show-modal");
+			setTimeout(function(){
+				location.reload();
+			}, 100);
 		}
 	});
 	window.addEventListener("click", function windowOnClick(event) {

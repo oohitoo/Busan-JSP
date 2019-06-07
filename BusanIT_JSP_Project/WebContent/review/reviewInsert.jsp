@@ -13,10 +13,10 @@
 	String regdate = request.getParameter("regdate");   */
 	//System.out.print(bean.getrSubject());
 	String rId = (String)session.getAttribute("idKey");
+	String myNick = mgr.getcNick(rId);
 	String shopName = (String)session.getAttribute("store");
 	bean.setrId(rId);
-	mgr.insertreview(bean, shopName);		
-	
+	mgr.insertreview(bean, shopName, myNick);
 %>
 
 		

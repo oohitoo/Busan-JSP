@@ -3,10 +3,20 @@ package review;
 public class reviewBean {
 	
 		private int rNum;
+		private String rNick;
 		private String rId;
 		private String rContent;
 		private String rRegdate;
 		private int rStar;
+		
+		
+		
+		public String getrNick() {
+			return rNick;
+		}
+		public void setrNick(String rNick) {
+			this.rNick = rNick;
+		}
 		public int getrNum() {
 			return rNum;
 		}

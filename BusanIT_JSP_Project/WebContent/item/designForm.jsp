@@ -1,3 +1,9 @@
+<%
+	response.setHeader("Pragma", "no-cache");
+	if (request.getProtocol().equals("HTTP/1.1")) {
+		response.setHeader("Cache-Control", "no-store");
+	}
+%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <%
 	request.setCharacterEncoding("EUC-KR");
@@ -141,7 +147,7 @@
 					</li>
 					
 					<li class="nav-item active">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="../review/reviewAll.jsp">
 							<span>¸®ºä °ü¸®</span>
 						</a>
 					</li>	

@@ -112,6 +112,7 @@
 						%>
 							<button type="button" class="btn btn-primary" onclick="javascript:no('<%=oDate%>')" style="cursor:pointer">√Î&nbsp;º“</button>
 						<% } %>							
+												
 						</td>
 						<td></td>
 						<td></td>

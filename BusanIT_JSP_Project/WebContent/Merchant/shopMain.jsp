@@ -380,6 +380,7 @@ img {
 	var modal = document.querySelector(".modal");
 	var modalDetail = document.querySelector(".modal-detail");
 	var closeButton = document.querySelector(".close-button");
+	var closeButtonDetail = document.querySelector(".close-button-detail");
 	var webSocket = new WebSocket('ws://' + location.host + '/BusanIT_JSP_Project/broadcasting');
 	var shopName = $("#shopName");
 	webSocket.onerror = function(event) {
@@ -440,7 +441,7 @@ img {
 			location.reload();
 		}, 100);
 	});
-	closeButton.addEventListener("click", function toggleModalDetail() {
+	closeButtonDetail.addEventListener("click", function toggleModalDetail() {
 		modalDetail.classList.toggle("show-modal-detail");
 	});
 	window.addEventListener("click", function windowOnClick(event) {

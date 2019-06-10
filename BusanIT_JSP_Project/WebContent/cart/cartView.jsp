@@ -65,7 +65,7 @@ function back() {
 	history.back();
 }
 
-
+//가격변경 시 주문 금액 바뀌기 
 $(window).load(function(event) {
 	var counts; /* = document.getElementById('count1'); // 수량 */ 
 	var price; // 가격 
@@ -75,13 +75,14 @@ $(window).load(function(event) {
 	
 	for (var i = 1; i <= size; i++) {
 		counts = document.getElementById('count'+ i); // 수량 
-		//price = document.getElementsByTagName('strong')[i - 1].innerText; // 가격
-		//console.log(counts+eval(i).value);
-		
+				
 		$(counts).change(function(event) {
 			subtotal = 0;	
 			for( var j = 1 ; j <=size ; j++){
 				counts = document.getElementById('count'+ j); // 수량
+				if(counts.value > 99) {
+					counts.value = 99;
+				}
 				price = document.getElementsByTagName('strong')[j - 1].innerText; // 가격
 				
 				

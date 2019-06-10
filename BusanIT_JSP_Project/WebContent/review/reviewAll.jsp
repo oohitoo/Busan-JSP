@@ -87,7 +87,7 @@ table.type04 td{
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-3">
 					<h2 class="text-center pull-left" style="padding-left: 30px; color:black">
-						<span style=" color: navy"><strong>林巩 郴开</strong></span>
+						<span style=" color: navy"><strong>府轰 郴开</strong></span>
 					</h2>
 				</div>
 

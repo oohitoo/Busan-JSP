@@ -38,15 +38,16 @@
 
 <script>
 function creatUpdate(menu, num) {
-	var count = document.getElementById("count" + num).value;
-	if(count < 1){
+	/* var count = document.getElementById("count" + num).value; */
+	
+	if(num < 1){
 		alert("최소 1개 이상 주문 할 수 있어요");
 		count =1;
-	}else if(count > 99)	{
+	}else if(num > 99)	{
 		alert("한번에 99개까지 주문 할 수 있어요");
-		count=99;
+		num=99;
 	}else{
-		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count;
+		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+num;
 	}
 }
 function creatdelete(menu, num) {
@@ -70,8 +71,7 @@ $(window).load(function(event) {
 	var counts; /* = document.getElementById('count1'); // 수량 */ 
 	var price; // 가격 
 	var subtotal =0;
-	var size = document.getElementById('size').value;
-	
+	var size = document.getElementById('size').value; //장바구니 메뉴  갯수
 	
 	for (var i = 1; i <= size; i++) {
 		counts = document.getElementById('count'+ i); // 수량 
@@ -83,18 +83,21 @@ $(window).load(function(event) {
 				if(counts.value > 99) {
 					counts.value = 99;
 				}
-				price = document.getElementsByTagName('strong')[j - 1].innerText; // 가격
 				
+				price = document.getElementsByTagName('strong')[j-1].innerText; // 가격
 				
 				subtotal = subtotal + counts.value * price; // subTotal 값
 				function addComma(num) {
 					  var regexp = /\B(?=(\d{3})+(?!\d))/g;
 					  return num.toString().replace(regexp, ',');
-					}
+				}
 				$('#total').html("<h3>"+addComma(subtotal)+"원"+"</h3>");
 				$('#minimum').text(addComma(subtotal)+"원");
 				$('.totals').text(addComma(subtotal)+"원");
-				document.getElementById('minimum').value = subtotal; 
+				document.getElementById('minimum').value = subtotal;
+				$('#count'+j).text(counts.value);
+				document.getElementById('count'+j).value = counts.value;
+ 
 			}			
 		});
 		
@@ -107,7 +110,14 @@ function order() {
 			3. 출력한다.
 	 */
 	/* var str = document.getElementById("minimum").value; */
-	var str = $('#minimum').val();
+	var str = $('#minimum').val(); // totalPrice
+	
+	/* var size = document.getElementById('size').value; //장바구니 메뉴  갯수
+	for (var j = 1 ; j <= size ; j++) {
+		var co = $('#count'+j).val();
+		console.log(co);	
+	} */
+	
 	console.log(eval(str));
 	
 	if (eval(str) <= 14000){
@@ -124,7 +134,7 @@ function order() {
 		var request = document.getElementById("request").value;
 		var Box = document.getElementById("payType");
 		var selectBox = Box.options[Box.selectedIndex].value;
-
+		
 		/* 소켓통신 */
 		var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
 		/* 가게 명  (id)*/
@@ -154,13 +164,25 @@ function order() {
 			alert(event.data);
 		}
 		function send() {
+			
+			var size = document.getElementById('size').value; //장바구니 메뉴  갯수
+			for (var j = 1 ; j <= size ; j++) {
+				var count = $('#count'+j).val();
+				var menu = document.getElementById('menu'+j).innerHTML;
+				creatUpdate(menu, count);
+				console.log(co);	
+			} 
+			
+			
+			
 			webSocket.send(shopName.val() + ":" + Message);
 			Message = "";
+			
 
 			$("div[class=modal]").addClass("show-modal");
 
 			setTimeout(function() {
-				location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 					
+				 location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 				
 			}, 1000);
 		}
 		
@@ -228,7 +250,7 @@ function order() {
 							<div class="media-body">
 								<!-- 메뉴 이름 -->
 								<h4 class="media-heading">
-									<a href="#"><%= menuName %></a> 
+									<span id="menu<%=num%>"><%= menuName %></span> 
 								</h4>
 								<!-- 가게명 -->
 								<h5 class="media-heading">

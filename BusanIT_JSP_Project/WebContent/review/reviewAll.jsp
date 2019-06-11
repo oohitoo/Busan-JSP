@@ -14,13 +14,11 @@
 <%
   	request.setCharacterEncoding("EUC-KR");
 	String shopName = request.getParameter("store");
-
-
-  int num = 0;
-  String content = null;
-  String regdate = null;
-
-  String rid  = (String)session.getAttribute("idKey");
+	
+	int num = 0;
+	String content = null;
+	String regdate = null;
+	String rid  = (String)session.getAttribute("idKey");
   
 %>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -47,6 +45,26 @@
               con.style.display = 'block';
           }
       } 
+     function reviewRevise(number){    	 
+    	 var inputshow = document.getElementById("recontent"+number);
+    	 var inputhidden = document.getElementById("content"+number);
+    	 
+    	 
+    	 
+    	 if ( inputshow.style.display== "none" ){
+    		 //수정화면 보이기 true
+    		 inputhidden.style.display= "none";
+    		 inputshow.style.display= "block";
+    	 } else {
+    		//수정화면 안보이기 false
+    		 inputhidden.style.display= "block";
+    		 inputshow.style.display= "none";
+			 location.href = "reviewUpdate.jsp?rnum="+number+"&content="+inputshow.value;    		 
+    		 /* alert(inputshow.value); // 원래값
+    		 alert("수정완료되었습니다."); */
+    	 }
+    	 
+     }
 </script>
 <style>
 table.type04 {
@@ -94,6 +112,7 @@ table.type04 td{
 			</div>
 		</div>
 	<table id="js-load" class="type04 main">
+	
         <%
           Vector<reviewBean> vlist = mgr.reviewAll(rid);
           int listSize = vlist.size();
@@ -111,18 +130,15 @@ table.type04 td{
 	             String rcontent = pbean.getrContent();
 	             String rregdate = pbean.getrRegdate().substring(0, 10);
 	             String rNick = pbean.getrNick();
+	             num = i;
              
         %>
-        <tr class="lists__item js-load">
-          <td width="70"><img src="../img/Logo_21.png" width="height=66px"></td>    
-          <td style="padding-top: 20px; width:100px;s"><%=rNick%></td>    
-          <td width="322px;">
-					<a href="javascript:doDisplay(<%=i%>);"> 
-						<nobr style="display:block; text-overflow:ellipsis; width:200px; overflow:hidden"><%=rcontent %></nobr>
-					</a>
-					<div id="myDIV<%=i %>" style="display: none;">
-					<p><%=rcontent %></p>
-          </td>    
+        <tr >
+          <td rowspan="2" width="70"><img src="../img/Logo_21.png" width="height=66px" style="padding-top: 18px;"></td>
+          <td colspan="2">
+        		<h4 style="padding-top : 10px"><%=pbean.getShopName() %></h4>
+        	</td>    
+          
           <td>
 					<%if(rStar==1){ %>★☆☆☆☆<%} %>
 					<%if(rStar==2){ %>★★☆☆☆<%} %>
@@ -130,39 +146,25 @@ table.type04 td{
 					<%if(rStar==4){ %>★★★★☆<%} %>
    					<%if(rStar==5){ %>★★★★★<%} %>
           </td>    
-          <td style="width: 120px;" align="right"> <%=rregdate%>&nbsp;</td> 
-          <td>
-          	<% if (rid.equals(pbean.getrId())) { %>          	
-          	<input type="image"	src="../img/delete.png" value="content" onClick="javascript:reviewDelete(<%=rnum%>)">
+          <td style="width: 120px;" align="right"> <%=rregdate%>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2" style="width:65%; padding-bottom: 20px;">
+				<p id="content<%=rnum %>"><%=rcontent %></p>
+				<input id="recontent<%=rnum %>" value="<%=rcontent %>" class="form-control" style="display: none; height : auto">
+          </td> 
+          <td align="center" style="padding-top : 0px;">
+          		<button type="button" id="revise<%= rnum %>" class="btn btn-primary" onClick="javascript:reviewRevise(<%=rnum%>)" style="cursor:pointer">수&nbsp;정</button>	
           </td>
-        	<%}%>
-        <%} %>
-      
-    </tr>
-    <tr id="js-btn-wrap" class="btn-wrap"> 
-    <td align="center"><a href="javascript:load2()" class="button">더보기</a></td> 
-    </tr>
+          <td align="center" style="padding-top : 0px;">
+          		<button type="button" class="btn btn-primary" onClick="javascript:reviewDelete(<%=rnum%>)" style="cursor:pointer">삭&nbsp;제</button>
+          </td>
+        </tr>
+        <%}//--for %>
+
   </table>
     <%} //else%>
 </div>    
 </div>    
-      
-<script>
-  $(document).ready(load2());
-  function load2() {
-      load('#js-load', '5', '#js-btn-wrap');
-  }
-  function load(id, cnt, btn) {
-      var girls_list = id + " .js-load:not(.active)";
-      var girls_length = $(girls_list).length;
-      var girls_total_cnt;
-      if (cnt <= girls_length) {
-          girls_total_cnt = cnt;
-      }else {
-          girls_total_cnt = girls_length;
-          $('.button').hide()
-      }
-      $(girls_list + ":lt(" + girls_total_cnt + ")").addClass("active");
-  }
-  </script>
+
 </html>

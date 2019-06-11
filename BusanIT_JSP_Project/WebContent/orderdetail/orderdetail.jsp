@@ -1,3 +1,4 @@
+<%@page import="review.reviewBean"%>
 <%
 	response.setHeader("Pragma", "no-cache");
 	if (request.getProtocol().equals("HTTP/1.1")) {
@@ -9,6 +10,8 @@
 <%@page import="java.util.Vector"%>
 <%@ page contentType="text/html; charset=EUC-KR"%>
 <jsp:useBean id="mgr" class="menu.ordersMgr" />
+<jsp:useBean id="rmgr" class="review.reviewMgr" />
+<jsp:useBean id="rbean" class="review.reviewBean" />
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String)session.getAttribute("idKey");
@@ -31,6 +34,9 @@
 	function review() {
 		location.href = "../review/reviewwrite.jsp";
 	}
+    function reviewDelete(number){
+        location.href ="../review/reviewDelete.jsp?rnum="+number;
+      }
 </script>
 
 <!------ Include the above in your HEAD tag ---------->
@@ -45,9 +51,11 @@
 				<tr align="center" style="font-size: 2.0em; color: #486CDA;">
 <% 	for(int i=0;i<1;i++){
 			ordersBean obean = list.get(i);
+			
+			session.setAttribute("shop",obean.getrName());
 %>
 					<td style="padding-left:75px"><%=obean.getrName() %></td>
-				</tr>
+				</tr>	
 <% } %>
 			</table>
 			<table class="table table" style="width: 900px;">
@@ -120,10 +128,41 @@
 				</tr>
 				</tbody>
 			</table>
-			
-			<% if (orderStatus.equals("4") || orderStatus.equals("6")) {%>
-			<jsp:include page="../review/reviewwrite.jsp" />
-			 
-			<%} %>
-		</div>
+
+		<% if (orderStatus.equals("4") || orderStatus.equals("6")) {
+					rbean = rmgr.checkReview(id, oDate);
+					if(rbean.getoDate()  != null && rbean.getoDate().equals(oDate)){	 
+			%>
+		<table border="1" id="js-load" class="type04 main" style="margin-left: 12.5%;">
+			<%
+		             int rnum = rbean.getrNum();
+		             int rStar = rbean.getrStar();
+		             String rcontent = rbean.getrContent();
+		             String rregdate = rbean.getrRegdate().substring(0, 10);
+		             String rNick = rbean.getrNick();   
+		    %>
+			<tr class="lists__item js-load">
+				<td width="70"><img src="../img/Logo_21.png" width="height=66px"></td>
+				<td style="width: 100px;" align="center"><%=rNick%></td>
+				<td width="322px;" align="center">
+					<p><%=rcontent %></p>
+				</td>
+				<td>
+					<%if(rStar==1){ %>★☆☆☆☆<%} %> <%if(rStar==2){ %>★★☆☆☆<%} %> <%if(rStar==3){ %>★★★☆☆<%} %>
+					<%if(rStar==4){ %>★★★★☆<%} %> <%if(rStar==5){ %>★★★★★<%} %>
+				</td>
+				<td style="width: 120px;" align="right"><%=rregdate%>&nbsp;</td>
+			</tr>
+			<tr>
+				<td colspan="5" align="center">
+					<button type="button" class="btn btn-primary" onClick="javascript:reviewDelete(<%=rnum%>)" style="cursor:pointer">삭&nbsp;제</button>					
+				</td>
+			</tr>
+		</table>
+		<%}else { %>
+					<jsp:include page="../review/reviewwrite.jsp" />
+		<%	}//--리뷰작성 확인 if
+				}//--배달상태 확인 if
+		%>
+	</div>
 	</div>

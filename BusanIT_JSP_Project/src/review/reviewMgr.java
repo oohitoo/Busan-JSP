@@ -3,6 +3,8 @@ package review;
 import java.sql.*;
 import java.util.Vector;
 
+import login.LoginBean;
+
 	public class reviewMgr{
 		private DBConnectionMgr pool;
 		
@@ -33,19 +35,20 @@ import java.util.Vector;
 			}
 			return name;
 		}
-		public void insertreview(reviewBean bean, String shopName, String myNick) {
+		public void insertreview(reviewBean bean, String myNick) {
 			Connection con = null;
 			PreparedStatement pstmt = null;
 			String sql = null;
 			try {
 				con = pool.getConnection();
-				sql = "insert review_table(rId,rContent,rRegdate,rStar,shopName,rNick) values(?,?,now(),?,?,?)";
+				sql = "insert review_table(rId,rContent,rRegdate,rStar,shopName,rNick,oDate) values(?,?,now(),?,?,?,?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getrId());
 				pstmt.setString(2, bean.getrContent());
 				pstmt.setInt(3, bean.getrStar());
-				pstmt.setString(4, shopName);
+				pstmt.setString(4, bean.getShopName());
 				pstmt.setString(5, myNick);
+				pstmt.setString(6, bean.getoDate());
 				pstmt.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -104,6 +107,8 @@ import java.util.Vector;
 					bean.setrRegdate(rs.getString("rRegdate"));
 					bean.setrNick(rs.getString("rNick"));
 					bean.setrStar(rs.getInt("rStar"));
+					bean.setShopName(rs.getString("shopName"));
+					bean.setoDate(rs.getString("odate"));
 					vlist.addElement(bean);
 				}
 			} catch (Exception e) {
@@ -167,7 +172,7 @@ import java.util.Vector;
 			String sql = null;
 			try {
 				con = pool.getConnection();
-				sql = "select 8 fron review_table where rContent=?;";
+				sql = "select * fron review_table where rContent=?;";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, content);
 				pstmt.executeUpdate();
@@ -204,7 +209,60 @@ import java.util.Vector;
 		}
 		
 
+		//리뷰썻는지 확인하기
+		public reviewBean checkReview(String id,String odate) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			reviewBean bean = new reviewBean();
+			try {
+				con = pool.getConnection();
+				sql = "select r.rNum,r.rId,rContent, r.rRegdate,r.rnick, r.rstar,r.odate from orders o , review_table r where o.odate = r.odate and o.id = r.rid and r.odate = ? and r.rid = ? ;";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, odate);
+				pstmt.setString(2, id);
+				rs = pstmt.executeQuery();
+				if(rs.next())
+				{
+					bean.setrNum(rs.getInt("rNum"));
+					bean.setrId(rs.getString("rId"));
+					bean.setrContent(rs.getString("rContent"));
+					bean.setrRegdate(rs.getString("rRegdate"));
+					bean.setrNick(rs.getString("rNick"));
+					bean.setrStar(rs.getInt("rStar"));
+					bean.setoDate(rs.getString("oDate"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return bean;
+		}
 		
+		//리뷰 내용 수정
+		public boolean reviewUpdate(int rnum,String content) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			boolean flag = false;
+			try {
+				con = pool.getConnection();
+				sql = "update review_table set rContent = ? where rnum = ? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, content);
+				pstmt.setInt(2, rnum);
+				if(pstmt.executeUpdate() == 1) {
+					flag = true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt);
+			}
+			return flag;
+		}
 	}
 	
 	

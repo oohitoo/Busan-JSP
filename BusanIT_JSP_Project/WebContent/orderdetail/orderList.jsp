@@ -64,6 +64,7 @@
 					<%
 						//얻은 오더넘버로 주문목록 정보 얻기
 						Vector<ordersBean> list = mgr.orderList(id, end);
+						
 						if (list.isEmpty()) {
 					%>
 					<tr>
@@ -71,23 +72,12 @@
 					</tr>
 					<%
 						} else {
-							String oDate = null;
-							int j = 1;
+
 							for (int i= 0; i < list.size(); i++) {
 								ordersBean bean = list.get(i);
-								
-								String d = bean.getoDate();
-								if (oDate == null) {
-									oDate = bean.getoDate();
-								} else if (oDate.equals(bean.getoDate())) {
-									continue;
-								} else {
-									oDate = bean.getoDate();
-									j = j + 1;
-								}
 					%>
-					<tr class="edit" id="detail" onclick="javascript:no('<%=oDate%>')" style="cursor: pointer">
-						<td id="no" class="text-center"><%=j%></td>
+					<tr class="edit" id="detail" onclick="javascript:no('<%=bean.getoDate()%>')" style="cursor: pointer">
+						<td id="no" class="text-center"><%=i+1%></td>
 						<td id="name" class="text-center"><%=bean.getoDate().substring(5, 7) + "월 " + bean.getoDate().substring(8, 10) + "일"%></td>
 						<td id="mobile" class="text-center"><%=bean.getrName()%></td>
 						<td id="mail" class="text-center"><%=bean.getMenu()%></td>

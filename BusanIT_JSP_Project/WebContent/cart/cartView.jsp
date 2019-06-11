@@ -173,7 +173,7 @@ function order() {
 
 <div class="container">
 	<div class="row" style="margin-left: 10px; margin-top: 50px;">
-		<span style="font-size: 2.0em; color: navy">주문자 정보</span>
+		<span style="font-size: 2.0em; color: navy">주문 정보</span>
 		<table class="table table-hover" style="width: 900px;">			
 			<thead>
 				<tr>

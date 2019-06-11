@@ -180,7 +180,7 @@ img {
 										<!--자동테이블 -->
 										<tr>
 											<%
-												Vector<ordersBean> orderList = ordersMgr.orderPaidList(businessName);	
+												Vector<ordersBean> orderList = ordersMgr.orderPaidList(businessName);
 												int listSize = orderList.size(), no = 1;
 												String oNumCheck = "null";/* oNum 같을때 test */
 												if (orderList.isEmpty()) {
@@ -222,9 +222,9 @@ img {
 																ordersBean mbean = mmlist.get(j);
 																menuCombine += mbean.getMenu()+"<br>";															
 																countCombine += mbean.getCount()+"개<br>";															
-																mPriceCombine += oBean.getmPrice()+"원<br>";															
-																subTotalCombine += oBean.getTotalPrice()+"원<br>";															
-																totalCombine += oBean.getTotalPrice();
+																mPriceCombine += NumberFormat.getInstance().format(mbean.getmPrice())+"원<br>";															
+																subTotalCombine += NumberFormat.getInstance().format(mbean.getTotalPrice())+"원<br>";															
+																totalCombine += mbean.getTotalPrice();
 																totalCombineComma = NumberFormat.getInstance().format(totalCombine)+"원";
 															}
 											%>
@@ -316,7 +316,7 @@ img {
 			<!-- 주문 상세 모달 창 -->
 			<div class="modal-detail" id="orderReceipt">
 				<div class="modal-content-detail">
-					<span class="close-button">&times;</span>
+					<span class="close-button-detail">&times;</span>
 					<h3 id="title" align="center">주문 상세내역</h3>
 					<div id="content">
 					<table border="1" align="center">
@@ -380,6 +380,7 @@ img {
 	var modal = document.querySelector(".modal");
 	var modalDetail = document.querySelector(".modal-detail");
 	var closeButton = document.querySelector(".close-button");
+	var closeButtonDetail = document.querySelector(".close-button-detail");
 	var webSocket = new WebSocket('ws://' + location.host + '/BusanIT_JSP_Project/broadcasting');
 	var shopName = $("#shopName");
 	webSocket.onerror = function(event) {
@@ -436,13 +437,19 @@ img {
 	}
 	closeButton.addEventListener("click", function toggleModal() {
 		modal.classList.toggle("show-modal");
+		setTimeout(function(){
+			location.reload();
+		}, 100);
 	});
-	closeButton.addEventListener("click", function toggleModalDetail() {
+	closeButtonDetail.addEventListener("click", function toggleModalDetail() {
 		modalDetail.classList.toggle("show-modal-detail");
 	});
 	window.addEventListener("click", function windowOnClick(event) {
 		if (event.target === modal) {
 			modal.classList.toggle("show-modal");
+			setTimeout(function(){
+				location.reload();
+			}, 100);
 		}
 	});
 	window.addEventListener("click", function windowOnClick(event) {

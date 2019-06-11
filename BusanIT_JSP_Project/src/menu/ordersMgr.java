@@ -203,9 +203,7 @@ public class ordersMgr {
 			Vector<ordersBean> vlist = new Vector<ordersBean>();
 			try {
 				con = pool.getConnection();
-				sql = "select o.*, m.mPrice, (m.mPrice * o.count) totalPrice  "
-						+ "from menu m, orders o "
-						+ "where m.rName = o.rName and id=? and o.menu = m.menu order by odate desc, mPrice desc limit 0,?";
+				sql = "select *, sum(subtotal) totalPrice from ( select o.*, m.mPrice, (m.mPrice * o.count) subtotal from menu m, orders o where m.rName = o.rName and id=? and o.menu = m.menu ) a group by onum order by odate desc limit 0,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id);
 				pstmt.setInt(2, end);
@@ -213,20 +211,10 @@ public class ordersMgr {
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					ordersBean pBean = new ordersBean();
-					pBean.setoNum(rs.getString(1));
-					pBean.setId(rs.getString(2));
-					pBean.setcNick(rs.getString(3));
-					pBean.setcAddress(rs.getString(4));
-					pBean.setrName(rs.getString(5));
-					pBean.setcPhone(rs.getString(6));
-					pBean.setMenu(rs.getString(7));
-					pBean.setCount(rs.getInt(8));
-					pBean.setoDate(rs.getString(9));
-					pBean.setoRequest(rs.getString(10));
-					pBean.setOrderType(rs.getString(11));
-					pBean.setOrderStatus(rs.getString(12));
-					pBean.setmPrice(rs.getInt(13));
-					pBean.setTotalPrice(rs.getInt(14));
+					pBean.setrName(rs.getString("rName"));
+					pBean.setMenu(rs.getString("menu"));
+					pBean.setoDate(rs.getString("oDate"));
+					pBean.setTotalPrice(rs.getInt("totalPrice"));
 					vlist.addElement(pBean);
 				} //--while
 

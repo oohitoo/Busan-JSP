@@ -8,6 +8,8 @@ public class reviewBean {
 		private String rContent;
 		private String rRegdate;
 		private int rStar;
+		private String oDate;
+		private String ShopName;
 		
 		
 		
@@ -47,6 +49,19 @@ public class reviewBean {
 		public void setrStar(int rStar) {
 			this.rStar = rStar;
 		}
+		public String getoDate() {
+			return oDate;
+		}
+		public void setoDate(String oDate) {
+			this.oDate = oDate;
+		}
+		public String getShopName() {
+			return ShopName;
+		}
+		public void setShopName(String shopName) {
+			ShopName = shopName;
+		}
+		
 		
 		
 		

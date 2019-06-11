@@ -5,15 +5,16 @@
 <jsp:useBean id="mgr" class="review.reviewMgr" />
 <jsp:useBean id="bean" class="review.reviewBean" />
 
+
 <%
-  request.setCharacterEncoding("EUC-KR");
-	String shopName = request.getParameter("store");
+  	request.setCharacterEncoding("EUC-KR");
+	String shopName = (String)session.getAttribute("shop");
+	String oDate = request.getParameter("oDate");
 
-
-  int num = 0;
-  String content = null;
-  String regdate = null;
-  String rid  = (String)session.getAttribute("idKey");
+	int num = 0;
+	String content = null;
+	String regdate = null;
+	String rid  = (String)session.getAttribute("idKey");
   
 %>
 
@@ -72,10 +73,9 @@
         </p>
           <p><input type="image" src="../img/review.png" width="700px" height="50" value="content" onClick="javascript:reviewInsert()"></p>
       </div>
-      
-        
-     <input type="hidden" name="rId">
-     <input type="hidden" name="rregdate">
+    
+    	 <input type="hidden" name="oDate" value="<%=oDate%>">
+    	 <input type="hidden" name="shopName" value="<%=shopName%>">
      </form>
 
 </body>

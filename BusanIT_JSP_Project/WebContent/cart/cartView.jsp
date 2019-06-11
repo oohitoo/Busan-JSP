@@ -79,7 +79,10 @@ $(window).load(function(event) {
 		$(counts).change(function(event) {
 			subtotal = 0;	
 			for( var j = 1 ; j <=size ; j++){
-				counts = document.getElementById('count'+ j); // 수량
+				counts = document.getElementById('count'+ j); // 수량 
+				/* console.log(counts.value); */
+				$('#count'+j).val(counts.value);
+				
 				if(counts.value > 99) {
 					counts.value = 99;
 				}
@@ -95,11 +98,31 @@ $(window).load(function(event) {
 				$('#minimum').text(addComma(subtotal)+"원");
 				$('.totals').text(addComma(subtotal)+"원");
 				document.getElementById('minimum').value = subtotal;
-				$('#count'+j).text(counts.value);
-				document.getElementById('count'+j).value = counts.value;
- 
+				
+				/* document.getElementById('count'+j).value = counts.value; */
 			}			
 		});
+		
+		/* 포커스를 벗어나면 */
+		$(counts).blur(function() {
+			var menu = "";
+			var count = "";
+				for( var j = 1 ; j <=size ; j++){
+					counts = document.getElementById('count'+ j); // 수량 가져왔다.
+					menus = document.getElementById('menu'+ j); // 메뉴가져왔다.
+					console.log(counts.value);
+					console.log(menus.innerText);
+					
+					menu += menus.innerText;
+					count += counts.value;
+					
+				}
+				/* 값 잘받아짐 */
+				console.log(menu);
+				console.log(count);
+				location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count;
+		});
+		
 		
 	}
 });
@@ -111,12 +134,6 @@ function order() {
 	 */
 	/* var str = document.getElementById("minimum").value; */
 	var str = $('#minimum').val(); // totalPrice
-	
-	/* var size = document.getElementById('size').value; //장바구니 메뉴  갯수
-	for (var j = 1 ; j <= size ; j++) {
-		var co = $('#count'+j).val();
-		console.log(co);	
-	} */
 	
 	console.log(eval(str));
 	
@@ -163,18 +180,7 @@ function order() {
 		function onError(event) {
 			alert(event.data);
 		}
-		function send() {
-			
-			var size = document.getElementById('size').value; //장바구니 메뉴  갯수
-			for (var j = 1 ; j <= size ; j++) {
-				var count = $('#count'+j).val();
-				var menu = document.getElementById('menu'+j).innerHTML;
-				creatUpdate(menu, count);
-				console.log(co);	
-			} 
-			
-			
-			
+		function send() {			
 			webSocket.send(shopName.val() + ":" + Message);
 			Message = "";
 			
@@ -264,7 +270,7 @@ function order() {
 						</div>
 					</td>
 					<td class="col-sm-1 col-md-1" style="text-align: center">
-						<input type="number" class="form-control" id="count<%=num %>" value="<%= count %>" max="99" min="1" style="width:66px;">
+						<input type="number" class="form-control" id="count<%=num %>" value="<%= count %>"  style="width:66px;">
 					</td>
 					<td class="col-sm-1 col-md-1 text-center">
 						<strong><%= price %></strong>원

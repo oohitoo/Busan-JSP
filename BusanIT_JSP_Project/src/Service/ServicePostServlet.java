@@ -16,9 +16,10 @@ public class ServicePostServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("EUC-KR");
 		HttpSession session = request.getSession();
+		
         String id = (String)session.getAttribute("idKey");
 		ServiceMgr mgr = new ServiceMgr();
-		mgr.insertService(request, id);
+		mgr.insertService(request);
 		response.sendRedirect("ServiceMain.jsp");
 	}
 

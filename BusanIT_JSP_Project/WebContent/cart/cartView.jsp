@@ -135,6 +135,11 @@ function order() {
 		var Box = document.getElementById("payType");
 		var selectBox = Box.options[Box.selectedIndex].value;
 		
+		paytype = document.createElement("input");
+		paytype.type = "hidden";
+		paytype.name = "paytype";
+		paytype.value = selectBox;
+	    document.orderFrm.appendChild(paytype);
 		/* 소켓통신 */
 		var webSocket = new WebSocket('ws://'+location.host+'/BusanIT_JSP_Project/broadcasting');
 		/* 가게 명  (id)*/
@@ -169,20 +174,34 @@ function order() {
 			for (var j = 1 ; j <= size ; j++) {
 				var count = $('#count'+j).val();
 				var menu = document.getElementById('menu'+j).innerHTML;
-				creatUpdate(menu, count);
-				console.log(co);	
+				
+				
+				//menu input
+				menuin = document.createElement("input");
+				menuin.type = "hidden";
+				menuin.name = "menu";
+				menuin.value = menu;
+			    document.orderFrm.appendChild(menuin);
+			    
+			    //count input
+			    countin = document.createElement("input");
+			    countin.type = "hidden";
+			    countin.name = "counts";
+			    countin.value = count;
+			    document.orderFrm.appendChild(countin);
+			    
 			} 
-			
 			
 			
 			webSocket.send(shopName.val() + ":" + Message);
 			Message = "";
-			
 
 			$("div[class=modal]").addClass("show-modal");
+			
+			document.orderFrm.submit();
 
 			setTimeout(function() {
-				 location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 				
+				//location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 				
 			}, 1000);
 		}
 		
@@ -196,6 +215,7 @@ function order() {
 <div class="container">
 	<div class="row" style="margin-left: 10px; margin-top: 50px;">
 		<span style="font-size: 2.0em; color: navy">주문 정보</span>
+		<form name="orderFrm" action="orderProc.jsp" >
 		<table class="table table-hover" style="width: 900px;">			
 			<thead>
 				<tr>
@@ -285,7 +305,7 @@ function order() {
 				<tr>
 					<td align="right">주소 </td>
 					<td colspan="3" align="right">
-						<input type="text" class="form-control" id="addres" size="40" value="<%= loginBean.getcAddress() %>" style="vertical-align:middle;">
+						<input type="text" name="address" class="form-control" id="addres" size="40" value="<%= loginBean.getcAddress() %>" style="vertical-align:middle;">
 					</td>
 					<td>
 					</td>
@@ -295,14 +315,14 @@ function order() {
 				<tr>
 					<td align="right">전화번호</td>
 					<td colspan="3" align="right">
-						<input type="tel" class="form-control" id="phoneNumber" size="20" value="<%= loginBean.getcPhone() %>">
+						<input type="tel" name="phoneNumber" class="form-control" id="phoneNumber" size="20" value="<%= loginBean.getcPhone() %>">
 					</td>
 					<td></td>
 				</tr>
 				<tr>
 					<td align="right">요청사항</td>
 					<td colspan="3" align="right">
-						<input type="text" class="form-control" id="request" size="30" placeholder="30자리 까지 작성 할 수 있어요">
+						<input type="text" name="request" class="form-control" id="request" size="30" placeholder="30자리 까지 작성 할 수 있어요">
 					</td>
 					<td></td>
 				</tr>
@@ -311,7 +331,7 @@ function order() {
 					<td></td>
 					<td>결&nbsp;제&nbsp;방&nbsp;식</td>
 					<td class="text-right">
-							<select id="payType" class="form-control" style="width:176px;" >
+							<select name="payType" id="payType" class="form-control" style="width:176px;" >
 									<option value="만나서 카드결제" selected>만나서 카드결제</option>
 									<option value="만나서 현금결제">만나서 현금결제</option>
 									<option value="바로 결제">바로 결제</option>
@@ -346,6 +366,7 @@ function order() {
 				<input type="hidden" id = "size" value="<%=hCart.size()%>">
 			</tbody>
 		</table>
+		</form>
 		<!--  팝업 될 레이어 -->
 		<div class="modal">
 			<div class="modal-content">

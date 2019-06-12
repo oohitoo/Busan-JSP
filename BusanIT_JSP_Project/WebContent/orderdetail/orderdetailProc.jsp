@@ -3,9 +3,9 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String)session.getAttribute("idKey");
-	String oDate = request.getParameter("oDate");
+	String oNum = request.getParameter("oNum");
 	
-	boolean flag = mgr.orderCancle(id, oDate);
+	boolean flag = mgr.orderCancle(id, oNum);
 %>
 <style>
 	.modal {

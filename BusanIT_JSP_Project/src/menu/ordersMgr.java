@@ -56,7 +56,7 @@ public class ordersMgr {
 	}
 
 	//주문내역 저장
-	public void insertOrder(ordersBean order, String orderNumber, String addres, String shop, String numbers, String req, String orderType) {	
+	public void insertOrder(String id,String menu, int count, String orderNumber, String addres, String shop, String numbers, String req, String orderType) {	
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -69,20 +69,20 @@ public class ordersMgr {
 		try {
 			con = pool.getConnection();
 
-			if(order.getId() != null) {
-				LoginBean loginbean = getCustomer(order.getId()); // 가서 조회하기 (loginBean에 setting)
+			if(id != null) {
+				LoginBean loginbean = getCustomer(id); // 가서 조회하기 (loginBean에 setting)
 				sql = "insert into orders values(?,?,?,?,?,?,?,?,now(),?,?,?)";
 
 				pstmt = con.prepareStatement(sql);
 
 				pstmt.setString(1, SDF_DATE.format(d)+"-"+orderNumber); //주문번호
-				pstmt.setString(2, order.getId()); // 아이디 [2]
+				pstmt.setString(2, id); // 아이디 [2]
 				pstmt.setString(3, loginbean.getcNick()); // 닉네임[3]
 				pstmt.setString(4, addres); // 주소 [4]
 				pstmt.setString(5, shop); // 가게 명 [5]
 				pstmt.setString(6, numbers); // 전화번호 [6]				
-				pstmt.setString(7, order.getMenu()); //메뉴 [7]
-				pstmt.setInt(8, order.getCount()); // 수량 [8]
+				pstmt.setString(7, menu); //메뉴 [7]
+				pstmt.setInt(8, count); // 수량 [8]
 				// 현재 시간 now() [9]
 				pstmt.setString(9, req); //요청사항 [10]
 				pstmt.setString(10, orderType); //결재 방식 [11]
@@ -92,7 +92,7 @@ public class ordersMgr {
 
 			}
 			else {
-				System.out.println(order.getId());
+				System.out.println(id);
 			}
 
 		} catch (Exception e) {
@@ -211,6 +211,7 @@ public class ordersMgr {
 				rs = pstmt.executeQuery();
 				while(rs.next()) {
 					ordersBean pBean = new ordersBean();
+					pBean.setoNum(rs.getString("oNum"));
 					pBean.setrName(rs.getString("rName"));
 					pBean.setMenu(rs.getString("menu"));
 					pBean.setoDate(rs.getString("oDate"));
@@ -228,7 +229,7 @@ public class ordersMgr {
 		}
 		
 	//주문 상세 정보
-	public Vector<ordersBean> orderDetail(String id,String oDate){
+	public Vector<ordersBean> orderDetail(String id,String oNum){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -239,10 +240,10 @@ public class ordersMgr {
 			con = pool.getConnection();
 			sql = "select o.*, m.mPrice, m.mImg,(m.mPrice * o.count) totalPrice  "
 					+ "from menu m, orders o "
-					+ "where m.rName = o.rName and id=? and o.menu = m.menu and Odate=? order by mPrice desc";
+					+ "where m.rName = o.rName and id=? and o.menu = m.menu and oNum=? order by mPrice desc";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, oDate);
+			pstmt.setString(2, oNum);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				ordersBean pBean = new ordersBean();
@@ -273,17 +274,17 @@ public class ordersMgr {
 		return vlist;
 	}
 
-	public boolean orderCancle(String id, String odate) {
+	public boolean orderCancle(String id, String oNum) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "delete from orders where id =? and odate =?";
+			sql = "delete from orders where id =? and oNum =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, odate);
+			pstmt.setString(2, oNum);
 			if(pstmt.executeUpdate()==1)
 				flag = true;		
 		} catch (Exception e) {

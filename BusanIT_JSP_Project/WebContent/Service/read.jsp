@@ -19,7 +19,7 @@
 	  //게시물 읽어오기
 	  
 	  ServiceBean bean = mgr.getService(num);
-	  String name = (String)session.getAttribute("idKey");
+	  String name = bean.getsName();
 	  String subject = bean.getSubject();
       String regdate = bean.getRegdate();
 	  String content = bean.getContent();
@@ -99,12 +99,18 @@ table.type03 td {
 	</tr>
 </table>
 
-<div align="center">
-	 [ <a href="javascript:list()" >리스트</a> | 
- <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >내용수정</a> |
- <a href="reply.jsp?nowPage=<%=nowPage%>" >답 변</a> |
- <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> ]<br/>
- </div>
+	<div align="center">
+		<a href="javascript:list()" class="btn btn-primary">리스트</a>
+		<!--  회원이 이면 답변할 수 있음 -->
+		<%if(session.getAttribute("idKey")!=null){ %>
+			<a href="reply.jsp?nowPage=<%=nowPage%>" class="btn btn-primary">답 변</a>
+		<%} %>
+		<!-- 작성자와 session의 id랑 같으면 수정, 삭제 가능 -->
+		 <%if(name.equals(session.getAttribute("idKey"))){ %>
+		 	<a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" class="btn btn-primary">내용수정</a>
+		 	<a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>" class="btn btn-primary">삭 제</a>  
+		<%} %>
+	</div>
 </div>
 
 <form name="listFrm">

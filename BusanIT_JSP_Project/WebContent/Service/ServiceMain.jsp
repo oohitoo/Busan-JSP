@@ -147,11 +147,11 @@ body { background: #fff; }
 					<table class="blueone" height="30">
 					<thead class="head">                
 						<tr class="text-primary" align="center">
-							<th width="120" >번 호</th>
+							<th width="120" style="padding-left: 40px;">번 호</th>
 							<th width="280">제 목</th>
-							<th width="120">이 름</th>
-							<th width="180">날 짜</th>
-							<th width="130">조회수</th>
+							<th width="120" style="padding-left: 65px;">이 름</th>
+							<th width="180" style="padding-left: 70px;">날 짜</th>
+							<th width="130" style="padding-left: 40px;">조회수</th>
 						</tr>
 						</thead>						
 						<%
@@ -197,6 +197,11 @@ body { background: #fff; }
 				<br />
 				</td>
 			</tr>
+				<td align="right">
+						<a href="post.jsp">
+							<input type="button" class="btn btn-primary" value="글쓰기">
+						</a>
+				</td>
 			<tr>
 				<td>
 					<!-- 블락 입력 --> 
@@ -235,17 +240,14 @@ body { background: #fff; }
 						<a href="javascript:block('<%=nowBlock + 1%>')">...next</a> <%
 			 		}
 			 %><!-- if -->
-					<%}	%><!--  if-->
+					<%}	%><!--  if-->			
 				</td>
+					
 				</tfoot>
 				
-					<td align="right">
-						<a href="post.jsp">
-							<input type="button" class="btn btn-primary" value="글쓰기">
-						</a>
-					</td>
+				
 			</table>
-			
+	
 			<form name="searchFrm" method="post" action="ServiceMain.jsp">
 				<table class="type09" border="0" width="900" align=center
 					cellpadding="4" cellspacing="0">

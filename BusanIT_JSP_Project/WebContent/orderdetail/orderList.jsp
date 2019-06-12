@@ -26,8 +26,8 @@
 <jsp:include page="designForm.jsp" />
 <!------ Include the above in your HEAD tag ---------->
 <script>
-	function no(oDate) {
-		location.href = "orderdetail.jsp?oDate=" + oDate;
+	function no(onum) {
+		location.href = "orderdetail.jsp?oNum=" + onum;
 	}
 	function plus(end){
 		document.readFrm.end.value= <%=end%>;
@@ -76,7 +76,7 @@
 							for (int i= 0; i < list.size(); i++) {
 								ordersBean bean = list.get(i);
 					%>
-					<tr class="edit" id="detail" onclick="javascript:no('<%=bean.getoDate()%>')" style="cursor: pointer">
+					<tr class="edit" id="detail" onclick="javascript:no('<%=bean.getoNum()%>')" style="cursor: pointer">
 						<td id="no" class="text-center"><%=i+1%></td>
 						<td id="name" class="text-center"><%=bean.getoDate().substring(5, 7) + "¿ù " + bean.getoDate().substring(8, 10) + "ÀÏ"%></td>
 						<td id="mobile" class="text-center"><%=bean.getrName()%></td>

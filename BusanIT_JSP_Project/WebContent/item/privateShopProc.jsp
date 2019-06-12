@@ -32,7 +32,7 @@
 	
 %>
 <script>
-	alert("<%= order.getMenu() %>");
+	alert("<%= msg %>");
 	location.href = "../cart/cartView.jsp";
 </script>
 <% } %>

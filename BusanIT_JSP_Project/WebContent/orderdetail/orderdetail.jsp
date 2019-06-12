@@ -15,9 +15,9 @@
 <%
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String)session.getAttribute("idKey");
-	String oDate = request.getParameter("oDate");
-	Vector<ordersBean> list = mgr.orderDetail(id,oDate);
-	String  orderType=null,oRequest=null, orderStatus = null;
+	String oNum = request.getParameter("oNum");
+	Vector<ordersBean> list = mgr.orderDetail(id,oNum);
+	String  orderType=null,oRequest=null, orderStatus = null, oDate = null;
 	int totalPrice = 0;
 	
 	
@@ -28,8 +28,8 @@
 	function back() {
 		history.back();
 	}
-	function no(oDate) {
-		location.href = "orderdetailProc.jsp?oDate=" + oDate;
+	function no(onum) {
+		location.href = "orderdetailProc.jsp?oNum=" + onum;
 	}
 	function review() {
 		location.href = "../review/reviewwrite.jsp";
@@ -75,6 +75,7 @@
 		totalPrice += bean.getTotalPrice();
 		oRequest = bean.getoRequest();
 		orderStatus = bean.getOrderStatus();
+		oDate = bean.getoDate();
 		
 %>
 					<tr>
@@ -106,7 +107,7 @@
 					
 						<td >주문 시간 : <%=oDate.subSequence(0, 16) %></td>
 						<td >배달 형태</td>
-						<td align="right" colspan="2"><strong><%=orderType %></strong></td>
+						<td align="right" colspan="2"><strong style="padding-right : 40px;'"><%=orderType %></strong></td>
 					</tr>
 					<tr>
 						<td>요청 사항  :  <%=oRequest %></td>
@@ -118,7 +119,7 @@
 						<button type="button" class="btn btn-primary" onclick="javascript:back()" style="cursor:pointer">뒤&nbsp;로</button>
 						<%if(orderStatus.equals("1")){
 						%>
-							<button type="button" class="btn btn-primary" onclick="javascript:no('<%=oDate%>')" style="cursor:pointer">취&nbsp;소</button>
+							<button type="button" class="btn btn-primary" onclick="javascript:no('<%=oNum%>')" style="cursor:pointer">취&nbsp;소</button>
 						<% } %>							
 												
 						</td>

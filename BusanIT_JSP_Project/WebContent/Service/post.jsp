@@ -2,9 +2,11 @@
 <%@page import="Service.ServiceMgr" %>
 <%@page import="Service.ServiceBean" %>
 <jsp:useBean id="mgr" class="Service.ServiceMgr"/>
+<jsp:useBean id="bean" class="Service.ServiceBean"/>
 <%
 	request.setCharacterEncoding("EUC-KR");
 /* 	String id  = (String)session.getAttribute("idKey");  */
+	String name = bean.getsName();
 %>
 <!-- 글 작성페이지 -->
 <jsp:include page="form.jsp" />
@@ -58,11 +60,20 @@ table.type03 td {
 	<tr>
 		<td align="center">
 		<table style="width:950px;" >
+		<%if(session.getAttribute("idKey")!=null){ %>
 			<tr>
-				<th width="10%">성 명</th>
+				<th width="10%">I D</th>
+				<th width="90%">			
+				<input name="name" size="30" maxlength="8"  readonly value="<%=session.getAttribute("idKey")%>"></th>
+				</tr>
+				<%}else{ %>
+				<tr>
+				<th width="10%">이 름</th>
 				<th width="90%">
-				<input name="name" size="10" maxlength="8"  readonly value="<%=session.getAttribute("idKey")%>"></th>
-			</tr>
+				<input name="name" size="30" maxlength="8"></th>
+				<%} %>
+				</tr>
+		
 			<tr>
 				<th>제 목</th>
 				<th>
@@ -71,7 +82,7 @@ table.type03 td {
 			<tr>
 				<th>내 용</th>
 				<td><!-- <textarea style="width:750px; height:400px;" id="textAreaContent" name="content" rows="10" cols="80" onClick="check()"> -->
-				<textarea style="width:750px; height:400px;"name="content" rows="10" cols="80"></textarea>
+				<textarea style="width:750px; height:400px; resize: none;"name="content" rows="10" cols="80"></textarea>
 				</td>
 		<%-- 		<%
 					ServiceBean bean = mgr.insertService(req);
@@ -109,37 +120,3 @@ table.type03 td {
 <input type="hidden" name="ip" value="<%=request.getRemoteAddr()%>">
 
 </form>
-
-<%-- <!-- Smart Editor --> 
-<script type="text/javascript" src="<%=request.getContextPath()%>/Service/se2/js/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/Service/se2/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js" charset="utf-8"></script>
-<!-- Smart Editor -->
-<script type="text/javascript">
-	var oEditors = []; //전역변수
-	nhn.husky.EZCreator.createInIFrame({
-	    oAppRef: oEditors, //전역변수명
-	    elPlaceHolder: "textAreaContent", //에디터가 그려질 textarea id값
-	    sSkinURI: " <%=request.getContextPath()%>/Service/se2/SmartEditor2Skin.html ", // 에디터의 HTML
-	    fCreator: "createSEditor2" , //se2basicCreator.js 메소드명
-	    htParams : { // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-	    bUseToolbar : true, // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
-	    bUseVerticalResizer : true, // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
-	    bUseModeChanger : true,
-	    }
-	});
-	function submitContents() {
-	    // 에디터의 내용이 textarea에 적용된다.
-	    oEditors.getById["textAreaContent"].exec("UPDATE_CONTENTS_FIELD", [ ]);
-	    try {
-	        elClickedObj.form.submit();
-	    } catch(e) {}
-	}
-	
-	
-	// textArea에 이미지 첨부
-	function pasteHTML(filepath){
-	    var sHTML = '<img src="<%=request.getContextPath()%>/beerking/userimg/'+filepath+'">';
-	    oEditors.getById["textAreaContent"].exec("PASTE_HTML", [sHTML]);
-	}
-1
-</script> --%>

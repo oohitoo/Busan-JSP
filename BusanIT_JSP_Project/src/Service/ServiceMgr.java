@@ -24,7 +24,7 @@ public class ServiceMgr {
 		}
 		
 		//Service Insert : 
-		public void insertService(HttpServletRequest req, String id) {
+		public void insertService(HttpServletRequest req) {
 			Connection 					con 		= null;
 			PreparedStatement 	pstmt 	= null;
 			ResultSet 					rs 		= null;
@@ -60,7 +60,8 @@ public class ServiceMgr {
 					sql = "insert Service(sname,content,subject,ref,pos,depth,regdate,pass,count,ip)";
                     sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?)";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, id);
+					/*pstmt.setString(1, sname);*/
+					pstmt.setString(1, multi.getParameter("name"));
 					pstmt.setString(2, content);
 					pstmt.setString(3, multi.getParameter("subject"));
 					pstmt.setInt	  (4, ref);

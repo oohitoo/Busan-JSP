@@ -105,22 +105,10 @@ $(window).load(function(event) {
 });
 /* Order proc로 넘기기 */
 function order() {
-	/*  1. 테이블의 td는 tageName으로 자르기 
-			2. split을 이용하여 자른다.
-			3. 출력한다.
-	 */
-	/* var str = document.getElementById("minimum").value; */
-	var str = $('#minimum').val(); // totalPrice
 	
-	/* var size = document.getElementById('size').value; //장바구니 메뉴  갯수
-	for (var j = 1 ; j <= size ; j++) {
-		var co = $('#count'+j).val();
-		console.log(co);	
-	} */
-	
-	console.log(eval(str));
-	
-	if (eval(str) <= 14000){
+	var tempprice = document.getElementsByClassName('totals')[0].textContent;
+	var tem = tempprice.split(',');
+	if (eval(tem[0]) < 14){
 		var popupX = (window.screen.width / 2);
 		var popupY = (window.screen.height / 2);
 		

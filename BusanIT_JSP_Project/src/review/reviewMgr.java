@@ -95,7 +95,7 @@ import login.LoginBean;
 			Vector<reviewBean> vlist = new Vector<>();
 			try {
 				con = pool.getConnection();
-				sql = "select * from review_table where rId= ? order by rnum desc";
+				sql = "SELECT re.*, onum from review_table re, orders o where o.odate = re.odate and re.rId = o.id and id = ? group by onum order by rRegdate desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id); 
 				rs = pstmt.executeQuery();
@@ -109,6 +109,7 @@ import login.LoginBean;
 					bean.setrStar(rs.getInt("rStar"));
 					bean.setShopName(rs.getString("shopName"));
 					bean.setoDate(rs.getString("odate"));
+					bean.setoNum(rs.getString("onum"));
 					vlist.addElement(bean);
 				}
 			} catch (Exception e) {

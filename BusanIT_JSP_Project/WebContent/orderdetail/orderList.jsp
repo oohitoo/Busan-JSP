@@ -15,7 +15,7 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
 	int end = 10, a=0;
-	
+	String orderStatus = "";
 	if(request.getParameter("end")!=null){
 		if(Integer.parseInt(request.getParameter("end"))>0){
 			a = Integer.parseInt(request.getParameter("end"));
@@ -58,6 +58,7 @@
 						<th class="text-center">식당이름</th>
 						<th class="text-center">메뉴</th>
 						<th class="text-center">가격</th>
+						<th class="text-center">주문 상태</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,6 +76,22 @@
 
 							for (int i= 0; i < list.size(); i++) {
 								ordersBean bean = list.get(i);
+								
+								switch (bean.getOrderStatus()){
+								case "2" :
+									orderStatus = "배달 준비중";
+									break;
+								case "3" :
+									orderStatus = "배달 중";
+									break;
+								case "4" :
+									orderStatus = "배달 완료";
+									break;
+								default : 
+									orderStatus = "결재 완료";	
+									break;
+								}
+								
 					%>
 					<tr class="edit" id="detail" onclick="javascript:no('<%=bean.getoNum()%>')" style="cursor: pointer">
 						<td id="no" class="text-center"><%=i+1%></td>
@@ -82,6 +99,7 @@
 						<td id="mobile" class="text-center"><%=bean.getrName()%></td>
 						<td id="mail" class="text-center"><%=bean.getMenu()%></td>
 						<td id="city" class="text-center"><%=UtilMgr.monFormat(bean.getTotalPrice())%></td>
+						<td id="status" class="text-center"><%=orderStatus%></td>
 					</tr>
 					<%							
 					} //for

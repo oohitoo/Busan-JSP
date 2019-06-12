@@ -228,8 +228,8 @@
 		</div>
 	</div>
 	<!-- 오른쪽 메인 부분 종료 -->
-	<div id ="pop">
-		<div style="height: 370px;">
+	<div id ="pop" style=" z-index: 1">
+		<div style="height: 370px;" >
 			<img alt="이미지 없음" src="img/Logo_1.png" width="300px;">
 			예약 및 배달을 함께 하는 배달家 입니다.<br>
 			

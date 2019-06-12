@@ -66,7 +66,7 @@
 							<div class="media">
 								<div class="media-body">
 									<h4 class="media-heading" style="margin-top: 10px;">
-										<font color="black"><%=oDate %></font>
+										<font color="black"><%=oDate.substring(0, 16) %></font>
 									</h4>
 								</div>
 							</div>

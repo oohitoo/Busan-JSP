@@ -65,6 +65,10 @@
     	 }
     	 
      }
+     function orderdetail(onum) {
+    	 location.href = "../orderdetail/orderdetail.jsp?oNum=" +onum;
+     }
+     
 </script>
 <style>
 table.type04 {
@@ -136,7 +140,9 @@ table.type04 td{
         <tr >
           <td rowspan="2" width="70"><img src="../img/Logo_21.png" width="height=66px" style="padding-top: 18px;"></td>
           <td colspan="2">
-        		<h4 style="padding-top : 10px"><%=pbean.getShopName() %></h4>
+        		<a onclick="javascript:orderdetail('<%=pbean.getoNum()%>')">
+        			<h4 style="padding-top : 10px"><%=pbean.getShopName() %></h4>
+        		</a>
         	</td>    
           
           <td>

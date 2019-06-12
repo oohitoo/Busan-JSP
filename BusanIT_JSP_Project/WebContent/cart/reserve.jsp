@@ -1,3 +1,5 @@
+<%@page import="MenuList.menu_listBean"%>
+<%@page import="java.util.Vector"%>
 <%
 	response.setHeader("Pragma", "no-cache");
 	if (request.getProtocol().equals("HTTP/1.1")) {
@@ -8,6 +10,10 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <jsp:useBean id="lMgr" class="login.LoginMgr" />
+<jsp:useBean id="mgr" class="review.reviewMgr" />
+<jsp:useBean id="bean" class="review.reviewBean" />
+<jsp:useBean id="menulistmgr" class="MenuList.menuMgr" />
+<jsp:useBean id="imgbean" class="MenuList.menu_listBean" />
 
 <%
 	
@@ -56,29 +62,37 @@ function check() {
 }
 </script>
 
-<div class="container">
-	<div class="row">
-		<div id="accordion" style="margin-left: 50px;">
-			<table style="width: 700px; margin-left: 50px; margin-top: 50px;">
-				<tr>
-					<!-- 가게 이름 표시하는 곳 -->
-					<td colspan="3"><h5><%=shop%></h5></td>
-				</tr>
-				<tr>
-					<td rowspan="3" width="100px" height="100px">이미지</td>
-					<td>최소 주문금액 13,000 원</td>
-				</tr>
-				<tr>
-					<td>결제방식 : 카드, 현금</td>
-				</tr>
-				<tr>
-					<td>평균 배달 시간 : 40분, 예약 : 0명</td>
-				</tr>
-				<tr>
-					<td colspan="3">사장님 알림 메세지</td>
-				</tr>
-			</table>
-
+<!-- 이미지 때문에 위에 선언함 -->
+<%
+	//이미지 때문에 위에 선언함
+	Vector<menu_listBean> img = menulistmgr.ShopImg(shop);
+	
+	String shopimg;
+	for (int i = 0; i < img.size(); ++i) {
+		menu_listBean mImgbean = img.get(i);
+		imgbean.setRestImg(mImgbean.getRestImg()); // 메뉴 이미지
+	}
+%>
+<div class="container" style= "margin-left: 70px; margin-top: 100px;">
+	<div class="row ">
+				<div class="col-md-3">
+					<% if (imgbean.getRestImg() == null) {%>
+					<img alt="이미지준비중" width="130px" height="130px" src="../img/menuImg/ready.gif">
+					<% } else {%>
+					<img alt="이미지준비중" width="130px" height="130px" src="../img/storeImage/<%=imgbean.getRestImg()%>">
+					<%}%>
+				</div>
+				<div class="col-md-8">
+					<div class="card-block">
+						<h4 class="card-title"><%=shop%></h4>
+					</div>
+					<div class="row">
+						<div class="col-md-4" style="padding-top:10px ; padding-bottom : 15px;">최소 주문 금액</div>
+						<div class="col-md-8" style="padding-top:10px ;">13,000 원</div>
+						<div class="col-md-4">결제 가능한 방식</div>
+						<div class="col-md-8">신용카드, 현금</div>
+					</div>
+				</div>
 			<form name="reserve" action="reserveProc.jsp" method="get">
 				<table style="width: 800px; height: 350px; margin-left: 50px; margin-top: 50px;">
 					<tr>

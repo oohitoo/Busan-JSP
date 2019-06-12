@@ -10,6 +10,7 @@ public class reviewBean {
 		private int rStar;
 		private String oDate;
 		private String ShopName;
+		private String oNum;
 		
 		
 		
@@ -60,6 +61,12 @@ public class reviewBean {
 		}
 		public void setShopName(String shopName) {
 			ShopName = shopName;
+		}
+		public String getoNum() {
+			return oNum;
+		}
+		public void setoNum(String oNum) {
+			this.oNum = oNum;
 		}
 		
 		

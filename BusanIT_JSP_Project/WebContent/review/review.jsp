@@ -111,10 +111,9 @@ table.type04 td{
         <tr class="lists__item js-load">
           <td width="70"><img src="../img/Logo_21.png" width="height=66px"></td>    
           <td style="padding-top: 20px; width:100px;s"><%=rNick%></td>    
-          <td width="322px;">
-					<a href="javascript:doDisplay(<%=i%>);"> 
-						<nobr style="display:block; text-overflow:ellipsis; width:200px; overflow:hidden"><%=rcontent %></nobr>
-					</a>
+          <td width="322px;" align="left">
+					<%=rcontent %>
+					
 					<div id="myDIV<%=i %>" style="display: none;">
 					<p><%=rcontent %></p>
           </td>    

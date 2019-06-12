@@ -216,6 +216,7 @@ public class ordersMgr {
 					pBean.setMenu(rs.getString("menu"));
 					pBean.setoDate(rs.getString("oDate"));
 					pBean.setTotalPrice(rs.getInt("totalPrice"));
+					pBean.setOrderStatus(rs.getString("orderStatus"));
 					vlist.addElement(pBean);
 				} //--while
 
@@ -631,7 +632,7 @@ public class ordersMgr {
 		Vector<ordersBean> vlist = new Vector<ordersBean>();
 		try {
 			con = pool.getConnection();
-			sql = "select * from orders where id = ? and ordertype='예약' order by odate limit 0,?";
+			sql = "select * from orders where id = ? and ordertype='예약' order by odate desc limit 0,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setInt(2, end);

@@ -38,16 +38,16 @@
 
 <script>
 function creatUpdate(menu, num) {
-	/* var count = document.getElementById("count" + num).value; */
+	 var count = document.getElementById("count" + num).value; 
 	
-	if(num < 1){
+	if(count < 1){
 		alert("최소 1개 이상 주문 할 수 있어요");
 		count =1;
-	}else if(num > 99)	{
+	}else if(count > 99)	{
 		alert("한번에 99개까지 주문 할 수 있어요");
-		num=99;
+		count=99;
 	}else{
-		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+num;
+		location.href = "../item/privateShopProc.jsp?menu="+menu+"&flag=update&count="+count;
 	}
 }
 function creatdelete(menu, num) {

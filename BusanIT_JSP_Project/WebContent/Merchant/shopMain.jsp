@@ -17,6 +17,7 @@
 	String totalCombineComma ="";
 	int totalCombine=0;
 	String businessName = (String) session.getAttribute("name");
+	String businessId = (String) session.getAttribute("businessid");
 	/* 소켓을 위하여 세션 값 저장 */
 	session.setAttribute("shop", businessName);
 	if (businessName == null) {

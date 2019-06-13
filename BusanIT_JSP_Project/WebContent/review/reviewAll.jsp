@@ -134,8 +134,7 @@ table.type04 td{
 	             String rcontent = pbean.getrContent();
 	             String rregdate = pbean.getrRegdate().substring(0, 10);
 	             String rNick = pbean.getrNick();
-	             num = i;
-             
+	             num = i; 
         %>
         <tr >
           <td rowspan="2" width="70"><img src="../img/Logo_21.png" width="height=66px" style="padding-top: 18px;"></td>
@@ -143,8 +142,7 @@ table.type04 td{
         		<a onclick="javascript:orderdetail('<%=pbean.getoNum()%>')">
         			<h4 style="padding-top : 10px"><%=pbean.getShopName() %></h4>
         		</a>
-        	</td>    
-          
+        	</td> 
           <td>
 					<%if(rStar==1){ %>【』』』』<%} %>
 					<%if(rStar==2){ %>【【』』』<%} %>

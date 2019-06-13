@@ -12,6 +12,7 @@ public class CartMgr {
 		String menuName = order.getMenu();
 		System.out.println(menuName);
 		int count = order.getCount(); // 주문 수량
+		
 		if(count > 0) {
 			//cart에 기존에 저장된 것이 있다면
 			if(hCart.containsKey(menuName)) {

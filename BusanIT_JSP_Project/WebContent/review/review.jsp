@@ -88,35 +88,36 @@ table.type04 td{
           int listSize = vlist.size();
           if (vlist.isEmpty()) {
             out.println("등록된 리뷰가 없습니다");
-
           } else {
-        
         %>
         </div>
-     
-
-	<table id="js-load" class="type04 main">
-    
+	<table  id="js-load" class="type04 main">
       <%
+      		String odate = "";
         for(int i=0; i<vlist.size(); i++){
         	 reviewBean pbean = vlist.get(i);
+        	 if(pbean.getoDate().equals(odate)){
+        		 
+       %>
+       			<tr class="lists__item js-load" style ="background :#4e73df">
+       				<td style="width : 159px; color : white"><%="사장님 답변" %></td>
+       				<td style="width : 522px; color : white"><strong><%=pbean.getrContent() %></strong></td>
+       			</tr>
+       <%			
+       			continue;
+       		}
              int rnum = pbean.getrNum();
              String id = pbean.getrId();
              int rStar = pbean.getrStar();
              String rcontent = pbean.getrContent();
              String rregdate = pbean.getrRegdate().substring(0, 10);
              String rNick = pbean.getrNick();
-             
+             odate = pbean.getoDate();
         %>
         <tr class="lists__item js-load">
           <td width="70"><img src="../img/Logo_21.png" width="height=66px"></td>    
           <td style="padding-top: 20px; width:100px;s"><%=rNick%></td>    
-          <td width="322px;" align="left">
-					<%=rcontent %>
-					
-					<div id="myDIV<%=i %>" style="display: none;">
-					<p><%=rcontent %></p>
-          </td>    
+          <td width="322px;" align="left"><%=rcontent %></td>    
           <td>
 					<%if(rStar==1){ %>★☆☆☆☆<%} %>
 					<%if(rStar==2){ %>★★☆☆☆<%} %>
@@ -130,15 +131,10 @@ table.type04 td{
           	<input type="image"	src="../img/delete.png" value="content" onClick="javascript:reviewDelete(<%=rnum%>)">
           </td>
         	<%}%>
+        	</tr>
         <%} %>
-      
-    </tr>
-    <tr id="js-btn-wrap" class="btn-wrap"> 
-    <td align="center"><a href="javascript:load2()" class="button">더보기</a></td> 
-    </tr>
   </table>
     <%} //else%>
-
     <form name="listFrm" method="post">
       <input type="hidden" name="reload" value="true"> <input
         type="hidden" name="nowPage" value="1">
@@ -149,8 +145,6 @@ table.type04 td{
         name="nowPage" value="<%=nowPage%>"> --%>
          <%-- <input type="hidden" name="numPerPage" value="<%=numPerPage%>"> --%>
     </form>
-    
-      
 <script>
   $(document).ready(load2());
   function load2() {

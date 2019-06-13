@@ -42,7 +42,7 @@
 					<a href="../login/member.html">회원가입</a>
 				</div>
 				<div class="main_3 main_common">
-					<a href="../login/login.html">로그인</a>
+					<a href="../login/login.jsp">로그인</a>
 				</div>
 			</div>
 			<% }

@@ -160,10 +160,6 @@
 				</div>
 				<div class="col-md-12" style="margin-left: 30px;">
 					<!-- 대표메뉴 -->
-					<%
-						//이미지 때문에 위에 선언함
-						Vector<menuBean> bestmenu = menuMgr.getMenu(shop, best);
-					%>
 					<tr>
 						<td colspan="3">
 							<div id="accordion">
@@ -175,7 +171,9 @@
 									<p>
 									<table
 										style="width: 600px; margin-left: 20px; margin-right: 30px;">
+										<!-- 대표메뉴 -->
 										<%
+											Vector<menuBean> bestmenu = menuMgr.getMenu(shop, best);
 											for (int i = 0; i < bestmenu.size(); ++i) {
 												menuBean bestbean = bestmenu.get(i);
 												String mImg = bestbean.getmImg(); // 메뉴 이미지
@@ -184,39 +182,31 @@
 												int mPrice = bestbean.getmPrice(); // 메뉴 가격
 										%>
 										<tr>
-											<td><font color="black" size="4"> <a
-													href="javascript:cartView('<%=shop%>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
+											<td><font color="black" size="4"> <a href="javascript:cartView('<%=shop%>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
 											</font></td>
 											<td rowspan="3" width="140px" height="130px" align="center">
 												<%
 													if (mImg == null) {
-												%> <img src="../img/menuImg/ready.gif" alt="이미지 준비중"
-												width="100px" height="100px"> <%
- 	} else {
- %> <img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px"
-												height="100px"> <%
- 	}
- %>
+												%> 
+												<img src="../img/menuImg/ready.gif" alt="이미지 준비중" width="100px" height="100px"> 
+												<% } else { %>
+												 <img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px"> 
+												 <% } %>
 											</td>
 										</tr>
 										<tr>
 											<td><font color="#808080" size="3"><%=mInfo%></font></td>
 										</tr>
 										<tr>
-											<td><font color="black" size="3"><li><%=mPrice%>
-														원</li></font></td>
+											<td><font color="black" size="3"><li><%=mPrice%> 원</li></font></td>
 										</tr>
 										<input type="hidden" id="menuName" value="<%=menu%>">
-										<%
-											}
-										%>
+										<% } %>
 									</table>
 									</p>
 								</div>
 								<!-- 대표메뉴 종료 -->
-								<%
-									Vector<menuBean> drinkmenu = menuMgr.getMenu(shop, drink);
-								%>
+								<% Vector<menuBean> drinkmenu = menuMgr.getMenu(shop, drink); %>
 								<!-- 음류수 메뉴 -->
 								<h3 class="sectiondropdown">
 									음료 메뉴<i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -234,39 +224,30 @@
 												int mPrice = drinkbean.getmPrice(); // 메뉴 가격
 										%>
 										<tr>
-											<td><font color="black" size="4"> <a
-													href="javascript:cartView('<%=shop%>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
-											</font></td>
+											<td>
+												<font color="black" size="4"> <a href="javascript:cartView('<%=shop%>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a> </font>
+											</td>
 											<td rowspan="3" width="140px" height="130px" align="center">
-												<%
-													if (mImg == null) {
-												%> <img src="../img/menuImg/ready.gif" alt="이미지 준비중"
-												width="100px" height="100px"> <%
- 	} else {
- %> <img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px"
-												height="100px"> <%
- 	}
- %>
+												<% if (mImg == null) { %> 
+													<img src="../img/menuImg/ready.gif" alt="이미지 준비중" width="100px" height="100px"> 
+												<% } else { %> 
+													<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px"> 
+												<% } %>
 											</td>
 										</tr>
 										<tr>
 											<td><font color="#808080" size="3"><%=mInfo%></font></td>
 										</tr>
 										<tr>
-											<td><font color="black" size="3"><li><%=mPrice%>
-														원</li></font></td>
+											<td><font color="black" size="3"><li><%=mPrice%> 원</li></font></td>
 										</tr>
-										<%
-											}
-										%>
+										<% } %>
 									</table>
 									</p>
 
 								</div>
 								<!-- 음류수 메뉴 종료 -->
-								<%
-									Vector<menuBean> sidemenu = menuMgr.getMenu(shop, side);
-								%>
+								<% Vector<menuBean> sidemenu = menuMgr.getMenu(shop, side); %>
 								<!-- 사이드 메뉴 -->
 								<h3 class="sectiondropdown">
 									사이드 메뉴<i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -285,31 +266,24 @@
 												int mPrice = sidebean.getmPrice(); // 메뉴 가격
 										%>
 										<tr>
-											<td><font color="black" size="4"> <a
-													href="javascript:cartView('<%=shop%>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a>
-											</font></td>
+											<td>
+												<font color="black" size="4"> <a href="javascript:cartView('<%=shop%>','<%=menu%>','<%=mInfo%>','<%=mPrice%>')"><%=menu%></a> </font>
+											</td>
 											<td rowspan="3" width="140px" height="130px" align="center">
-												<%
-													if (mImg == null) {
-												%> <img src="../img/menuImg/ready.gif" alt="이미지 준비중"
-												width="100px" height="100px"> <%
- 	} else {
- %> <img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px"
-												height="100px"> <%
- 	}
- %>
+												<% if (mImg == null) { %> 
+													<img src="../img/menuImg/ready.gif" alt="이미지 준비중" width="100px" height="100px"> 
+												<% } else { %> 
+													<img src="../img/menuImg/<%=mImg%>" alt="이미지 준비중" width="100px" height="100px"> 
+												<% } %>
 											</td>
 										</tr>
 										<tr>
 											<td><font color="#808080" size="3"><%=mInfo%></font></td>
 										</tr>
 										<tr>
-											<td><font color="black" size="3"><li><%=mPrice%>
-														원</li></font></td>
+											<td><font color="black" size="3"><li><%=mPrice%> 원</li></font></td>
 										</tr>
-										<%
-											}
-										%>
+										<% } %>
 									</table>
 									</p>
 
@@ -323,12 +297,12 @@
 						<td colspan="3">
 							<table style="width: 600px; margin-left: 50px; margin-top: 50px;">
 								<tr>
-									<td width="300px" style="text-align: center;"><font
-										color="white"> <a href="../cart/reserve.jsp"
-											class="btn btn-primary">예약</a>
-									</font></td>
-									<td width="300px" style="text-align: center;"><a
-										href="../cart/cartView.jsp" class="btn btn-primary">배달</a></td>
+									<td width="300px" style="text-align: center;">
+										<font color="white"> <a href="../cart/reserve.jsp" class="btn btn-primary">예약</a></font>
+									</td>
+									<td width="300px" style="text-align: center;">
+										<a href="../cart/cartView.jsp" class="btn btn-primary">배달</a>
+									</td>
 								</tr>
 							</table>
 						</td>
@@ -346,6 +320,4 @@
 </div>
 
 <script src="https://use.fontawesome.com/9bc7fc2951.js"></script>
-<script src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"
-	integrity="sha256-WyjlLy3rvVSitHOXMctYkMCOU6GAletPg+qniNKLCQM="
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js" integrity="sha256-WyjlLy3rvVSitHOXMctYkMCOU6GAletPg+qniNKLCQM=" crossorigin="anonymous"></script>

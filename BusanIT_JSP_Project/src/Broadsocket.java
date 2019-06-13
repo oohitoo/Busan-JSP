@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
@@ -28,7 +29,7 @@ public class Broadsocket {
 	@OnMessage
 	public void onMessage(String message, Session session) throws IOException {
 		System.out.println("메세지 "+ message); //메세지 가져옴
-		String shopName = message.split(":")[0];
+		String shopName = message.split(":")[0]; //가게 이름
 		String messages = message.split(":")[1];
 		synchronized (clients) {
 			// Iterate over the connected sessions

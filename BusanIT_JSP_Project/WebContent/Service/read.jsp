@@ -102,7 +102,7 @@ table.type03 td {
 	<div align="center">
 		<a href="javascript:list()" class="btn btn-primary">리스트</a>
 		<!--  회원이 이면 답변할 수 있음 -->
-		<%if(session.getAttribute("idKey")!=null){ %>
+		<%if(session.getAttribute("idKey")!=null && !session.getAttribute("idKey").equals(name)){ %>
 			<a href="reply.jsp?nowPage=<%=nowPage%>" class="btn btn-primary">답 변</a>
 		<%} %>
 		<!-- 작성자와 session의 id랑 같으면 수정, 삭제 가능 -->

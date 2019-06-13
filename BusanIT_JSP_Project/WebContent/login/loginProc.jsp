@@ -6,7 +6,7 @@
 	  String id = request.getParameter("id");
 	  String pass = request.getParameter("pwd");
 	  String msg = "로그인에 실패 하였습니다.";
-	  String href = "login.html";
+	  String href = "login.jsp";
 	  boolean result = mgr.loginCustomer(id, pass);
 	  if(result){
 	    session.setAttribute("idKey",id);
@@ -15,6 +15,6 @@
 	  }
 %>
 <script>
-	alert("<%=msg%>");
+	<%-- alert("<%=msg%>"); --%>
 	location.href = "<%=href%>";
 </script>

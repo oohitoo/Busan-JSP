@@ -7,6 +7,7 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String)session.getAttribute("idKey");
 	String shop = (String)session.getAttribute("shop");
+	String rName = request.getParameter("rName");
 	if(id == null){
 		response.sendRedirect("../login/login.html");
 	}
@@ -17,6 +18,7 @@
 		order.setMenu(request.getParameter("menu"));
 		order.setCount(Integer.parseInt(request.getParameter("count")));
 		order.setId(id);
+		
 		if(flag.equals("insert")){
 			cMgr.addCart(order);
 			msg = "장바구니에 추가하였습니다.";
@@ -29,10 +31,9 @@
 			cMgr.deleteCart(order);
 			msg = "장바구니에 삭제하였습니다.";
 		}
-	
 %>
 <script>
-	alert("<%= msg %>");
+	<%-- alert("<%= msg %>"); --%>
 	location.href = "../cart/cartView.jsp";
 </script>
 <% } %>

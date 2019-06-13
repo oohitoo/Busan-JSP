@@ -5,17 +5,17 @@
 <jsp:setProperty property="*" name="bean"/>
 <%
 	String name = request.getParameter("name");
-
-	String msg = "존재하지않는 계정입니다.";
+	String Id [] ;
+	String msg = "입력하신 정보가 잘못되었거나 존재하지않는 계정입니다.";
 	String location = "FindId.jsp";
 	String findId = mgr.findloginId(bean);
-
 	if (findId != null) {
-		msg = "찾는 계정은 다음과 같습니다. ";
-		location = "../Index.jsp";
+		msg = "계정을 찾았습니다.";
+		Id = findId.split("@");	
+		location = "login.jsp?Id1=" +Id[0] +"&Id2="+ Id[1] ;
 	}
 %>
-<script >
-	alert("<%=msg + findId + name %>");
-	location.href= "<%=location%>";	
+<script>
+	alert("<%=msg%>");
+	location.href="<%=location%>";
 </script> 

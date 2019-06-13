@@ -224,24 +224,23 @@ function order() {
 					<td colspan="4" style="text-align: center;">장바구니 목록이 없습니다.</td>
 				</tr>
 			<% }else{			
-				// 줄줄이 사탕 객체
+				// 해쉬테이블 키값 메뉴, 벨류값 : 수량 
 				Enumeration<String> hCartKey = hCart.keys();
-				
 				// 요소 값이 더이상 있을때 까지
 				while(hCartKey.hasMoreElements()){
-					
 					//hCart에 저장된 주문 객체를 return 
 					menu.ordersBean order = hCart.get(hCartKey.nextElement());
 					String menuName = order.getMenu();
 					String rName = order.getrName();
-					//상품 객체(상품 가격, 상품 이름)								
+					//상품 가격, 상품 이미지 값 가져오기								
 					menuBean bean = menuMgr.getmenuBean(shop, menuName);
-					int price = bean.getmPrice(); // 상품 가격
-					int count = order.getCount(); // 주문수량
-					subTotal = count * price; // 상품 총액
-					total += subTotal; // 주문전체 총액					
-					totalMenu += menuName+",";
-					cnt++;
+					if(shop.equals(rName)){
+						int price = bean.getmPrice(); // 상품 가격
+						int count = order.getCount(); // 주문수량
+						subTotal = count * price; // 상품 총액
+						total += subTotal; // 주문전체 총액					
+						totalMenu += menuName+",";
+						cnt++;
 			%>
 				<tr>
 					<td class="col-sm-8 col-md-6">
@@ -262,7 +261,7 @@ function order() {
 								</h4>
 								<!-- 가게명 -->
 								<h5 class="media-heading">
-									by <a href="#"><%= rName %></a>
+									by <a href="../item/privateShop.jsp?store=<%=rName %>"><%= rName %></a>
 								</h5>
 								<span>배달 예정 시간 :</span>
 									<span class="text-success">
@@ -285,7 +284,12 @@ function order() {
 						</p>
 					</td>
 				</tr>
-				<% num++; } // while 끝
+				<%
+					num++;}else{
+						//여기서 remove하면 안되요??
+						cMgr.deleteCart(order);							
+						}
+					} // while 끝
 				
 					LoginBean loginBean = loginMgr.getCustomer(id);
 				%>					

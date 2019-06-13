@@ -3,6 +3,8 @@ package review;
 import java.sql.*;
 import java.util.Vector;
 
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
 import login.LoginBean;
 
 	public class reviewMgr{
@@ -65,7 +67,7 @@ import login.LoginBean;
 			Vector<reviewBean> vlist = new Vector<>();
 			try {
 				con = pool.getConnection();
-				sql = "select * from review_table where shopName= ? order by rnum desc";
+				sql = "select * from review_table where shopName= ?  order by odate desc";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, shopName); 
 				rs = pstmt.executeQuery();
@@ -77,6 +79,7 @@ import login.LoginBean;
 					bean.setrRegdate(rs.getString("rRegdate"));
 					bean.setrNick(rs.getString("rNick"));
 					bean.setrStar(rs.getInt("rStar"));
+					bean.setoDate(rs.getString("oDate"));
 					vlist.addElement(bean);
 				}
 			} catch (Exception e) {
@@ -119,6 +122,65 @@ import login.LoginBean;
 			}
 			return vlist;
 			
+		}
+		public Vector<reviewBean> reviewShop(String businessName) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			Vector<reviewBean> vlist = new Vector<>();
+			try {
+				con = pool.getConnection();
+				sql = "select * from review_table where shopname =? and rstar not in (0)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, businessName); 
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					reviewBean bean = new reviewBean();
+					bean.setrNum(rs.getInt("rNum"));
+					bean.setrId(rs.getString("rId"));
+					bean.setrContent(rs.getString("rContent"));
+					bean.setrRegdate(rs.getString("rRegdate"));
+					bean.setrNick(rs.getString("rNick"));
+					bean.setrStar(rs.getInt("rStar"));
+					bean.setShopName(rs.getString("shopName"));
+					bean.setoDate(rs.getString("odate"));
+					
+					vlist.addElement(bean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return vlist;
+			
+		}
+		
+		public String shopComment(String odate, String shopname) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			String comment = null;
+			try {
+				con = pool.getConnection();
+				sql = "select rContent from review_table where odate=? and shopname=? and rstar = 0";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, odate);
+				pstmt.setString(2, shopname);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					comment = rs.getString(1);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return comment;
 		}
 		public void reviewDelete(int num) {
 			Connection con = null;

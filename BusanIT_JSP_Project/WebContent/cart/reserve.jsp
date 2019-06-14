@@ -29,7 +29,7 @@
 %>
 		<script>
 			alert("로그인 후 사용 바랍니다.");
-			location.href ="../login/login.html";
+			location.href ="../login/login.jsp";
 		</script>
 		<%
 	}

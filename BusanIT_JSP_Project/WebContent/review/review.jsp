@@ -96,8 +96,7 @@ table.type04 td{
       		String odate = "";
         for(int i=0; i<vlist.size(); i++){
         	 reviewBean pbean = vlist.get(i);
-        	 if(pbean.getoDate().equals(odate)){
-        		 
+        	 if(pbean.getrStar()==0){		 
        %>
        			<tr class="lists__item js-load" style ="background :#4e73df">
        				<td style="width : 159px; color : white"><%="사장님 답변" %></td>
@@ -116,7 +115,7 @@ table.type04 td{
         %>
         <tr class="lists__item js-load">
           <td width="70"><img src="../img/Logo_21.png" width="height=66px"></td>    
-          <td style="padding-top: 20px; width:100px;s"><%=rNick%></td>    
+          <td style="padding-top: 20px; width:100px;"><%=rNick%></td>    
           <td width="322px;" align="left"><%=rcontent %></td>    
           <td>
 					<%if(rStar==1){ %>★☆☆☆☆<%} %>
@@ -130,9 +129,9 @@ table.type04 td{
           	<% if (rid.equals(pbean.getrId())) { %>          	
           	<input type="image"	src="../img/delete.png" value="content" onClick="javascript:reviewDelete(<%=rnum%>)">
           </td>
-        	<%}%>
+        	<%}//--작성자인지 확인후 삭제%>
         	</tr>
-        <%} %>
+        <%}//--for %>
   </table>
     <%} //else%>
     <form name="listFrm" method="post">
@@ -148,7 +147,7 @@ table.type04 td{
 <script>
   $(document).ready(load2());
   function load2() {
-      load('#js-load', '5', '#js-btn-wrap');
+      load('#js-load', '100', '#js-btn-wrap');
   }
   function load(id, cnt, btn) {
       var girls_list = id + " .js-load:not(.active)";

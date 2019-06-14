@@ -24,7 +24,7 @@ public class ServiceReplyServlet extends HttpServlet {
 		reBean.setDepth(Integer.parseInt(request.getParameter("depth")));
 		reBean.setPass(request.getParameter("pass"));
 		reBean.setIp(request.getParameter("ip"));
-		
+		reBean.setsName(request.getParameter("name"));
 		mgr.replyUpService(reBean.getRef(), reBean.getPos());
 		mgr.replyService(reBean);
 		

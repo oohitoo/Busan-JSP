@@ -5,7 +5,7 @@
 
 	  String id = request.getParameter("id");
 	  String pass = request.getParameter("pwd");
-	  String msg = "로그인에 실패 하였습니다.";
+	  String msg = "아이디 혹은 비밀번호가 맞지 않습니다.";
 	  String href = "login.jsp";
 	  boolean result = mgr.loginCustomer(id, pass);
 	  if(result){
@@ -15,6 +15,6 @@
 	  }
 %>
 <script>
-	<%-- alert("<%=msg%>"); --%>
+	alert("<%=msg%>"); 
 	location.href = "<%=href%>";
 </script>

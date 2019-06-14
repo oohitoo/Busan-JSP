@@ -83,7 +83,8 @@ table.type03 td {
 	<tr>
      	<th>비밀 번호</th> 
      <td><input type="password" name="pass" size="15" maxlength="15">
-      수정 시에는 비밀번호가 필요합니다.</td>
+      	수정 시에는 비밀번호가 필요합니다.
+     </td>
     </tr>
 	<tr>
     

@@ -38,6 +38,9 @@
     function reviewDelete(number){
         location.href ="../review/reviewDelete.jsp?rnum="+number;
       }
+    function shopinfo(store) {
+    	location.href = "../item/privateShop.jsp?store="+store;
+    }
 </script>
 
 <!------ Include the above in your HEAD tag ---------->
@@ -55,10 +58,11 @@
 			<tr align="center" style="font-size: 2.0em; color: #486CDA;">
 				<% 	for(int i=0;i<1;i++){
 			ordersBean obean = list.get(i);
-			
 			session.setAttribute("shop",obean.getrName());
 %>
-				<td style="padding-left: 75px"><%=obean.getrName() %></td>
+				<td style="padding-left: 75px" >
+					<a onclick="javascript:shopinfo('<%=obean.getrName()%>')" style="cursor : pointer; text-decoration:none;"><%=obean.getrName() %></a>
+				</td>
 			</tr>
 			<% } %>
 		</table>

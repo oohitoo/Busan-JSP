@@ -24,7 +24,7 @@
 %>
 		<script>
 			alert("로그인 후 사용 바랍니다.");
-			location.href ="../login/login.html";
+			location.href ="../login/login.jsp";
 		</script>
 		<%
 	}
@@ -186,11 +186,12 @@ function order() {
 
 			$("div[class=modal]").addClass("show-modal");
 			
-			document.orderFrm.submit();
-
 			setTimeout(function() {
-				//location.href = "orderProc.jsp?addres="+addres+"&phoneNumber="+phoneNumber+"&request="+request+"&selectBox="+selectBox; 				
-			}, 1000);
+				document.orderFrm.submit();	
+			}, 3000);
+			
+
+			
 		}
 		
 	}

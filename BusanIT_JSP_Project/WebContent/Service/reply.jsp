@@ -59,7 +59,7 @@ table.type03 td {
 			 <tr>
    			  <th>ID</th>
     			 <td width="80%">
-				  <input name="name" readonly value="<%=name%>" size="30" maxlength="20">
+				  <input name="name" readonly value="<%=id%>" size="30" maxlength="20">
 				 </td>
 				</tr>
 			<tr>
@@ -72,8 +72,8 @@ table.type03 td {
 				<th>³» ¿ë</th>
 				<th>
 				<!-- <textarea style="width:750px; height:400px;" id="textAreaContent" name="content" rows="10" cols="80" > -->
-					<textarea style="width:750px; height:400px; resize: none;"name="content" rows="10" cols="80"><%=content %>
-=======================================================
+					<textarea style="width:750px; height:400px; resize: none;"name="content" rows="10" cols="80">
+					<%=content %>=======================================================
 				</textarea>
 				</th>
 			</tr>

@@ -131,10 +131,10 @@ body { background: #fff; }
 		<p />
 		<br />
 		<img src="img/Service.jpg" width="100%" height="300">
-		<hr/>
+		<hr style="margin-left : 50px;"/>
 		<p/>
 		<br />
-		<table >
+		<table style="margin-left : 50px;" >
 			<tr>
 				<td align="center" colspan="2">
 					<%
@@ -249,8 +249,7 @@ body { background: #fff; }
 			</table>
 	
 			<form name="searchFrm" method="post" action="ServiceMain.jsp">
-				<table class="type09" border="0" width="900" align=center
-					cellpadding="4" cellspacing="0">
+				<table class="type09" border="0" width="900" align=center cellpadding="4" cellspacing="0">
 					<tr>
 						<!--°Ë»öÁÙ-->
 						<td align="center" valign="bottom">

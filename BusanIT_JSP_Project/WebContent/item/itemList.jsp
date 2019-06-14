@@ -87,8 +87,8 @@
 					</tr>
 					<tr style="height: 50px;">
 						<td></td>
-						<td style="text-align: right; color:black">거리순</td>
-						<td style="text-align: right; color:black">평점순</td>
+						<td ></td>
+						<td ></td>
 					</tr>
 					<% for(int i = 0; i < list.size(); ++i){
 							menu_listBean bean = list.get(i);

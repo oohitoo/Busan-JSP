@@ -14,7 +14,7 @@
 	
 	if(id == null){ %>
 		<script>
-			location.replace("login.html");
+			location.replace("login.jsp");
 		</script>
 	<%}else{
 	
